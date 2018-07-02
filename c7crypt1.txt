@@ -1,0 +1,26 @@
+0000-0014	Ressurection
+0015-0020	"Save me!"
+0021-0027	Advancing
+0028-0033	Skulls attack
+0034-0037	Dirk jumps back
+0038-003c	Hand threatens
+003d-0046	Dirk swords it
+0047-0050	Slime threatens
+0051-0057	Dirk jumps back
+0058-005b	Hand threatens
+005c-0061	Dirk swords it
+0062-006d	Slime threatens
+006e-0072	Dirk runs left
+0073-007d	Ghosts attack
+007e-0094	Dirk swords them
+0095-00a6	Dirk exits stage
+
+00a7-00c6	Game over
+
+00c7-00d4	Skulls get Dirk
+
+00d5-00de	Hand gets Dirk
+
+00df-00ec	Slime gets Dirk
+
+00ed-0107	Ghosts get Dirk

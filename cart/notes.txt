@@ -1,0 +1,31 @@
+It is probably possible to fit everything into a normal sized TI cartridge.
+
+If you put the CF card connector at right-angles to the cart, it exactly fits on one side from the hole to the very edge of the cart.
+You can run traces underneath, but no components. Everything needs to the around the hole and to the other side of the PCB.
+We'd have to add the circuitry that the CF to IDE adapter uses, but I think the only components are the resistor and LED for activity.
+
+----
+
+If you are willing to hack up a 2MB cart with two EPROMs, we should be able to construct a simple piggy-back hack to get all 4MB working. We'll need an additional banking chip, the additional EPROM, of course, and a couple of wires. We'll also have to lift a pin (or cut a trace) to the EPROM on the bottom.
+
+I'm thinking we might get away with using one of the old 74LS378's for the second banking chip... which is nice because it has both inverted and non-inverted outputs. That means we get both EPROM selects in one. ;)
+
+I'd like to prove it out, but right now I don't know where my PCBs are, or my EPROMs, or my programmer (although I will need to search for them soon ;) ), and I'm not sure my 16-bit programmer is working. But what I am envisioning is something like this (writing it down for my own memory as well ;) ):
+
+Start with a standard 2MB board. Two 27C160s (that's the one we are using, right?), one 74LS377 (the 2MB banking chip) and one 74LS379 (the original 16-64k banking chip). Bend out pin 14 on both EPROMs (!G - normally runs to a big ground trace on the board). This is the chip's output enable - we normally forced it on, but now we'll switch on it instead. Install to the board and piggy back all pins except the bent out ones.
+
+The chip on the bottom should have the first half of the 4MB image, and the chip on the top will get the second half.
+
+Install the 377 normally. Connect short wires to pins 10 and 11.
+
+On the 379, bend out all the pins except 1 and 16 (Enable and Vcc). Connect pins 5, 12 and 13 to pin 8 (ground) - this just locks down the unused inputs. Attach wires to pins 2,3 and 4 long enough to reach to the EPROMs.
+
+Line them up with the notched end of the 377 and solder down. Connect the short wires on the 377 to pins 8 and 9 on the 379 (that is, 377's pin 10 (gnd) to 379's pin 8 (gnd), and 377's pin 11 (CP) to 379's pin 9 (CP)). They match up on the correct sides but are off by two since the 379 is shorter. Since no other pins are connected, a drop of glue to hold it to the 377 wouldn't hurt ;)
+
+Connect the wire from the 379's pin 4 (D0) to the the EPROMs pin 43 (A19). This pulls the TI's A6, which is the next address bit for banking. This pin is attached through both EPROMs.
+
+Connect the wire from the 379's pin 3 (!Q0) to the top EPROM's bent out pin 14. This selects the top EPROM when a write with A6 high is set (and deselects the bottom one).
+
+Connect the wire from the 379's pin 2 (Q0) to the bottom EPROM's bent out pin 14. This does the inverse.
+
+In theory... that's all it takes.

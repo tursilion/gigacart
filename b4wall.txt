@@ -1,0 +1,11 @@
+0000-0014	Ressurection
+0015-002b	Enter, wall closing, Dirk reacts
+002c-002f	Dirk runs for it
+0030-0037	Jumps through
+0038-0045	And moves on
+
+0046-0065	Game over
+
+0066-0078	Climb through too late
+
+0079-008f	Stayed in room, gassed

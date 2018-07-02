@@ -1,0 +1,28 @@
+0000-0014	Ressurection
+0015-003f	Intro
+0040-0042	Too early
+0043-0048	Cue ball threatens
+0049-0051	Running down
+0052-0054	Too early
+0055-005a	Cue ball threatens
+005b-0063	Running down
+0064-0066	Too early
+0067-006c	Cue ball threatens
+006d-0075	Running down
+0076-0078	Too early
+0079-007e	Cue ball threatens
+007f-0087	Running down
+0088-008a	Too early
+008b-0090	Cue ball threatens
+0091-0099	Running down
+009a-009b	too early
+009c-00a2	Cue ball threatens
+00a3-00ab	Running down
+00ac-00af	Preparing to jump pit
+00b0-00c7	Jump and run clear
+
+00c8-00e7	Game over
+
+00e8-00f5	Indecision - cue ball gets Dirk
+
+00f6-00ff	Other ball gets Dirk

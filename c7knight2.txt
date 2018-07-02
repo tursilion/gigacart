@@ -1,0 +1,30 @@
+0000-0013	Ressurection
+0014-001e	"Save me!"
+001f-002a	Knight appears
+002b-0034	Attack starts
+0035-003c	threaten
+0036-0040	Dirk jumps left
+0042-0049	threaten
+004a-0051	Dirk jumps right
+0052-0055	threaten
+0056-0061	Dirk jumps up
+0062-006b	threaten
+006c-0074	Dirk jumps right
+0075-007b	threaten
+007c-007f	Dirk jumps left
+0080-0085	threaten
+0086-0087	Dirk jumps right
+0088-008c	threaten
+008d-0094	Dirk jumps left
+0095-00ab	Dirk confronts knight
+00ac-00bb	Dirk swords him
+00bc-00c6	Dirk exits
+00c7-00cf	Dirk prepares to jump gap right
+00d0-00d9	Dirk makes the jump
+
+00da-00f9	Game over
+
+00fa-010b	Electrocuted by floor
+
+010c-0117	Knight swords Dirk
+

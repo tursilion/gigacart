@@ -1,0 +1,48 @@
+0000-0014	Ressurection
+0015-005e	Intro Ye Boulders
+005f-0067	Boulder 1 Threatens
+0068-0070	Move left
+0071-0078	Boulder 2 Threatens
+0079-0081	Move right
+0082-008b	Bridge Threatens
+008c-0093	Move left
+0094-009c	Wall Threatens
+009d-00a5	Move right
+00a6-00be	Intro Ye Rapids
+00bf-00cb	Drifting right
+00cc-00d4	Corrected
+00d5-00e1	Drifting left
+00e2-00ea	Corrected
+00eb-00f7	drifing right
+00f8-0104	Corrected
+0105-0111	Drifing left
+0112-011d	Corrected
+011e-0133	Intro Ye Whirlpools
+0134-0142	Threatens
+0143-014e	Escape right
+014f-015a	Threatens
+015b-0166	Escape left
+0167-0171	Threatens
+0172-017d	Escape right
+017e-0189	Threatens
+018a-0195	Escape left
+0196-01ab	Shipwrecked!
+01ac-01b7	Flying near chain
+01b8-01c3	Grab and swing
+01d4-01d3	Dirk exits stage
+
+01d4-01f3	Game Over
+
+01f4-01fd	Into boulder 1
+
+01fe-0207	Into boulder 2
+
+0208-0211	Into bridge
+
+0212-021b	Into wall
+
+021c-0232	Capsized by Rapids
+
+0233-024a	Caught in whirlpool
+
+024b-0268	Didn't grab chain

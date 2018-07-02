@@ -1,0 +1,20 @@
+0000-0014	Ressurection
+0015-0022	Bats fly over, floor crumbles
+0023-0033	Dirk swords them
+0034-003a	Floor threatens, bats approach
+003b-003d	Dirk runs left
+003e-0048	Dirk descends
+0049-004e	Stairs collapse, bats are chasing
+004f-005b	Dirk jumps and runs on
+005c-0064	Giant bat threatens
+0065-006d	Dirk swords it
+006e-0072	Floor threatens
+0073-007f	Dirk runs left
+
+0080-009e	Game over
+
+009f-00ac	Giant bat gets Dirk
+
+00ad-00be	Little bats overwhelm Dirk
+
+00bf-00d0	Bats push Dirk into collapsed staircase

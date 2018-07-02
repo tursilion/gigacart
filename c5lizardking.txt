@@ -1,0 +1,35 @@
+0000-0014	Ressurrection
+0015-0026	Pot steals sword, king advances
+0027-002c	Dirk escapes left
+002d-003f	Dirk chases pot, King chases Dirk
+0040-004d	Junction, pot races by (one frame!)
+004f-0052	Dirk escapes right
+0053-0068	Another chase
+0069-006d	Dirk waits while pot flies by
+006e-0072	Dirk escapes right
+0073-007c	Another chase
+007d-007f	Pot flies by
+0080-0085	Dirk escapes right
+0086-0090	shot of pot flying
+0091-00a4	Another chase
+00a5-00ab	Dirk waits while pot flies by
+00ac-00b0	Dirk escapes right
+00b1-00ba	Another chase
+00bb-00bd	Dirk waits while pot flies by (barely visible)
+00be-00c3	Dirk escapes right
+00c4-00d4	Dirk watches trapped pot ahead
+00d5-00de	Dirk retrieves sword
+00df-00e8	First strike, pot has sword back
+00e9-00f0	Dirk darts across and gets sword
+00f1-00f8	Dirk attacks and misses, sword stuck
+00f9-00fc	King attacks
+00fd-0104	Dirk ducks and regains sword
+0105-0112	Dirk attacks and defeats Lizard King
+0113-0127	Dirk collects some gold
+0128-0134	Dirk exits the stage
+
+0135-0154	Game over
+
+0155-015e	King conks out Dirk
+
+015f-017d	Dirk runs the wrong way, is clocked and carried off

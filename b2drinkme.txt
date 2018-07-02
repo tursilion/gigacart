@@ -1,0 +1,10 @@
+0000-0014	Ressurection
+0015-0020	Approaching (can move right)
+0021-0026	Flame spout (must move right)
+0027-0038	Leaving
+
+0039-0057	Game over
+
+0058-0080	Drink potion and die
+
+0081-008E 	Step into fire and die

@@ -1,0 +1,20 @@
+0000-0014	Ressurection
+0015-002f	Intro
+0030-0034	Threaten
+0035-003c	Dodge left
+003d-0053	Interval
+0054-0058	Threaten
+0059-0062	Dodge left
+0063-006a	running forward, then odd panic shot (I've always thought was a glitch)
+006b-006e	running back
+006f-0074	threaten
+0075-007a	Dodge right and roll to cave
+007b-0081	knight throws sword, Dirk waits
+0082-0089	JUmp into cave and safe
+
+008a-00a8	Game over
+
+00a9-00b6	Caught by vines (00a9-00ab look like he's sleeping, though)
+
+00b7-00d1	Caught by knight
+

@@ -1,0 +1,19 @@
+0000-0014	Ressurection
+0015-0035	Intro
+0036-003a	Fire and floor threatens
+003b-003e	Dirk jumps back
+003f-0044	Fire and floor threatens
+0045-004a	Dirk jumps... right? Up?
+004b-004e	Confusing posturing with floor
+004f-0054	Doors open as floor vanishes
+0055-005e	Dirk chooses LEFT door and exits
+
+005f-007d	Game over
+
+007e-0096	Dirk jumps to UP door and is trapped in cage
+
+0097-00a4	Dirk is caught by fire
+
+00a5-00b6	Dirk falls to his doom
+
+

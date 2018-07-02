@@ -1,0 +1,2 @@
+@W: CL169 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":86:2:86:3|Pruning register bounce_4(0 to 6)  
+

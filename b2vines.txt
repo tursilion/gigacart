@@ -1,0 +1,27 @@
+0000-0014	Ressurection
+0015-002C	Approach
+002d-0033	Vine approaches
+0034-0047	slash with sword - new vines, weapons flash
+0048-004b	weapons flash again
+004c-0058	jump to weapons, door opens
+0059-006a	jump to door, vines block, stairs flash
+006b-0071	jump back
+0072-007f	start stairs, vines appear
+0080-0085	table flashes
+0086-0089	jump to table, door opens
+008a-008e	on table, door closes
+008f-0090	door opens
+0091-0092	waiting
+0093-0095	vines raise while door closes
+0096-0097	door opens
+0098-00a0	Dirk jumps out
+
+00a1-00c0	Game Over
+
+00c1-00dc	First vine gets you
+
+00dd-00ee	draw sword, vines choke
+
+00ef-0109	draw sword on stairs, get hauled away
+
+010a-0117	Jump to closed door, get wrapped up

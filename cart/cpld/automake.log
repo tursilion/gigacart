@@ -1,0 +1,277 @@
+ispLEVER Auto-Make Log File
+---------------------------
+
+Updating: Fit Design
+Start to record tcl script...
+Finished recording TCL script.
+
+Starting: 'C:\ispLEVER_Classic2_0\ispcpld\bin\Synpwrap.exe -e gigacart -target ispmach4000b -pro '
+
+Copyright (c) 1991-2010 Lattice Semiconductor Corporation,  All rights reserved.
+Version : 2.0.00.17.20.15
+
+Done sucessfully with exit code 0.
+#Build: Synplify Pro I-2014.03LC , Build 063R, May 27 2014
+#install: C:\ispLEVER_Classic2_0\synpbase
+#OS: Windows 7 6.2
+#Hostname: NIGHTMARE
+
+#Implementation: cpld
+
+$ Start of Compile
+#Sun Jul 01 20:45:27 2018
+
+Synopsys VHDL Compiler, version comp201403rcp1, Build 060R, built May 27 2014
+@N|Running in 64-bit mode
+Copyright (C) 1994-2014 Synopsys, Inc. This software and the associated documentation are proprietary to Synopsys, Inc. This software may only be used in accordance with the terms and conditions of a written license agreement with Synopsys, Inc.  All other use, reproduction, or distribution of this software is strictly prohibited.
+
+@N: CD720 :"C:\ispLEVER_Classic2_0\synpbase\lib\vhd\std.vhd":123:18:123:21|Setting time resolution to ns
+@N:"D:\work\ti\dragonslair\cart\cpld\design.vhd":10:7:10:14|Top entity is set to gigacart.
+File D:\work\ti\dragonslair\cart\cpld\design.vhd changed - recompiling
+VHDL syntax check successful!
+File D:\work\ti\dragonslair\cart\cpld\design.vhd changed - recompiling
+@N: CD630 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":10:7:10:14|Synthesizing work.gigacart.myarch 
+Post processing for work.gigacart.myarch
+@A: CL282 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":55:2:55:3|Feedback mux created for signal latch[13:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":35:52:35:67|Feedback mux created for signal chip[1:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@END
+
+At c_vhdl Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 70MB peak: 71MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+# Sun Jul 01 20:45:27 2018
+
+###########################################################]
+Synopsys Netlist Linker, version comp201403rcp1, Build 060R, built May 27 2014
+@N|Running in 64-bit mode
+File D:\work\ti\dragonslair\cart\cpld\synwork\gigacart_comp.srs changed - recompiling
+
+At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 68MB peak: 68MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+# Sun Jul 01 20:45:28 2018
+
+###########################################################]
+Map & Optimize Report
+
+Synopsys CPLD Technology Mapper, Version maplat, Build 923R, Built May  6 2014
+Copyright (C) 1994-2013, Synopsys, Inc. This software and the associated documentation are proprietary to Synopsys, Inc. This software may only be used in accordance with the terms and conditions of a written license agreement with Synopsys, Inc.  All other use or distribution of the software is strictly prohibited.
+Product Version I-2014.03LC 
+@N: MF248 |Running in 64-bit mode.
+@N:"d:\work\ti\dragonslair\cart\cpld\design.vhd":86:2:86:3|Found counter in view:work.gigacart(myarch) inst bounce[0:6]
+---------------------------------------
+Resource Usage Report
+
+Simple gate primitives:
+DFFC            16 uses
+DFF             7 uses
+IBUF            23 uses
+BUFTH           4 uses
+BI_DIR          4 uses
+OBUF            35 uses
+AND2            23 uses
+INV             9 uses
+XOR2            6 uses
+
+
+@N: FC100 |Timing Report not generated for this device, please use place and route tools for timing analysis.
+I-2014.03LC 
+Mapper successful!
+
+At Mapper Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 39MB peak: 103MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+# Sun Jul 01 20:45:29 2018
+
+###########################################################]
+
+Synplicity VHDL/Verilog HDL Synthesizer finished successfully
+
+Done: completed successfully.
+
+Starting: 'C:\ispLEVER_Classic2_0\ispcpld\bin\edif2blf.exe -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib "C:\ispLEVER_Classic2_0\ispcpld/dat/mach.edn" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor'
+
+Starting EDIF2BLIF....
+readEDIF ended normally.
+
+Inspect circuit gigacart
+    Number of input ports   : 4
+    Number of output ports  : 9
+    Number of bidir ports   : 1
+    Number of instances     : 131
+    Number of nets          : 158
+
+No design errors found in circuit gigacart
+
+WriteBLIF ended normally.
+
+Done: completed successfully.
+
+Starting: 'C:\ispLEVER_Classic2_0\ispcpld\bin\mblifopt.exe gigacart.bl0 -collapse none -reduce none -keepwires -gui -err automake.err -family'
+
+BLIFOPT  Open-ABEL Optimizer 
+U.C. Berkeley, SIS Ver. 1.0, supported by Lattice Semiconductor
+ispLEVER Classic 2.0 Copyright 1992-2015 Lattice Semiconductor. All Rights Reserved.
+Reading Open-ABEL 2 file gigacart.bl0...
+Writing Open-ABEL 2 (BLIF) file gigacart.bl1...
+Note    0: 
+BLIFOPT complete - Time 0 seconds
+Done: completed successfully.
+
+Starting: 'C:\ispLEVER_Classic2_0\ispcpld\bin\mblflink.exe "gigacart.bl1" -o "gigacart.bl2" -omod "gigacart" -gui -err "automake.err"'
+
+BLIFLINK  Top-Down Design Linker
+ispLEVER Classic 2.0 Copyright 1992-2015 Lattice Semiconductor. All Rights Reserved.
+
+Top-level file: 'gigacart.bl1'
+
+Hierarchical BLIF: 'gigacart.bl2'
+
+BLIFLINK complete.  Time: 1 second 
+Done: completed successfully.
+
+Starting: 'C:\ispLEVER_Classic2_0\ispcpld\bin\impsrc.exe -gui -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir d:\work\ti\dragonslair\cart\cpld'
+
+No pin assignment or valid property.
+No source constraints were imported.
+Done: completed successfully.
+
+Starting: 'C:\ispLEVER_Classic2_0\ispcpld\bin\abelvci.exe -vci gigacart.lct -blifopt gigacart.b2_'
+
+Done: completed successfully.
+
+Starting: 'C:\ispLEVER_Classic2_0\ispcpld\bin\mblifopt.exe gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ -gui'
+
+BLIFOPT  Open-ABEL Optimizer 
+U.C. Berkeley, SIS Ver. 1.0, supported by Lattice Semiconductor
+ispLEVER Classic 2.0 Copyright 1992-2015 Lattice Semiconductor. All Rights Reserved.
+Reading Open-ABEL 2 file gigacart.bl2...
+Merging feedbacks...
+Note 13707: Node out_data_c_0__n is collapsed...
+Note 13707: Node out_data_c_1__n is collapsed...
+Note 13707: Node out_data_c_2__n is collapsed...
+Note 13707: Node out_data_c_3__n is collapsed...
+Note 13707: Node out_data_c_4__n is collapsed...
+Note 13707: Node out_data_c_5__n is collapsed...
+Note 13707: Node out_data_c_6__n is collapsed...
+Note 13707: Node out_data_c_7__n is collapsed...
+Note 13707: Node out_rom1_c is collapsed...
+Note 13707: Node out_rom2_c is collapsed...
+Note 13707: Node out_rom3_c is collapsed...
+Note 13707: Node out_rom4_c is collapsed...
+Note 13707: Node chip_i_0__n is collapsed...
+Note 13707: Node chip_i_1__n is collapsed...
+Note 13707: Node ti_adr_c_3__n is collapsed...
+Note 13707: Node ti_adr_c_4__n is collapsed...
+Note 13707: Node ti_adr_c_5__n is collapsed...
+Note 13707: Node ti_adr_c_6__n is collapsed...
+Note 13707: Node ti_adr_c_7__n is collapsed...
+Note 13707: Node ti_adr_c_8__n is collapsed...
+Note 13707: Node ti_adr_c_9__n is collapsed...
+Note 13707: Node ti_rom_c is collapsed...
+Note 13707: Node out_adr_c_1__n is collapsed...
+Note 13707: Node out_adr_c_2__n is collapsed...
+Note 13707: Node out_adr_c_3__n is collapsed...
+Note 13707: Node out_adr_c_4__n is collapsed...
+Note 13707: Node out_adr_c_5__n is collapsed...
+Note 13707: Node bounce_n1 is collapsed...
+Note 13707: Node N_30_1 is collapsed...
+Note 13707: Node out_rst2_c_3 is collapsed...
+Note 13707: Node out_rst2_c_2 is collapsed...
+Note 13707: Node bounce_n2 is collapsed...
+Note 13707: Node out_rst2_c_1 is collapsed...
+Note 13707: Node bounce_n3 is collapsed...
+Note 13707: Node out_rom4_c_0_1 is collapsed...
+Note 13707: Node out_rom1_c_0_1 is collapsed...
+Note 13707: Node out_rom2_c_0_1 is collapsed...
+Note 13707: Node out_rom3_c_0_1 is collapsed...
+Note 13707: Node bounce_n4 is collapsed...
+Note 13707: Node bounce_n5 is collapsed...
+Note 13707: Node bounce_n6 is collapsed...
+Note 13707: Node N_32 is collapsed...
+Note 13707: Node N_28 is collapsed...
+Note 13707: Node N_26 is collapsed...
+Note 13707: Node N_24 is collapsed...
+Note 13707: Node out_rst2_i is collapsed...
+Note 13707: Node N_55 is collapsed...
+Note 13707: Node bounce_c3 is collapsed...
+Note 13707: Node bounce_c1 is collapsed...
+Note 13707: Node out_rom3_c_0 is collapsed...
+Note 13707: Node out_rom1_c_0 is collapsed...
+Note 13707: Node out_rom2_c_0 is collapsed...
+Note 13707: Node out_rom4_c_0 is collapsed...
+Note 13707: Node out_adr_c_0__n is collapsed...
+Note 13707: Node ti_we_c is collapsed...
+Note 13707: Node ti_rom_i is collapsed...
+Note 13707: Node un2_ti_data is collapsed...
+Note 13707: Node bounce_c2 is collapsed...
+Note 13707: Node out_rst2_c is collapsed...
+Note 13707: Fmax mode optimizing 2 critical paths, 2 levels ...
+Note 13707: Node N_30 is collapsed...
+Note 13707: Fmax mode satisfied
+Control path optimization...
+Performing 'bypin choose' optimization...
+...Note    0: 
+Estimated (clusters + macrocells): 52, Fmax Logic Level: 1
+Writing Open-ABEL 2 (BLIF) file gigacart.bl3...
+Note    0: 
+BLIFOPT complete - Time 0 seconds
+Done: completed successfully.
+
+Starting: 'C:\ispLEVER_Classic2_0\ispcpld\bin\abelvci.exe -vci gigacart.lct -dev lc4k -diofft gigacart.d0'
+
+Done: completed successfully.
+
+Starting: 'C:\ispLEVER_Classic2_0\ispcpld\bin\mdiofft.exe gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 -gui'
+
+DIOFFT  Flip-Flop Transformation program
+ispLEVER Classic 2.0 Copyright 1992-2015 Lattice Semiconductor. All Rights Reserved.
+Input file: gigacart.bl3.
+Output file: gigacart.bl4.
+Cross reference file: gigacart.xrf.
+
+.......................................................................
+............................................
+Shortening signal names...
+Writing signal name cross reference file gigacart.xrf... 
+
+DIOFFT complete - Time 0 seconds
+Done: completed successfully.
+
+Starting: 'C:\ispLEVER_Classic2_0\ispcpld\bin\abelvci.exe -vci gigacart.lct -dev lc4k -prefit gigacart.l0'
+
+Done: completed successfully.
+
+Starting: 'C:\ispLEVER_Classic2_0\ispcpld\bin\prefit.exe -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0 -gui -sc'
+
+Prefit Logic Optimizer (May 31 2012)  Sun Jul 01 20:45:35 2018
+
+C:\ispLEVER_Classic2_0\ispcpld\bin\prefit.exe -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0 -gui -sc 
+Number of pins (IO)    :    66
+Number of outputs (MC) :    52
+Number of registers    :    23
+Number of logic pterms :    66
+C:\ispLEVER_Classic2_0\ispcpld\bin\prefit.exe complete - Time 0 seconds
+
+Done: completed successfully.
+
+Starting: 'C:\ispLEVER_Classic2_0\ispcpld\bin\lpf4k.exe @"gigacart.rs2"'
+
+<Warning>  P38088:  Balanced partitioning turned off.
+Project 'gigacart' was Fitted Successfully!
+
+Done: completed successfully.
+
+Starting: 'C:\ispLEVER_Classic2_0\ispcpld\bin\tda.exe -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err -gui'
+
+TDA  - Timing Driven Analyze 
+Ver. 1.0, supported by Lattice Semiconductor
+ispLEVER Classic 2.0 Copyright 1992-2015 Lattice Semiconductor. All Rights Reserved.
+
+TDA complete - Time 1 seconds
+Done: completed successfully.
+
+Starting: 'C:\ispLEVER_Classic2_0\ispcpld\bin\synsvf.exe -exe "C:\ispLEVER_Classic2_0\ispvmsystem/ispufw" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl -gui'
+
+Need not generate svf file according to the constraints, exit
+Done: completed successfully.

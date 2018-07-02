@@ -1,0 +1,22 @@
+0000-0014	Ressurection
+0015		Black frame
+0016-004B	Castle intro
+004C-006C	Approach drawbridge
+006D-0077	Monsters approach
+0078-007D	Draw sword action needed
+007E-0086	Swing sword
+0087-0089	Move up/right needed
+008A-00A8	Climb up and run in
+00A9-00C0	Doors slamming shut
+00C1-00CE	Enter vestible
+00CF-00E2	Crumbling
+00E3-00EC	Move right needed
+00ED-00FD	Escaping
+
+00FE-011D	Game over
+
+011E-012B	Caught by drawbridge monster
+
+012C-013D	Falling into pit
+
+013E-015C	Crushed by rocks

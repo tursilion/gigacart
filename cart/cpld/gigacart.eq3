@@ -1,0 +1,183 @@
+|--------------------------------------------------- ----------|
+|- ispLEVER Classic 2.0.00.17.20.15 Equations File            -|
+|- Copyright(C), 1992-2012, Lattice Semiconductor Corporation -|
+|- All Rights Reserved.                                       -|
+|--------------------------------------------------------------|
+
+
+Equations:
+
+bounce_0_.D = bounce_6_.Q & bounce_5_.Q & bounce_4_.Q & bounce_3_.Q
+       & bounce_2_.Q & bounce_1_.Q
+    # bounce_0_.Q ; (2 pterms, 7 signals)
+bounce_0_.C = ti_adr_15_ ; (1 pterm, 1 signal)
+
+bounce_1_.T = bounce_6_.Q & bounce_5_.Q & bounce_4_.Q & bounce_3_.Q
+       & bounce_2_.Q & !bounce_1_.Q
+    # bounce_6_.Q & bounce_5_.Q & bounce_4_.Q & bounce_3_.Q & bounce_2_.Q
+       & !bounce_0_.Q ; (2 pterms, 7 signals)
+bounce_1_.C = ti_adr_15_ ; (1 pterm, 1 signal)
+
+bounce_2_.T = bounce_6_.Q & bounce_5_.Q & bounce_4_.Q & bounce_3_.Q
+       & !bounce_1_.Q
+    # bounce_6_.Q & bounce_5_.Q & bounce_4_.Q & bounce_3_.Q & !bounce_2_.Q
+    # bounce_6_.Q & bounce_5_.Q & bounce_4_.Q & bounce_3_.Q & !bounce_0_.Q ; (3 pterms, 7 signals)
+bounce_2_.C = ti_adr_15_ ; (1 pterm, 1 signal)
+
+bounce_3_.D = bounce_3_.Q & bounce_2_.Q & bounce_1_.Q & bounce_0_.Q
+    # bounce_6_.Q & bounce_5_.Q & bounce_4_.Q & !bounce_3_.Q
+    # !bounce_4_.Q & bounce_3_.Q
+    # !bounce_5_.Q & bounce_3_.Q
+    # !bounce_6_.Q & bounce_3_.Q ; (5 pterms, 7 signals)
+bounce_3_.C = ti_adr_15_ ; (1 pterm, 1 signal)
+
+bounce_4_.D = bounce_4_.Q & bounce_3_.Q & bounce_2_.Q & bounce_1_.Q
+       & bounce_0_.Q
+    # bounce_6_.Q & bounce_5_.Q & !bounce_4_.Q
+    # !bounce_5_.Q & bounce_4_.Q
+    # !bounce_6_.Q & bounce_4_.Q ; (4 pterms, 7 signals)
+bounce_4_.C = ti_adr_15_ ; (1 pterm, 1 signal)
+
+bounce_5_.D = bounce_5_.Q & bounce_4_.Q & bounce_3_.Q & bounce_2_.Q
+       & bounce_1_.Q & bounce_0_.Q
+    # bounce_6_.Q & !bounce_5_.Q
+    # !bounce_6_.Q & bounce_5_.Q ; (3 pterms, 7 signals)
+bounce_5_.C = ti_adr_15_ ; (1 pterm, 1 signal)
+
+bounce_6_.D = bounce_5_.Q & bounce_4_.Q & bounce_3_.Q & bounce_2_.Q
+       & bounce_1_.Q & bounce_0_.Q
+    # !bounce_6_.Q ; (2 pterms, 7 signals)
+bounce_6_.C = ti_adr_15_ ; (1 pterm, 1 signal)
+
+chip_0_.D = ti_data_5_.PIN ; (1 pterm, 1 signal)
+chip_0_.C = ti_we ; (1 pterm, 1 signal)
+chip_0_.CE = !ti_rom ; (1 pterm, 1 signal)
+
+chip_1_.D = ti_data_4_.PIN ; (1 pterm, 1 signal)
+chip_1_.C = ti_we ; (1 pterm, 1 signal)
+chip_1_.CE = !ti_rom ; (1 pterm, 1 signal)
+
+out_adr_0_ = ti_adr_15_ ; (1 pterm, 1 signal)
+
+out_adr_10_ = ti_adr_5_ ; (1 pterm, 1 signal)
+
+out_adr_11_ = ti_adr_4_ ; (1 pterm, 1 signal)
+
+out_adr_12_ = ti_adr_3_ ; (1 pterm, 1 signal)
+
+out_adr_13_.D = ti_adr_14_ ; (1 pterm, 1 signal)
+out_adr_13_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_13_.CE = !ti_rom ; (1 pterm, 1 signal)
+
+out_adr_14_.D = ti_adr_13_ ; (1 pterm, 1 signal)
+out_adr_14_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_14_.CE = !ti_rom ; (1 pterm, 1 signal)
+
+out_adr_15_.D = ti_adr_12_ ; (1 pterm, 1 signal)
+out_adr_15_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_15_.CE = !ti_rom ; (1 pterm, 1 signal)
+
+out_adr_16_.D = ti_adr_11_ ; (1 pterm, 1 signal)
+out_adr_16_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_16_.CE = !ti_rom ; (1 pterm, 1 signal)
+
+out_adr_17_.D = ti_adr_10_ ; (1 pterm, 1 signal)
+out_adr_17_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_17_.CE = !ti_rom ; (1 pterm, 1 signal)
+
+out_adr_18_.D = ti_adr_9_ ; (1 pterm, 1 signal)
+out_adr_18_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_18_.CE = !ti_rom ; (1 pterm, 1 signal)
+
+out_adr_19_.D = ti_adr_8_ ; (1 pterm, 1 signal)
+out_adr_19_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_19_.CE = !ti_rom ; (1 pterm, 1 signal)
+
+out_adr_1_ = ti_adr_14_ ; (1 pterm, 1 signal)
+
+out_adr_20_.D = ti_adr_7_ ; (1 pterm, 1 signal)
+out_adr_20_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_20_.CE = !ti_rom ; (1 pterm, 1 signal)
+
+out_adr_21_.D = ti_adr_6_ ; (1 pterm, 1 signal)
+out_adr_21_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_21_.CE = !ti_rom ; (1 pterm, 1 signal)
+
+out_adr_22_.D = ti_adr_5_ ; (1 pterm, 1 signal)
+out_adr_22_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_22_.CE = !ti_rom ; (1 pterm, 1 signal)
+
+out_adr_23_.D = ti_adr_4_ ; (1 pterm, 1 signal)
+out_adr_23_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_23_.CE = !ti_rom ; (1 pterm, 1 signal)
+
+out_adr_24_.D = ti_adr_3_ ; (1 pterm, 1 signal)
+out_adr_24_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_24_.CE = !ti_rom ; (1 pterm, 1 signal)
+
+out_adr_25_.D = ti_data_7_.PIN ; (1 pterm, 1 signal)
+out_adr_25_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_25_.CE = !ti_rom ; (1 pterm, 1 signal)
+
+out_adr_26_.D = ti_data_6_.PIN ; (1 pterm, 1 signal)
+out_adr_26_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_26_.CE = !ti_rom ; (1 pterm, 1 signal)
+
+out_adr_2_ = ti_adr_13_ ; (1 pterm, 1 signal)
+
+out_adr_3_ = ti_adr_12_ ; (1 pterm, 1 signal)
+
+out_adr_4_ = ti_adr_11_ ; (1 pterm, 1 signal)
+
+out_adr_5_ = ti_adr_10_ ; (1 pterm, 1 signal)
+
+out_adr_6_ = ti_adr_9_ ; (1 pterm, 1 signal)
+
+out_adr_7_ = ti_adr_8_ ; (1 pterm, 1 signal)
+
+out_adr_8_ = ti_adr_7_ ; (1 pterm, 1 signal)
+
+out_adr_9_ = ti_adr_6_ ; (1 pterm, 1 signal)
+
+out_reset = bounce_6_.Q & bounce_5_.Q & bounce_4_.Q & bounce_3_.Q
+       & bounce_2_.Q & bounce_1_.Q & bounce_0_.Q ; (1 pterm, 7 signals)
+
+out_rom = ti_rom ; (1 pterm, 1 signal)
+
+out_rom1 = !( !ti_rom & !chip_0_.Q & !chip_1_.Q ) ; (1 pterm, 3 signals)
+
+out_rom2 = !( !ti_rom & chip_0_.Q & !chip_1_.Q ) ; (1 pterm, 3 signals)
+
+out_rom3 = !( !ti_rom & !chip_0_.Q & chip_1_.Q ) ; (1 pterm, 3 signals)
+
+out_rom4 = !( !ti_rom & chip_0_.Q & chip_1_.Q ) ; (1 pterm, 3 signals)
+
+out_rst2 = bounce_6_.Q & bounce_5_.Q & bounce_4_.Q & bounce_3_.Q & bounce_2_.Q
+       & bounce_1_.Q & bounce_0_.Q ; (1 pterm, 7 signals)
+
+out_we = ti_we ; (1 pterm, 1 signal)
+
+ti_data_0_ = out_data_7_ ; (1 pterm, 1 signal)
+ti_data_0_.OE = ti_we & !ti_rom ; (1 pterm, 2 signals)
+
+ti_data_1_ = out_data_6_ ; (1 pterm, 1 signal)
+ti_data_1_.OE = ti_we & !ti_rom ; (1 pterm, 2 signals)
+
+ti_data_2_ = out_data_5_ ; (1 pterm, 1 signal)
+ti_data_2_.OE = ti_we & !ti_rom ; (1 pterm, 2 signals)
+
+ti_data_3_ = out_data_4_ ; (1 pterm, 1 signal)
+ti_data_3_.OE = ti_we & !ti_rom ; (1 pterm, 2 signals)
+
+ti_data_4_ = out_data_3_ ; (1 pterm, 1 signal)
+ti_data_4_.OE = ti_we & !ti_rom ; (1 pterm, 2 signals)
+
+ti_data_5_ = out_data_2_ ; (1 pterm, 1 signal)
+ti_data_5_.OE = ti_we & !ti_rom ; (1 pterm, 2 signals)
+
+ti_data_6_ = out_data_1_ ; (1 pterm, 1 signal)
+ti_data_6_.OE = ti_we & !ti_rom ; (1 pterm, 2 signals)
+
+ti_data_7_ = out_data_0_ ; (1 pterm, 1 signal)
+ti_data_7_.OE = ti_we & !ti_rom ; (1 pterm, 2 signals)
+

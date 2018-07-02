@@ -1,0 +1,31 @@
+0000-0014	Ressurection
+0015-0033	Intro
+0034-0036	Riding
+0037-003a	Flames on right
+003b-0040	steering clear
+0041-0044	Riding
+0045-0048	Flames on left
+0049-0051	Steering clear
+0052-0054	Riding towards pillar
+0055-005a	Flames on right
+005b-0063	Steering clear
+0064-0066	Riding towards pillar
+0067-006b	Flames on left
+006c-0074	Steering clear
+0075-007b	Riding towards wall
+007c-0080	Steering clear
+0081-0084	Riding towards pillar
+0085-0089	Flames on left
+008a-008f	Steering clear
+0090-009e	Crash landing
+009f-00b5	Moving on
+
+00b6-00c2	Ride into fire (duplicate data from below)
+
+00c3-00e2	Game over
+
+00e3-00f5	Ride into pillar
+
+00f6-010d	Ride into wall
+
+010e-011b	Ride into fire (again)

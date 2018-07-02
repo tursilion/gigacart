@@ -1,0 +1,21 @@
+0000-0014	Ressurection
+0015-0026	Intro
+0027-002c	Platform Threatens
+002d-0032	Jump forward
+0033-0037	Platform Threatens
+0038-003a	Run clear
+003b-0042	Run forward
+0043-004e	Bats threaten
+004f-0052	Sword at bats
+0053-005b	Platform threatens, flashes
+005c-0064	Dirk jumps right
+0065-0068	Platform crumbles
+0069-006f	Dirk jumps for rope
+0070-0080	Dirk climbs up and out
+
+0081-00a0	Game over
+
+00a1-00b7	Dirk falls into water below
+
+00b8-00c9	Bats get Dirk (again, same as earlier scene)
+

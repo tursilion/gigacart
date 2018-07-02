@@ -1,0 +1,9 @@
+WARNING DAGGEN_0523: "The source is compiled without the -dbg switch. Line breakpoints and assertion debug will not be available."
+MESSAGE "File: testbench.vhd" 
+MESSAGE "Compile Entity "testbench"" 
+MESSAGE "Compile Architecture "tb" of Entity "testbench"" 
+ERROR COMP96_0100: "Actual parameter type in port map does not match the type of the formal port 'ti_adr'." "testbench.vhd" 52 26
+ERROR COMP96_0100: "Actual parameter type in port map does not match the type of the formal port 'ti_data'." "testbench.vhd" 52 33
+ERROR COMP96_0100: "Actual parameter type in port map does not match the type of the formal port 'out_adr'." "testbench.vhd" 52 54
+ERROR COMP96_0100: "Actual parameter type in port map does not match the type of the formal port 'out_data'." "testbench.vhd" 52 66
+FAILURE "Compile failure 4 Errors 0 Warnings  Analysis time :  15.0 [ms]" 

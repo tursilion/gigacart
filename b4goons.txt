@@ -1,0 +1,19 @@
+0000-0014	Ressurection
+0015-0027	Climb up
+0028-002f	Goon 1 appears
+0030-0039	Dirk swords him
+003a-0040	Two more appear
+0041-004e	Dirk climbs
+004f-0052	MOre appear in front
+0053-005f	Dirk swords them
+0060-0063	Dirk starts to continue
+0064-0069	Dirk reaches top of stairs
+006a-0076	Dirk jumps to safety
+
+0077-0096	Game over
+
+0097-00b9	Dirk swords goon below but is overpowered
+
+00ba-00cd	Goon below swords Dirk in back
+
+00ce-00f6	Dirk confronts Goons on ground and is backed into pit

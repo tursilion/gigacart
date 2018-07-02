@@ -1,0 +1,36 @@
+0000-0014	Ressurection
+0015-0021	Approach
+0022-0028	Threaten pit and ceiling
+0029-0033	Run right
+0034-0037	Threaten pit and knives
+0038-0040	Roll up
+0041-004e	Threaten pit
+004f-0057	Jump to left
+0058-005e	Threaten pit
+005f-0069	Jump up into pond
+006a-0072	Threaten snakes
+0073-007f	Step out onto switch right
+0080-0084	Threaten ceiling
+0085-009a	Roll free up
+009b-009e	Threaten spider
+009f-00a7	Sword spider
+00a8-00ab	Threaten pit
+00ac-00b0	jump left
+00b1-00c6	threaten squash
+00c7-00ce	Escape left
+
+00cf-00ee	Game Over
+
+00ef-00f8	Knifed
+
+00f9-010a	jump into pit (movement)
+
+010b-011c	fall into pit (inaction)
+
+011d-013a	Got by snakes
+
+013b-0148	crushed by ceiling (after pond)
+
+0149-015a	Got by spider
+
+015b-0171	squished by bricks

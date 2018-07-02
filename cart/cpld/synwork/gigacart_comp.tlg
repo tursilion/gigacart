@@ -1,0 +1,4 @@
+@N: CD630 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":10:7:10:14|Synthesizing work.gigacart.myarch 
+Post processing for work.gigacart.myarch
+@A: CL282 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":55:2:55:3|Feedback mux created for signal latch[13:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":35:52:35:67|Feedback mux created for signal chip[1:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.

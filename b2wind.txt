@@ -1,0 +1,11 @@
+0000-0014	Ressurection
+0015-002f	"save me!"
+0030-004a	Dirk opens the door
+004b-004d	Blowing in
+004e-0056	Dirk pauses to look at object
+0057-005b	Door flashes and opens
+005c-0065	Dirk blows on out
+
+0066-0085	Game Over
+
+0086-00a5	Dirk goes for the item and falls in

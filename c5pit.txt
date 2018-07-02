@@ -1,0 +1,21 @@
+0000-0014	Ressurection
+0015-0021	Entrance
+0022-002f	"hmm"
+0030-0033	Stepping down
+0034-0038	Slipping on wet stones
+0039-0047	Walking down stairs
+0048-004e	Monster threatens
+004f-0056	Dirk swords, monster evades
+0057-005b	Monster re-threatens
+005c-0068	Dirk walks away, like a BOSS
+0069-006e	Top of stairs
+006f-0075	Portal opens, stairs flatten, chain flashes (evil)
+0076-0087	Dirk climbs out
+
+0088-00a6	Game over
+
+00a7-00b8	Sliding to his doom!
+
+00b9-00c6	Monster gets Dirk reaching for his sword
+
+00c7-00ea	Grab chain, down the drain

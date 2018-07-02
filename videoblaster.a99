@@ -1,0 +1,1216 @@
+* TODO:
+*- copy the joystick fixes from the main loop into the F18A version, code used is here:
+*
+**********************************
+*JOYFAST
+*	li r12,>0024	20
+*	li r10,>0600	20
+*	ldcr r10,3		30
+*	
+*	<delay here of 38 cycles or so, debounce 9901>
+*	
+*	li r12,>0006	20
+*	stcr @JOYDAT,8	60
+*
+*	mov @JOYDAT,r12		30
+*	mov r12,r10			18
+*	inv r12				14
+*	xor @joyold,r12		30
+*	soc r10,r12			18
+*	inv r10				14
+*	mov r10,@joyold		30
+*	czc @JOYMASK,r12	30
+*	jne exitlp			12
+*	
+*	dec @frames		26
+*	jnc exitlp		12
+*	
+**********************************	
+*-break into subroutines that can be called
+*-implement the address set register in Classic99
+*-test looping a few scenes with joystick exit and see if it works ;)
+*-good tone to be played on exit if a joystick match is found (just check that it didn't play out)
+*-TODO: To force no F18A, just hold shift at startup.
+
+* AV Playback code
+* F18A support added - will autodetect
+* and play the appropriate version.
+*
+* Each frame has 6144 bytes of video, and 1544 bytes of audio.
+* approximate output is: 
+* 8.9132 fps and 13762.04 Hz (but audio is best calculated
+* as (frames * 6144) = samples / duration = rate)
+
+* Dragon's Lair version
+* Assumes the magic hardware exists, and handles joystick reads
+* During the frame, as well and endstops for the video.
+*
+
+SOUND	EQU	>8400
+VDPWA	EQU	>8C02
+VDPWD	EQU >8C00
+VDPRD	EQU >8800
+
+* largely for reference - joystick CRU results after reading 8 bits from CRU
+JFIRE	EQU >0100
+JLEFT	EQU >0200
+JRIGHT	EQU >0400
+JDOWN	EQU >0800
+JUP		EQU	>1000
+
+* important variables in scratchpad, after workspace
+* watch running into other areas.
+* this code assumes the calling code sets up the hardware
+* to start playing at the right address, and just counts down
+
+	AORG >8320
+F18AMODE	BSS 2		* non-zero if we should use F18A playback (MSB ONLY)
+FRAMES		BSS 2		* frames to play - signed! 32767 frames is about 1 hr!
+JOYMASK		BSS 2		* set mask in MSB - if joystick matches it, exit early
+JOYDAT		BSS 2		* store joystick read here
+JOYOLD		BSS 2		* last joystick read for edge detect (set to 0 on entry)
+savert		BSS 2		* save our playback return address
+SAVE2 		BSS 2		* second level save return address
+SNDOFF		bss 2		* off/on sound volume cmds for audio
+SNDON 		EQU SNDOFF+1
+SND2OFF		EQU F18AMODE+1
+
+* main vars
+FRIDX		bss 2
+GAMPTR		BSS 2
+
+* Hardware set up
+* It's fake for now, but this will prove the definition
+hwREAD equ >7FFF	* read byte address
+*					* should reset to offset zero when >6000 is read
+hwADR  equ >7FFD	* write an address here - always four bytes, MSB first.
+hwRADR equ >7FFB	* read the address here - four bytes, MSB first, destructive.
+
+* TODO: will this run from >6000 someday? Probably.
+	AORG >A000
+	DEF MAIN
+	B @MAIN
+
+* registers for bitmap (and 5B00 is the address of the sprite table)
+* background is transparent (the only color never redefined)
+* PDT - >0000
+* SIT - >1800
+* SDT - >1800
+* CT  - >2000
+* SAL - >1B00
+BMREGS DATA >81E0,>8002,>8206,>83ff,>8403,>8536,>8603,>8700,>5B00,>0000
+
+* Hex characters 0-9,A-F (without a gap!)
+* first free character in 1st and 3rd thirds is 96
+* in the 2nd third, it's 192. Screen is 24 chars wide,
+* 4 rows in the top and bottom, 8 in the middle.
+HEXCHR 	DATA >3844,>4444,>4444,>3800
+		data >1030,>1010,>1010,>3800
+		data >3844,>0408,>1020,>7C00
+		data >3844,>0418,>0444,>3800
+		data >0818,>2848,>7C08,>0800
+		data >7C40,>7804,>0444,>3800
+		data >1820,>4078,>4444,>3800
+		data >7C04,>0810,>2020,>2000
+		data >3844,>4438,>4444,>3800
+		data >3844,>443C,>0408,>3000
+		data >3844,>447C,>4444,>4400
+		data >7824,>2438,>2424,>7800
+		data >3844,>4040,>4044,>3800
+		data >7824,>2424,>2424,>7800
+		data >7C40,>4078,>4040,>7C00
+		data >7C40,>4040,>7840,>4000
+		
+* Game data format: linear for now
+* start frame, end frame, valid joystick, good joystick, bad joystick, good scene, bad scene, timeout scene
+* good scenes will finish playing, bad scenes will just jump
+*        frame cnt   valid good  bad   good  bad   timeout
+
+* A1DRAWBRIDGE
+
+A1INTRO
+	data >0000,>006C,>0000,>0000,>0000,>0000,>0000,A1MON	* Ressurection through drawbridge
+A1MON
+	data >006D,>007D,>0100,>0100,>0000,A1SWORD,>0000,A1DIE1	* monsters approach
+A1SWORD
+	DATA >007E,>0089,>0400,>0400,>0000,A1RUN2,>0000,A1DIE1	* need to run
+A1RUN2
+	DATA >008A,>00d7,>0000,>0000,>0000,>0000,>0000,A1RUN3	* through to crumbling vestible
+A1RUN3
+	DATA >00d8,>00ec,>1600,>0400,>1200,A1RUN4,A1DIE2,A1DIE3	* need to move right
+A1RUN4
+	DATA >00ED,>00FD,>0000,>0000,>0000,>0000,>0000,>0000	* no next scene!
+A1GAMOVR
+	DATA >00fe,>011d,>0000,>0000,>0000,>0000,>0000,>0000	* no next scene!
+A1DIE1
+	DATA >011e,>012b,>0000,>0000,>0000,>0000,>0000,A1GAMOVR	* drawbridge monster
+A1DIE2
+	DATA >012c,>013d,>0000,>0000,>0000,>0000,>0000,A1GAMOVR	* falling into pit
+A1DIE3
+	DATA >013e,>015c,>0000,>0000,>0000,>0000,>0000,A1GAMOVR	* crushed by rocks
+
+* B2DRINKME
+B2INTRO
+	
+
+
+MAIN
+	LIMI 0
+	LWPI >8300
+
+	bl @setsnd
+
+* init our variables
+	clr @F18AMODE
+	li r0,>7fff
+	mov r0,@frames
+	clr @joymask
+	clr @joydat
+	clr @joyold
+	li r0,>bfb6
+	movb r0,@sndoff
+	li r0,>df00
+	movb r0,@snd2off
+	
+* set the big array address to 0
+	clr r0
+	movb r0,@hwadr		* msb of address
+	movb r0,@hwadr
+	movb r0,@hwadr
+	movb r0,@hwadr		* lsb of address - always write four bytes
+	
+* test for F18A, and unlock. 
+* run 9918A version if it's not there.
+* We just check if the GPU is present by having it 
+* run a short program
+* TODO: needs to be a subroutine we can use to set F18AMODE
+* User can turn it off that way.
+	clr r0
+	movb r0,@f18amode
+
+* F18A blind unlock code
+	LI R0,>B91C             * VR1/57, value 00011100
+	BL @VDPWTA              * write once (corrupts VDPR1)
+	BL @VDPWTA              * write again (unlocks enhanced mode)
+
+* If we are not on the F18A, then R1 is screwed up now, that's okay
+	LI R0,>5C00
+	BL @VDPWTA
+	LI R1,GPUTEST
+	LI R2,10
+TSTLP
+	MOVB *R1+,@VDPWD		* copy program
+	DEC R2
+	JNE TSTLP
+	
+	LI R0,>5C10				* test address
+	BL @VDPWTA
+	CLR @VDPWD				* clear it
+	CLR @VDPWD
+	
+* Start the GPU program, pause, then check the result
+	LI R0,>B61C				* MSB
+	BL @VDPWTA
+	LI R0,>B700				* LSB and start
+	BL @VDPWTA
+	NOP						* give it a moment - it's WAY faster than we are
+	LI R0,>1C10
+	BL @VDPWTA
+	NOP
+	MOVB @VDPRD,R1			* read the data
+	SWPB R1
+	MOVB @VDPRD,R1
+	CI R1,>3412
+	JNE F18NO
+	seto r0
+	movb r0,@f18Amode		* flag for later
+
+* copy the GPU program in and start it
+	LI R0,>5B80
+	BL @VDPWTA
+	LI R1,GPUGO
+GLDLP
+	MOVB *R1+,@VDPWD
+	CI R1,GPUEND
+	JNE GLDLP
+	
+* start running (it will move itself into high memory)
+	LI R0,>B61B				* MSB
+	BL @VDPWTA
+	LI R0,>B780				* LSB and start
+	BL @VDPWTA
+
+F18NO	
+*	* set up bitmap
+	BL @BITMAP
+	
+* frame by frame test mode	
+	B @TSTCOD
+	
+*****
+*** GAME CODE
+*****
+GAMOVR
+	BL @JOYFAST
+	CI R0,>FE00
+	JNE GAMOVR
+	
+	li r0,>d200
+	movb r0,@sound			* make a beep
+	
+	bl @bitmap				* mostly for delay's sake ;)
+	
+	li r0,A1INTRO			* start the game
+	mov r0,@gamptr
+	
+* play out one scene of the table, and advance as appropriate
+GAMLP
+	mov @gamptr,r1			* get the current pointer
+	mov *r1,r2				* get first frame
+	mov @2(r1),r3			* get last frame
+	s r2,r3					* make count (-1)
+	mov r3,@frames			* store it
+	
+	li r4,7688				* number of bytes in a frame
+	mpy r2,r4				* get the address (r1,r2, 32-bit)
+	movb r4,@hwADR
+	swpb r4
+	movb r4,@hwADR
+	movb r5,@hwADR
+	swpb r5
+	movb r5,@hwADR			* hardware address now set
+
+	mov @4(r1),@JOYMASK		* joystick mask
+	bl @runvid				* play the segment
+	
+* we'll test letting the last frame fail out and see how it plays
+	mov @gamptr,r1
+
+	mov @frames,r0			* test the result
+	ci r0,>ffff				* played out
+	jne notimeout
+	
+	mov @14(r1),r2			* get timeout link
+	jeq f18no				* no more, just end
+	mov r2,@gamptr			* otherwise save it back
+	jmp gamlp				* and loop around
+
+* no timeout, so figure out the joystick	
+notimeout
+	li r2,>d200
+	movb r2,@sound		* make a beep to show we accepted the input
+	
+	seto r2
+	movb @joydat,r2		* joystick read, inverted
+	inv r2
+	szc @8(r1),r2		* test against bad joystick
+	jeq badjoy
+	
+* good joy, so play out the video, with no beeps
+	inv r0
+	dec r0				* new frame count
+	mov r0,@frames
+	clr @joymask		* no more input
+
+	li r0,>bfbf
+	mov r0,@sndoff		* joystick sounds off
+
+	bl @runvid			* play it out
+	
+	li r0,>bfb6
+	mov r0,@sndoff		* joystick sounds active
+	
+	mov @gamptr,r1
+	mov @10(r1),r2		* get good link
+	jeq f18no			* NO MORE???
+	mov r2,@gamptr
+	jmp gamlp
+	
+* bad joy, so play bad video
+badjoy
+	mov @12(r1),r2		* get bad link
+	jeq f18no			* NO MORE???
+	mov r2,@gamptr
+	jmp gamlp
+
+	
+****		
+** Test code -- step one frame at a time forward or back and display the frame index
+****
+TSTCOD
+	mov r11,r10
+* copy hex characters
+	LI R0,>4300				* write >0300, char 0:96
+	BL @VDPWTA
+	li r0,hexchr
+	li r1,16*8
+chlp
+	movb *r0+,@VDPWD
+	dec r1
+	jne chlp
+	
+* and set them all to white on black
+	LI R0,>6300				* write >2300, char 0:96
+	BL @VDPWTA
+	li r0,>F100
+	li r1,16*8
+chlp2
+	movb r0,@VDPWD
+	dec r1
+	jne chlp2
+		
+	clr @fridx
+
+jtstlp
+	MOV R11,R10
+
+	li r0,>5800				* screen image table to write
+	bl @vdpwta
+	
+	mov @fridx,r0			* get frame index
+	
+	mov r0,r1				* converting to hex for display
+	srl r1,4				* shift right 4
+	andi r1,>0F00
+	ai r1,96*256			* char '0' is 96 in this setup
+	movb r1,@VDPWD			* write it
+	
+	mov r0,r1				* converting to hex for display
+	andi r1,>0F00
+	ai r1,96*256			* char '0' is 96 in this setup
+	movb r1,@VDPWD			* write it
+
+	mov r0,r1				* converting to hex for display
+	sla r1,4
+	andi r1,>0F00
+	ai r1,96*256			* char '0' is 96 in this setup
+	movb r1,@VDPWD			* write it
+
+	mov r0,r1				* converting to hex for display
+	sla r1,8
+	andi r1,>0F00
+	ai r1,96*256			* char '0' is 96 in this setup
+	movb r1,@VDPWD			* write it
+
+	li r1,7688				* number of bytes in a frame
+	mpy r0,r1				* get the address (r1,r2, 32-bit)
+	movb r1,@hwADR
+	swpb r1
+	movb r1,@hwADR
+	movb r2,@hwADR
+	swpb r2
+	movb r2,@hwADR			* hardware address now set
+	clr @frames				* play 1 frame (-1, equals 0)
+	seto @joymask			* any exit bits (though it doesn't matter)
+	bl @runvid				* should have a frame up
+
+wtlp
+	bl @joyfast
+	ci r0,>FD00				* left
+	jne noleft
+	mov @fridx,r0
+	jeq wtlp
+	dec @fridx
+	jmp jtstlp
+
+noleft	
+	ci r0,>FB00
+	jne wtlp
+	mov @fridx,r0
+	ci r0,32767
+	jeq wtlp
+	inc @fridx
+	jmp jtstlp
+	
+
+** RUNVID **
+**
+** Uses all registers.
+** Play video from the current position of the hardware
+** which MUST be pointing to the beginning of a frame.
+**
+** Set FRAMES to number of frames to play minus 1 (0-32767, 0 means 1 frame)
+** Set JOYMASK to any bits you want to count as a valid video exit
+** Then BL @RUNVID
+**
+** on return, FRAMES will be >FFFF if the frame count expired, or a negative value
+** if a valid joystick move triggered the exit. JOYDAT contains the joystick
+** read in the MSB, inverted. If a joystick move is detected on the very last
+** frame, you can get >FFFF, so it's wise to check the joystick first, unless
+** you don't care.
+**
+RUNVID
+* run F18A version if appropriate
+	movb @f18amode,r0
+	jeq nf18a
+	b @f18yes
+nf18a
+
+*	* set up copy
+* We /could/ get away with 3 blocks, and I did that originally.
+* The idea of using four is to interleave the painting more so
+* pattern updates are more closely followed by color udpates.
+* it causes more obvious paints, but this looks better than the flicker.
+	li r1,VDPWA
+	li r2,>0040		* start address table 1 >0000
+	li r3,>0048		* start address table 2 >0800
+	li r4,>004B		* start address table 5 >0B00
+	li r5,>0050		* start address table 6 >1000
+	li r6,>0060		* start address table 3 >2000
+	li r7,>0068		* start address table 4 >2800
+	li r8,>006B		* start address table 7 >2B00
+	li r9,>0070		* start address table 8 >3000
+	LI r13,VDPWD
+	li r14,hwREAD
+	li r15,SOUND
+	
+*
+* try to keep the cycles between sound writes about even
+* the setup blocks need to be 2 cycles longer than the copy blocks
+* to make up for the JNE fallthrough being 2 cycles shorter.
+*
+* Although the smaller code needs fewer bytes to VDP, to keep the
+* code reasonably tight, we now need SIX copy loops.
+* 
+* The data pattern needs to be (P=PATTERN, C=COLOR, S=Sound):
+* 1		S
+* 192	PPPPS	first 1/3rd, chars 0-95
+* 1		S
+* 192	CCCCS
+* 1		S
+* 192	PPPPS	second 1/3rd, chars 0-95
+* 1		S
+* 192	CCCCS
+* 1		S
+* 192	PPPPS	second 1/3rd, chars 96-191
+* 1		S
+* 192	CCCCS
+* 1		S
+* 192	PPPPS	third 1/3rd, chars 0-95
+* 1		S
+* 192	CCCCS
+*
+* Repeat - above sequence is first pattern data, then color data (color at >2000)
+* We are interleaving the pattern and color through each table
+*
+* Cycle counting is a little weird - the time between samples is 218 cycles
+* The copy loops manage this, but when they fall out, they only use 216 cycles.
+* the setup code for each thus consumes 220 cycles to account for this.
+* ideally there should be 28 cycles after the audio write before the loop
+* to match the dec and jne - less jitter will make better sound, but I have
+* not worried too much about being perfect since the vast majority of samples
+* will fall into the loops themselves.
+*
+*                                                  8Bit	16bit 
+OUTLOOP
+* count from dec at bottom of loop					26
+* count from jeq at bottom of loop (no jump)		12
+* count from B at bottom of loop					28
+* Pattern 1
+	MOVB R2,*R1										30	26
+	SWPB R2											14	10
+	MOVB R2,*R1		* VDP address set				30	26
+	SWPB R2											14	10
+
+* need 8 cycle delay - not possible in 8-bit RAM
+* we are 8 cycles short here (we don't make it up later)
+	
+	MOVB *R14,*R15	* write sound					38	34
+	LI R0,192		* bytes to write divided by 4	20
+
+*												   220 192
+LOOP1
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R15	* write sound					38	34
+	DEC R0											14	10
+	JNE LOOP1										14	10
+*												   218 190
+
+* Color 1
+	MOVB R6,*R1										30	26
+	SWPB R6											14	10
+	MOVB R6,*R1		* VDP address set				30	26
+	SWPB R6											14	10
+
+* need 74 cycles delay (8 cycles over)
+	li r12,>0024	* prepare for CRU write			20
+	li r10,>0600	* joystick 1 column				20
+	movb @snd2off,*R15	* sound off for channel 3	42
+*
+
+	MOVB *R14,*R15	* write sound					38	34
+	LI R0,192		* bytes to write divided by 4	20
+
+*												   220 192
+
+LOOP1c
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R15	* write sound					38	34
+	DEC R0											14	10
+	JNE LOOP1c										14	10
+*												   218 190
+
+* Pattern 2
+	MOVB R3,*R1										30	26
+	SWPB R3											14	10
+	MOVB R3,*R1		* VDP address set				30	26
+	SWPB R3											14	10
+
+* need 74 cycles delay (2 cycles over)
+	ldcr r10,3		* set joystick column			30
+	li r12,>0006	* prepare to read joystick		20
+	inv @joyold		* need this before we mask		26
+*
+	
+	MOVB *R14,*R15	* write sound					38	34
+	LI R0,192		* bytes to write divided by 4	20	14
+
+*												   220 192
+	
+LOOP2
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R15	* write sound					38	34
+	DEC R0											14	10
+	JNE LOOP2										14	10
+*												   218 190
+
+* Color 2
+	MOVB R7,*R1										30	26
+	SWPB R7											14	10
+	MOVB R7,*R1		* VDP address set				30	26
+	SWPB R7											14	10
+	
+* need 74 cycles delay
+	stcr @joydat,8	* read the joystick data		60 (note: 5 bits is only 2 cycles faster)
+	swpb r0			* waste time					14
+*
+
+	MOVB *R14,*R15	* write sound					38	34
+	li r0,192		* bytes to write divided by 4	20	14
+
+*												   220 192
+
+LOOP2c
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R15	* write sound					38	34
+	DEC R0											14	10
+	JNE LOOP2c										14	10
+*												   218 190
+
+* Pattern 2b
+	MOVB R4,*R1										30	26
+	SWPB R4											14	10
+	MOVB R4,*R1		* VDP address set				30	26
+	SWPB R4											14	10
+	
+* need 74 cycles delay (2 cycles over)
+	mov @joydat,r12	* get new joystick read			30
+	mov r12,r10		* save copy						18
+	inv r12			* invert bits					14
+	seto r0			* waste time					14
+* 
+
+	MOVB *R14,*R15	* write sound					38	34
+	li r0,192		* bytes to write divided by 4	20	14
+*												   220 192
+	
+LOOP2b
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R15	* write sound					38	34
+	DEC R0											14	10
+	JNE LOOP2b										14	10
+*												   218 190
+
+* Color 2b
+	MOVB R8,*R1										30	26
+	SWPB R8											14	10
+	MOVB R8,*R1		* VDP address set				30	26
+	SWPB R8											14	10
+	
+* need 74 cycles delay (4 cycles over)
+	xor @joyold,r12	* get changed bits				30
+	szc r10,r12		* get rising edges only			18
+	mov r10,@joyold	* save current input			30
+*
+
+	MOVB *R14,*R15	* write sound					38	34
+	li r0,192		* bytes to write divided by 4	20	14
+*												   220 192
+
+LOOP2bc
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R15	* write sound					38	34
+	DEC R0											14	10
+	JNE LOOP2bc										14	10
+*												   218 190
+
+* Pattern 3
+	MOVB R5,*R1										30	26
+	SWPB R5											14	10
+	MOVB R5,*R1		* VDP address set				30	26
+	SWPB R5											14	10
+	
+* need 74 cycles delay
+	czc @joymask,r12	* compare exit bits			30
+	jeq nojoy			* jump if clear				14		(if jump, else 12)
+	inv @frames			* make exit	at end			26		(only when movement valid!)
+	clr r12				* prevent boop				14		(only when movement valid!)
+nojoy
+	SRL R0,7			* waste time				30		(will be slow only when a valid joystick happens)
+*
+
+	MOVB *R14,*R15	* write sound					38	34
+	li r0,192		* bytes to write divided by 4	20	14
+*												   220 192
+	
+LOOP3
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R15	* write sound					38	34
+	DEC R0											14	10
+	JNE LOOP3										14	10
+*												   218 190
+
+* Color 3
+	MOVB R9,*R1										30	26
+	SWPB R9											14	10
+	MOVB R9,*R1		* VDP address set				30	26
+	SWPB R9											14	10
+	
+* need 74 cycles delay (this unfortunately branches for the last cycle)
+	movb r12,r12	* was there a joystick input	18
+	jeq noedge		* nope							14/12 if not taken
+	movb @sndon,*R15	* sound on for channel 2	42
+* (only 72 cycles here, and we fall through)
+
+	MOVB *R14,*R15	* write sound					38	34
+	li r0,192		* bytes to write divided by 4	20	14
+*												   220 192
+
+LOOP3c
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R15	* write sound					38	34
+	DEC R0											14	10
+	JNE LOOP3c										14	10
+*												   218 190
+
+* this is part of the top setup block, timing wise
+	dec @frames										26
+	jlt exitlp										12	(if not taken, branch if go negative)
+	B @OUTLOOP										28
+	
+* this is a copy of loop3c used for the other beep path, to keep cycles on track
+noedge
+	movb @sndoff,*R15	* sound off for channel 2	42
+* (correct 74 cycles here, and we fall through)
+
+	MOVB *R14,*R15	* write sound					38	34
+	li r0,192		* bytes to write divided by 4	20	14
+*												   220 192
+
+LOOP3d
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R15	* write sound					38	34
+	DEC R0											14	10
+	JNE LOOP3d										14	10
+*												   218 190
+
+* this is part of the top setup block, timing wise
+	dec @frames										26
+	jlt exitlp										12	(if not taken)
+	B @OUTLOOP										28
+
+* we've finished playback, come here and find our way home
+exitlp
+	B *R11
+
+***********************************************************
+* F18A Version
+* Pretty much the same code, except it does a sort of
+* a double-buffering to greatly reduce the flickering.
+
+F18YES
+* Theory of op:
+* This uses 4 copies like the original code, and has the same
+* timing and tearing limitations. The difference is that
+* each block is copied to 'unused' video RAM, and a command
+* written to the polling GPU program.
+* The GPU then copies the block as instructed.
+* First, the CPU writes the pattern table, then toggles the
+* GPU. The GPU copies the pattern data to a block in high
+* memory (mostly because we're out of memory in the main
+* VDP space, and we can afford the time).
+* The CPU then (possibly starting overlapped) copies the
+* color table to the buffer. The command next written
+* instructs the GPU to copy both pattern and color to the
+* correct place for display. Because the GPU has random access
+* to VDP memory, it can alternate writes for minimum time
+* between updates. Because it's so blinding fast, it should
+* easily finish the update before the next block is ready.
+* the result should be nearly flicker-free video.
+*
+* So, the 9900 always writes starting at >1B80,
+* it then writes one extra byte to >1E80, containg a GPU
+* command:
+* 0x80	-	copy to second buffer
+* 0x20	- 	copy first blocks
+* 0x28	-	copy second blocks
+* 0x2B	- 	copy third blocks
+* 0x30	-	copy fourth blocks
+
+	li r1,VDPWA
+	li r2,>805B		* start address buffer >1B80
+	li r3,>8000		* copy to second buffer
+	li r4,>2000		* copy first blocks
+	li r5,>2800		* copy second blocks
+	li r6,>2B00		* copy third blocks
+	li r7,>3000		* copy fourth blocks
+	li r8,192		* size of one table divided by 4 (24*4*8/4)
+	LI r13,VDPWD
+	li r14,hwREAD
+	li r15,SOUND
+
+	mov r2,r0		* set to buffer address so the first cmd write
+	SWPB R0			* doesn't end up in a random place (will not trigger GPU)
+	MOVB R0,@>8C02
+	SWPB R0
+	MOVB R0,@>8C02
+	
+*                                                  8Bit	16bit 
+OUTLOOP18
+
+* count from commadn MOV at bottom                  30
+* count from dec at bottom of loop					26
+* count from jeq at bottom of loop (no jump)		12
+* count from B at bottom of loop					28
+
+* Pattern 1
+	MOVB R2,*R1										30
+	MOVB @>8305,*R1	* R2 LSB						38
+	MOVB *R14,*R15	* write sound					38
+	MOV r8,R0		* bytes to write divided by 4	18
+*												   220
+LOOP118
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R15	* write sound					38	34
+	DEC R0											14	10
+	JNE LOOP118										14	10
+*												   218 190
+
+* Color 1 (16 cycles over)
+	MOVB R3,*R13	* command to copy to buffer		30
+	MOVB R2,*R1										30
+	MOVB @>8305,*R1	* R2 LSB						38
+
+	li r12,>0024	* prepare for CRU write			20
+	li r10,>0600	* joystick 1 column				20
+	movb @snd2off,*R15	* sound off for channel 3	42
+
+	MOVB *R14,*R15	* write sound					38
+	MOV r8,R0		* bytes to write divided by 4	18
+*												   236
+
+LOOP1c18
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R15	* write sound					38	34
+	DEC R0											14	10
+	JNE LOOP1c18									14	10
+*												   218 190
+
+* Pattern 2 (10 cycles over)
+	MOVB R4,*R13	* command to copy first block	30  26
+	MOVB R2,*R1										30	26
+	MOVB @>8305,*R1	* R2 LSB						38
+
+	ldcr r10,3		* set joystick column			30
+	li r12,>0006	* prepare to read joystick		20
+	inv @joyold		* need this before we mask		26
+	
+	MOVB *R14,*R15	* write sound					38	34
+	MOV r8,R0		* bytes to write divided by 4	18	14
+*												   230 192
+	
+LOOP218
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R15	* write sound					38	34
+	DEC R0											14	10
+	JNE LOOP218										14	10
+*												   218 190
+
+* Color 2 (6 cycles short)
+	MOVB R3,*R13	* command to copy to buffer		30  26
+	MOVB R2,*R1										30	26
+	MOVB @>8305,*R1	* R2 LSB						38
+	
+	stcr @joydat,8	* read the joystick data		60 (note: 5 bits is only 2 cycles faster)
+
+	MOVB *R14,*R15	* write sound					38	34
+	MOV r8,R0		* bytes to write divided by 4	18	14
+*												   214 192
+
+LOOP2c18
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R15	* write sound					38	34
+	DEC R0											14	10
+	JNE LOOP2c18									14	10
+*												   218 190
+
+* Pattern 2b (4 cycles short)
+	MOVB R5,*R13	* command to copy second block	30  26
+	MOVB R2,*R1										30	26
+	MOVB @>8305,*R1	* R2 LSB						38
+
+	mov @joydat,r12	* get new joystick read			30
+	mov r12,r10		* save copy						18
+	inv r12			* invert bits					14
+	
+	MOVB *R14,*R15	* write sound					38	34
+	MOV r8,R0		* bytes to write divided by 4	18	14
+*												   216 192
+	
+LOOP2b18
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R15	* write sound					38	34
+	DEC R0											14	10
+	JNE LOOP2b18									14	10
+*												   218 190
+
+* Color 2b (12 cycles over)
+	MOVB R3,*R13	* command to copy to buffer		30  26
+	MOVB R2,*R1										30	26
+	MOVB @>8305,*R1	* R2 LSB						38
+
+	xor @joyold,r12	* get changed bits				30
+	szc r10,r12		* get rising edges only			18
+	mov r10,@joyold	* save current input			30
+	
+	MOVB *R14,*R15	* write sound					38	34
+	MOV r8,R0		* bytes to write divided by 4	18	14
+*												   232 192
+
+LOOP2bc18
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R15	* write sound					38	34
+	DEC R0											14	10
+	JNE LOOP2bc18									14	10
+*												   218 190
+
+* Pattern 3
+	MOVB R6,*R13	* command to copy third block	30  26
+	MOVB R2,*R1										30	26
+	MOVB @>8305,*R1	* R2 LSB						38
+
+	czc @joymask,r12	* compare exit bits			30
+	jeq nojoy18			* jump if clear				14		(if jump, else 12)
+	inv @frames			* make exit	at end			26		(only when movement valid!)
+	clr r12				* prevent boop				14		(only when movement valid!)
+nojoy18
+	SRL R0,3			* waste time				22		(will be slow only when a valid joystick happens)
+
+	MOVB *R14,*R15	* write sound					38	34
+	MOV r8,R0		* bytes to write divided by 4	18	14
+*												   220 192
+	
+LOOP318
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R15	* write sound					38	34
+	DEC R0											14	10
+	JNE LOOP318										14	10
+*												   218 190
+
+* Color 3 (6 cycles over)
+	MOVB R3,*R13	* command to copy to buffer		30  26
+	MOVB R2,*R1										30	26
+	MOVB @>8305,*R1	* R2 LSB						38
+
+	movb r12,r12	* was there a joystick input	18
+	jeq noedge18	* nope							14/12 if not taken
+	movb @sndon,*R15	* sound on for channel 2	42
+		
+	MOVB *R14,*R15	* write sound					38	34
+	MOV r8,R0		* bytes to write divided by 4	18	14
+*												   226 192
+
+LOOP3c18
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R15	* write sound					38	34
+	DEC R0											14	10
+	JNE LOOP3c18									14	10
+*												   218 190
+
+* trigger right away, since we might exit
+	MOVB R7,*R13	* command to copy fourth block	30
+
+* this is part of the top setup block, timing wise
+	dec @frames										26
+	jlt exitlp18									12	(if not taken, branch if go negative)
+	B @OUTLOOP18									28
+
+* this is a copy of loop3c used for the other beep path, to keep cycles on track
+* (10 cycles over this way)
+noedge18
+	movb @sndoff,*R15	* sound off for channel 2	42
+*
+
+	MOVB *R14,*R15	* write sound					38	34
+	li r0,192		* bytes to write divided by 4	20	14
+*												   230 192
+
+LOOP3d18
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R13	* data							38	34
+	MOVB *R14,*R15	* write sound					38	34
+	DEC R0											14	10
+	JNE LOOP3d18									14	10
+*												   218 190
+
+* trigger right away, since we might exit
+	MOVB R7,*R13	* command to copy fourth block	30
+
+* this is part of the top setup block, timing wise
+	dec @frames										26
+	jlt exitlp18									12	(if not taken)
+	B @OUTLOOP18									28
+
+* we've finished playback, come here and find our way home
+exitlp18
+	B *R11
+	
+* Setup for normal bitmap mode
+* returns with video off - set VDP R1 to E2 to enable (>81E2)
+BITMAP
+	MOV R11,@SAVERT
+
+* set display and disable sprites
+	LI R1,BMREGS
+	BL @LOADRG
+	
+* set up SIT - We first fill with 255 bytes
+	LI R0,>5800
+	BL @VDPWTA
+	LI R0,768
+	LI R1,>FF00
+LP# 
+	MOVB R1,@>8C00
+	DEC R0
+	JNE LP#
+	
+* Now special setup for each table - we have 16 rows
+* of 24 chars each. 
+* First table is 4 rows and so starts at row 4
+* Indent is 4 chars on each side, so start at 4
+	LI R0,>5884	* address
+	CLR R1		* char to write
+	LI R2,4		* rows left
+	BL @WRITEBK
+	
+* Second table is 8 rows and starts at row 8
+	LI R0,>5904	* address
+	CLR R1		* char to write
+	LI R2,8		* rows left
+	BL @WRITEBK
+	
+* third table is 4 rows and starts at row 16
+	LI R0,>5A04	* address
+	CLR R1		* char to write
+	LI R2,4		* rows left
+	BL @WRITEBK
+	
+	MOV @SAVERT,R11
+	B *R11
+
+WRITEBK
+	MOV R11,@SAVE2
+LPA1	
+	BL @VDPWTA	* set address
+	LI R3,24	* chars left
+LPA2
+	MOVB R1,@>8C00
+	AI R1,>0100	* next char
+	DEC R3
+	JNE LPA2	* column loop
+	
+	AI R0,32	* next row
+	DEC R2
+	JNE LPA1	* row loop
+	
+	MOV @SAVE2,R11
+	B *R11
+
+* load regs list to VDP address, end on >0000 and write >D0 (for sprites)
+* address of table in R1 (destroyed)
+LOADRG
+LOADLP
+	MOV *R1+,R0
+	JEQ LDRDN
+	SWPB R0
+	MOVB R0,@>8C02
+	SWPB R0
+	MOVB R0,@>8C02
+	JMP LOADLP
+LDRDN
+	LI R1,>D000
+	MOVB R1,@>8C00
+	B *R11
+
+* Write address or register
+VDPWTA
+	SWPB R0
+	MOVB R0,@>8C02
+	SWPB R0
+	MOVB R0,@>8C02
+	B *R11  
+	
+* JOYFAST from libTI99 (gets fire too)
+JOYFAST
+	li r12,>0024
+	li r0,>0600			* joystick 1
+	ldcr r0,3
+	src r12,7			* delay
+	li r12,>0006
+	clr r0
+	stcr r0,8			* get result
+	B *r11
+
+SETSND
+* set up sound chip
+	LI R0,>9FBF		* mute all channels
+	MOVB R0,@SOUND
+	SWPB R0
+	MOVB R0,@SOUND
+	LI R0,>DFFF
+	MOVB R0,@SOUND
+	SWPB R0
+	MOVB R0,@SOUND
+	LI R0,>8100		* highest frequency
+	MOVB R0,@SOUND
+	SWPB R0
+	MOVB R0,@SOUND
+	li r0,>af3f		* almost lowest frequency
+	MOVB R0,@SOUND
+	SWPB R0
+	MOVB R0,@SOUND
+	li r0,>c004		* higher frequency
+	MOVB R0,@SOUND
+	SWPB R0
+	MOVB R0,@SOUND
+	B *R11
+
+* GPU code (loads at >1B80 in VDP, copies itself to >4000)
+* to make life easy, position independent code! (VDP
+* addresses are hard coded though, that's fine)
+GPUGO
+	li r0,>1B80+GPURUN-GPUGO
+	li r1,>4300
+GCPLP
+	MOV *r0+,*r1+
+	ci r0,>1b80+GPUEND-GPUGO
+	jne GCPLP
+
+* now jump to it!	
+	B @>4300
+	
+* this code running at >4300
+GPURUN
+	clr @>1E80		* zero command
+	CLR R0
+GPUWAIT
+	MOVB @>1E80,R0	* get it
+	JEQ GPUWAIT		* nothing yet
+	CLR @>1E80		* clear it
+	JLT BUFCPY		* copying to second buffer
+	
+* main buffer copy - copy >4000 to pattern, and >1B80 to color
+* R0 contains the color table target address
+	MOV R0,R1		* for pattern table
+	ANDI R1,>1FFF
+	LI R2,>1B80		* R2->R0 for the color table
+	LI R3,>4000		* R3->R1 for the pattern table
+	LI R4,96		* we can move words instead of bytes
+GPUVLP	
+	MOV *R2+,*R0+
+	MOV *R3+,*R1+
+	MOV *R2+,*R0+
+	MOV *R3+,*R1+
+	MOV *R2+,*R0+
+	MOV *R3+,*R1+
+	MOV *R2+,*R0+
+	MOV *R3+,*R1+
+	DEC R4
+	JNE GPUVLP
+	JMP GPURUN		* go wait again
+
+BUFCPY
+	LI R0,>1B80		* 9900 write buffer
+	LI R1,>4000		* second buffer target when >80
+	LI R2,96		* we can move words instead of bytes
+GPUBLP
+	MOV *R0+,*R1+
+	MOV *R0+,*R1+
+	MOV *R0+,*R1+
+	MOV *R0+,*R1+
+	DEC R2
+	JNE GPUBLP
+	JMP GPURUN		* go wait again
+
+GPUEND
+
+GPUTEST
+	DATA >0200,>1234		LI R0,>1234
+	DATA >C800,>1C10		MOV R0,@>1C10
+	DATA >0340				IDLE
+
+	END
+	

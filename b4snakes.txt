@@ -1,0 +1,13 @@
+0000-0013	Ressurection
+0014-0026	Trapped!
+0027-002a	Snake appears
+002b-0038	Dirk swords it, another appears
+0039-003d	Threatens
+003e-004a	Dirk swords it, another appears
+004b-004d	Dirk swings as skull rope drops
+004e-0052	Rope flashes as snake hides
+0053-0072	Dirk pulls the rope and climbs to safety
+
+0073-0092	Game Over
+
+0093-00ad	Snakes win

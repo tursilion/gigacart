@@ -1,0 +1,18 @@
+0000-0014	Ressurection
+0015-0077	Spinning (run at 004f,005d,006a)
+0078-0082	Run past boppers
+0083-0096	Wizard threatens
+0097-00a9	Dirk swords him
+00aa-00b1	Vines threaten
+00b2-00b6	Dirk runs
+00b7-00bf	Retreating...
+00c0-00cc	Door opens, vines threaten
+00cd-00d2	Dirk runs for it
+
+00d3-00f1	Game over
+
+00f2-0106	Mistimed the boppers
+
+0107-0125	Too slow against wizard
+
+0126-0133	Caught by vines

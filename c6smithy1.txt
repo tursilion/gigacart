@@ -1,0 +1,31 @@
+0000-0014	Ressurection
+0015-002c	Sword threatens
+002d-003a	Sword attacks
+003b-0040	Dirk defends
+0041-004c	Mace threatens
+004d-0051	Mace attacks
+0052-005a	Dirk defends, anvil warns
+005b-0066	Anvil threatens
+0067-006b	Dirk dodges left
+006c-007a	Spear threatens
+007b-0088	Dirk defends
+0089-008e	Spear ends in wall
+008f-009b	Dirk climbs up
+009c-00a5	Dirk hardens sword
+00a6-00b2	Smithy threatens
+00b3-00c6	Dirk defends
+00c7-00d7	Dirk moves on
+
+00d8-00f7	Game Over
+
+00f8-0105	Dirk steps in fire
+
+0106-010f	Dirk gets sworded
+
+0110-0121	Dirk gets maced
+
+0122-0135	Dirk gets anviled
+
+0136-013f	Dirk gets speared
+
+0140-015a	Dirk gets Smithed

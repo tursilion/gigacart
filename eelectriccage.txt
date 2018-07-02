@@ -1,0 +1,21 @@
+0000-0013	Ressurection
+0014-0027	Intro
+0028-002e	Threaten
+002f-0039	Jump forward
+003a-003d	Threaten, door open
+003e-003f	Door closed
+0040-0049	Jumping through and running on
+004a-004f	Electricity threatens at bridge
+0050-0055	Dirk runs up
+0056-005d	Dirk approaches bridge, geyser fires and fades
+005e-0066	Geyser fires again as Dirk steps up
+0067-0070	Geyser fires again as Electricity threatens (006f-0070 may be in error)
+0071-0079	Dirk runs across to the right to safety while chased by electricity
+
+007a-0099	Game over
+
+009a-00a7	Dirk jumps on open door and gets caught
+
+00a8-00b5	Dirk is electrocuted
+
+00b6-00c3	Dirk runs into the geyser

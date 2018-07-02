@@ -1,0 +1,18 @@
+0000-0014	Ressurection
+0015-001e	Entry
+001f-002d	Table drops
+002e-0031	Lightning starts fire
+0032-0034	Fire spreads towards Dirk
+0035-003d	Dirk jumps back, fire dies
+003e-0045	New lightning starts new fire behind Dirk
+0046-004b	Dirk jumps away
+004c-0057	New lightning starts even more fire
+0058-0064	Dirk jumps away
+0056-0068	Table flashes
+0069-0081	Dirk Escapes
+
+0082-00a1	Game Over
+
+00a2-00b8	Dirk jumps for the flaming door and dies
+
+00b9-00c6	Dirk is caught by the flames

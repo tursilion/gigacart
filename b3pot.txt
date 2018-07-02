@@ -1,0 +1,23 @@
+0000-0014	Ressurection
+0015-0025	Approach
+0026-002b	Slime appears
+002c-0030	Dirk jumps away
+0031-003a	looks at bottle
+003b-003c	Tongue appears
+003d-0043	Slime monster threatens
+0044-004c	Dirk swords it
+004d-0054	Dirk jumps clear
+0055-005d	Pot monster appears
+005e-005f	Threatens
+0060-0071	Dirk swords it
+0072-0074	Slime grows
+0075-0079	Dirk moves
+007a-0084	Dirk runs for it to fanfare
+
+0085-00a4	Game over
+
+00a5-00b2	Slime monster eats Dirk
+
+00b3-00c0	Slime gets Dirk
+
+00c1-00d2	Pot monster gets Dirk

@@ -1,0 +1,7 @@
+C:\ispLEVER_Classic2_0\synpbase\bin64\c_vhdl.exe  -osyn  D:\work\ti\dragonslair\cart\cpld\synwork\gigacart_comp.srs  -top  gigacart  -prodtype  synplify_pro  -nostructver -encrypt  -pro  -dmgen  D:\work\ti\dragonslair\cart\cpld\dm  -lite -compiler_compatible -ui -fid2 -ram -sharing on -ll 2000 -autosm -ignore_undefined_lib  -lib work D:\work\ti\dragonslair\cart\cpld\design.vhd -loga  D:\work\ti\dragonslair\cart\cpld\gigacart.srr 
+rc:0 success:1
+D:\work\ti\dragonslair\cart\cpld\synwork\gigacart_comp.srs|o|1530503127|3343
+D:\work\ti\dragonslair\cart\cpld\design.vhd|i|1530503115|5058
+D:\work\ti\dragonslair\cart\cpld\gigacart.srr|o|1530503127|1892
+C:\ispLEVER_Classic2_0\synpbase\bin\c_vhdl.exe|i|1401259898|2046976
+C:\ispLEVER_Classic2_0\synpbase\bin64\c_vhdl.exe|i|1401260104|5533184

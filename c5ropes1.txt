@@ -1,0 +1,15 @@
+0000-0014	Ressurection
+0015-0029	Intro (with fanfare)
+002a-002d	Platform starts to move
+002e-0039	"uh oh"
+003a-0045	Balancing act as platform vanishes
+0046-0056	First swing
+0057-0067	Second swing
+0068-0073	End of second swing
+0074-0085	Jump to platform and run off
+
+0086-00a5	Game over
+
+00a6-00bc	Didn't stick the platform landing
+
+00bd-00d8	Didn't let go of rope
