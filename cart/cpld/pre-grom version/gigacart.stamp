@@ -1,0 +1,244 @@
+
+Timing Report for STAMP
+
+//  Project = gigacart
+//  Family  = lc4k
+//  Device  = LC4064V
+//  Speed   = -10
+//  Voltage = 3.3
+//  Operating Condition = IND
+//  Data sheet version  = 3.2
+
+//  Pass Bidirection = OFF
+//  Pass S/R = OFF
+//  Pass Latch = OFF
+//  T_SU Endpoints D/T inputs = ON
+//  T_SU Endpoints CE inputs = OFF
+//  T_SU Endpoints S/R inputs = OFF
+//  T_SU Endpoints RAM gated = ON
+//  Fmax of CE = ON
+//  Fmax of RAM = ON
+
+//  Location(From => To)
+//    Pin number: numeric number preceded by "p", BGA number as is
+//    Macrocell number: Segment#,GLB#,Macrocell#
+//                      Segment#: starts from 0 (if applicable)
+//                      GLB#: starts from A..Z, AA..ZZ
+//                      Macrocell#: starts from 0 to 31
+
+
+Section IO
+  //DESTINATION NODES;
+  ti_data[0] [bidi]
+  ti_data[1] [bidi]
+  ti_data[2] [bidi]
+  ti_data[3] [bidi]
+  out_adr[0] [out]
+  out_adr[1] [out]
+  out_adr[2] [out]
+  out_adr[3] [out]
+  out_adr[4] [out]
+  out_adr[5] [out]
+  out_adr[6] [out]
+  out_adr[7] [out]
+  out_adr[8] [out]
+  out_adr[9] [out]
+  out_adr[10] [out]
+  out_adr[11] [out]
+  out_adr[12] [out]
+  out_adr[13] [out]
+  out_adr[14] [out]
+  out_adr[15] [out]
+  out_adr[16] [out]
+  out_adr[17] [out]
+  out_adr[18] [out]
+  out_adr[19] [out]
+  out_adr[20] [out]
+  out_adr[21] [out]
+  out_adr[22] [out]
+  out_adr[23] [out]
+  out_adr[24] [out]
+  out_adr[25] [out]
+  out_adr[26] [out]
+  out_rom [out]
+  out_rom1 [out]
+  out_rom2 [out]
+  out_rom3 [out]
+  out_rom4 [out]
+  out_we [out]
+  ti_data[4] [out]
+  ti_data[5] [out]
+  ti_data[6] [out]
+  ti_data[7] [out]
+  chip_0_.C [reg]
+  chip_1_.C [reg]
+  out_adr_13_.C [reg]
+  out_adr_14_.C [reg]
+  out_adr_15_.C [reg]
+  out_adr_16_.C [reg]
+  out_adr_17_.C [reg]
+  out_adr_18_.C [reg]
+  out_adr_19_.C [reg]
+  out_adr_20_.C [reg]
+  out_adr_21_.C [reg]
+  out_adr_22_.C [reg]
+  out_adr_23_.C [reg]
+  out_adr_24_.C [reg]
+  out_adr_25_.C [reg]
+  out_adr_26_.C [reg]
+  chip_0_.CE [reg]
+  chip_0_.D [reg]
+  chip_1_.CE [reg]
+  chip_1_.D [reg]
+  out_adr_13_.CE [reg]
+  out_adr_13_.D [reg]
+  out_adr_14_.CE [reg]
+  out_adr_14_.D [reg]
+  out_adr_15_.CE [reg]
+  out_adr_15_.D [reg]
+  out_adr_16_.CE [reg]
+  out_adr_16_.D [reg]
+  out_adr_17_.CE [reg]
+  out_adr_17_.D [reg]
+  out_adr_18_.CE [reg]
+  out_adr_18_.D [reg]
+  out_adr_19_.CE [reg]
+  out_adr_19_.D [reg]
+  out_adr_20_.CE [reg]
+  out_adr_20_.D [reg]
+  out_adr_21_.CE [reg]
+  out_adr_21_.D [reg]
+  out_adr_22_.CE [reg]
+  out_adr_22_.D [reg]
+  out_adr_23_.CE [reg]
+  out_adr_23_.D [reg]
+  out_adr_24_.CE [reg]
+  out_adr_24_.D [reg]
+  out_adr_25_.CE [reg]
+  out_adr_25_.D [reg]
+  out_adr_26_.CE [reg]
+  out_adr_26_.D [reg]
+
+  //SOURCE NODES;
+  out_data[0] [in]
+  out_data[1] [in]
+  out_data[2] [in]
+  out_data[3] [in]
+  out_data[4] [in]
+  out_data[5] [in]
+  out_data[6] [in]
+  out_data[7] [in]
+  ti_adr[0] [in]
+  ti_adr[1] [in]
+  ti_adr[2] [in]
+  ti_adr[3] [in]
+  ti_adr[4] [in]
+  ti_adr[5] [in]
+  ti_adr[6] [in]
+  ti_adr[7] [in]
+  ti_adr[8] [in]
+  ti_adr[9] [in]
+  ti_adr[10] [in]
+  ti_adr[11] [in]
+  ti_adr[12] [in]
+  ti_rom [in]
+  ti_we [in]
+  chip_0_.Q [reg]
+  chip_1_.Q [reg]
+  out_adr[13].Q [reg]
+  out_adr[14].Q [reg]
+  out_adr[15].Q [reg]
+  out_adr[16].Q [reg]
+  out_adr[17].Q [reg]
+  out_adr[18].Q [reg]
+  out_adr[19].Q [reg]
+  out_adr[20].Q [reg]
+  out_adr[21].Q [reg]
+  out_adr[22].Q [reg]
+  out_adr[23].Q [reg]
+  out_adr[24].Q [reg]
+  out_adr[25].Q [reg]
+  out_adr[26].Q [reg]
+
+
+Section tSU
+
+   tSU,    tHD   Level   Location(From => To)    Source                        Destination                   Reference_Clock
+  ===========   =====   ====================    ======                        ===========                   ===============
+  3.15,  2.10     1     p3        =>  D10       ti_data[0]                    out_adr_25_.D                 ti_we
+  3.15,  2.10     1     p4        =>  D9        ti_data[1]                    out_adr_26_.D                 ti_we
+  3.15,  2.10     1     p5        =>  A7        ti_data[2]                    chip_0_.D                     ti_we
+  3.15,  2.10     1     p6        =>  D15       ti_data[3]                    chip_1_.D                     ti_we
+  2.60,  2.65     1     p14       =>  C9        ti_adr[1]                     out_adr_13_.D                 ti_we
+  2.60,  2.65     1     p15       =>  C10       ti_adr[2]                     out_adr_14_.D                 ti_we
+  2.60,  2.65     1     p16       =>  C11       ti_adr[3]                     out_adr_15_.D                 ti_we
+  2.60,  2.65     1     p22       =>  D6        ti_adr[8]                     out_adr_20_.D                 ti_we
+  2.60,  2.65     1     p23       =>  D5        ti_adr[9]                     out_adr_21_.D                 ti_we
+  2.60,  2.65     1     p27       =>  D4        ti_adr[10]                    out_adr_22_.D                 ti_we
+  2.60,  2.65     1     p28       =>  D3        ti_adr[11]                    out_adr_23_.D                 ti_we
+  2.60,  2.65     1     p29       =>  D2        ti_adr[12]                    out_adr_24_.D                 ti_we
+  2.55,  2.70     1     p17       =>  C12       ti_adr[4]                     out_adr_16_.D                 ti_we
+  2.55,  2.70     1     p19       =>  C13       ti_adr[5]                     out_adr_17_.D                 ti_we
+  2.55,  2.70     1     p20       =>  C14       ti_adr[6]                     out_adr_18_.D                 ti_we
+  2.55,  2.70     1     p21       =>  C15       ti_adr[7]                     out_adr_19_.D                 ti_we
+
+
+Section tPD
+
+   Delay         Level   Location(From => To)    Source                        Destination
+  =====         =====   ====================    ======                        ===========
+  11.30           1     p100      => p3         out_data[0]                   ti_data[0]
+  11.30           1     p99       => p4         out_data[1]                   ti_data[1]
+  11.30           1     p98       => p5         out_data[2]                   ti_data[2]
+  11.30           1     p97       => p6         out_data[3]                   ti_data[3]
+  11.30           1     p94       => p8         out_data[4]                   ti_data[4]
+  11.30           1     p93       => p9         out_data[5]                   ti_data[5]
+  11.30           1     p92       => p10        out_data[6]                   ti_data[6]
+  11.30           1     p91       => p11        out_data[7]                   ti_data[7]
+  10.80           1     p30       => p72        ti_rom                        out_rom
+  10.80           1     p30       => p78        ti_rom                        out_rom1
+  10.80           1     p30       => p79        ti_rom                        out_rom2
+  10.80           1     p30       => p80        ti_rom                        out_rom3
+  10.80           1     p30       => p81        ti_rom                        out_rom4
+  10.80           1     p31       => p84        ti_we                         out_we
+  10.75           1     p14       => p35        ti_adr[1]                     out_adr[1]
+  10.75           1     p15       => p36        ti_adr[2]                     out_adr[2]
+  10.75           1     p16       => p37        ti_adr[3]                     out_adr[3]
+  10.75           1     p22       => p47        ti_adr[8]                     out_adr[8]
+  10.75           1     p23       => p48        ti_adr[9]                     out_adr[9]
+  10.75           1     p27       => p49        ti_adr[10]                    out_adr[10]
+  10.75           1     p28       => p50        ti_adr[11]                    out_adr[11]
+  10.75           1     p29       => p53        ti_adr[12]                    out_adr[12]
+  10.70           1     p12       => p34        ti_adr[0]                     out_adr[0]
+  10.70           1     p17       => p41        ti_adr[4]                     out_adr[4]
+  10.70           1     p19       => p42        ti_adr[5]                     out_adr[5]
+  10.70           1     p20       => p43        ti_adr[6]                     out_adr[6]
+  10.70           1     p21       => p44        ti_adr[7]                     out_adr[7]
+
+
+Section tCO
+
+     tCO         Level   Location(From => To)    Source                        Destination                   Register_Clock
+    ===         =====   ====================    ======                        ===========                   ==============
+  15.85           2     p31       => p78        ti_we                         out_rom1                      chip_0_.C
+  15.85           2     p31       => p78        ti_we                         out_rom1                      chip_1_.C
+  15.85           2     p31       => p79        ti_we                         out_rom2                      chip_1_.C
+  15.85           2     p31       => p79        ti_we                         out_rom2                      chip_0_.C
+  15.85           2     p31       => p80        ti_we                         out_rom3                      chip_0_.C
+  15.85           2     p31       => p80        ti_we                         out_rom3                      chip_1_.C
+  15.85           2     p31       => p81        ti_we                         out_rom4                      chip_0_.C
+  15.85           2     p31       => p81        ti_we                         out_rom4                      chip_1_.C
+   8.90           1     p31       => p54        ti_we                         out_adr[13]                   out_adr_13_.C
+   8.90           1     p31       => p55        ti_we                         out_adr[14]                   out_adr_14_.C
+   8.90           1     p31       => p56        ti_we                         out_adr[15]                   out_adr_15_.C
+   8.90           1     p31       => p58        ti_we                         out_adr[16]                   out_adr_16_.C
+   8.90           1     p31       => p59        ti_we                         out_adr[17]                   out_adr_17_.C
+   8.90           1     p31       => p60        ti_we                         out_adr[18]                   out_adr_18_.C
+   8.90           1     p31       => p61        ti_we                         out_adr[19]                   out_adr_19_.C
+   8.90           1     p31       => p64        ti_we                         out_adr[20]                   out_adr_20_.C
+   8.90           1     p31       => p65        ti_we                         out_adr[21]                   out_adr_21_.C
+   8.90           1     p31       => p66        ti_we                         out_adr[22]                   out_adr_22_.C
+   8.90           1     p31       => p67        ti_we                         out_adr[23]                   out_adr_23_.C
+   8.90           1     p31       => p69        ti_we                         out_adr[24]                   out_adr_24_.C
+   8.90           1     p31       => p70        ti_we                         out_adr[25]                   out_adr_25_.C
+   8.90           1     p31       => p71        ti_we                         out_adr[26]                   out_adr_26_.C

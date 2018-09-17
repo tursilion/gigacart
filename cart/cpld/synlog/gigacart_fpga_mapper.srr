@@ -2,20 +2,18 @@ Synopsys CPLD Technology Mapper, Version maplat, Build 923R, Built May  6 2014
 Copyright (C) 1994-2013, Synopsys, Inc. This software and the associated documentation are proprietary to Synopsys, Inc. This software may only be used in accordance with the terms and conditions of a written license agreement with Synopsys, Inc.  All other use or distribution of the software is strictly prohibited.
 Product Version I-2014.03LC 
 @N: MF248 |Running in 64-bit mode.
-@N:"d:\work\ti\dragonslair\cart\cpld\design.vhd":86:2:86:3|Found counter in view:work.gigacart(myarch) inst bounce[0:6]
 ---------------------------------------
 Resource Usage Report
 
 Simple gate primitives:
-DFFC            16 uses
-DFF             7 uses
-IBUF            23 uses
-BUFTH           4 uses
-BI_DIR          4 uses
-OBUF            35 uses
-AND2            23 uses
-INV             9 uses
-XOR2            6 uses
+DFFC            23 uses
+DFF             1 use
+IBUF            24 uses
+BI_DIR          8 uses
+OBUF            28 uses
+AND2            44 uses
+INV             57 uses
+OR2             8 uses
 
 
 @N: FC100 |Timing Report not generated for this device, please use place and route tools for timing analysis.
@@ -25,6 +23,6 @@ Mapper successful!
 At Mapper Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 39MB peak: 103MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Sun Jul 01 20:45:29 2018
+# Sun Sep 16 22:30:34 2018
 
 ###########################################################]

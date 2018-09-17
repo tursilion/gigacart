@@ -20,8 +20,8 @@
 				<BScanVal>0</BScanVal>
 			</Bypass>
 			<File>D:\work\TI\dragonslair\cart\cpld\gigacart.jed</File>
-			<FileTime>07/01/18 20:45:36</FileTime>
-			<JedecChecksum>0x2DDE</JedecChecksum>
+			<FileTime>09/16/18 21:49:36</FileTime>
+			<JedecChecksum>0x2E8D</JedecChecksum>
 			<Operation>Erase,Program,Verify</Operation>
 			<Option>
 				<SVFVendor>JTAG STANDARD</SVFVendor>
@@ -53,6 +53,6 @@
 	</ProjectOptions>
 	<USBOptions>
 		<PortAdd>EzUSB-0</PortAdd>
-		<USBID>\\?\usb#vid_1134&amp;amp;pid_8001#6&amp;amp;1ae34725&amp;amp;0&amp;amp;3#</USBID>
+		<USBID>\\?\usb#vid_1134&amp;amp;pid_8001#a&amp;amp;34f94e8b&amp;amp;0&amp;amp;3#</USBID>
 	</USBOptions>
 </ispXCF>

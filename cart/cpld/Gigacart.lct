@@ -12,8 +12,8 @@ EN_PinMacrocell = yes;
 
 [Revision]
 Parent = lc4k64v.lci;
-DATE = 07/01/2018;
-TIME = 20:25:32;
+DATE = 09/16/2018;
+TIME = 22:25:02;
 Source_Format = Pure_VHDL;
 Synthesis = Synplify;
 
@@ -24,6 +24,8 @@ Synthesis = Synplify;
 [Backannotate Assignments]
 
 [Global Constraints]
+Fitter_effort_level = Medium;
+Logic_optimization_effort = 3;
 
 [Location Assignments]
 layer = OFF;
@@ -48,7 +50,6 @@ out_data_3_ = Pin, 89, -, -, -;
 out_data_2_ = Pin, 88, -, -, -;
 out_data_1_ = Pin, 87, -, D, 0;
 out_data_0_ = Pin, 86, -, D, 1;
-out_rom = Pin, 85, -, D, 2;
 out_adr_1_ = Pin, 84, -, D, 3;
 out_adr_24_ = Pin, 81, -, D, 4;
 out_adr_23_ = Pin, 80, -, D, 5;
@@ -72,10 +73,6 @@ out_adr_5_ = Pin, 54, -, C, 9;
 out_adr_4_ = Pin, 53, -, C, 8;
 out_adr_3_ = Pin, 50, -, C, 7;
 out_adr_2_ = Pin, 49, -, C, 6;
-out_rom1 = Pin, 41, -, C, 0;
-out_rom2 = Pin, 42, -, C, 1;
-out_rom3 = Pin, 43, -, C, 2;
-out_rom4 = Pin, 44, -, C, 3;
 ti_rom = Pin, 15, -, B, 14;
 ti_we = Pin, 16, -, B, 13;
 ti_adr_4_ = Pin, 17, -, B, 12;
@@ -91,8 +88,7 @@ ti_adr_12_ = Pin, 30, -, B, 5;
 ti_adr_13_ = Pin, 31, -, B, 4;
 ti_adr_15_ = Pin, 34, -, B, 3;
 out_reset = Pin, 47, -, C, 4;
-out_we = Pin, 37, -, B, 0;
-out_rst2 = Pin, 48, -, C, 5;
+ti_gsel = Pin, 44, -, C, 3;
 
 [Group Assignments]
 layer = OFF;
@@ -107,7 +103,7 @@ layer = OFF;
 [Source Constraint Option]
 
 [Fast Bypass]
-NONE = ti_data_4_, out_rom2;
+NONE = ti_data_4_;
 
 [OSM Bypass]
 
@@ -154,12 +150,6 @@ out_adr_23_ = LVTTL, PIN, 1, -;
 out_adr_24_ = LVTTL, PIN, 1, -;
 out_adr_25_ = LVTTL, PIN, 0, -;
 out_adr_26_ = LVTTL, PIN, 0, -;
-out_rom = LVTTL, PIN, 1, -;
-out_rom1 = LVTTL, PIN, 1, -;
-out_rom2 = LVTTL, PIN, 1, -;
-out_rom3 = LVTTL, PIN, 1, -;
-out_rom4 = LVTTL, PIN, 1, -;
-out_we = LVTTL, PIN, 0, -;
 out_reset = LVTTL, PIN, 1, -;
 out_data_0_ = LVCMOS33, PIN, 1, -;
 ti_rom = LVTTL_5V, PIN, 0, -;
@@ -184,7 +174,7 @@ ti_we = LVTTL_5V, PIN, 0, -;
 ti_adr_15_ = LVTTL_5V, PIN, 0, -;
 ti_adr_14_ = LVTTL_5V, PIN, 0, -;
 ti_adr_13_ = LVTTL_5V, PIN, 0, -;
-out_rst2 = LVTTL, PIN, 1, -;
+ti_gsel = LVTTL_5V, PIN, 1, -;
 
 [Pullup]
 
@@ -194,8 +184,7 @@ SLOW = ti_data_4_, ti_data_0_, ti_data_5_, ti_data_6_, ti_data_7_, ti_data_1_,
 	out_adr_4_, out_adr_5_, out_adr_6_, out_adr_7_, out_adr_8_, out_adr_9_, 
 	out_adr_10_, out_adr_11_, out_adr_12_, out_adr_13_, out_adr_14_, out_adr_15_, 
 	out_adr_16_, out_adr_17_, out_adr_18_, out_adr_19_, out_adr_20_, out_adr_21_, 
-	out_adr_22_, out_adr_23_, out_adr_24_, out_adr_25_, out_adr_26_, out_rom, 
-	out_rom1, out_rom2, out_rom3, out_rom4, out_we;
+	out_adr_22_, out_adr_23_, out_adr_24_, out_adr_25_, out_adr_26_;
 FAST = out_reset;
 
 [Region]
@@ -252,10 +241,9 @@ layer = OFF;
 [verilog spectrum constraints list]
 
 [ORP Bypass]
-NONE = out_rom2;
 
 [Register Powerup]
-NONE = ti_data_4_, out_rom1;
+NONE = ti_data_4_;
 
 [Constraint Version]
 version = 1.0;

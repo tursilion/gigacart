@@ -1,1 +1,3 @@
 i<>.\src\TestBench\gigacart_TB.vhd
+i<>.\src\design.vhd
+i<>.\src\testbench.vhd

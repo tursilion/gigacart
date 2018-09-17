@@ -1,6 +1,6 @@
 #-- Lattice Semiconductor Corporation Ltd.
 #-- Synplify OEM project file d:/work/ti/dragonslair/cart/cpld\gigacart_synplify.tcl
-#-- Written on Sun Feb 11 01:58:24 2018
+#-- Written on Sun Sep 16 22:29:09 2018
 
 
 #device options

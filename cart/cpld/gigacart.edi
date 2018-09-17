@@ -4,7 +4,7 @@
   (keywordMap (keywordLevel 0))
   (status
     (written
-      (timeStamp 2018 7 1 20 45 29)
+      (timeStamp 2018 9 16 22 30 34)
       (author "Synopsys, Inc.")
       (program "Synplify Pro" (version "I-2014.03LC , mapper maplat, Build 923R"))
      )
@@ -27,15 +27,6 @@
            (port O (direction OUTPUT))
            (port I0 (direction INPUT))
            (port IO (direction INOUT))
-           (port OE (direction INPUT))
-         )
-       )
-    )
-    (cell BUFTH (cellType GENERIC)
-       (view prim (viewType NETLIST)
-         (interface
-           (port O (direction OUTPUT))
-           (port I0 (direction INPUT))
            (port OE (direction INPUT))
          )
        )
@@ -83,7 +74,7 @@
          )
        )
     )
-    (cell XOR2 (cellType GENERIC)
+    (cell OR2 (cellType GENERIC)
        (view prim (viewType NETLIST)
          (interface
            (port O (direction OUTPUT))
@@ -105,29 +96,25 @@
            (port (array (rename out_data "out_data(7:0)") 8) (direction INPUT))
            (port ti_we (direction INPUT))
            (port ti_rom (direction INPUT))
-           (port out_rom (direction OUTPUT))
-           (port out_we (direction OUTPUT))
+           (port ti_gsel (direction INPUT))
            (port out_reset (direction OUTPUT))
-           (port out_rst2 (direction OUTPUT))
-           (port out_rom1 (direction OUTPUT))
-           (port out_rom2 (direction OUTPUT))
-           (port out_rom3 (direction OUTPUT))
-           (port out_rom4 (direction OUTPUT))
          )
          (contents
-          (instance (rename chip_0 "chip[0]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
+          (instance (rename grmadr_7 "grmadr[7]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
           )
-          (instance (rename chip_1 "chip[1]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
+          (instance (rename grmadr_6 "grmadr[6]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
           )
-          (instance (rename latch_2 "latch[2]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
+          (instance (rename grmadr_5 "grmadr[5]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
           )
-          (instance (rename latch_3 "latch[3]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
+          (instance (rename grmadr_4 "grmadr[4]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
           )
-          (instance (rename latch_4 "latch[4]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
+          (instance (rename grmadr_3 "grmadr[3]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
           )
-          (instance (rename latch_5 "latch[5]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
+          (instance (rename grmadr_2 "grmadr[2]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
           )
-          (instance (rename latch_6 "latch[6]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
+          (instance (rename grmadr_1 "grmadr[1]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
+          )
+          (instance (rename grmadr_0 "grmadr[0]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
           )
           (instance (rename latch_7 "latch[7]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
           )
@@ -143,23 +130,23 @@
           )
           (instance (rename latch_13 "latch[13]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
           )
-          (instance (rename bounce_2 "bounce[2]") (viewRef prim (cellRef DFF (libraryRef ispmach4s)))
-          )
-          (instance (rename bounce_1 "bounce[1]") (viewRef prim (cellRef DFF (libraryRef ispmach4s)))
-          )
-          (instance (rename bounce_0 "bounce[0]") (viewRef prim (cellRef DFF (libraryRef ispmach4s)))
-          )
           (instance (rename latch_0 "latch[0]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
           )
           (instance (rename latch_1 "latch[1]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
           )
-          (instance (rename bounce_5 "bounce[5]") (viewRef prim (cellRef DFF (libraryRef ispmach4s)))
+          (instance (rename latch_2 "latch[2]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
           )
-          (instance (rename bounce_4 "bounce[4]") (viewRef prim (cellRef DFF (libraryRef ispmach4s)))
+          (instance (rename latch_3 "latch[3]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
           )
-          (instance (rename bounce_3 "bounce[3]") (viewRef prim (cellRef DFF (libraryRef ispmach4s)))
+          (instance (rename latch_4 "latch[4]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
           )
-          (instance (rename bounce_6 "bounce[6]") (viewRef prim (cellRef DFF (libraryRef ispmach4s)))
+          (instance (rename latch_5 "latch[5]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
+          )
+          (instance (rename latch_6 "latch[6]") (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
+          )
+          (instance grmpage (viewRef prim (cellRef DFFC (libraryRef ispmach4s)))
+          )
+          (instance bounce (viewRef prim (cellRef DFF (libraryRef ispmach4s)))
           )
           (instance (rename ti_adr_3 "ti_adr[3]") (viewRef prim (cellRef IBUF (libraryRef ispmach4s)))          )
           (instance (rename ti_adr_4 "ti_adr[4]") (viewRef prim (cellRef IBUF (libraryRef ispmach4s)))          )
@@ -174,16 +161,17 @@
           (instance (rename ti_adr_13 "ti_adr[13]") (viewRef prim (cellRef IBUF (libraryRef ispmach4s)))          )
           (instance (rename ti_adr_14 "ti_adr[14]") (viewRef prim (cellRef IBUF (libraryRef ispmach4s)))          )
           (instance (rename ti_adr_15 "ti_adr[15]") (viewRef prim (cellRef IBUF (libraryRef ispmach4s)))          )
-          (instance (rename ti_data_0 "ti_data[0]") (viewRef prim (cellRef BUFTH (libraryRef ispmach4s)))          )
-          (instance (rename ti_data_1 "ti_data[1]") (viewRef prim (cellRef BUFTH (libraryRef ispmach4s)))          )
-          (instance (rename ti_data_2 "ti_data[2]") (viewRef prim (cellRef BUFTH (libraryRef ispmach4s)))          )
-          (instance (rename ti_data_3 "ti_data[3]") (viewRef prim (cellRef BUFTH (libraryRef ispmach4s)))          )
+          (instance (rename ti_data_0 "ti_data[0]") (viewRef prim (cellRef BI_DIR (libraryRef ispmach4s)))          )
+          (instance (rename ti_data_1 "ti_data[1]") (viewRef prim (cellRef BI_DIR (libraryRef ispmach4s)))          )
+          (instance (rename ti_data_2 "ti_data[2]") (viewRef prim (cellRef BI_DIR (libraryRef ispmach4s)))          )
+          (instance (rename ti_data_3 "ti_data[3]") (viewRef prim (cellRef BI_DIR (libraryRef ispmach4s)))          )
           (instance (rename ti_data_4 "ti_data[4]") (viewRef prim (cellRef BI_DIR (libraryRef ispmach4s)))          )
           (instance (rename ti_data_5 "ti_data[5]") (viewRef prim (cellRef BI_DIR (libraryRef ispmach4s)))          )
           (instance (rename ti_data_6 "ti_data[6]") (viewRef prim (cellRef BI_DIR (libraryRef ispmach4s)))          )
           (instance (rename ti_data_7 "ti_data[7]") (viewRef prim (cellRef BI_DIR (libraryRef ispmach4s)))          )
           (instance ti_we (viewRef prim (cellRef IBUF (libraryRef ispmach4s)))          )
           (instance ti_rom (viewRef prim (cellRef IBUF (libraryRef ispmach4s)))          )
+          (instance ti_gsel (viewRef prim (cellRef IBUF (libraryRef ispmach4s)))          )
           (instance (rename out_adr_0 "out_adr[0]") (viewRef prim (cellRef OBUF (libraryRef ispmach4s)))          )
           (instance (rename out_adr_1 "out_adr[1]") (viewRef prim (cellRef OBUF (libraryRef ispmach4s)))          )
           (instance (rename out_adr_2 "out_adr[2]") (viewRef prim (cellRef OBUF (libraryRef ispmach4s)))          )
@@ -219,266 +207,231 @@
           (instance (rename out_data_5 "out_data[5]") (viewRef prim (cellRef IBUF (libraryRef ispmach4s)))          )
           (instance (rename out_data_6 "out_data[6]") (viewRef prim (cellRef IBUF (libraryRef ispmach4s)))          )
           (instance (rename out_data_7 "out_data[7]") (viewRef prim (cellRef IBUF (libraryRef ispmach4s)))          )
-          (instance out_rom (viewRef prim (cellRef OBUF (libraryRef ispmach4s)))          )
-          (instance out_we (viewRef prim (cellRef OBUF (libraryRef ispmach4s)))          )
           (instance out_reset (viewRef prim (cellRef OBUF (libraryRef ispmach4s)))          )
-          (instance out_rst2 (viewRef prim (cellRef OBUF (libraryRef ispmach4s)))          )
-          (instance out_rom1 (viewRef prim (cellRef OBUF (libraryRef ispmach4s)))          )
-          (instance out_rom2 (viewRef prim (cellRef OBUF (libraryRef ispmach4s)))          )
-          (instance out_rom3 (viewRef prim (cellRef OBUF (libraryRef ispmach4s)))          )
-          (instance out_rom4 (viewRef prim (cellRef OBUF (libraryRef ispmach4s)))          )
-          (instance out_rom4or (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance un1_bounce_1 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance un1_bounce_2 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance un1_bounce_3 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance un1_bounce (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance bounce_13_1 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance bounce_13 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance out_rom4or_i (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
-          (instance out_rom1or_i (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
-          (instance out_rom2or_i (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
-          (instance out_rom3or_i (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
-          (instance out_rom3or_1 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance out_rom3or (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance out_rom2or_1 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance out_rom2or (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance out_rom1or_1 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance out_rom1or (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance out_rom4or_1 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance bounce_n2 (viewRef prim (cellRef XOR2 (libraryRef ispmach4s)))          )
-          (instance bounce_n1 (viewRef prim (cellRef XOR2 (libraryRef ispmach4s)))          )
-          (instance bounce_15 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance bounce_11 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance bounce_c3 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance bounce_9 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance bounce_c2 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance bounce_7 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance bounce_c1 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance out_rst2_i (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
-          (instance (rename bounceZ0Z_5 "bounce_5") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (instance (rename chip_i_1 "chip_i[1]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
-          (instance (rename chip_i_0 "chip_i[0]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance grmpage_2_1 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance grmpage_2 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance un3_ti_gsel_1 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance un3_ti_gsel (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename latch_i_0 "latch_i[0]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_i_13 "out_adr_1_i[13]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance bounce_i (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance grmpage10_i (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance bounce_1_i (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename ti_adr_c_i_7 "ti_adr_c_i[7]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_i_8 "out_adr_1_i[8]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename ti_adr_c_i_6 "ti_adr_c_i[6]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_i_9 "out_adr_1_i[9]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename ti_adr_c_i_5 "ti_adr_c_i[5]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_i_10 "out_adr_1_i[10]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename ti_adr_c_i_4 "ti_adr_c_i[4]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_i_11 "out_adr_1_i[11]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename ti_adr_c_i_3 "ti_adr_c_i[3]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_i_12 "out_adr_1_i[12]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_i_21 "out_adr_1_i[21]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename latch_i_7 "latch_i[7]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_i_20 "out_adr_1_i[20]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename latch_i_6 "latch_i[6]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_i_19 "out_adr_1_i[19]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename latch_i_5 "latch_i[5]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_i_18 "out_adr_1_i[18]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename latch_i_4 "latch_i[4]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_i_17 "out_adr_1_i[17]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename latch_i_3 "latch_i[3]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_i_16 "out_adr_1_i[16]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename latch_i_2 "latch_i[2]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_i_15 "out_adr_1_i[15]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename latch_i_1 "latch_i[1]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_i_14 "out_adr_1_i[14]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance un3_ti_gsel_i (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance un1_ti_data_i (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename latch_i_13 "latch_i[13]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_i_26 "out_adr_1_i[26]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename latch_i_12 "latch_i[12]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_i_25 "out_adr_1_i[25]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename latch_i_11 "latch_i[11]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_i_24 "out_adr_1_i[24]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename latch_i_10 "latch_i[10]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_i_23 "out_adr_1_i[23]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename latch_i_9 "latch_i[9]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_i_22 "out_adr_1_i[22]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename latch_i_8 "latch_i[8]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
           (instance ti_rom_i (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
-          (instance N_55_i (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
-          (instance bounce_n6 (viewRef prim (cellRef XOR2 (libraryRef ispmach4s)))          )
-          (instance bounce_n5 (viewRef prim (cellRef XOR2 (libraryRef ispmach4s)))          )
-          (instance bounce_n4 (viewRef prim (cellRef XOR2 (libraryRef ispmach4s)))          )
-          (instance bounce_n3 (viewRef prim (cellRef XOR2 (libraryRef ispmach4s)))          )
-          (instance un2_ti_data (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
-          (net un2_ti_data (joined
-           (portRef O (instanceRef un2_ti_data))
-           (portRef OE (instanceRef ti_data_0))
-           (portRef OE (instanceRef ti_data_1))
-           (portRef OE (instanceRef ti_data_2))
-           (portRef OE (instanceRef ti_data_3))
-           (portRef OE (instanceRef ti_data_4))
-           (portRef OE (instanceRef ti_data_5))
-           (portRef OE (instanceRef ti_data_6))
-           (portRef OE (instanceRef ti_data_7))
+          (instance un1_ti_gsel_2 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance ti_we_i (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename grmadr_i_2 "grmadr_i[2]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename grmadr_i_1 "grmadr_i[1]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename ti_adr_i_14 "ti_adr_i[14]") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_20_1__r "out_adr_20_1_.r") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_20_1__m "out_adr_20_1_.m") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_20_1__n "out_adr_20_1_.n") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_20_1__p "out_adr_20_1_.p") (viewRef prim (cellRef OR2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_12_5__r "out_adr_12_5_.r") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_12_5__m "out_adr_12_5_.m") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_12_5__n "out_adr_12_5_.n") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_12_5__p "out_adr_12_5_.p") (viewRef prim (cellRef OR2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_10_6__r "out_adr_10_6_.r") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_10_6__m "out_adr_10_6_.m") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_10_6__n "out_adr_10_6_.n") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_10_6__p "out_adr_10_6_.p") (viewRef prim (cellRef OR2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_8_7__r "out_adr_8_7_.r") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_8_7__m "out_adr_8_7_.m") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_8_7__n "out_adr_8_7_.n") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_8_7__p "out_adr_8_7_.p") (viewRef prim (cellRef OR2 (libraryRef ispmach4s)))          )
+          (instance un1_ti_data (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance ti_gsel_i (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance grmpage10 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_17 "out_adr_1[17]") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_18 "out_adr_1[18]") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_19 "out_adr_1[19]") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_20 "out_adr_1[20]") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_21 "out_adr_1[21]") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_22 "out_adr_1[22]") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_23 "out_adr_1[23]") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_24 "out_adr_1[24]") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_25 "out_adr_1[25]") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_26 "out_adr_1[26]") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_12 "out_adr_1[12]") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_11 "out_adr_1[11]") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_10 "out_adr_1[10]") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_9 "out_adr_1[9]") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_8 "out_adr_1[8]") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_14_4__r "out_adr_14_4_.r") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_14_4__m "out_adr_14_4_.m") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_14_4__n "out_adr_14_4_.n") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_14_4__p "out_adr_14_4_.p") (viewRef prim (cellRef OR2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_16_3__r "out_adr_16_3_.r") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_16_3__m "out_adr_16_3_.m") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_16_3__n "out_adr_16_3_.n") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_16_3__p "out_adr_16_3_.p") (viewRef prim (cellRef OR2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_18_2__r "out_adr_18_2_.r") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_18_2__m "out_adr_18_2_.m") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_18_2__n "out_adr_18_2_.n") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_18_2__p "out_adr_18_2_.p") (viewRef prim (cellRef OR2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_22_0__r "out_adr_22_0_.r") (viewRef prim (cellRef INV (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_22_0__m "out_adr_22_0_.m") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_22_0__n "out_adr_22_0_.n") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_22_0__p "out_adr_22_0_.p") (viewRef prim (cellRef OR2 (libraryRef ispmach4s)))          )
+          (instance un3_ti_data (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance bounce_1 (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_13 "out_adr_1[13]") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_14 "out_adr_1[14]") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_15 "out_adr_1[15]") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (instance (rename out_adr_1_16 "out_adr_1[16]") (viewRef prim (cellRef AND2 (libraryRef ispmach4s)))          )
+          (net (rename out_adr_22_0 "out_adr_22[0]") (joined
+           (portRef O (instanceRef out_adr_22_0__p))
+           (portRef I0 (instanceRef out_adr_0))
           ))
-          (net (rename chip_0 "chip[0]") (joined
-           (portRef Q (instanceRef chip_0))
-           (portRef I0 (instanceRef chip_i_0))
-           (portRef I1 (instanceRef out_rom4or_1))
-           (portRef I0 (instanceRef out_rom2or_1))
+          (net (rename out_adr_20_1 "out_adr_20[1]") (joined
+           (portRef O (instanceRef out_adr_20_1__p))
+           (portRef I0 (instanceRef out_adr_1))
           ))
-          (net (rename chip_1 "chip[1]") (joined
-           (portRef Q (instanceRef chip_1))
-           (portRef I0 (instanceRef chip_i_1))
-           (portRef I0 (instanceRef out_rom4or_1))
-           (portRef I0 (instanceRef out_rom3or_1))
+          (net (rename out_adr_18_2 "out_adr_18[2]") (joined
+           (portRef O (instanceRef out_adr_18_2__p))
+           (portRef I0 (instanceRef out_adr_2))
           ))
-          (net (rename latch_0 "latch[0]") (joined
-           (portRef Q (instanceRef latch_0))
+          (net (rename out_adr_16_3 "out_adr_16[3]") (joined
+           (portRef O (instanceRef out_adr_16_3__p))
+           (portRef I0 (instanceRef out_adr_3))
+          ))
+          (net (rename out_adr_14_4 "out_adr_14[4]") (joined
+           (portRef O (instanceRef out_adr_14_4__p))
+           (portRef I0 (instanceRef out_adr_4))
+          ))
+          (net (rename out_adr_12_5 "out_adr_12[5]") (joined
+           (portRef O (instanceRef out_adr_12_5__p))
+           (portRef I0 (instanceRef out_adr_5))
+          ))
+          (net (rename out_adr_10_6 "out_adr_10[6]") (joined
+           (portRef O (instanceRef out_adr_10_6__p))
+           (portRef I0 (instanceRef out_adr_6))
+          ))
+          (net (rename out_adr_8_7 "out_adr_8[7]") (joined
+           (portRef O (instanceRef out_adr_8_7__p))
+           (portRef I0 (instanceRef out_adr_7))
+          ))
+          (net (rename out_adr_1_8 "out_adr_1[8]") (joined
+           (portRef O (instanceRef out_adr_1_i_8))
+           (portRef I0 (instanceRef out_adr_8))
+          ))
+          (net (rename out_adr_1_9 "out_adr_1[9]") (joined
+           (portRef O (instanceRef out_adr_1_i_9))
+           (portRef I0 (instanceRef out_adr_9))
+          ))
+          (net (rename out_adr_1_10 "out_adr_1[10]") (joined
+           (portRef O (instanceRef out_adr_1_i_10))
+           (portRef I0 (instanceRef out_adr_10))
+          ))
+          (net (rename out_adr_1_11 "out_adr_1[11]") (joined
+           (portRef O (instanceRef out_adr_1_i_11))
+           (portRef I0 (instanceRef out_adr_11))
+          ))
+          (net (rename out_adr_1_12 "out_adr_1[12]") (joined
+           (portRef O (instanceRef out_adr_1_i_12))
+           (portRef I0 (instanceRef out_adr_12))
+          ))
+          (net (rename out_adr_1_13 "out_adr_1[13]") (joined
+           (portRef O (instanceRef out_adr_1_i_13))
            (portRef I0 (instanceRef out_adr_13))
           ))
-          (net (rename latch_1 "latch[1]") (joined
-           (portRef Q (instanceRef latch_1))
+          (net (rename out_adr_1_14 "out_adr_1[14]") (joined
+           (portRef O (instanceRef out_adr_1_i_14))
            (portRef I0 (instanceRef out_adr_14))
           ))
-          (net (rename latch_2 "latch[2]") (joined
-           (portRef Q (instanceRef latch_2))
+          (net (rename out_adr_1_15 "out_adr_1[15]") (joined
+           (portRef O (instanceRef out_adr_1_i_15))
            (portRef I0 (instanceRef out_adr_15))
           ))
-          (net (rename latch_3 "latch[3]") (joined
-           (portRef Q (instanceRef latch_3))
+          (net (rename out_adr_1_16 "out_adr_1[16]") (joined
+           (portRef O (instanceRef out_adr_1_i_16))
            (portRef I0 (instanceRef out_adr_16))
           ))
-          (net (rename latch_4 "latch[4]") (joined
-           (portRef Q (instanceRef latch_4))
+          (net (rename out_adr_1_17 "out_adr_1[17]") (joined
+           (portRef O (instanceRef out_adr_1_i_17))
            (portRef I0 (instanceRef out_adr_17))
           ))
-          (net (rename latch_5 "latch[5]") (joined
-           (portRef Q (instanceRef latch_5))
+          (net (rename out_adr_1_18 "out_adr_1[18]") (joined
+           (portRef O (instanceRef out_adr_1_i_18))
            (portRef I0 (instanceRef out_adr_18))
           ))
-          (net (rename latch_6 "latch[6]") (joined
-           (portRef Q (instanceRef latch_6))
+          (net (rename out_adr_1_19 "out_adr_1[19]") (joined
+           (portRef O (instanceRef out_adr_1_i_19))
            (portRef I0 (instanceRef out_adr_19))
           ))
-          (net (rename latch_7 "latch[7]") (joined
-           (portRef Q (instanceRef latch_7))
+          (net (rename out_adr_1_20 "out_adr_1[20]") (joined
+           (portRef O (instanceRef out_adr_1_i_20))
            (portRef I0 (instanceRef out_adr_20))
           ))
-          (net (rename latch_8 "latch[8]") (joined
-           (portRef Q (instanceRef latch_8))
+          (net (rename out_adr_1_21 "out_adr_1[21]") (joined
+           (portRef O (instanceRef out_adr_1_i_21))
            (portRef I0 (instanceRef out_adr_21))
           ))
-          (net (rename latch_9 "latch[9]") (joined
-           (portRef Q (instanceRef latch_9))
+          (net (rename out_adr_1_22 "out_adr_1[22]") (joined
+           (portRef O (instanceRef out_adr_1_i_22))
            (portRef I0 (instanceRef out_adr_22))
           ))
-          (net (rename latch_10 "latch[10]") (joined
-           (portRef Q (instanceRef latch_10))
+          (net (rename out_adr_1_23 "out_adr_1[23]") (joined
+           (portRef O (instanceRef out_adr_1_i_23))
            (portRef I0 (instanceRef out_adr_23))
           ))
-          (net (rename latch_11 "latch[11]") (joined
-           (portRef Q (instanceRef latch_11))
+          (net (rename out_adr_1_24 "out_adr_1[24]") (joined
+           (portRef O (instanceRef out_adr_1_i_24))
            (portRef I0 (instanceRef out_adr_24))
           ))
-          (net (rename latch_12 "latch[12]") (joined
-           (portRef Q (instanceRef latch_12))
+          (net (rename out_adr_1_25 "out_adr_1[25]") (joined
+           (portRef O (instanceRef out_adr_1_i_25))
            (portRef I0 (instanceRef out_adr_25))
           ))
-          (net (rename latch_13 "latch[13]") (joined
-           (portRef Q (instanceRef latch_13))
+          (net (rename out_adr_1_26 "out_adr_1[26]") (joined
+           (portRef O (instanceRef out_adr_1_i_26))
            (portRef I0 (instanceRef out_adr_26))
           ))
-          (net (rename bounce_6 "bounce[6]") (joined
-           (portRef Q (instanceRef bounce_6))
-           (portRef I0 (instanceRef bounceZ0Z_5))
-           (portRef I1 (instanceRef bounce_c1))
+          (net bounce (joined
+           (portRef Q (instanceRef bounce))
+           (portRef I0 (instanceRef bounce_i))
+           (portRef I0 (instanceRef out_reset))
           ))
-          (net (rename bounce_5 "bounce[5]") (joined
-           (portRef Q (instanceRef bounce_5))
-           (portRef I0 (instanceRef bounce_c1))
-           (portRef I1 (instanceRef bounce_n1))
-          ))
-          (net (rename bounce_4 "bounce[4]") (joined
-           (portRef Q (instanceRef bounce_4))
-           (portRef I0 (instanceRef bounce_c2))
-           (portRef I1 (instanceRef bounce_n2))
-          ))
-          (net (rename bounce_3 "bounce[3]") (joined
-           (portRef Q (instanceRef bounce_3))
-           (portRef I1 (instanceRef bounce_n3))
-           (portRef I0 (instanceRef bounce_c3))
-           (portRef I1 (instanceRef un1_bounce))
-          ))
-          (net (rename bounce_2 "bounce[2]") (joined
-           (portRef Q (instanceRef bounce_2))
-           (portRef I1 (instanceRef bounce_n4))
-           (portRef I0 (instanceRef bounce_13_1))
-           (portRef I1 (instanceRef un1_bounce_2))
-          ))
-          (net (rename bounce_1 "bounce[1]") (joined
-           (portRef Q (instanceRef bounce_1))
-           (portRef I1 (instanceRef bounce_n5))
-           (portRef I1 (instanceRef bounce_15))
-           (portRef I0 (instanceRef un1_bounce_2))
-          ))
-          (net (rename bounce_0 "bounce[0]") (joined
-           (portRef Q (instanceRef bounce_0))
-           (portRef I1 (instanceRef bounce_n6))
-           (portRef I1 (instanceRef un1_bounce_1))
-          ))
-          (net bounce_n1 (joined
-           (portRef O (instanceRef bounce_n1))
-           (portRef D (instanceRef bounce_5))
-          ))
-          (net bounce_n2 (joined
-           (portRef O (instanceRef bounce_n2))
-           (portRef D (instanceRef bounce_4))
-          ))
-          (net bounce_n3 (joined
-           (portRef O (instanceRef bounce_n3))
-           (portRef D (instanceRef bounce_3))
-          ))
-          (net bounce_n4 (joined
-           (portRef O (instanceRef bounce_n4))
-           (portRef D (instanceRef bounce_2))
-          ))
-          (net bounce_n5 (joined
-           (portRef O (instanceRef bounce_n5))
-           (portRef D (instanceRef bounce_1))
-          ))
-          (net bounce_n6 (joined
-           (portRef O (instanceRef bounce_n6))
-           (portRef D (instanceRef bounce_0))
-          ))
-          (net N_55 (joined
-           (portRef O (instanceRef bounceZ0Z_5))
-           (portRef I0 (instanceRef N_55_i))
-           (portRef I0 (instanceRef bounce_n1))
-          ))
-          (net N_32 (joined
-           (portRef O (instanceRef bounce_15))
-           (portRef I0 (instanceRef bounce_n6))
-          ))
-          (net N_30 (joined
-           (portRef O (instanceRef bounce_13))
-           (portRef I0 (instanceRef bounce_n5))
-           (portRef I0 (instanceRef bounce_15))
-          ))
-          (net N_28 (joined
-           (portRef O (instanceRef bounce_11))
-           (portRef I0 (instanceRef bounce_n4))
-          ))
-          (net N_26 (joined
-           (portRef O (instanceRef bounce_9))
-           (portRef I0 (instanceRef bounce_n3))
-          ))
-          (net N_24 (joined
-           (portRef O (instanceRef bounce_7))
-           (portRef I0 (instanceRef bounce_n2))
-          ))
-          (net bounce_c3 (joined
-           (portRef O (instanceRef bounce_c3))
-           (portRef I0 (instanceRef bounce_11))
-           (portRef I1 (instanceRef bounce_13_1))
-          ))
-          (net bounce_c2 (joined
-           (portRef O (instanceRef bounce_c2))
-           (portRef I0 (instanceRef bounce_9))
-           (portRef I1 (instanceRef bounce_c3))
-           (portRef I0 (instanceRef un1_bounce_1))
-          ))
-          (net bounce_c1 (joined
-           (portRef O (instanceRef bounce_c1))
-           (portRef I0 (instanceRef bounce_7))
-           (portRef I1 (instanceRef bounce_c2))
-          ))
-          (net (rename chip_i_0 "chip_i[0]") (joined
-           (portRef O (instanceRef chip_i_0))
-           (portRef I0 (instanceRef out_rom1or_1))
-           (portRef I1 (instanceRef out_rom3or_1))
-          ))
-          (net (rename chip_i_1 "chip_i[1]") (joined
-           (portRef O (instanceRef chip_i_1))
-           (portRef I1 (instanceRef out_rom1or_1))
-           (portRef I1 (instanceRef out_rom2or_1))
-          ))
-          (net out_rst2_i (joined
-           (portRef O (instanceRef out_rst2_i))
-           (portRef I1 (instanceRef bounceZ0Z_5))
-           (portRef I1 (instanceRef bounce_7))
-           (portRef I1 (instanceRef bounce_9))
-           (portRef I1 (instanceRef bounce_11))
-           (portRef I1 (instanceRef bounce_13))
-          ))
-          (net N_55_i (joined
-           (portRef O (instanceRef N_55_i))
-           (portRef D (instanceRef bounce_6))
-          ))
-          (net ti_rom_i (joined
-           (portRef O (instanceRef ti_rom_i))
-           (portRef I0 (instanceRef un2_ti_data))
-           (portRef I1 (instanceRef out_rom1or))
-           (portRef I1 (instanceRef out_rom2or))
-           (portRef I1 (instanceRef out_rom3or))
-           (portRef I1 (instanceRef out_rom4or))
-           (portRef CE (instanceRef chip_0))
-           (portRef CE (instanceRef chip_1))
+          (net un1_ti_gsel_2 (joined
+           (portRef O (instanceRef un1_ti_gsel_2))
            (portRef CE (instanceRef latch_0))
            (portRef CE (instanceRef latch_1))
            (portRef CE (instanceRef latch_2))
@@ -494,10 +447,195 @@
            (portRef CE (instanceRef latch_12))
            (portRef CE (instanceRef latch_13))
           ))
+          (net un3_ti_gsel (joined
+           (portRef O (instanceRef un3_ti_gsel))
+           (portRef I1 (instanceRef out_adr_22_0__m))
+           (portRef I0 (instanceRef out_adr_22_0__r))
+           (portRef I1 (instanceRef out_adr_18_2__m))
+           (portRef I0 (instanceRef out_adr_18_2__r))
+           (portRef I1 (instanceRef out_adr_16_3__m))
+           (portRef I0 (instanceRef out_adr_16_3__r))
+           (portRef I1 (instanceRef out_adr_14_4__m))
+           (portRef I0 (instanceRef out_adr_14_4__r))
+           (portRef I1 (instanceRef out_adr_8_7__m))
+           (portRef I0 (instanceRef out_adr_8_7__r))
+           (portRef I1 (instanceRef out_adr_10_6__m))
+           (portRef I0 (instanceRef out_adr_10_6__r))
+           (portRef I1 (instanceRef out_adr_12_5__m))
+           (portRef I0 (instanceRef out_adr_12_5__r))
+           (portRef I1 (instanceRef out_adr_20_1__m))
+           (portRef I0 (instanceRef out_adr_20_1__r))
+           (portRef I0 (instanceRef un3_ti_gsel_i))
+          ))
+          (net un1_ti_data (joined
+           (portRef O (instanceRef un1_ti_data_i))
+           (portRef I1 (instanceRef un3_ti_data))
+          ))
+          (net un3_ti_data (joined
+           (portRef O (instanceRef un3_ti_data))
+           (portRef OE (instanceRef ti_data_0))
+           (portRef OE (instanceRef ti_data_1))
+           (portRef OE (instanceRef ti_data_2))
+           (portRef OE (instanceRef ti_data_3))
+           (portRef OE (instanceRef ti_data_4))
+           (portRef OE (instanceRef ti_data_5))
+           (portRef OE (instanceRef ti_data_6))
+           (portRef OE (instanceRef ti_data_7))
+          ))
+          (net (rename grmadr_1 "grmadr[1]") (joined
+           (portRef Q (instanceRef grmadr_1))
+           (portRef I0 (instanceRef out_adr_10_6__m))
+           (portRef I0 (instanceRef grmadr_i_1))
+          ))
+          (net (rename grmadr_2 "grmadr[2]") (joined
+           (portRef Q (instanceRef grmadr_2))
+           (portRef I0 (instanceRef out_adr_12_5__m))
+           (portRef I0 (instanceRef grmadr_i_2))
+          ))
+          (net grmpage (joined
+           (portRef Q (instanceRef grmpage))
+           (portRef I1 (instanceRef un3_ti_gsel_1))
+          ))
+          (net grmpage10 (joined
+           (portRef O (instanceRef grmpage10))
+           (portRef I0 (instanceRef grmpage10_i))
+           (portRef CE (instanceRef grmadr_0))
+           (portRef CE (instanceRef grmadr_1))
+           (portRef CE (instanceRef grmadr_2))
+           (portRef CE (instanceRef grmadr_3))
+           (portRef CE (instanceRef grmadr_4))
+           (portRef CE (instanceRef grmadr_5))
+           (portRef CE (instanceRef grmadr_6))
+           (portRef CE (instanceRef grmadr_7))
+           (portRef CE (instanceRef grmpage))
+          ))
+          (net grmpage_2 (joined
+           (portRef O (instanceRef grmpage_2))
+           (portRef D (instanceRef grmpage))
+          ))
+          (net (rename grmadr_0 "grmadr[0]") (joined
+           (portRef Q (instanceRef grmadr_0))
+           (portRef I0 (instanceRef out_adr_8_7__m))
+           (portRef I1 (instanceRef grmpage_2_1))
+          ))
+          (net (rename latch_0 "latch[0]") (joined
+           (portRef Q (instanceRef latch_0))
+           (portRef I0 (instanceRef latch_i_0))
+          ))
+          (net (rename latch_1 "latch[1]") (joined
+           (portRef Q (instanceRef latch_1))
+           (portRef I0 (instanceRef latch_i_1))
+          ))
+          (net (rename latch_2 "latch[2]") (joined
+           (portRef Q (instanceRef latch_2))
+           (portRef I0 (instanceRef latch_i_2))
+          ))
+          (net (rename latch_3 "latch[3]") (joined
+           (portRef Q (instanceRef latch_3))
+           (portRef I0 (instanceRef latch_i_3))
+          ))
+          (net (rename latch_4 "latch[4]") (joined
+           (portRef Q (instanceRef latch_4))
+           (portRef I0 (instanceRef latch_i_4))
+          ))
+          (net (rename latch_5 "latch[5]") (joined
+           (portRef Q (instanceRef latch_5))
+           (portRef I0 (instanceRef latch_i_5))
+          ))
+          (net (rename latch_6 "latch[6]") (joined
+           (portRef Q (instanceRef latch_6))
+           (portRef I0 (instanceRef latch_i_6))
+          ))
+          (net (rename latch_7 "latch[7]") (joined
+           (portRef Q (instanceRef latch_7))
+           (portRef I0 (instanceRef latch_i_7))
+          ))
+          (net (rename latch_8 "latch[8]") (joined
+           (portRef Q (instanceRef latch_8))
+           (portRef I0 (instanceRef latch_i_8))
+          ))
+          (net (rename latch_9 "latch[9]") (joined
+           (portRef Q (instanceRef latch_9))
+           (portRef I0 (instanceRef latch_i_9))
+          ))
+          (net (rename latch_10 "latch[10]") (joined
+           (portRef Q (instanceRef latch_10))
+           (portRef I0 (instanceRef latch_i_10))
+          ))
+          (net (rename latch_11 "latch[11]") (joined
+           (portRef Q (instanceRef latch_11))
+           (portRef I0 (instanceRef latch_i_11))
+          ))
+          (net (rename latch_12 "latch[12]") (joined
+           (portRef Q (instanceRef latch_12))
+           (portRef I0 (instanceRef latch_i_12))
+          ))
+          (net (rename latch_13 "latch[13]") (joined
+           (portRef Q (instanceRef latch_13))
+           (portRef I0 (instanceRef latch_i_13))
+          ))
+          (net (rename grmadr_3 "grmadr[3]") (joined
+           (portRef Q (instanceRef grmadr_3))
+           (portRef I0 (instanceRef out_adr_14_4__m))
+          ))
+          (net (rename grmadr_4 "grmadr[4]") (joined
+           (portRef Q (instanceRef grmadr_4))
+           (portRef I0 (instanceRef out_adr_16_3__m))
+          ))
+          (net (rename grmadr_5 "grmadr[5]") (joined
+           (portRef Q (instanceRef grmadr_5))
+           (portRef I0 (instanceRef out_adr_18_2__m))
+          ))
+          (net (rename grmadr_6 "grmadr[6]") (joined
+           (portRef Q (instanceRef grmadr_6))
+           (portRef I0 (instanceRef out_adr_20_1__m))
+          ))
+          (net (rename grmadr_7 "grmadr[7]") (joined
+           (portRef Q (instanceRef grmadr_7))
+           (portRef I0 (instanceRef out_adr_22_0__m))
+          ))
+          (net N_25 (joined
+           (portRef O (instanceRef bounce_1_i))
+           (portRef D (instanceRef bounce))
+          ))
+          (net ti_rom_i (joined
+           (portRef O (instanceRef ti_rom_i))
+           (portRef I1 (instanceRef un1_ti_gsel_2))
+          ))
+          (net ti_gsel_i (joined
+           (portRef O (instanceRef ti_gsel_i))
+           (portRef I1 (instanceRef grmpage10))
+           (portRef I0 (instanceRef un3_ti_gsel_1))
+          ))
+          (net (rename ti_adr_i_14 "ti_adr_i[14]") (joined
+           (portRef O (instanceRef ti_adr_i_14))
+           (portRef I1 (instanceRef un3_ti_gsel))
+          ))
+          (net (rename grmadr_i_1 "grmadr_i[1]") (joined
+           (portRef O (instanceRef grmadr_i_1))
+           (portRef I1 (instanceRef grmpage_2))
+          ))
+          (net (rename grmadr_i_2 "grmadr_i[2]") (joined
+           (portRef O (instanceRef grmadr_i_2))
+           (portRef I0 (instanceRef grmpage_2_1))
+          ))
+          (net ti_we_i (joined
+           (portRef O (instanceRef ti_we_i))
+           (portRef CLK (instanceRef bounce))
+           (portRef CLK (instanceRef grmadr_0))
+           (portRef CLK (instanceRef grmadr_1))
+           (portRef CLK (instanceRef grmadr_2))
+           (portRef CLK (instanceRef grmadr_3))
+           (portRef CLK (instanceRef grmadr_4))
+           (portRef CLK (instanceRef grmadr_5))
+           (portRef CLK (instanceRef grmadr_6))
+           (portRef CLK (instanceRef grmadr_7))
+           (portRef CLK (instanceRef grmpage))
+          ))
           (net (rename ti_adr_c_3 "ti_adr_c[3]") (joined
            (portRef O (instanceRef ti_adr_3))
+           (portRef I0 (instanceRef ti_adr_c_i_3))
            (portRef D (instanceRef latch_11))
-           (portRef I0 (instanceRef out_adr_12))
           ))
           (net (rename ti_adr_3 "ti_adr[3]") (joined
            (portRef (member ti_adr 12))
@@ -505,8 +643,8 @@
           ))
           (net (rename ti_adr_c_4 "ti_adr_c[4]") (joined
            (portRef O (instanceRef ti_adr_4))
+           (portRef I0 (instanceRef ti_adr_c_i_4))
            (portRef D (instanceRef latch_10))
-           (portRef I0 (instanceRef out_adr_11))
           ))
           (net (rename ti_adr_4 "ti_adr[4]") (joined
            (portRef (member ti_adr 11))
@@ -514,8 +652,8 @@
           ))
           (net (rename ti_adr_c_5 "ti_adr_c[5]") (joined
            (portRef O (instanceRef ti_adr_5))
+           (portRef I0 (instanceRef ti_adr_c_i_5))
            (portRef D (instanceRef latch_9))
-           (portRef I0 (instanceRef out_adr_10))
           ))
           (net (rename ti_adr_5 "ti_adr[5]") (joined
            (portRef (member ti_adr 10))
@@ -523,8 +661,8 @@
           ))
           (net (rename ti_adr_c_6 "ti_adr_c[6]") (joined
            (portRef O (instanceRef ti_adr_6))
+           (portRef I0 (instanceRef ti_adr_c_i_6))
            (portRef D (instanceRef latch_8))
-           (portRef I0 (instanceRef out_adr_9))
           ))
           (net (rename ti_adr_6 "ti_adr[6]") (joined
            (portRef (member ti_adr 9))
@@ -532,8 +670,8 @@
           ))
           (net (rename ti_adr_c_7 "ti_adr_c[7]") (joined
            (portRef O (instanceRef ti_adr_7))
+           (portRef I0 (instanceRef ti_adr_c_i_7))
            (portRef D (instanceRef latch_7))
-           (portRef I0 (instanceRef out_adr_8))
           ))
           (net (rename ti_adr_7 "ti_adr[7]") (joined
            (portRef (member ti_adr 8))
@@ -541,8 +679,8 @@
           ))
           (net (rename ti_adr_c_8 "ti_adr_c[8]") (joined
            (portRef O (instanceRef ti_adr_8))
+           (portRef I0 (instanceRef out_adr_8_7__n))
            (portRef D (instanceRef latch_6))
-           (portRef I0 (instanceRef out_adr_7))
           ))
           (net (rename ti_adr_8 "ti_adr[8]") (joined
            (portRef (member ti_adr 7))
@@ -550,56 +688,103 @@
           ))
           (net (rename ti_adr_c_9 "ti_adr_c[9]") (joined
            (portRef O (instanceRef ti_adr_9))
+           (portRef I0 (instanceRef out_adr_10_6__n))
            (portRef D (instanceRef latch_5))
-           (portRef I0 (instanceRef out_adr_6))
           ))
           (net (rename ti_adr_9 "ti_adr[9]") (joined
            (portRef (member ti_adr 6))
            (portRef I0 (instanceRef ti_adr_9))
           ))
+          (net (rename ti_adr_c_10 "ti_adr_c[10]") (joined
+           (portRef O (instanceRef ti_adr_10))
+           (portRef I0 (instanceRef out_adr_12_5__n))
+           (portRef D (instanceRef latch_4))
+          ))
           (net (rename ti_adr_10 "ti_adr[10]") (joined
            (portRef (member ti_adr 5))
            (portRef I0 (instanceRef ti_adr_10))
+          ))
+          (net (rename ti_adr_c_11 "ti_adr_c[11]") (joined
+           (portRef O (instanceRef ti_adr_11))
+           (portRef I0 (instanceRef out_adr_14_4__n))
+           (portRef D (instanceRef latch_3))
           ))
           (net (rename ti_adr_11 "ti_adr[11]") (joined
            (portRef (member ti_adr 4))
            (portRef I0 (instanceRef ti_adr_11))
           ))
+          (net (rename ti_adr_c_12 "ti_adr_c[12]") (joined
+           (portRef O (instanceRef ti_adr_12))
+           (portRef I0 (instanceRef out_adr_16_3__n))
+           (portRef D (instanceRef latch_2))
+          ))
           (net (rename ti_adr_12 "ti_adr[12]") (joined
            (portRef (member ti_adr 3))
            (portRef I0 (instanceRef ti_adr_12))
+          ))
+          (net (rename ti_adr_c_13 "ti_adr_c[13]") (joined
+           (portRef O (instanceRef ti_adr_13))
+           (portRef I0 (instanceRef out_adr_18_2__n))
+           (portRef D (instanceRef latch_1))
           ))
           (net (rename ti_adr_13 "ti_adr[13]") (joined
            (portRef (member ti_adr 2))
            (portRef I0 (instanceRef ti_adr_13))
           ))
+          (net (rename ti_adr_c_14 "ti_adr_c[14]") (joined
+           (portRef O (instanceRef ti_adr_14))
+           (portRef I0 (instanceRef grmpage10))
+           (portRef I0 (instanceRef out_adr_20_1__n))
+           (portRef I0 (instanceRef ti_adr_i_14))
+           (portRef D (instanceRef latch_0))
+          ))
           (net (rename ti_adr_14 "ti_adr[14]") (joined
            (portRef (member ti_adr 1))
            (portRef I0 (instanceRef ti_adr_14))
+          ))
+          (net (rename ti_adr_c_15 "ti_adr_c[15]") (joined
+           (portRef O (instanceRef ti_adr_15))
+           (portRef I0 (instanceRef out_adr_22_0__n))
           ))
           (net (rename ti_adr_15 "ti_adr[15]") (joined
            (portRef (member ti_adr 0))
            (portRef I0 (instanceRef ti_adr_15))
           ))
-          (net (rename ti_data_0 "ti_data[0]") (joined
+          (net (rename ti_data_c_0 "ti_data_c[0]") (joined
            (portRef O (instanceRef ti_data_0))
+           (portRef D (instanceRef grmadr_0))
+          ))
+          (net (rename ti_data_0 "ti_data[0]") (joined
+           (portRef IO (instanceRef ti_data_0))
            (portRef (member ti_data 7))
           ))
-          (net (rename ti_data_1 "ti_data[1]") (joined
+          (net (rename ti_data_c_1 "ti_data_c[1]") (joined
            (portRef O (instanceRef ti_data_1))
+           (portRef D (instanceRef grmadr_1))
+          ))
+          (net (rename ti_data_1 "ti_data[1]") (joined
+           (portRef IO (instanceRef ti_data_1))
            (portRef (member ti_data 6))
           ))
-          (net (rename ti_data_2 "ti_data[2]") (joined
+          (net (rename ti_data_c_2 "ti_data_c[2]") (joined
            (portRef O (instanceRef ti_data_2))
+           (portRef D (instanceRef grmadr_2))
+          ))
+          (net (rename ti_data_2 "ti_data[2]") (joined
+           (portRef IO (instanceRef ti_data_2))
            (portRef (member ti_data 5))
           ))
-          (net (rename ti_data_3 "ti_data[3]") (joined
+          (net (rename ti_data_c_3 "ti_data_c[3]") (joined
            (portRef O (instanceRef ti_data_3))
+           (portRef D (instanceRef grmadr_3))
+          ))
+          (net (rename ti_data_3 "ti_data[3]") (joined
+           (portRef IO (instanceRef ti_data_3))
            (portRef (member ti_data 4))
           ))
           (net (rename ti_data_c_4 "ti_data_c[4]") (joined
            (portRef O (instanceRef ti_data_4))
-           (portRef D (instanceRef chip_1))
+           (portRef D (instanceRef grmadr_4))
           ))
           (net (rename ti_data_4 "ti_data[4]") (joined
            (portRef IO (instanceRef ti_data_4))
@@ -607,7 +792,7 @@
           ))
           (net (rename ti_data_c_5 "ti_data_c[5]") (joined
            (portRef O (instanceRef ti_data_5))
-           (portRef D (instanceRef chip_0))
+           (portRef D (instanceRef grmadr_5))
           ))
           (net (rename ti_data_5 "ti_data[5]") (joined
            (portRef IO (instanceRef ti_data_5))
@@ -615,6 +800,7 @@
           ))
           (net (rename ti_data_c_6 "ti_data_c[6]") (joined
            (portRef O (instanceRef ti_data_6))
+           (portRef D (instanceRef grmadr_6))
            (portRef D (instanceRef latch_13))
           ))
           (net (rename ti_data_6 "ti_data[6]") (joined
@@ -623,6 +809,7 @@
           ))
           (net (rename ti_data_c_7 "ti_data_c[7]") (joined
            (portRef O (instanceRef ti_data_7))
+           (portRef D (instanceRef grmadr_7))
            (portRef D (instanceRef latch_12))
           ))
           (net (rename ti_data_7 "ti_data[7]") (joined
@@ -631,9 +818,8 @@
           ))
           (net ti_we_c (joined
            (portRef O (instanceRef ti_we))
-           (portRef I1 (instanceRef un2_ti_data))
-           (portRef CLK (instanceRef chip_0))
-           (portRef CLK (instanceRef chip_1))
+           (portRef I0 (instanceRef un3_ti_data))
+           (portRef I0 (instanceRef ti_we_i))
            (portRef CLK (instanceRef latch_0))
            (portRef CLK (instanceRef latch_1))
            (portRef CLK (instanceRef latch_2))
@@ -648,7 +834,6 @@
            (portRef CLK (instanceRef latch_11))
            (portRef CLK (instanceRef latch_12))
            (portRef CLK (instanceRef latch_13))
-           (portRef I0 (instanceRef out_we))
           ))
           (net ti_we (joined
            (portRef ti_we)
@@ -656,68 +841,41 @@
           ))
           (net ti_rom_c (joined
            (portRef O (instanceRef ti_rom))
+           (portRef I0 (instanceRef un1_ti_data))
            (portRef I0 (instanceRef ti_rom_i))
-           (portRef I0 (instanceRef out_rom))
           ))
           (net ti_rom (joined
            (portRef ti_rom)
            (portRef I0 (instanceRef ti_rom))
           ))
-          (net (rename out_adr_c_0 "out_adr_c[0]") (joined
-           (portRef O (instanceRef ti_adr_15))
-           (portRef CLK (instanceRef bounce_0))
-           (portRef CLK (instanceRef bounce_1))
-           (portRef CLK (instanceRef bounce_2))
-           (portRef CLK (instanceRef bounce_3))
-           (portRef CLK (instanceRef bounce_4))
-           (portRef CLK (instanceRef bounce_5))
-           (portRef CLK (instanceRef bounce_6))
-           (portRef I0 (instanceRef out_adr_0))
+          (net ti_gsel_c (joined
+           (portRef O (instanceRef ti_gsel))
+           (portRef I0 (instanceRef ti_gsel_i))
+           (portRef I0 (instanceRef un1_ti_gsel_2))
+          ))
+          (net ti_gsel (joined
+           (portRef ti_gsel)
+           (portRef I0 (instanceRef ti_gsel))
           ))
           (net (rename out_adr_0 "out_adr[0]") (joined
            (portRef O (instanceRef out_adr_0))
            (portRef (member out_adr 26))
           ))
-          (net (rename out_adr_c_1 "out_adr_c[1]") (joined
-           (portRef O (instanceRef ti_adr_14))
-           (portRef D (instanceRef latch_0))
-           (portRef I0 (instanceRef out_adr_1))
-          ))
           (net (rename out_adr_1 "out_adr[1]") (joined
            (portRef O (instanceRef out_adr_1))
            (portRef (member out_adr 25))
-          ))
-          (net (rename out_adr_c_2 "out_adr_c[2]") (joined
-           (portRef O (instanceRef ti_adr_13))
-           (portRef D (instanceRef latch_1))
-           (portRef I0 (instanceRef out_adr_2))
           ))
           (net (rename out_adr_2 "out_adr[2]") (joined
            (portRef O (instanceRef out_adr_2))
            (portRef (member out_adr 24))
           ))
-          (net (rename out_adr_c_3 "out_adr_c[3]") (joined
-           (portRef O (instanceRef ti_adr_12))
-           (portRef D (instanceRef latch_2))
-           (portRef I0 (instanceRef out_adr_3))
-          ))
           (net (rename out_adr_3 "out_adr[3]") (joined
            (portRef O (instanceRef out_adr_3))
            (portRef (member out_adr 23))
           ))
-          (net (rename out_adr_c_4 "out_adr_c[4]") (joined
-           (portRef O (instanceRef ti_adr_11))
-           (portRef D (instanceRef latch_3))
-           (portRef I0 (instanceRef out_adr_4))
-          ))
           (net (rename out_adr_4 "out_adr[4]") (joined
            (portRef O (instanceRef out_adr_4))
            (portRef (member out_adr 22))
-          ))
-          (net (rename out_adr_c_5 "out_adr_c[5]") (joined
-           (portRef O (instanceRef ti_adr_10))
-           (portRef D (instanceRef latch_4))
-           (portRef I0 (instanceRef out_adr_5))
           ))
           (net (rename out_adr_5 "out_adr[5]") (joined
            (portRef O (instanceRef out_adr_5))
@@ -871,107 +1029,304 @@
            (portRef (member out_data 0))
            (portRef I0 (instanceRef out_data_7))
           ))
-          (net out_rom (joined
-           (portRef O (instanceRef out_rom))
-           (portRef out_rom)
-          ))
-          (net out_we (joined
-           (portRef O (instanceRef out_we))
-           (portRef out_we)
-          ))
           (net out_reset (joined
            (portRef O (instanceRef out_reset))
            (portRef out_reset)
           ))
-          (net out_rst2_c (joined
-           (portRef O (instanceRef un1_bounce))
-           (portRef I0 (instanceRef out_rst2_i))
-           (portRef I0 (instanceRef out_reset))
-           (portRef I0 (instanceRef out_rst2))
+          (net un3_ti_gsel_i (joined
+           (portRef O (instanceRef un3_ti_gsel_i))
+           (portRef I1 (instanceRef out_adr_1_16))
+           (portRef I1 (instanceRef out_adr_1_15))
+           (portRef I1 (instanceRef out_adr_1_14))
+           (portRef I1 (instanceRef out_adr_1_13))
+           (portRef I1 (instanceRef out_adr_1_8))
+           (portRef I1 (instanceRef out_adr_1_9))
+           (portRef I1 (instanceRef out_adr_1_10))
+           (portRef I1 (instanceRef out_adr_1_11))
+           (portRef I1 (instanceRef out_adr_1_12))
+           (portRef I1 (instanceRef out_adr_1_26))
+           (portRef I1 (instanceRef out_adr_1_25))
+           (portRef I1 (instanceRef out_adr_1_24))
+           (portRef I1 (instanceRef out_adr_1_23))
+           (portRef I1 (instanceRef out_adr_1_22))
+           (portRef I1 (instanceRef out_adr_1_21))
+           (portRef I1 (instanceRef out_adr_1_20))
+           (portRef I1 (instanceRef out_adr_1_19))
+           (portRef I1 (instanceRef out_adr_1_18))
+           (portRef I1 (instanceRef out_adr_1_17))
+           (portRef I1 (instanceRef un1_ti_data))
           ))
-          (net out_rst2 (joined
-           (portRef O (instanceRef out_rst2))
-           (portRef out_rst2)
+          (net un1_ti_data_0 (joined
+           (portRef O (instanceRef un1_ti_data))
+           (portRef I0 (instanceRef un1_ti_data_i))
           ))
-          (net out_rom1_c (joined
-           (portRef O (instanceRef out_rom1or_i))
-           (portRef I0 (instanceRef out_rom1))
+          (net (rename latch_i_13 "latch_i[13]") (joined
+           (portRef O (instanceRef latch_i_13))
+           (portRef I0 (instanceRef out_adr_1_26))
           ))
-          (net out_rom1 (joined
-           (portRef O (instanceRef out_rom1))
-           (portRef out_rom1)
+          (net (rename out_adr_1_0_26 "out_adr_1_0[26]") (joined
+           (portRef O (instanceRef out_adr_1_26))
+           (portRef I0 (instanceRef out_adr_1_i_26))
           ))
-          (net out_rom2_c (joined
-           (portRef O (instanceRef out_rom2or_i))
-           (portRef I0 (instanceRef out_rom2))
+          (net (rename latch_i_12 "latch_i[12]") (joined
+           (portRef O (instanceRef latch_i_12))
+           (portRef I0 (instanceRef out_adr_1_25))
           ))
-          (net out_rom2 (joined
-           (portRef O (instanceRef out_rom2))
-           (portRef out_rom2)
+          (net (rename out_adr_1_0_25 "out_adr_1_0[25]") (joined
+           (portRef O (instanceRef out_adr_1_25))
+           (portRef I0 (instanceRef out_adr_1_i_25))
           ))
-          (net out_rom3_c (joined
-           (portRef O (instanceRef out_rom3or_i))
-           (portRef I0 (instanceRef out_rom3))
+          (net (rename latch_i_11 "latch_i[11]") (joined
+           (portRef O (instanceRef latch_i_11))
+           (portRef I0 (instanceRef out_adr_1_24))
           ))
-          (net out_rom3 (joined
-           (portRef O (instanceRef out_rom3))
-           (portRef out_rom3)
+          (net (rename out_adr_1_0_24 "out_adr_1_0[24]") (joined
+           (portRef O (instanceRef out_adr_1_24))
+           (portRef I0 (instanceRef out_adr_1_i_24))
           ))
-          (net out_rom4_c (joined
-           (portRef O (instanceRef out_rom4or_i))
-           (portRef I0 (instanceRef out_rom4))
+          (net (rename latch_i_10 "latch_i[10]") (joined
+           (portRef O (instanceRef latch_i_10))
+           (portRef I0 (instanceRef out_adr_1_23))
           ))
-          (net out_rom4 (joined
-           (portRef O (instanceRef out_rom4))
-           (portRef out_rom4)
+          (net (rename out_adr_1_0_23 "out_adr_1_0[23]") (joined
+           (portRef O (instanceRef out_adr_1_23))
+           (portRef I0 (instanceRef out_adr_1_i_23))
           ))
-          (net out_rom4_c_0 (joined
-           (portRef O (instanceRef out_rom4or))
-           (portRef I0 (instanceRef out_rom4or_i))
+          (net (rename latch_i_9 "latch_i[9]") (joined
+           (portRef O (instanceRef latch_i_9))
+           (portRef I0 (instanceRef out_adr_1_22))
           ))
-          (net out_rom1_c_0 (joined
-           (portRef O (instanceRef out_rom1or))
-           (portRef I0 (instanceRef out_rom1or_i))
+          (net (rename out_adr_1_0_22 "out_adr_1_0[22]") (joined
+           (portRef O (instanceRef out_adr_1_22))
+           (portRef I0 (instanceRef out_adr_1_i_22))
           ))
-          (net out_rom2_c_0 (joined
-           (portRef O (instanceRef out_rom2or))
-           (portRef I0 (instanceRef out_rom2or_i))
+          (net (rename latch_i_8 "latch_i[8]") (joined
+           (portRef O (instanceRef latch_i_8))
+           (portRef I0 (instanceRef out_adr_1_21))
           ))
-          (net out_rom3_c_0 (joined
-           (portRef O (instanceRef out_rom3or))
-           (portRef I0 (instanceRef out_rom3or_i))
+          (net (rename out_adr_1_0_21 "out_adr_1_0[21]") (joined
+           (portRef O (instanceRef out_adr_1_21))
+           (portRef I0 (instanceRef out_adr_1_i_21))
           ))
-          (net out_rom3_c_0_1 (joined
-           (portRef O (instanceRef out_rom3or_1))
-           (portRef I0 (instanceRef out_rom3or))
+          (net (rename latch_i_7 "latch_i[7]") (joined
+           (portRef O (instanceRef latch_i_7))
+           (portRef I0 (instanceRef out_adr_1_20))
           ))
-          (net out_rom2_c_0_1 (joined
-           (portRef O (instanceRef out_rom2or_1))
-           (portRef I0 (instanceRef out_rom2or))
+          (net (rename out_adr_1_0_20 "out_adr_1_0[20]") (joined
+           (portRef O (instanceRef out_adr_1_20))
+           (portRef I0 (instanceRef out_adr_1_i_20))
           ))
-          (net out_rom1_c_0_1 (joined
-           (portRef O (instanceRef out_rom1or_1))
-           (portRef I0 (instanceRef out_rom1or))
+          (net (rename latch_i_6 "latch_i[6]") (joined
+           (portRef O (instanceRef latch_i_6))
+           (portRef I0 (instanceRef out_adr_1_19))
           ))
-          (net out_rom4_c_0_1 (joined
-           (portRef O (instanceRef out_rom4or_1))
-           (portRef I0 (instanceRef out_rom4or))
+          (net (rename out_adr_1_0_19 "out_adr_1_0[19]") (joined
+           (portRef O (instanceRef out_adr_1_19))
+           (portRef I0 (instanceRef out_adr_1_i_19))
           ))
-          (net out_rst2_c_1 (joined
-           (portRef O (instanceRef un1_bounce_1))
-           (portRef I0 (instanceRef un1_bounce_3))
+          (net (rename latch_i_5 "latch_i[5]") (joined
+           (portRef O (instanceRef latch_i_5))
+           (portRef I0 (instanceRef out_adr_1_18))
           ))
-          (net out_rst2_c_2 (joined
-           (portRef O (instanceRef un1_bounce_2))
-           (portRef I1 (instanceRef un1_bounce_3))
+          (net (rename out_adr_1_0_18 "out_adr_1_0[18]") (joined
+           (portRef O (instanceRef out_adr_1_18))
+           (portRef I0 (instanceRef out_adr_1_i_18))
           ))
-          (net out_rst2_c_3 (joined
-           (portRef O (instanceRef un1_bounce_3))
-           (portRef I0 (instanceRef un1_bounce))
+          (net (rename latch_i_4 "latch_i[4]") (joined
+           (portRef O (instanceRef latch_i_4))
+           (portRef I0 (instanceRef out_adr_1_17))
           ))
-          (net N_30_1 (joined
-           (portRef O (instanceRef bounce_13_1))
-           (portRef I0 (instanceRef bounce_13))
+          (net (rename out_adr_1_0_17 "out_adr_1_0[17]") (joined
+           (portRef O (instanceRef out_adr_1_17))
+           (portRef I0 (instanceRef out_adr_1_i_17))
+          ))
+          (net (rename latch_i_3 "latch_i[3]") (joined
+           (portRef O (instanceRef latch_i_3))
+           (portRef I0 (instanceRef out_adr_1_16))
+          ))
+          (net (rename out_adr_1_0_16 "out_adr_1_0[16]") (joined
+           (portRef O (instanceRef out_adr_1_16))
+           (portRef I0 (instanceRef out_adr_1_i_16))
+          ))
+          (net (rename latch_i_2 "latch_i[2]") (joined
+           (portRef O (instanceRef latch_i_2))
+           (portRef I0 (instanceRef out_adr_1_15))
+          ))
+          (net (rename out_adr_1_0_15 "out_adr_1_0[15]") (joined
+           (portRef O (instanceRef out_adr_1_15))
+           (portRef I0 (instanceRef out_adr_1_i_15))
+          ))
+          (net (rename latch_i_1 "latch_i[1]") (joined
+           (portRef O (instanceRef latch_i_1))
+           (portRef I0 (instanceRef out_adr_1_14))
+          ))
+          (net (rename out_adr_1_0_14 "out_adr_1_0[14]") (joined
+           (portRef O (instanceRef out_adr_1_14))
+           (portRef I0 (instanceRef out_adr_1_i_14))
+          ))
+          (net (rename latch_i_0 "latch_i[0]") (joined
+           (portRef O (instanceRef latch_i_0))
+           (portRef I0 (instanceRef out_adr_1_13))
+          ))
+          (net (rename out_adr_1_0_13 "out_adr_1_0[13]") (joined
+           (portRef O (instanceRef out_adr_1_13))
+           (portRef I0 (instanceRef out_adr_1_i_13))
+          ))
+          (net bounce_i (joined
+           (portRef O (instanceRef bounce_i))
+           (portRef I0 (instanceRef bounce_1))
+          ))
+          (net grmpage10_i (joined
+           (portRef O (instanceRef grmpage10_i))
+           (portRef I1 (instanceRef bounce_1))
+          ))
+          (net N_25_0 (joined
+           (portRef O (instanceRef bounce_1))
+           (portRef I0 (instanceRef bounce_1_i))
+          ))
+          (net (rename ti_adr_c_i_7 "ti_adr_c_i[7]") (joined
+           (portRef O (instanceRef ti_adr_c_i_7))
+           (portRef I0 (instanceRef out_adr_1_8))
+          ))
+          (net (rename out_adr_1_0_8 "out_adr_1_0[8]") (joined
+           (portRef O (instanceRef out_adr_1_8))
+           (portRef I0 (instanceRef out_adr_1_i_8))
+          ))
+          (net (rename ti_adr_c_i_6 "ti_adr_c_i[6]") (joined
+           (portRef O (instanceRef ti_adr_c_i_6))
+           (portRef I0 (instanceRef out_adr_1_9))
+          ))
+          (net (rename out_adr_1_0_9 "out_adr_1_0[9]") (joined
+           (portRef O (instanceRef out_adr_1_9))
+           (portRef I0 (instanceRef out_adr_1_i_9))
+          ))
+          (net (rename ti_adr_c_i_5 "ti_adr_c_i[5]") (joined
+           (portRef O (instanceRef ti_adr_c_i_5))
+           (portRef I0 (instanceRef out_adr_1_10))
+          ))
+          (net (rename out_adr_1_0_10 "out_adr_1_0[10]") (joined
+           (portRef O (instanceRef out_adr_1_10))
+           (portRef I0 (instanceRef out_adr_1_i_10))
+          ))
+          (net (rename ti_adr_c_i_4 "ti_adr_c_i[4]") (joined
+           (portRef O (instanceRef ti_adr_c_i_4))
+           (portRef I0 (instanceRef out_adr_1_11))
+          ))
+          (net (rename out_adr_1_0_11 "out_adr_1_0[11]") (joined
+           (portRef O (instanceRef out_adr_1_11))
+           (portRef I0 (instanceRef out_adr_1_i_11))
+          ))
+          (net (rename ti_adr_c_i_3 "ti_adr_c_i[3]") (joined
+           (portRef O (instanceRef ti_adr_c_i_3))
+           (portRef I0 (instanceRef out_adr_1_12))
+          ))
+          (net (rename out_adr_1_0_12 "out_adr_1_0[12]") (joined
+           (portRef O (instanceRef out_adr_1_12))
+           (portRef I0 (instanceRef out_adr_1_i_12))
+          ))
+          (net grmpage_2_1 (joined
+           (portRef O (instanceRef grmpage_2_1))
+           (portRef I0 (instanceRef grmpage_2))
+          ))
+          (net un3_ti_gsel_1 (joined
+           (portRef O (instanceRef un3_ti_gsel_1))
+           (portRef I0 (instanceRef un3_ti_gsel))
+          ))
+          (net (rename out_adr_20_1__un3 "out_adr_20_1_.un3") (joined
+           (portRef O (instanceRef out_adr_20_1__r))
+           (portRef I1 (instanceRef out_adr_20_1__n))
+          ))
+          (net (rename out_adr_20_1__un1 "out_adr_20_1_.un1") (joined
+           (portRef O (instanceRef out_adr_20_1__m))
+           (portRef I0 (instanceRef out_adr_20_1__p))
+          ))
+          (net (rename out_adr_20_1__un0 "out_adr_20_1_.un0") (joined
+           (portRef O (instanceRef out_adr_20_1__n))
+           (portRef I1 (instanceRef out_adr_20_1__p))
+          ))
+          (net (rename out_adr_12_5__un3 "out_adr_12_5_.un3") (joined
+           (portRef O (instanceRef out_adr_12_5__r))
+           (portRef I1 (instanceRef out_adr_12_5__n))
+          ))
+          (net (rename out_adr_12_5__un1 "out_adr_12_5_.un1") (joined
+           (portRef O (instanceRef out_adr_12_5__m))
+           (portRef I0 (instanceRef out_adr_12_5__p))
+          ))
+          (net (rename out_adr_12_5__un0 "out_adr_12_5_.un0") (joined
+           (portRef O (instanceRef out_adr_12_5__n))
+           (portRef I1 (instanceRef out_adr_12_5__p))
+          ))
+          (net (rename out_adr_10_6__un3 "out_adr_10_6_.un3") (joined
+           (portRef O (instanceRef out_adr_10_6__r))
+           (portRef I1 (instanceRef out_adr_10_6__n))
+          ))
+          (net (rename out_adr_10_6__un1 "out_adr_10_6_.un1") (joined
+           (portRef O (instanceRef out_adr_10_6__m))
+           (portRef I0 (instanceRef out_adr_10_6__p))
+          ))
+          (net (rename out_adr_10_6__un0 "out_adr_10_6_.un0") (joined
+           (portRef O (instanceRef out_adr_10_6__n))
+           (portRef I1 (instanceRef out_adr_10_6__p))
+          ))
+          (net (rename out_adr_8_7__un3 "out_adr_8_7_.un3") (joined
+           (portRef O (instanceRef out_adr_8_7__r))
+           (portRef I1 (instanceRef out_adr_8_7__n))
+          ))
+          (net (rename out_adr_8_7__un1 "out_adr_8_7_.un1") (joined
+           (portRef O (instanceRef out_adr_8_7__m))
+           (portRef I0 (instanceRef out_adr_8_7__p))
+          ))
+          (net (rename out_adr_8_7__un0 "out_adr_8_7_.un0") (joined
+           (portRef O (instanceRef out_adr_8_7__n))
+           (portRef I1 (instanceRef out_adr_8_7__p))
+          ))
+          (net (rename out_adr_14_4__un3 "out_adr_14_4_.un3") (joined
+           (portRef O (instanceRef out_adr_14_4__r))
+           (portRef I1 (instanceRef out_adr_14_4__n))
+          ))
+          (net (rename out_adr_14_4__un1 "out_adr_14_4_.un1") (joined
+           (portRef O (instanceRef out_adr_14_4__m))
+           (portRef I0 (instanceRef out_adr_14_4__p))
+          ))
+          (net (rename out_adr_14_4__un0 "out_adr_14_4_.un0") (joined
+           (portRef O (instanceRef out_adr_14_4__n))
+           (portRef I1 (instanceRef out_adr_14_4__p))
+          ))
+          (net (rename out_adr_16_3__un3 "out_adr_16_3_.un3") (joined
+           (portRef O (instanceRef out_adr_16_3__r))
+           (portRef I1 (instanceRef out_adr_16_3__n))
+          ))
+          (net (rename out_adr_16_3__un1 "out_adr_16_3_.un1") (joined
+           (portRef O (instanceRef out_adr_16_3__m))
+           (portRef I0 (instanceRef out_adr_16_3__p))
+          ))
+          (net (rename out_adr_16_3__un0 "out_adr_16_3_.un0") (joined
+           (portRef O (instanceRef out_adr_16_3__n))
+           (portRef I1 (instanceRef out_adr_16_3__p))
+          ))
+          (net (rename out_adr_18_2__un3 "out_adr_18_2_.un3") (joined
+           (portRef O (instanceRef out_adr_18_2__r))
+           (portRef I1 (instanceRef out_adr_18_2__n))
+          ))
+          (net (rename out_adr_18_2__un1 "out_adr_18_2_.un1") (joined
+           (portRef O (instanceRef out_adr_18_2__m))
+           (portRef I0 (instanceRef out_adr_18_2__p))
+          ))
+          (net (rename out_adr_18_2__un0 "out_adr_18_2_.un0") (joined
+           (portRef O (instanceRef out_adr_18_2__n))
+           (portRef I1 (instanceRef out_adr_18_2__p))
+          ))
+          (net (rename out_adr_22_0__un3 "out_adr_22_0_.un3") (joined
+           (portRef O (instanceRef out_adr_22_0__r))
+           (portRef I1 (instanceRef out_adr_22_0__n))
+          ))
+          (net (rename out_adr_22_0__un1 "out_adr_22_0_.un1") (joined
+           (portRef O (instanceRef out_adr_22_0__m))
+           (portRef I0 (instanceRef out_adr_22_0__p))
+          ))
+          (net (rename out_adr_22_0__un0 "out_adr_22_0_.un0") (joined
+           (portRef O (instanceRef out_adr_22_0__n))
+           (portRef I1 (instanceRef out_adr_22_0__p))
           ))
          )
         (property orig_inst_of (string "gigacart"))

@@ -1,4 +1,4 @@
 6
-~E 1 "./../../design.vhd" 6 gigacart
-~A 1 "./../../design.vhd" 28 myarch
+~E 1 "./../../design.vhd" 16 gigacart
+~A 1 "./../../design.vhd" 33 myarch
 ~E 1 "./../../testbench.vhd" 8 testbench

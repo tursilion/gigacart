@@ -1,5 +1,5 @@
 @N|Running in 64-bit mode
 @N: CD720 :"C:\ispLEVER_Classic2_0\synpbase\lib\vhd\std.vhd":123:18:123:21|Setting time resolution to ns
-@N:"D:\work\ti\dragonslair\cart\cpld\design.vhd":10:7:10:14|Top entity is set to gigacart.
-@N: CD630 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":10:7:10:14|Synthesizing work.gigacart.myarch 
+@N:"D:\work\ti\dragonslair\cart\cpld\design.vhd":16:7:16:14|Top entity is set to gigacart.
+@N: CD630 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":16:7:16:14|Synthesizing work.gigacart.myarch 
 

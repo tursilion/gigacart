@@ -1,0 +1,68 @@
+The CPLD operates in the normal "write-to-bank" mode, but there are a couple of gotchas.
+
+First, we latch 14 bits, which is more than the 12 normally available. The two most significant bits come from the data bus. An alternate version latches two more bits and feeds them out as a chip select, going to 512MB over four chips. That still leaves 4 bits unused for a theorhetical maximum of 8 gigabytes.
+
+The flash chip requires a clean reset at power-on. This is accomplished by holding reset active until the first ROM select comes in from the TI.
+
+---------------------
+
+*** Hmmm. That won't do much good on a 2.2 console. First GROM select is probably adequate, though. Per TI Intern the first time we query GROM happens after this much code:
+
+<<reset vector>>
+LI R13,>9800
+LI R14,>0100
+LI R15,>8C02
+LI R0,>0020
+JMP >005C
+...
+
+Per Classic99, that's about 84 cycles, or 28uS. The flash datasheet requests a minimum reset pulse of 35uS.
+
+Might need something else.... I need 105 cycles, 106 to be safe.
+
+If I wait for the first GPL address write, that adds:
+
+MOVB *R13,4
+MOV R0,R6
+MOVB R6,@>0402(R13)
+
+Which Classic99 records as 139 cycles total. THAT seems safe and saves me an extra process block.
+
+---------------------
+
+The Write Enable line has an RC network on it that is intended to help delay the signal to skip over noisy lines. The default values (68 ohm/1nF) result in about a 68nS delay. I increased the resistor to 100 ohms to provide 100nS of delay, which is enough to ensure that WE comes after the GS, meaning I can gate all operations on WE safely. The logic analyzer says there is enough headroom to do this for ROM reads, and of course GROM reads have plenty.
+
+---------------------
+
+** Below is untrue -- auto-increment is mandatory for operations that require an opcode, sadly. Otherwise it almost worked... ;) **
+
+The current CPLD GROM code does not increment the address latch. It consists solely of an 8-bit latch (last address byte written), and a bitflag for select (true when the three most significant bits were 100, giving a range from >8000 to >9FFF).
+
+The lack of increment doesn't really bother the GPL interpreter, but it does bother the XML code in the CPU that parses the header. Since there are only a couple of parts it matters - link addresses, we can fake something using duplicated bytes. Only the LSB matters to the address latch, and the MSB is valid as long as it's >8x or >9x
+
+Header at >8000
+ID:		AA 01
+Count:	01 00
+PowerUp:00 00
+Program:81 81
+DSR:    00 00
+Sub:    00 00
+
+Program list at >8081 (or >8181, etc)
+LINK:	00 00
+Start:	98 98
+Length: 0C
+Text:   DRAGONS LAIR
+
+Program at >8098 (or >9898, etc)
+
+07 20	ALL >20					* clear screen
+bf 00	DST >601c at @>8300		* store CPU start address (hard coded)
+60 1c
+0f f0	XML >F0					* XML vector >8300	
+0b		EXIT					* in case it returns, reboot
+00		RTN						* in case THAT returns, return ;)
+
+Regarding the XML -- XML >70 would take the address from >6010, which we control. XML >80 takes it from >6030.
+And technically we can have other offsets, XML >71 takes from >6012, >72 from >6014, etc. Saves us some setup code. Unfortunatly XML >0F (>0F 0F) is taken with a floating point compare. ;)
+

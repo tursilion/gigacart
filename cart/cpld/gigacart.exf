@@ -65,16 +65,17 @@ Section Member   Rename                   Array-Notation          Array Number  
         Port      out_data_0_                 out_data[0]                       2            7            
 End
 Section Cross Reference File
-Design 'gigacart' created Sun Jul 01 20:45:33 2018
+Design 'gigacart' created Sun Sep 16 22:30:38 2018
    Type              New Name                               Original Name
 // ----------------------------------------------------------------------
-   Inst                chip_0_                                   chip[0]
-   Inst                chip_1_                                   chip[1]
-   Inst               latch_2_                                  latch[2]
-   Inst               latch_3_                                  latch[3]
-   Inst               latch_4_                                  latch[4]
-   Inst               latch_5_                                  latch[5]
-   Inst               latch_6_                                  latch[6]
+   Inst              grmadr_7_                                 grmadr[7]
+   Inst              grmadr_6_                                 grmadr[6]
+   Inst              grmadr_5_                                 grmadr[5]
+   Inst              grmadr_4_                                 grmadr[4]
+   Inst              grmadr_3_                                 grmadr[3]
+   Inst              grmadr_2_                                 grmadr[2]
+   Inst              grmadr_1_                                 grmadr[1]
+   Inst              grmadr_0_                                 grmadr[0]
    Inst               latch_7_                                  latch[7]
    Inst               latch_8_                                  latch[8]
    Inst               latch_9_                                  latch[9]
@@ -82,15 +83,13 @@ Design 'gigacart' created Sun Jul 01 20:45:33 2018
    Inst              latch_11_                                 latch[11]
    Inst              latch_12_                                 latch[12]
    Inst              latch_13_                                 latch[13]
-   Inst              bounce_2_                                 bounce[2]
-   Inst              bounce_1_                                 bounce[1]
-   Inst              bounce_0_                                 bounce[0]
    Inst               latch_0_                                  latch[0]
    Inst               latch_1_                                  latch[1]
-   Inst              bounce_5_                                 bounce[5]
-   Inst              bounce_4_                                 bounce[4]
-   Inst              bounce_3_                                 bounce[3]
-   Inst              bounce_6_                                 bounce[6]
+   Inst               latch_2_                                  latch[2]
+   Inst               latch_3_                                  latch[3]
+   Inst               latch_4_                                  latch[4]
+   Inst               latch_5_                                  latch[5]
+   Inst               latch_6_                                  latch[6]
    Inst              ti_adr_3_                                 ti_adr[3]
    Inst              ti_adr_4_                                 ti_adr[4]
    Inst              ti_adr_5_                                 ti_adr[5]
@@ -147,10 +146,128 @@ Design 'gigacart' created Sun Jul 01 20:45:33 2018
    Inst            out_data_5_                               out_data[5]
    Inst            out_data_6_                               out_data[6]
    Inst            out_data_7_                               out_data[7]
-   Inst              chip_i_1_                                 chip_i[1]
-   Inst              chip_i_0_                                 chip_i[0]
-   Net               chip_0__n                                   chip[0]
-   Net               chip_1__n                                   chip[1]
+   Inst             latch_i_0_                                latch_i[0]
+   Inst        out_adr_1_i_13_                           out_adr_1_i[13]
+   Inst          ti_adr_c_i_7_                             ti_adr_c_i[7]
+   Inst         out_adr_1_i_8_                            out_adr_1_i[8]
+   Inst          ti_adr_c_i_6_                             ti_adr_c_i[6]
+   Inst         out_adr_1_i_9_                            out_adr_1_i[9]
+   Inst          ti_adr_c_i_5_                             ti_adr_c_i[5]
+   Inst        out_adr_1_i_10_                           out_adr_1_i[10]
+   Inst          ti_adr_c_i_4_                             ti_adr_c_i[4]
+   Inst        out_adr_1_i_11_                           out_adr_1_i[11]
+   Inst          ti_adr_c_i_3_                             ti_adr_c_i[3]
+   Inst        out_adr_1_i_12_                           out_adr_1_i[12]
+   Inst        out_adr_1_i_21_                           out_adr_1_i[21]
+   Inst             latch_i_7_                                latch_i[7]
+   Inst        out_adr_1_i_20_                           out_adr_1_i[20]
+   Inst             latch_i_6_                                latch_i[6]
+   Inst        out_adr_1_i_19_                           out_adr_1_i[19]
+   Inst             latch_i_5_                                latch_i[5]
+   Inst        out_adr_1_i_18_                           out_adr_1_i[18]
+   Inst             latch_i_4_                                latch_i[4]
+   Inst        out_adr_1_i_17_                           out_adr_1_i[17]
+   Inst             latch_i_3_                                latch_i[3]
+   Inst        out_adr_1_i_16_                           out_adr_1_i[16]
+   Inst             latch_i_2_                                latch_i[2]
+   Inst        out_adr_1_i_15_                           out_adr_1_i[15]
+   Inst             latch_i_1_                                latch_i[1]
+   Inst        out_adr_1_i_14_                           out_adr_1_i[14]
+   Inst            latch_i_13_                               latch_i[13]
+   Inst        out_adr_1_i_26_                           out_adr_1_i[26]
+   Inst            latch_i_12_                               latch_i[12]
+   Inst        out_adr_1_i_25_                           out_adr_1_i[25]
+   Inst            latch_i_11_                               latch_i[11]
+   Inst        out_adr_1_i_24_                           out_adr_1_i[24]
+   Inst            latch_i_10_                               latch_i[10]
+   Inst        out_adr_1_i_23_                           out_adr_1_i[23]
+   Inst             latch_i_9_                                latch_i[9]
+   Inst        out_adr_1_i_22_                           out_adr_1_i[22]
+   Inst             latch_i_8_                                latch_i[8]
+   Inst            grmadr_i_2_                               grmadr_i[2]
+   Inst            grmadr_i_1_                               grmadr_i[1]
+   Inst           ti_adr_i_14_                              ti_adr_i[14]
+   Inst        out_adr_20_1__r                           out_adr_20_1_.r
+   Inst        out_adr_20_1__m                           out_adr_20_1_.m
+   Inst        out_adr_20_1__n                           out_adr_20_1_.n
+   Inst        out_adr_20_1__p                           out_adr_20_1_.p
+   Inst        out_adr_12_5__r                           out_adr_12_5_.r
+   Inst        out_adr_12_5__m                           out_adr_12_5_.m
+   Inst        out_adr_12_5__n                           out_adr_12_5_.n
+   Inst        out_adr_12_5__p                           out_adr_12_5_.p
+   Inst        out_adr_10_6__r                           out_adr_10_6_.r
+   Inst        out_adr_10_6__m                           out_adr_10_6_.m
+   Inst        out_adr_10_6__n                           out_adr_10_6_.n
+   Inst        out_adr_10_6__p                           out_adr_10_6_.p
+   Inst         out_adr_8_7__r                            out_adr_8_7_.r
+   Inst         out_adr_8_7__m                            out_adr_8_7_.m
+   Inst         out_adr_8_7__n                            out_adr_8_7_.n
+   Inst         out_adr_8_7__p                            out_adr_8_7_.p
+   Inst          out_adr_1_17_                             out_adr_1[17]
+   Inst          out_adr_1_18_                             out_adr_1[18]
+   Inst          out_adr_1_19_                             out_adr_1[19]
+   Inst          out_adr_1_20_                             out_adr_1[20]
+   Inst          out_adr_1_21_                             out_adr_1[21]
+   Inst          out_adr_1_22_                             out_adr_1[22]
+   Inst          out_adr_1_23_                             out_adr_1[23]
+   Inst          out_adr_1_24_                             out_adr_1[24]
+   Inst          out_adr_1_25_                             out_adr_1[25]
+   Inst          out_adr_1_26_                             out_adr_1[26]
+   Inst          out_adr_1_12_                             out_adr_1[12]
+   Inst          out_adr_1_11_                             out_adr_1[11]
+   Inst          out_adr_1_10_                             out_adr_1[10]
+   Inst           out_adr_1_9_                              out_adr_1[9]
+   Inst           out_adr_1_8_                              out_adr_1[8]
+   Inst        out_adr_14_4__r                           out_adr_14_4_.r
+   Inst        out_adr_14_4__m                           out_adr_14_4_.m
+   Inst        out_adr_14_4__n                           out_adr_14_4_.n
+   Inst        out_adr_14_4__p                           out_adr_14_4_.p
+   Inst        out_adr_16_3__r                           out_adr_16_3_.r
+   Inst        out_adr_16_3__m                           out_adr_16_3_.m
+   Inst        out_adr_16_3__n                           out_adr_16_3_.n
+   Inst        out_adr_16_3__p                           out_adr_16_3_.p
+   Inst        out_adr_18_2__r                           out_adr_18_2_.r
+   Inst        out_adr_18_2__m                           out_adr_18_2_.m
+   Inst        out_adr_18_2__n                           out_adr_18_2_.n
+   Inst        out_adr_18_2__p                           out_adr_18_2_.p
+   Inst        out_adr_22_0__r                           out_adr_22_0_.r
+   Inst        out_adr_22_0__m                           out_adr_22_0_.m
+   Inst        out_adr_22_0__n                           out_adr_22_0_.n
+   Inst        out_adr_22_0__p                           out_adr_22_0_.p
+   Inst          out_adr_1_13_                             out_adr_1[13]
+   Inst          out_adr_1_14_                             out_adr_1[14]
+   Inst          out_adr_1_15_                             out_adr_1[15]
+   Inst          out_adr_1_16_                             out_adr_1[16]
+   Net         out_adr_22_0__n                             out_adr_22[0]
+   Net         out_adr_20_1__n                             out_adr_20[1]
+   Net         out_adr_18_2__n                             out_adr_18[2]
+   Net         out_adr_16_3__n                             out_adr_16[3]
+   Net         out_adr_14_4__n                             out_adr_14[4]
+   Net         out_adr_12_5__n                             out_adr_12[5]
+   Net         out_adr_10_6__n                             out_adr_10[6]
+   Net          out_adr_8_7__n                              out_adr_8[7]
+   Net          out_adr_1_8__n                              out_adr_1[8]
+   Net          out_adr_1_9__n                              out_adr_1[9]
+   Net         out_adr_1_10__n                             out_adr_1[10]
+   Net         out_adr_1_11__n                             out_adr_1[11]
+   Net         out_adr_1_12__n                             out_adr_1[12]
+   Net         out_adr_1_13__n                             out_adr_1[13]
+   Net         out_adr_1_14__n                             out_adr_1[14]
+   Net         out_adr_1_15__n                             out_adr_1[15]
+   Net         out_adr_1_16__n                             out_adr_1[16]
+   Net         out_adr_1_17__n                             out_adr_1[17]
+   Net         out_adr_1_18__n                             out_adr_1[18]
+   Net         out_adr_1_19__n                             out_adr_1[19]
+   Net         out_adr_1_20__n                             out_adr_1[20]
+   Net         out_adr_1_21__n                             out_adr_1[21]
+   Net         out_adr_1_22__n                             out_adr_1[22]
+   Net         out_adr_1_23__n                             out_adr_1[23]
+   Net         out_adr_1_24__n                             out_adr_1[24]
+   Net         out_adr_1_25__n                             out_adr_1[25]
+   Net         out_adr_1_26__n                             out_adr_1[26]
+   Net             grmadr_1__n                                 grmadr[1]
+   Net             grmadr_2__n                                 grmadr[2]
+   Net             grmadr_0__n                                 grmadr[0]
    Net              latch_0__n                                  latch[0]
    Net              latch_1__n                                  latch[1]
    Net              latch_2__n                                  latch[2]
@@ -165,15 +282,14 @@ Design 'gigacart' created Sun Jul 01 20:45:33 2018
    Net             latch_11__n                                 latch[11]
    Net             latch_12__n                                 latch[12]
    Net             latch_13__n                                 latch[13]
-   Net             bounce_6__n                                 bounce[6]
-   Net             bounce_5__n                                 bounce[5]
-   Net             bounce_4__n                                 bounce[4]
-   Net             bounce_3__n                                 bounce[3]
-   Net             bounce_2__n                                 bounce[2]
-   Net             bounce_1__n                                 bounce[1]
-   Net             bounce_0__n                                 bounce[0]
-   Net             chip_i_0__n                                 chip_i[0]
-   Net             chip_i_1__n                                 chip_i[1]
+   Net             grmadr_3__n                                 grmadr[3]
+   Net             grmadr_4__n                                 grmadr[4]
+   Net             grmadr_5__n                                 grmadr[5]
+   Net             grmadr_6__n                                 grmadr[6]
+   Net             grmadr_7__n                                 grmadr[7]
+   Net          ti_adr_i_14__n                              ti_adr_i[14]
+   Net           grmadr_i_1__n                               grmadr_i[1]
+   Net           grmadr_i_2__n                               grmadr_i[2]
    Net           ti_adr_c_3__n                               ti_adr_c[3]
    Net             ti_adr_3__n                                 ti_adr[3]
    Net           ti_adr_c_4__n                               ti_adr_c[4]
@@ -188,14 +304,24 @@ Design 'gigacart' created Sun Jul 01 20:45:33 2018
    Net             ti_adr_8__n                                 ti_adr[8]
    Net           ti_adr_c_9__n                               ti_adr_c[9]
    Net             ti_adr_9__n                                 ti_adr[9]
+   Net          ti_adr_c_10__n                              ti_adr_c[10]
    Net            ti_adr_10__n                                ti_adr[10]
+   Net          ti_adr_c_11__n                              ti_adr_c[11]
    Net            ti_adr_11__n                                ti_adr[11]
+   Net          ti_adr_c_12__n                              ti_adr_c[12]
    Net            ti_adr_12__n                                ti_adr[12]
+   Net          ti_adr_c_13__n                              ti_adr_c[13]
    Net            ti_adr_13__n                                ti_adr[13]
+   Net          ti_adr_c_14__n                              ti_adr_c[14]
    Net            ti_adr_14__n                                ti_adr[14]
+   Net          ti_adr_c_15__n                              ti_adr_c[15]
+   Net          ti_data_c_0__n                              ti_data_c[0]
    Net            ti_data_0__n                                ti_data[0]
+   Net          ti_data_c_1__n                              ti_data_c[1]
    Net            ti_data_1__n                                ti_data[1]
+   Net          ti_data_c_2__n                              ti_data_c[2]
    Net            ti_data_2__n                                ti_data[2]
+   Net          ti_data_c_3__n                              ti_data_c[3]
    Net            ti_data_3__n                                ti_data[3]
    Net          ti_data_c_4__n                              ti_data_c[4]
    Net            ti_data_4__n                                ti_data[4]
@@ -204,17 +330,11 @@ Design 'gigacart' created Sun Jul 01 20:45:33 2018
    Net          ti_data_c_6__n                              ti_data_c[6]
    Net            ti_data_6__n                                ti_data[6]
    Net          ti_data_c_7__n                              ti_data_c[7]
-   Net          out_adr_c_0__n                              out_adr_c[0]
    Net            out_adr_0__n                                out_adr[0]
-   Net          out_adr_c_1__n                              out_adr_c[1]
    Net            out_adr_1__n                                out_adr[1]
-   Net          out_adr_c_2__n                              out_adr_c[2]
    Net            out_adr_2__n                                out_adr[2]
-   Net          out_adr_c_3__n                              out_adr_c[3]
    Net            out_adr_3__n                                out_adr[3]
-   Net          out_adr_c_4__n                              out_adr_c[4]
    Net            out_adr_4__n                                out_adr[4]
-   Net          out_adr_c_5__n                              out_adr_c[5]
    Net            out_adr_5__n                                out_adr[5]
    Net            out_adr_6__n                                out_adr[6]
    Net            out_adr_7__n                                out_adr[7]
@@ -251,6 +371,68 @@ Design 'gigacart' created Sun Jul 01 20:45:33 2018
    Net         out_data_c_6__n                             out_data_c[6]
    Net           out_data_6__n                               out_data[6]
    Net         out_data_c_7__n                             out_data_c[7]
+   Net           latch_i_13__n                               latch_i[13]
+   Net       out_adr_1_0_26__n                           out_adr_1_0[26]
+   Net           latch_i_12__n                               latch_i[12]
+   Net       out_adr_1_0_25__n                           out_adr_1_0[25]
+   Net           latch_i_11__n                               latch_i[11]
+   Net       out_adr_1_0_24__n                           out_adr_1_0[24]
+   Net           latch_i_10__n                               latch_i[10]
+   Net       out_adr_1_0_23__n                           out_adr_1_0[23]
+   Net            latch_i_9__n                                latch_i[9]
+   Net       out_adr_1_0_22__n                           out_adr_1_0[22]
+   Net            latch_i_8__n                                latch_i[8]
+   Net       out_adr_1_0_21__n                           out_adr_1_0[21]
+   Net            latch_i_7__n                                latch_i[7]
+   Net       out_adr_1_0_20__n                           out_adr_1_0[20]
+   Net            latch_i_6__n                                latch_i[6]
+   Net       out_adr_1_0_19__n                           out_adr_1_0[19]
+   Net            latch_i_5__n                                latch_i[5]
+   Net       out_adr_1_0_18__n                           out_adr_1_0[18]
+   Net            latch_i_4__n                                latch_i[4]
+   Net       out_adr_1_0_17__n                           out_adr_1_0[17]
+   Net            latch_i_3__n                                latch_i[3]
+   Net       out_adr_1_0_16__n                           out_adr_1_0[16]
+   Net            latch_i_2__n                                latch_i[2]
+   Net       out_adr_1_0_15__n                           out_adr_1_0[15]
+   Net            latch_i_1__n                                latch_i[1]
+   Net       out_adr_1_0_14__n                           out_adr_1_0[14]
+   Net            latch_i_0__n                                latch_i[0]
+   Net       out_adr_1_0_13__n                           out_adr_1_0[13]
+   Net         ti_adr_c_i_7__n                             ti_adr_c_i[7]
+   Net        out_adr_1_0_8__n                            out_adr_1_0[8]
+   Net         ti_adr_c_i_6__n                             ti_adr_c_i[6]
+   Net        out_adr_1_0_9__n                            out_adr_1_0[9]
+   Net         ti_adr_c_i_5__n                             ti_adr_c_i[5]
+   Net       out_adr_1_0_10__n                           out_adr_1_0[10]
+   Net         ti_adr_c_i_4__n                             ti_adr_c_i[4]
+   Net       out_adr_1_0_11__n                           out_adr_1_0[11]
+   Net         ti_adr_c_i_3__n                             ti_adr_c_i[3]
+   Net       out_adr_1_0_12__n                           out_adr_1_0[12]
+   Net     out_adr_20_1__un3_n                         out_adr_20_1_.un3
+   Net     out_adr_20_1__un1_n                         out_adr_20_1_.un1
+   Net     out_adr_20_1__un0_n                         out_adr_20_1_.un0
+   Net     out_adr_12_5__un3_n                         out_adr_12_5_.un3
+   Net     out_adr_12_5__un1_n                         out_adr_12_5_.un1
+   Net     out_adr_12_5__un0_n                         out_adr_12_5_.un0
+   Net     out_adr_10_6__un3_n                         out_adr_10_6_.un3
+   Net     out_adr_10_6__un1_n                         out_adr_10_6_.un1
+   Net     out_adr_10_6__un0_n                         out_adr_10_6_.un0
+   Net      out_adr_8_7__un3_n                          out_adr_8_7_.un3
+   Net      out_adr_8_7__un1_n                          out_adr_8_7_.un1
+   Net      out_adr_8_7__un0_n                          out_adr_8_7_.un0
+   Net     out_adr_14_4__un3_n                         out_adr_14_4_.un3
+   Net     out_adr_14_4__un1_n                         out_adr_14_4_.un1
+   Net     out_adr_14_4__un0_n                         out_adr_14_4_.un0
+   Net     out_adr_16_3__un3_n                         out_adr_16_3_.un3
+   Net     out_adr_16_3__un1_n                         out_adr_16_3_.un1
+   Net     out_adr_16_3__un0_n                         out_adr_16_3_.un0
+   Net     out_adr_18_2__un3_n                         out_adr_18_2_.un3
+   Net     out_adr_18_2__un1_n                         out_adr_18_2_.un1
+   Net     out_adr_18_2__un0_n                         out_adr_18_2_.un0
+   Net     out_adr_22_0__un3_n                         out_adr_22_0_.un3
+   Net     out_adr_22_0__un1_n                         out_adr_22_0_.un1
+   Net     out_adr_22_0__un0_n                         out_adr_22_0_.un0
 End
 Section Type      Name
 // ----------------------------------------------------------------------
@@ -258,6 +440,7 @@ Section Type      Name
         Input     out_data_7_
         Input     ti_we
         Input     ti_rom
+        Input     ti_gsel
         Input     ti_adr_14_
         Input     ti_adr_13_
         Input     ti_adr_12_
@@ -278,14 +461,7 @@ Section Type      Name
         Input     out_data_1_
         Input     out_data_0_
         Output     out_adr_26_
-        Output     out_rom
-        Output     out_we
         Output     out_reset
-        Output     out_rst2
-        Output     out_rom1
-        Output     out_rom2
-        Output     out_rom3
-        Output     out_rom4
         Output     out_adr_25_
         Output     out_adr_24_
         Output     out_adr_23_

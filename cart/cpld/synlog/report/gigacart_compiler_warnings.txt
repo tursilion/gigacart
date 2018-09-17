@@ -1,2 +1,4 @@
-@W: CL169 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":86:2:86:3|Pruning register bounce_4(0 to 6)  
+@W: CG296 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":67:1:67:7|Incomplete sensitivity list - assuming completeness
+@W: CG290 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":70:51:70:57|Referenced variable ti_gsel is not in sensitivity list
+@W: CG290 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":70:6:70:11|Referenced variable ti_rom is not in sensitivity list
 

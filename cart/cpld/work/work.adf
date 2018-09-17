@@ -26,21 +26,9 @@ EnableDebug=0
 CompileWithDebug=0
 [$LibMap$]
 work=.
-[Groups]
-TestBench=1
-[Files]
-TestBench/gigacart_TB.vhd=-1
-TestBench/gigacart_TB_runtest.do=-1
-/untitled.asdb=-1
-/untitled.awc=-1
-[Files.Data]
-.\src\TestBench\gigacart_TB.vhd=VHDL Test Bench
-.\src\TestBench\gigacart_TB_runtest.do=Macro
-.\src\untitled.asdb=Accelerated Waveform File
-.\src\untitled.awc=Accelerated Waveform Configuration
 [SpecTracer]
 WindowVisible=0
 [HierarchyViewer]
-HierarchyInformation=gigacart|myarch|0 
+HierarchyInformation=
 ShowHide=ShowTopLevel
 Selected=

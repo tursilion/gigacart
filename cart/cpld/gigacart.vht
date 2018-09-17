@@ -1,5 +1,5 @@
 
--- VHDL Test Bench Created from source file gigacart.vhd -- 02/11/18  01:56:41
+-- VHDL Test Bench Created from source file gigacart.vhd -- 09/16/18  22:28:20
 --
 -- Notes: 
 -- 1) This testbench template has been automatically generated using types
@@ -26,33 +26,25 @@ ARCHITECTURE behavior OF testbench IS
 
 	COMPONENT gigacart
 	PORT(
-		ti_adr : IN std_logic_vector(12 downto 0);
+		ti_adr : IN std_logic_vector(15 downto 3);
 		ti_we : IN std_logic;
 		ti_rom : IN std_logic;
+		ti_gsel : IN std_logic;
 		out_data : IN std_logic_vector(7 downto 0);    
 		ti_data : INOUT std_logic_vector(7 downto 0);      
 		out_adr : OUT std_logic_vector(26 downto 0);
-		out_rom : OUT std_logic;
-		out_we : OUT std_logic;
-		out_rom1 : OUT std_logic;
-		out_rom2 : OUT std_logic;
-		out_rom3 : OUT std_logic;
-		out_rom4 : OUT std_logic
+		out_reset : OUT std_logic
 		);
 	END COMPONENT;
 
-	SIGNAL ti_adr :  std_logic_vector(12 downto 0);
+	SIGNAL ti_adr :  std_logic_vector(15 downto 3);
 	SIGNAL ti_data :  std_logic_vector(7 downto 0);
 	SIGNAL ti_we :  std_logic;
 	SIGNAL ti_rom :  std_logic;
+	SIGNAL ti_gsel :  std_logic;
 	SIGNAL out_adr :  std_logic_vector(26 downto 0);
 	SIGNAL out_data :  std_logic_vector(7 downto 0);
-	SIGNAL out_rom :  std_logic;
-	SIGNAL out_we :  std_logic;
-	SIGNAL out_rom1 :  std_logic;
-	SIGNAL out_rom2 :  std_logic;
-	SIGNAL out_rom3 :  std_logic;
-	SIGNAL out_rom4 :  std_logic;
+	SIGNAL out_reset :  std_logic;
 
 BEGIN
 
@@ -61,14 +53,10 @@ BEGIN
 		ti_data => ti_data,
 		ti_we => ti_we,
 		ti_rom => ti_rom,
+		ti_gsel => ti_gsel,
 		out_adr => out_adr,
 		out_data => out_data,
-		out_rom => out_rom,
-		out_we => out_we,
-		out_rom1 => out_rom1,
-		out_rom2 => out_rom2,
-		out_rom3 => out_rom3,
-		out_rom4 => out_rom4
+		out_reset => out_reset
 	);
 
 
