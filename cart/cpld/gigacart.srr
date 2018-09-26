@@ -6,7 +6,7 @@
 #Implementation: cpld
 
 $ Start of Compile
-#Tue Sep 25 20:45:37 2018
+#Tue Sep 25 23:47:56 2018
 
 Synopsys VHDL Compiler, version comp201403rcp1, Build 060R, built May 27 2014
 @N|Running in 64-bit mode
@@ -18,20 +18,29 @@ File D:\work\ti\dragonslair\cart\cpld\design.vhd changed - recompiling
 VHDL syntax check successful!
 File D:\work\ti\dragonslair\cart\cpld\design.vhd changed - recompiling
 @N: CD630 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":19:7:19:14|Synthesizing work.gigacart.myarch 
-@W: CG296 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":107:1:107:7|Incomplete sensitivity list - assuming completeness
-@W: CG290 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":110:6:110:11|Referenced variable ti_rom is not in sensitivity list
-@W: CD434 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":183:18:183:24|Signal gnewadr in the sensitivity list is not used in the process
+@W: CG296 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":106:1:106:7|Incomplete sensitivity list - assuming completeness
+@W: CG290 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":135:36:135:42|Referenced variable ti_gsel is not in sensitivity list
+@W: CG290 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":109:36:109:41|Referenced variable ti_rom is not in sensitivity list
+@W: CG296 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":259:1:259:7|Incomplete sensitivity list - assuming completeness
+@W: CG290 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":261:40:261:46|Referenced variable gactive is not in sensitivity list
 Post processing for work.gigacart.myarch
-@W: CL169 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":42:40:42:49|Pruning register gnewadr_2  
-@A: CL282 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":110:2:110:3|Feedback mux created for signal latch[13:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
 @W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":66:2:66:3|Input data for signal gvalid contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
 @W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":66:2:66:3|Input data for signal gactive contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":158:2:158:3|Found combinational loop at grminc[0]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":158:2:158:3|Found combinational loop at grminc[1]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":158:2:158:3|Found combinational loop at grminc[2]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":158:2:158:3|Found combinational loop at grminc[3]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":158:2:158:3|Found combinational loop at grminc[4]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":158:2:158:3|Found combinational loop at grminc[5]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":158:2:158:3|Found combinational loop at grminc[6]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":158:2:158:3|Found combinational loop at grminc[7]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":46:32:46:34|Found combinational loop at grminc[0]
 @END
 
 At c_vhdl Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 70MB peak: 71MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Tue Sep 25 20:45:38 2018
+# Tue Sep 25 23:47:56 2018
 
 ###########################################################]
 Synopsys Netlist Linker, version comp201403rcp1, Build 060R, built May 27 2014
@@ -41,7 +50,7 @@ File D:\work\ti\dragonslair\cart\cpld\synwork\gigacart_comp.srs changed - recomp
 At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 68MB peak: 68MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Tue Sep 25 20:45:39 2018
+# Tue Sep 25 23:47:57 2018
 
 ###########################################################]
 Map & Optimize Report
@@ -55,15 +64,17 @@ Resource Usage Report
 
 Simple gate primitives:
 DFFC            23 uses
-DFFCRH          1 use
 DFF             1 use
-DFFRH           1 use
+DFFRH           2 uses
 IBUF            25 uses
-BI_DIR          8 uses
+BUFTH           6 uses
+BI_DIR          2 uses
 OBUF            28 uses
-INV             61 uses
-AND2            47 uses
+loopbuf         8 uses
+INV             62 uses
+AND2            53 uses
 OR2             8 uses
+XOR2            7 uses
 
 
 @N: FC100 |Timing Report not generated for this device, please use place and route tools for timing analysis.
@@ -73,6 +84,6 @@ Mapper successful!
 At Mapper Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 39MB peak: 103MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Tue Sep 25 20:45:39 2018
+# Tue Sep 25 23:47:58 2018
 
 ###########################################################]

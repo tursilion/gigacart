@@ -41,7 +41,7 @@ ARCHITECTURE myarch OF gigacart IS
 
 	SIGNAL grmadr  : unsigned (0 TO 7) := "00000000"; -- 8 bits of GROM incrementing address (256 bytes! note inverted order for math)
 	SIGNAL grminc  : unsigned (0 TO 7) := "00000000"; -- 8 bits of GROM incrementing address (256 bytes! note inverted order for math)
-	SIGNAL gnewadr : STD_ULOGIC := '0'; -- indicates the address was changed
+--	SIGNAL gnewadr : STD_ULOGIC := '0'; -- indicates the address was changed
 
 	SIGNAL grmpage : STD_ULOGIC := '0'; -- single bit - true when page is "100", else false
 	SIGNAL gactive : STD_ULOGIC := '0'; -- single bit used to delay gvalid
@@ -79,7 +79,6 @@ BEGIN
 			gactive <= '0';
 		END IF;
 	END PROCESS;
-	
 
 	-- check whether we should gate flash data onto the TI data bus
 	-- !WE is delayed on our hardware... so there may be brief conflict
@@ -104,10 +103,10 @@ BEGIN
 	ti_data(7) <= out_data(0) WHEN (dataout = '1') ELSE ('Z'); -- LSB
 
 	-- numerous signals to handle on write
-	PROCESS (ti_we, ti_gsel)
+	PROCESS (ti_we, gactive)
 	BEGIN
 		-- capture on rising edge of WE (if ROM is active)
-		if (ti_rom='0' AND ti_we'EVENT AND ti_we='1' and ti_gsel='1') THEN
+		if (ti_we'EVENT AND ti_we='1' AND ti_rom='0') THEN
 			-- we dont capture the TI lsb because it ALWAYS
 			-- changes due to the 16->8 bit multiplexer
 			-- remember TI bit order - 0 is MSB
@@ -133,6 +132,36 @@ BEGIN
 --			chip(0) <= ti_data(5); -- LSB
 		END IF;
 
+		IF (ti_we'EVENT AND ti_we='0' AND ti_gsel='0' AND ti_adr(14)='1') THEN
+			grmpage <= (grminc(0)) AND (NOT grminc(1)) AND (NOT grminc(2));
+
+			-- writing least significant byte, we need to cache this
+			-- read the new byte into the LSB (no inversion here)
+			-- hopefully the data bus is stable!
+			-- we need all the bits, otherwise we can't calculate the grmpage...
+			grminc(0) <= ti_data(0); -- MSB
+			grminc(1) <= ti_data(1);
+			grminc(2) <= ti_data(2);
+			grminc(3) <= ti_data(3);
+			grminc(4) <= ti_data(4);
+			grminc(5) <= ti_data(5);
+			grminc(6) <= ti_data(6);
+			grminc(7) <= ti_data(7); -- LSB
+
+			-- while we're here, the first GROM address write is about 139 cycles
+			-- or 46uS from reset, which meets the reset requirement of 35uS
+			-- and also actually happens on 99/4 and v2.2 machines, unlike ROMS.
+			-- this releases the reset line to the flash chip. We're still a long
+			-- time from first access, easily meeting the 200ns post-reset requirement.
+			bounce <= '1';
+		END IF;
+		IF (gactive'EVENT and gactive = '1') THEN
+			grminc <= grminc + 1;
+		END IF;
+	END PROCESS;
+
+--	PROCESS (ti_we, ti_gclk)
+--	BEGIN
 		-- handle the GROM address register writes
 		-- ti_adr(14)='1' means address event, ti_we='0' means write
 		-- hardware means that the WE falling edge is always after GSEL falls
@@ -145,54 +174,93 @@ BEGIN
 		-- the console ROM ALWAYS writes the GROM address and does not rely on this
 		-- auto-increment (strictly, the address readback assumes it). Since there will
 		-- be real GROMs in the system to deal with that part, we can skip all that circuitry.
-		IF (ti_we'EVENT AND ti_we='0' AND ti_gsel='0' AND ti_adr(14)='1') THEN
+--		IF (ti_we'EVENT AND ti_we='0' AND ti_gsel='0' AND ti_adr(14)='1') THEN
 			-- the limited bits available makes this a little more complex...
 			-- grmpage is true for '100'. Nothing else to shift up
-			grmpage <= (grmadr(0)) AND (NOT grmadr(1)) AND (NOT grmadr(2));
+--			grmpage <= (grmadr(0)) AND (NOT grmadr(1)) AND (NOT grmadr(2));
 
 			-- writing least significant byte, we need to cache this
 			-- read the new byte into the LSB (no inversion here)
 			-- hopefully the data bus is stable!
 			-- we need all the bits, otherwise we can't calculate the grmpage...
-			grmadr(0) <= ti_data(0); -- MSB
-			grmadr(1) <= ti_data(1);
-			grmadr(2) <= ti_data(2);
-			grmadr(3) <= ti_data(3);
-			grmadr(4) <= ti_data(4);
-			grmadr(5) <= ti_data(5);
-			grmadr(6) <= ti_data(6);
-			grmadr(7) <= ti_data(7); -- LSB
+--			grmadr(0) <= ti_data(0); -- MSB
+--			grmadr(1) <= ti_data(1);
+--			grmadr(2) <= ti_data(2);
+--			grmadr(3) <= ti_data(3);
+--			grmadr(4) <= ti_data(4);
+--			grmadr(5) <= ti_data(5);
+--			grmadr(6) <= ti_data(6);
+--			grmadr(7) <= ti_data(7); -- LSB
 
-			gnewadr <= NOT gnewadr;
+--			gnewadr <= NOT gnewadr;
 
 			-- while we're here, the first GROM address write is about 139 cycles
 			-- or 46uS from reset, which meets the reset requirement of 35uS
 			-- and also actually happens on 99/4 and v2.2 machines, unlike ROMS.
 			-- this releases the reset line to the flash chip. We're still a long
 			-- time from first access, easily meeting the 200ns post-reset requirement.
-			bounce <= '1';
-		ELSE 
-			-- this else case is the only reason for ti_gsel in the sensitivity list
-			-- this causes us to take an incremented address on the release
-			grmadr <= grminc;
-		END IF;
-	END PROCESS;
+--			bounce <= '1';
+--		ELSIF (ti_gclk'EVENT and ti_gclk='1' and gactive='0') THEN
+			-- transfer the inc address to the real one while we're not selected
+--			grmadr <= grminc;
+--		END IF;
+--	END PROCESS;
 
 	-- for some reason doing the increment this way, as opposed to a 'delay' register
 	-- like the finalGrom uses, uses fewer resources (despite the larger register?)
-	PROCESS (gvalid, gnewadr)
-	BEGIN
-		IF (gvalid'EVENT and gvalid='0') THEN
+--	PROCESS (gvalid, gnewadr)
+--	BEGIN
+--		IF (gvalid'EVENT and gvalid='1') THEN
 			-- just finished a read to this GROM
 			-- real GROMs increment every read, but since we don't
 			-- do address readback, we should get away with this.
 			-- real GROMs also likely increment every single access, but they
 			-- also have a prefetch, I don't have enough blocks left for that
 			-- So I need to increment only after data accesses...
-			grminc <= grmadr+1;
-		ELSE
-			grminc <= grmadr;
-		END IF;
+--			grminc <= grmadr+1;
+--		ELSIF (gnewadr'EVENT) THEN
+			-- transfer the address back only when needed
+--			grminc <= grmadr;
+--		END IF;
+--	END PROCESS;
+
+
+
+
+--	PROCESS (ti_we, gvalid)
+--	BEGIN
+--		IF (ti_we'EVENT AND ti_we='0' AND ti_gsel='0' AND ti_adr(14)='1') THEN
+--			grmpage <= (grminc(0)) AND (NOT grminc(1)) AND (NOT grminc(2));
+
+			-- writing least significant byte, we need to cache this
+			-- read the new byte into the LSB (no inversion here)
+			-- hopefully the data bus is stable!
+			-- we need all the bits, otherwise we can't calculate the grmpage...
+--			grminc(0) <= ti_data(0); -- MSB
+--			grminc(1) <= ti_data(1);
+--			grminc(2) <= ti_data(2);
+--			grminc(3) <= ti_data(3);
+--			grminc(4) <= ti_data(4);
+--			grminc(5) <= ti_data(5);
+--			grminc(6) <= ti_data(6);
+--			grminc(7) <= ti_data(7); -- LSB
+
+			-- while we're here, the first GROM address write is about 139 cycles
+			-- or 46uS from reset, which meets the reset requirement of 35uS
+			-- and also actually happens on 99/4 and v2.2 machines, unlike ROMS.
+			-- this releases the reset line to the flash chip. We're still a long
+			-- time from first access, easily meeting the 200ns post-reset requirement.
+--			bounce <= '1';
+--		END IF;
+--		IF (gvalid'EVENT and gvalid = '1') THEN
+--			grminc <= grminc + 1;
+--		END IF;
+--	END PROCESS;
+	PROCESS (ti_gclk)
+	BEGIN
+		if (ti_gclk'EVENT and ti_gclk='1' and gactive='0') THEN
+			grmadr <= grminc;
+		end if;
 	END PROCESS;
 
 	-- handle addresses and select to the ROM chip

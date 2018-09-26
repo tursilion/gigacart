@@ -1,9 +1,9 @@
 C:\ispLEVER_Classic2_0\synpbase\bin64\m_cpld.exe  -prodtype  synplify_pro  -encrypt  -pro  -rundir  D:\work\ti\dragonslair\cart\cpld  -part LC4064B  -package T44C  -grade -2.5   -ispmach4s -RWCheckOnRam 1 -areadelay 0 -minc -auto_constrain_io -summaryfile D:\work\ti\dragonslair\cart\cpld\synlog\report\gigacart_fpga_mapper.xml -top_level_module  gigacart  -multisrs  -ta_num_paths 3  -ta_num_points 0  -oedif  D:\work\ti\dragonslair\cart\cpld\gigacart.edi  -freq 200.000  D:\work\ti\dragonslair\cart\cpld\synwork\gigacart_mult.srs  -ologparam  D:\work\ti\dragonslair\cart\cpld\syntmp\gigacart.plg  -osyn  D:\work\ti\dragonslair\cart\cpld\gigacart.srm  -prjdir  d:\work\ti\dragonslair\cart\cpld\  -prjname  gigacart  -log  D:\work\ti\dragonslair\cart\cpld\synlog\gigacart_fpga_mapper.srr 
 rc:0 success:1
-D:\work\ti\dragonslair\cart\cpld\gigacart.edi|o|1537933539|73079
-D:\work\ti\dragonslair\cart\cpld\synwork\gigacart_mult.srs|i|1537933539|3768
-D:\work\ti\dragonslair\cart\cpld\syntmp\gigacart.plg|o|1537933539|0
-D:\work\ti\dragonslair\cart\cpld\gigacart.srm|o|1537933539|28554
-D:\work\ti\dragonslair\cart\cpld\synlog\gigacart_fpga_mapper.srr|o|1537933539|1212
+D:\work\ti\dragonslair\cart\cpld\gigacart.edi|o|1537944478|75908
+D:\work\ti\dragonslair\cart\cpld\synwork\gigacart_mult.srs|i|1537944477|3789
+D:\work\ti\dragonslair\cart\cpld\syntmp\gigacart.plg|o|1537944478|0
+D:\work\ti\dragonslair\cart\cpld\gigacart.srm|o|1537944478|29674
+D:\work\ti\dragonslair\cart\cpld\synlog\gigacart_fpga_mapper.srr|o|1537944478|1262
 C:\ispLEVER_Classic2_0\synpbase\bin\m_cpld.exe|i|1399401684|7067648
 C:\ispLEVER_Classic2_0\synpbase\bin64\m_cpld.exe|i|1399404522|8049664

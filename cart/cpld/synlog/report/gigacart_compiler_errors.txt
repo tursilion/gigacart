@@ -1,3 +1,2 @@
-@E: CG103 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":193:13:193:18|Expecting expression
-@E|Parse errors encountered - exiting
+@E: CL121 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":46:32:46:34|Can't find control signal for grminc
 

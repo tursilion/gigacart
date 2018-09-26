@@ -1,7 +1,7 @@
 C:\ispLEVER_Classic2_0\synpbase\bin64\c_vhdl.exe  -osyn  D:\work\ti\dragonslair\cart\cpld\synwork\gigacart_hdl_.srs  -top  gigacart  -prodtype  synplify_pro  -nostructver -encrypt  -pro  -dmgen  D:\work\ti\dragonslair\cart\cpld\dm  -lite -compiler_compatible -ui -fid2 -ram -sharing on -ll 2000 -autosm -ignore_undefined_lib  -lib work D:\work\ti\dragonslair\cart\cpld\design.vhd -loga  D:\work\ti\dragonslair\cart\cpld\syntax.log  -fileorder  D:\work\ti\dragonslair\cart\cpld\syntmp\hdlorder.tcl 
 rc:0 success:1
 D:\work\ti\dragonslair\cart\cpld\synwork\gigacart_hdl_.srs|o|0|0
-D:\work\ti\dragonslair\cart\cpld\design.vhd|i|1537933433|9508
-D:\work\ti\dragonslair\cart\cpld\syntax.log|o|1537933537|1100
+D:\work\ti\dragonslair\cart\cpld\design.vhd|i|1537944464|12085
+D:\work\ti\dragonslair\cart\cpld\syntax.log|o|1537944475|1100
 C:\ispLEVER_Classic2_0\synpbase\bin\c_vhdl.exe|i|1401259898|2046976
 C:\ispLEVER_Classic2_0\synpbase\bin64\c_vhdl.exe|i|1401260104|5533184
