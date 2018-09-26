@@ -6,29 +6,32 @@
 #Implementation: cpld
 
 $ Start of Compile
-#Sun Sep 16 22:30:32 2018
+#Tue Sep 25 20:45:37 2018
 
 Synopsys VHDL Compiler, version comp201403rcp1, Build 060R, built May 27 2014
 @N|Running in 64-bit mode
 Copyright (C) 1994-2014 Synopsys, Inc. This software and the associated documentation are proprietary to Synopsys, Inc. This software may only be used in accordance with the terms and conditions of a written license agreement with Synopsys, Inc.  All other use, reproduction, or distribution of this software is strictly prohibited.
 
 @N: CD720 :"C:\ispLEVER_Classic2_0\synpbase\lib\vhd\std.vhd":123:18:123:21|Setting time resolution to ns
-@N:"D:\work\ti\dragonslair\cart\cpld\design.vhd":16:7:16:14|Top entity is set to gigacart.
+@N:"D:\work\ti\dragonslair\cart\cpld\design.vhd":19:7:19:14|Top entity is set to gigacart.
 File D:\work\ti\dragonslair\cart\cpld\design.vhd changed - recompiling
 VHDL syntax check successful!
 File D:\work\ti\dragonslair\cart\cpld\design.vhd changed - recompiling
-@N: CD630 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":16:7:16:14|Synthesizing work.gigacart.myarch 
-@W: CG296 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":67:1:67:7|Incomplete sensitivity list - assuming completeness
-@W: CG290 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":70:51:70:57|Referenced variable ti_gsel is not in sensitivity list
-@W: CG290 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":70:6:70:11|Referenced variable ti_rom is not in sensitivity list
+@N: CD630 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":19:7:19:14|Synthesizing work.gigacart.myarch 
+@W: CG296 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":107:1:107:7|Incomplete sensitivity list - assuming completeness
+@W: CG290 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":110:6:110:11|Referenced variable ti_rom is not in sensitivity list
+@W: CD434 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":183:18:183:24|Signal gnewadr in the sensitivity list is not used in the process
 Post processing for work.gigacart.myarch
-@A: CL282 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":70:2:70:3|Feedback mux created for signal latch[13:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@W: CL169 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":42:40:42:49|Pruning register gnewadr_2  
+@A: CL282 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":110:2:110:3|Feedback mux created for signal latch[13:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":66:2:66:3|Input data for signal gvalid contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
+@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":66:2:66:3|Input data for signal gactive contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
 @END
 
 At c_vhdl Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 70MB peak: 71MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Sun Sep 16 22:30:32 2018
+# Tue Sep 25 20:45:38 2018
 
 ###########################################################]
 Synopsys Netlist Linker, version comp201403rcp1, Build 060R, built May 27 2014
@@ -38,6 +41,6 @@ File D:\work\ti\dragonslair\cart\cpld\synwork\gigacart_comp.srs changed - recomp
 At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 68MB peak: 68MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Sun Sep 16 22:30:34 2018
+# Tue Sep 25 20:45:39 2018
 
 ###########################################################]

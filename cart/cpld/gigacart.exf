@@ -65,10 +65,9 @@ Section Member   Rename                   Array-Notation          Array Number  
         Port      out_data_0_                 out_data[0]                       2            7            
 End
 Section Cross Reference File
-Design 'gigacart' created Sun Sep 16 22:30:38 2018
+Design 'gigacart' created Tue Sep 25 20:45:45 2018
    Type              New Name                               Original Name
 // ----------------------------------------------------------------------
-   Inst              grmadr_7_                                 grmadr[7]
    Inst              grmadr_6_                                 grmadr[6]
    Inst              grmadr_5_                                 grmadr[5]
    Inst              grmadr_4_                                 grmadr[4]
@@ -76,13 +75,7 @@ Design 'gigacart' created Sun Sep 16 22:30:38 2018
    Inst              grmadr_2_                                 grmadr[2]
    Inst              grmadr_1_                                 grmadr[1]
    Inst              grmadr_0_                                 grmadr[0]
-   Inst               latch_7_                                  latch[7]
-   Inst               latch_8_                                  latch[8]
-   Inst               latch_9_                                  latch[9]
-   Inst              latch_10_                                 latch[10]
-   Inst              latch_11_                                 latch[11]
-   Inst              latch_12_                                 latch[12]
-   Inst              latch_13_                                 latch[13]
+   Inst              grmadr_7_                                 grmadr[7]
    Inst               latch_0_                                  latch[0]
    Inst               latch_1_                                  latch[1]
    Inst               latch_2_                                  latch[2]
@@ -90,6 +83,13 @@ Design 'gigacart' created Sun Sep 16 22:30:38 2018
    Inst               latch_4_                                  latch[4]
    Inst               latch_5_                                  latch[5]
    Inst               latch_6_                                  latch[6]
+   Inst               latch_7_                                  latch[7]
+   Inst               latch_8_                                  latch[8]
+   Inst               latch_9_                                  latch[9]
+   Inst              latch_10_                                 latch[10]
+   Inst              latch_11_                                 latch[11]
+   Inst              latch_12_                                 latch[12]
+   Inst              latch_13_                                 latch[13]
    Inst              ti_adr_3_                                 ti_adr[3]
    Inst              ti_adr_4_                                 ti_adr[4]
    Inst              ti_adr_5_                                 ti_adr[5]
@@ -146,8 +146,6 @@ Design 'gigacart' created Sun Sep 16 22:30:38 2018
    Inst            out_data_5_                               out_data[5]
    Inst            out_data_6_                               out_data[6]
    Inst            out_data_7_                               out_data[7]
-   Inst             latch_i_0_                                latch_i[0]
-   Inst        out_adr_1_i_13_                           out_adr_1_i[13]
    Inst          ti_adr_c_i_7_                             ti_adr_c_i[7]
    Inst         out_adr_1_i_8_                            out_adr_1_i[8]
    Inst          ti_adr_c_i_6_                             ti_adr_c_i[6]
@@ -158,11 +156,6 @@ Design 'gigacart' created Sun Sep 16 22:30:38 2018
    Inst        out_adr_1_i_11_                           out_adr_1_i[11]
    Inst          ti_adr_c_i_3_                             ti_adr_c_i[3]
    Inst        out_adr_1_i_12_                           out_adr_1_i[12]
-   Inst        out_adr_1_i_21_                           out_adr_1_i[21]
-   Inst             latch_i_7_                                latch_i[7]
-   Inst        out_adr_1_i_20_                           out_adr_1_i[20]
-   Inst             latch_i_6_                                latch_i[6]
-   Inst        out_adr_1_i_19_                           out_adr_1_i[19]
    Inst             latch_i_5_                                latch_i[5]
    Inst        out_adr_1_i_18_                           out_adr_1_i[18]
    Inst             latch_i_4_                                latch_i[4]
@@ -173,7 +166,8 @@ Design 'gigacart' created Sun Sep 16 22:30:38 2018
    Inst        out_adr_1_i_15_                           out_adr_1_i[15]
    Inst             latch_i_1_                                latch_i[1]
    Inst        out_adr_1_i_14_                           out_adr_1_i[14]
-   Inst            latch_i_13_                               latch_i[13]
+   Inst             latch_i_0_                                latch_i[0]
+   Inst        out_adr_1_i_13_                           out_adr_1_i[13]
    Inst        out_adr_1_i_26_                           out_adr_1_i[26]
    Inst            latch_i_12_                               latch_i[12]
    Inst        out_adr_1_i_25_                           out_adr_1_i[25]
@@ -184,9 +178,12 @@ Design 'gigacart' created Sun Sep 16 22:30:38 2018
    Inst             latch_i_9_                                latch_i[9]
    Inst        out_adr_1_i_22_                           out_adr_1_i[22]
    Inst             latch_i_8_                                latch_i[8]
-   Inst            grmadr_i_2_                               grmadr_i[2]
-   Inst            grmadr_i_1_                               grmadr_i[1]
-   Inst           ti_adr_i_14_                              ti_adr_i[14]
+   Inst        out_adr_1_i_21_                           out_adr_1_i[21]
+   Inst             latch_i_7_                                latch_i[7]
+   Inst        out_adr_1_i_20_                           out_adr_1_i[20]
+   Inst             latch_i_6_                                latch_i[6]
+   Inst        out_adr_1_i_19_                           out_adr_1_i[19]
+   Inst            latch_i_13_                               latch_i[13]
    Inst        out_adr_20_1__r                           out_adr_20_1_.r
    Inst        out_adr_20_1__m                           out_adr_20_1_.m
    Inst        out_adr_20_1__n                           out_adr_20_1_.n
@@ -203,6 +200,11 @@ Design 'gigacart' created Sun Sep 16 22:30:38 2018
    Inst         out_adr_8_7__m                            out_adr_8_7_.m
    Inst         out_adr_8_7__n                            out_adr_8_7_.n
    Inst         out_adr_8_7__p                            out_adr_8_7_.p
+   Inst            grmadr_i_2_                               grmadr_i[2]
+   Inst            grmadr_i_1_                               grmadr_i[1]
+   Inst           ti_adr_i_14_                              ti_adr_i[14]
+   Inst          out_adr_1_15_                             out_adr_1[15]
+   Inst          out_adr_1_16_                             out_adr_1[16]
    Inst          out_adr_1_17_                             out_adr_1[17]
    Inst          out_adr_1_18_                             out_adr_1[18]
    Inst          out_adr_1_19_                             out_adr_1[19]
@@ -236,9 +238,6 @@ Design 'gigacart' created Sun Sep 16 22:30:38 2018
    Inst        out_adr_22_0__p                           out_adr_22_0_.p
    Inst          out_adr_1_13_                             out_adr_1[13]
    Inst          out_adr_1_14_                             out_adr_1[14]
-   Inst          out_adr_1_15_                             out_adr_1[15]
-   Inst          out_adr_1_16_                             out_adr_1[16]
-   Net         out_adr_22_0__n                             out_adr_22[0]
    Net         out_adr_20_1__n                             out_adr_20[1]
    Net         out_adr_18_2__n                             out_adr_18[2]
    Net         out_adr_16_3__n                             out_adr_16[3]
@@ -268,6 +267,11 @@ Design 'gigacart' created Sun Sep 16 22:30:38 2018
    Net             grmadr_1__n                                 grmadr[1]
    Net             grmadr_2__n                                 grmadr[2]
    Net             grmadr_0__n                                 grmadr[0]
+   Net             grmadr_3__n                                 grmadr[3]
+   Net             grmadr_4__n                                 grmadr[4]
+   Net             grmadr_5__n                                 grmadr[5]
+   Net             grmadr_6__n                                 grmadr[6]
+   Net             grmadr_7__n                                 grmadr[7]
    Net              latch_0__n                                  latch[0]
    Net              latch_1__n                                  latch[1]
    Net              latch_2__n                                  latch[2]
@@ -282,11 +286,7 @@ Design 'gigacart' created Sun Sep 16 22:30:38 2018
    Net             latch_11__n                                 latch[11]
    Net             latch_12__n                                 latch[12]
    Net             latch_13__n                                 latch[13]
-   Net             grmadr_3__n                                 grmadr[3]
-   Net             grmadr_4__n                                 grmadr[4]
-   Net             grmadr_5__n                                 grmadr[5]
-   Net             grmadr_6__n                                 grmadr[6]
-   Net             grmadr_7__n                                 grmadr[7]
+   Net         out_adr_22_0__n                             out_adr_22[0]
    Net          ti_adr_i_14__n                              ti_adr_i[14]
    Net           grmadr_i_1__n                               grmadr_i[1]
    Net           grmadr_i_2__n                               grmadr_i[2]
@@ -441,6 +441,7 @@ Section Type      Name
         Input     ti_we
         Input     ti_rom
         Input     ti_gsel
+        Input     ti_gclk
         Input     ti_adr_14_
         Input     ti_adr_13_
         Input     ti_adr_12_

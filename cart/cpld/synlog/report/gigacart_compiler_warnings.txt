@@ -1,4 +1,7 @@
-@W: CG296 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":67:1:67:7|Incomplete sensitivity list - assuming completeness
-@W: CG290 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":70:51:70:57|Referenced variable ti_gsel is not in sensitivity list
-@W: CG290 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":70:6:70:11|Referenced variable ti_rom is not in sensitivity list
+@W: CG296 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":107:1:107:7|Incomplete sensitivity list - assuming completeness
+@W: CG290 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":110:6:110:11|Referenced variable ti_rom is not in sensitivity list
+@W: CD434 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":183:18:183:24|Signal gnewadr in the sensitivity list is not used in the process
+@W: CL169 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":42:40:42:49|Pruning register gnewadr_2  
+@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":66:2:66:3|Input data for signal gvalid contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
+@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":66:2:66:3|Input data for signal gactive contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
 

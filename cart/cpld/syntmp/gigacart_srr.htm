@@ -1,5 +1,5 @@
 <html><body><samp><pre>
-<!@TC:1537162232>
+<!@TC:1537933537>
 #Build: Synplify Pro I-2014.03LC , Build 063R, May 27 2014
 #install: C:\ispLEVER_Classic2_0\synpbase
 #OS: Windows 7 6.2
@@ -8,39 +8,42 @@
 #Implementation: cpld
 
 <a name=compilerReport1>$ Start of Compile</a>
-#Sun Sep 16 22:30:32 2018
+#Tue Sep 25 20:45:37 2018
 
 Synopsys VHDL Compiler, version comp201403rcp1, Build 060R, built May 27 2014
-@N: : <!@TM:1537162232> | Running in 64-bit mode 
+@N: : <!@TM:1537933538> | Running in 64-bit mode 
 Copyright (C) 1994-2014 Synopsys, Inc. This software and the associated documentation are proprietary to Synopsys, Inc. This software may only be used in accordance with the terms and conditions of a written license agreement with Synopsys, Inc.  All other use, reproduction, or distribution of this software is strictly prohibited.
 
-@N:<a href="@N:CD720:@XP_HELP">CD720</a> : <a href="C:\ispLEVER_Classic2_0\synpbase\lib\vhd\std.vhd:123:18:123:22:@N:CD720:@XP_MSG">std.vhd(123)</a><!@TM:1537162232> | Setting time resolution to ns
-@N: : <a href="D:\work\ti\dragonslair\cart\cpld\design.vhd:16:7:16:15:@N::@XP_MSG">design.vhd(16)</a><!@TM:1537162232> | Top entity is set to gigacart.
+@N:<a href="@N:CD720:@XP_HELP">CD720</a> : <a href="C:\ispLEVER_Classic2_0\synpbase\lib\vhd\std.vhd:123:18:123:22:@N:CD720:@XP_MSG">std.vhd(123)</a><!@TM:1537933538> | Setting time resolution to ns
+@N: : <a href="D:\work\ti\dragonslair\cart\cpld\design.vhd:19:7:19:15:@N::@XP_MSG">design.vhd(19)</a><!@TM:1537933538> | Top entity is set to gigacart.
 File D:\work\ti\dragonslair\cart\cpld\design.vhd changed - recompiling
 VHDL syntax check successful!
 File D:\work\ti\dragonslair\cart\cpld\design.vhd changed - recompiling
-@N:<a href="@N:CD630:@XP_HELP">CD630</a> : <a href="D:\work\ti\dragonslair\cart\cpld\design.vhd:16:7:16:15:@N:CD630:@XP_MSG">design.vhd(16)</a><!@TM:1537162232> | Synthesizing work.gigacart.myarch 
-<font color=#A52A2A>@W:<a href="@W:CG296:@XP_HELP">CG296</a> : <a href="D:\work\ti\dragonslair\cart\cpld\design.vhd:67:1:67:8:@W:CG296:@XP_MSG">design.vhd(67)</a><!@TM:1537162232> | Incomplete sensitivity list - assuming completeness</font>
-<font color=#A52A2A>@W:<a href="@W:CG290:@XP_HELP">CG290</a> : <a href="D:\work\ti\dragonslair\cart\cpld\design.vhd:70:51:70:58:@W:CG290:@XP_MSG">design.vhd(70)</a><!@TM:1537162232> | Referenced variable ti_gsel is not in sensitivity list</font>
-<font color=#A52A2A>@W:<a href="@W:CG290:@XP_HELP">CG290</a> : <a href="D:\work\ti\dragonslair\cart\cpld\design.vhd:70:6:70:12:@W:CG290:@XP_MSG">design.vhd(70)</a><!@TM:1537162232> | Referenced variable ti_rom is not in sensitivity list</font>
+@N:<a href="@N:CD630:@XP_HELP">CD630</a> : <a href="D:\work\ti\dragonslair\cart\cpld\design.vhd:19:7:19:15:@N:CD630:@XP_MSG">design.vhd(19)</a><!@TM:1537933538> | Synthesizing work.gigacart.myarch 
+<font color=#A52A2A>@W:<a href="@W:CG296:@XP_HELP">CG296</a> : <a href="D:\work\ti\dragonslair\cart\cpld\design.vhd:107:1:107:8:@W:CG296:@XP_MSG">design.vhd(107)</a><!@TM:1537933538> | Incomplete sensitivity list - assuming completeness</font>
+<font color=#A52A2A>@W:<a href="@W:CG290:@XP_HELP">CG290</a> : <a href="D:\work\ti\dragonslair\cart\cpld\design.vhd:110:6:110:12:@W:CG290:@XP_MSG">design.vhd(110)</a><!@TM:1537933538> | Referenced variable ti_rom is not in sensitivity list</font>
+<font color=#A52A2A>@W:<a href="@W:CD434:@XP_HELP">CD434</a> : <a href="D:\work\ti\dragonslair\cart\cpld\design.vhd:183:18:183:25:@W:CD434:@XP_MSG">design.vhd(183)</a><!@TM:1537933538> | Signal gnewadr in the sensitivity list is not used in the process</font>
 Post processing for work.gigacart.myarch
-@A:<a href="@A:CL282:@XP_HELP">CL282</a> : <a href="D:\work\ti\dragonslair\cart\cpld\design.vhd:70:2:70:4:@A:CL282:@XP_MSG">design.vhd(70)</a><!@TM:1537162232> | Feedback mux created for signal latch[13:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+<font color=#A52A2A>@W:<a href="@W:CL169:@XP_HELP">CL169</a> : <a href="D:\work\ti\dragonslair\cart\cpld\design.vhd:42:40:42:50:@W:CL169:@XP_MSG">design.vhd(42)</a><!@TM:1537933538> | Pruning register gnewadr_2  </font>
+@A:<a href="@A:CL282:@XP_HELP">CL282</a> : <a href="D:\work\ti\dragonslair\cart\cpld\design.vhd:110:2:110:4:@A:CL282:@XP_MSG">design.vhd(110)</a><!@TM:1537933538> | Feedback mux created for signal latch[13:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+<font color=#A52A2A>@W:<a href="@W:CL116:@XP_HELP">CL116</a> : <a href="D:\work\ti\dragonslair\cart\cpld\design.vhd:66:2:66:4:@W:CL116:@XP_MSG">design.vhd(66)</a><!@TM:1537933538> | Input data for signal gvalid contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.</font>
+<font color=#A52A2A>@W:<a href="@W:CL116:@XP_HELP">CL116</a> : <a href="D:\work\ti\dragonslair\cart\cpld\design.vhd:66:2:66:4:@W:CL116:@XP_MSG">design.vhd(66)</a><!@TM:1537933538> | Input data for signal gactive contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.</font>
 @END
 
 At c_vhdl Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 70MB peak: 71MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Sun Sep 16 22:30:32 2018
+# Tue Sep 25 20:45:38 2018
 
 ###########################################################]
 Synopsys Netlist Linker, version comp201403rcp1, Build 060R, built May 27 2014
-@N: : <!@TM:1537162234> | Running in 64-bit mode 
+@N: : <!@TM:1537933539> | Running in 64-bit mode 
 File D:\work\ti\dragonslair\cart\cpld\synwork\gigacart_comp.srs changed - recompiling
 
 At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 68MB peak: 68MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Sun Sep 16 22:30:34 2018
+# Tue Sep 25 20:45:39 2018
 
 ###########################################################]
 Map & Optimize Report
@@ -48,29 +51,31 @@ Map & Optimize Report
 <a name=mapperReport2>Synopsys CPLD Technology Mapper, Version maplat, Build 923R, Built May  6 2014</a>
 Copyright (C) 1994-2013, Synopsys, Inc. This software and the associated documentation are proprietary to Synopsys, Inc. This software may only be used in accordance with the terms and conditions of a written license agreement with Synopsys, Inc.  All other use or distribution of the software is strictly prohibited.
 Product Version I-2014.03LC 
-@N:<a href="@N:MF248:@XP_HELP">MF248</a> : <!@TM:1537162234> | Running in 64-bit mode. 
+@N:<a href="@N:MF248:@XP_HELP">MF248</a> : <!@TM:1537933539> | Running in 64-bit mode. 
 ---------------------------------------
 <a name=resourceUsage3>Resource Usage Report</a>
 
 Simple gate primitives:
 DFFC            23 uses
+DFFCRH          1 use
 DFF             1 use
-IBUF            24 uses
+DFFRH           1 use
+IBUF            25 uses
 BI_DIR          8 uses
 OBUF            28 uses
-AND2            44 uses
-INV             57 uses
+INV             61 uses
+AND2            47 uses
 OR2             8 uses
 
 
-@N:<a href="@N:FC100:@XP_HELP">FC100</a> : <!@TM:1537162234> | Timing Report not generated for this device, please use place and route tools for timing analysis. 
+@N:<a href="@N:FC100:@XP_HELP">FC100</a> : <!@TM:1537933539> | Timing Report not generated for this device, please use place and route tools for timing analysis. 
 I-2014.03LC 
 Mapper successful!
 
 At Mapper Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 39MB peak: 103MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Sun Sep 16 22:30:34 2018
+# Tue Sep 25 20:45:39 2018
 
 ###########################################################]
 

@@ -12,8 +12,8 @@ EN_PinMacrocell = yes;
 
 [Revision]
 Parent = lc4k64v.lci;
-DATE = 09/16/2018;
-TIME = 22:25:02;
+DATE = 09/25/2018;
+TIME = 19:24:33;
 Source_Format = Pure_VHDL;
 Synthesis = Synplify;
 
@@ -89,6 +89,7 @@ ti_adr_13_ = Pin, 31, -, B, 4;
 ti_adr_15_ = Pin, 34, -, B, 3;
 out_reset = Pin, 47, -, C, 4;
 ti_gsel = Pin, 44, -, C, 3;
+ti_gclk = Pin, 36, -, B, 1;
 
 [Group Assignments]
 layer = OFF;
@@ -175,6 +176,7 @@ ti_adr_15_ = LVTTL_5V, PIN, 0, -;
 ti_adr_14_ = LVTTL_5V, PIN, 0, -;
 ti_adr_13_ = LVTTL_5V, PIN, 0, -;
 ti_gsel = LVTTL_5V, PIN, 1, -;
+ti_gclk = LVTTL_5V, PIN, 0, -;
 
 [Pullup]
 

@@ -1,6 +1,24 @@
 WARNING DAGGEN_0523: "The source is compiled without the -dbg switch. Line breakpoints and assertion debug will not be available."
-MESSAGE "File: testbench.vhd" 
+MESSAGE "File: autotest.vhd" 
 MESSAGE "Compile Entity "testbench"" 
-MESSAGE "Compile Architecture "tb" of Entity "testbench"" 
-ERROR ELBWRITE_0028: "The unresolved signal "data_in" received values from multiple sources at 58 and 52 lines." "testbench.vhd" 58 0
-FAILURE "Compile failure 1 Errors 0 Warnings  Analysis time :  31.0 [ms]" 
+MESSAGE "Compile Architecture "behavior" of Entity "testbench"" 
+ERROR ELAB1_0021: "Types do not match for port "ti_adr"." "autotest.vhd" 51 0
+ERROR ELAB1_0021: "Types do not match for port "ti_data"." "autotest.vhd" 51 0
+ERROR ELAB1_0021: "Types do not match for port "out_adr"." "autotest.vhd" 51 0
+ERROR ELAB1_0021: "Types do not match for port "out_data"." "autotest.vhd" 51 0
+ERROR COMP96_0367: "Improper array length (12). Expected length is 13." "autotest.vhd" 75 12
+ERROR COMP96_0367: "Improper array length (12). Expected length is 13." "autotest.vhd" 87 12
+ERROR COMP96_0078: "Unknown identifier "ti_grom"." "autotest.vhd" 90 2
+ERROR COMP96_0133: "Cannot find object declaration." "autotest.vhd" 90 2
+ERROR COMP96_0078: "Unknown identifier "ti_grom"." "autotest.vhd" 93 2
+ERROR COMP96_0133: "Cannot find object declaration." "autotest.vhd" 93 2
+ERROR COMP96_0367: "Improper array length (12). Expected length is 13." "autotest.vhd" 99 12
+ERROR COMP96_0078: "Unknown identifier "ti_grom"." "autotest.vhd" 100 2
+ERROR COMP96_0133: "Cannot find object declaration." "autotest.vhd" 100 2
+ERROR COMP96_0078: "Unknown identifier "ti_grom"." "autotest.vhd" 103 2
+ERROR COMP96_0133: "Cannot find object declaration." "autotest.vhd" 103 2
+ERROR COMP96_0078: "Unknown identifier "ti_grom"." "autotest.vhd" 106 2
+ERROR COMP96_0133: "Cannot find object declaration." "autotest.vhd" 106 2
+ERROR COMP96_0078: "Unknown identifier "ti_grom"." "autotest.vhd" 109 2
+ERROR COMP96_0133: "Cannot find object declaration." "autotest.vhd" 109 2
+FAILURE "Compile failure 19 Errors 0 Warnings  Analysis time :  31.0 [ms]" 

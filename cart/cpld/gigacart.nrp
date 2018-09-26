@@ -1,0 +1,37 @@
+ispLEVER Classic 2.0.00.17.20.15 SDFGEN
+Copyright(C),1992-2015, Lattice Semiconductor Corporation. All Rights Reserved.
+Output Files:
+  Netlist File: gigacart.vho
+  Delay   File: gigacart.sdf
+
+Parsing C:/ispLEVER_Classic2_0/ispcpld/dat/sdf.mdl
+Input file: d:/work/ti/dragonslair/cart/cpld\gigacart.tt4
+Note 18862: NODE name grmadr_10_7__n being renamed to grmadr_10_7_Xn.
+Note 18862: NODE name grmadr_10_6__n being renamed to grmadr_10_6_Xn.
+Note 18862: NODE name grmadr_10_5__n being renamed to grmadr_10_5_Xn.
+Note 18862: NODE name grmadr_10_4__n being renamed to grmadr_10_4_Xn.
+Note 18862: NODE name grmadr_10_3__n being renamed to grmadr_10_3_Xn.
+Note 18862: NODE name grmadr_10_2__n being renamed to grmadr_10_2_Xn.
+Note 18862: NODE name grmadr_10_1__n being renamed to grmadr_10_1_Xn.
+Note 18862: NODE name grmadr_10_0__n being renamed to grmadr_10_0_Xn.
+Combinational cycle detected.
+  Signals 'N_77', 'out_adr_7_', 'grmadr_10_0_Xn.X1', 'grmadr_10_7_Xn-', 'grmadr_10_0_Xn' are on a cycle.
+Breaking combinational cycles.
+  Signals 'N_77', 'out_adr_7_', 'grmadr_10_0_Xn.X1', 'T_92', 'grmadr_10_0_Xn' are on a cycle.
+  Signals 'N_77', 'out_adr_7_', 'T_93', 'grmadr_10_0_Xn.X1', 'grmadr_10_0_Xn' are on a cycle.
+  Signals 'N_77', 'out_adr_7_', 'grmadr_10_0_Xn.X1', 'grmadr_10_0_Xn', 'T_94' are on a cycle.
+  Signals 'T_95', 'N_77', 'out_adr_7_', 'grmadr_10_0_Xn.X1', 'grmadr_10_0_Xn' are on a cycle.
+  Signals 'grmadr_10_3_Xn.X2', 'out_adr_7_', 'grmadr_10_0_Xn.X1', 'grmadr ...
+Reading library information ...
+Mapping to combinational gates 
+Mapping to netlist view.
+Note 18862: NODE name grmpage10 being renamed to GATE_inst_grmpage_CE.
+Note 18862: NODE name grmadr_10_3_Xn.X1 being renamed to GATE_grmadr_10_3_Xn_X1.
+Note 18862: NODE name grmadr_10_3_Xn.X2 being renamed to GATE_grmadr_10_3_Xn_X2.
+Note 18862: NODE name grmadr_10_0_Xn.X1 being renamed to GATE_grmadr_10_0_Xn_X1.
+Note 18862: NODE name grmadr_10_0_Xn.X2 being renamed to GATE_grmadr_10_0_Xn_X2.
+Utilization Estimate
+    Combinational Macros:        147
+    Flip-Flop and Latch Macros:   16
+    I/O Pads:                     60
+Elapsed time: 1 seconds

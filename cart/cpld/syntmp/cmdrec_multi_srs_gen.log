@@ -1,7 +1,7 @@
 C:\ispLEVER_Classic2_0\synpbase\bin64\syn_nfilter.exe  -link  -top  gigacart  -multisrs  D:\work\ti\dragonslair\cart\cpld\synwork\gigacart_comp.srs  -osyn  D:\work\ti\dragonslair\cart\cpld\synwork\gigacart_mult.srs  -log  D:\work\ti\dragonslair\cart\cpld\synlog\gigacart_multi_srs_gen.srr 
 rc:0 success:1
-D:\work\ti\dragonslair\cart\cpld\synwork\gigacart_comp.srs|i|1537162232|3289
-D:\work\ti\dragonslair\cart\cpld\synwork\gigacart_mult.srs|o|1537162234|3433
-D:\work\ti\dragonslair\cart\cpld\synlog\gigacart_multi_srs_gen.srr|o|1537162234|463
+D:\work\ti\dragonslair\cart\cpld\synwork\gigacart_comp.srs|i|1537933537|3565
+D:\work\ti\dragonslair\cart\cpld\synwork\gigacart_mult.srs|o|1537933539|3768
+D:\work\ti\dragonslair\cart\cpld\synlog\gigacart_multi_srs_gen.srr|o|1537933539|463
 C:\ispLEVER_Classic2_0\synpbase\bin\syn_nfilter.exe|i|1401259936|2741760
 C:\ispLEVER_Classic2_0\synpbase\bin64\syn_nfilter.exe|i|1401260132|6337536

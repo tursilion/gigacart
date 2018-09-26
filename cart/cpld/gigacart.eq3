@@ -7,6 +7,9 @@
 
 Equations:
 
+dataout = ti_we & !ti_rom
+    # ti_we & inst_gvalid.Q ; (2 pterms, 3 signals)
+
 grmadr_0_.D = ti_data_0_.PIN ; (1 pterm, 1 signal)
 grmadr_0_.C = !ti_we ; (1 pterm, 1 signal)
 grmadr_0_.CE = !ti_gsel & ti_adr_14_ ; (1 pterm, 2 signals)
@@ -39,9 +42,18 @@ grmadr_7_.D = ti_data_7_.PIN ; (1 pterm, 1 signal)
 grmadr_7_.C = !ti_we ; (1 pterm, 1 signal)
 grmadr_7_.CE = !ti_gsel & ti_adr_14_ ; (1 pterm, 2 signals)
 
+inst_gactive.D = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q ; (1 pterm, 3 signals)
+inst_gactive.C = !( !ti_gsel & !ti_gclk ) ; (1 pterm, 2 signals)
+inst_gactive.AR = ti_gsel & ti_gclk ; (1 pterm, 2 signals)
+
 inst_grmpage.D = !grmadr_1_.Q & !grmadr_2_.Q & grmadr_0_.Q ; (1 pterm, 3 signals)
 inst_grmpage.C = !ti_we ; (1 pterm, 1 signal)
 inst_grmpage.CE = !ti_gsel & ti_adr_14_ ; (1 pterm, 2 signals)
+
+inst_gvalid.D = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q ; (1 pterm, 3 signals)
+inst_gvalid.C = !( !ti_gsel & !ti_gclk ) ; (1 pterm, 2 signals)
+inst_gvalid.CE = !( !ti_gsel & !ti_adr_14_ & !inst_gactive.Q & inst_grmpage.Q ) ; (1 pterm, 4 signals)
+inst_gvalid.AR = ti_gsel & ti_gclk ; (1 pterm, 2 signals)
 
 latch_0_.D = ti_adr_14_ ; (1 pterm, 1 signal)
 latch_0_.C = ti_we ; (1 pterm, 1 signal)
@@ -99,129 +111,93 @@ latch_9_.D = ti_adr_5_ ; (1 pterm, 1 signal)
 latch_9_.C = ti_we ; (1 pterm, 1 signal)
 latch_9_.CE = !ti_rom & ti_gsel ; (1 pterm, 2 signals)
 
-out_adr_0_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q & grmadr_7_.Q
-    # ti_adr_15_ & !inst_grmpage.Q
-    # ti_adr_15_ & ti_adr_14_
-    # ti_adr_15_ & ti_gsel ; (4 pterms, 5 signals)
+out_adr_0_ = ti_adr_15_ & !inst_gvalid.Q
+    # inst_gvalid.Q & grmadr_7_.Q ; (2 pterms, 3 signals)
 
-out_adr_10_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # ti_adr_5_ ; (2 pterms, 4 signals)
+out_adr_10_ = !( !ti_adr_5_ & !inst_gvalid.Q ) ; (1 pterm, 2 signals)
 
-out_adr_11_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # ti_adr_4_ ; (2 pterms, 4 signals)
+out_adr_11_ = !( !ti_adr_4_ & !inst_gvalid.Q ) ; (1 pterm, 2 signals)
 
-out_adr_12_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # ti_adr_3_ ; (2 pterms, 4 signals)
+out_adr_12_ = !( !ti_adr_3_ & !inst_gvalid.Q ) ; (1 pterm, 2 signals)
 
-out_adr_13_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # latch_0_.Q ; (2 pterms, 4 signals)
+out_adr_13_ = !( !inst_gvalid.Q & !latch_0_.Q ) ; (1 pterm, 2 signals)
 
-out_adr_14_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # latch_1_.Q ; (2 pterms, 4 signals)
+out_adr_14_ = !( !inst_gvalid.Q & !latch_1_.Q ) ; (1 pterm, 2 signals)
 
-out_adr_15_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # latch_2_.Q ; (2 pterms, 4 signals)
+out_adr_15_ = !( !inst_gvalid.Q & !latch_2_.Q ) ; (1 pterm, 2 signals)
 
-out_adr_16_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # latch_3_.Q ; (2 pterms, 4 signals)
+out_adr_16_ = !( !inst_gvalid.Q & !latch_3_.Q ) ; (1 pterm, 2 signals)
 
-out_adr_17_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # latch_4_.Q ; (2 pterms, 4 signals)
+out_adr_17_ = !( !inst_gvalid.Q & !latch_4_.Q ) ; (1 pterm, 2 signals)
 
-out_adr_18_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # latch_5_.Q ; (2 pterms, 4 signals)
+out_adr_18_ = !( !inst_gvalid.Q & !latch_5_.Q ) ; (1 pterm, 2 signals)
 
-out_adr_19_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # latch_6_.Q ; (2 pterms, 4 signals)
+out_adr_19_ = !( !inst_gvalid.Q & !latch_6_.Q ) ; (1 pterm, 2 signals)
 
-out_adr_1_ = !ti_gsel & inst_grmpage.Q & grmadr_6_.Q
-    # ti_adr_14_ ; (2 pterms, 4 signals)
+out_adr_1_ = ti_adr_14_ & !inst_gvalid.Q
+    # inst_gvalid.Q & grmadr_6_.Q ; (2 pterms, 3 signals)
 
-out_adr_20_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # latch_7_.Q ; (2 pterms, 4 signals)
+out_adr_20_ = !( !inst_gvalid.Q & !latch_7_.Q ) ; (1 pterm, 2 signals)
 
-out_adr_21_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # latch_8_.Q ; (2 pterms, 4 signals)
+out_adr_21_ = !( !inst_gvalid.Q & !latch_8_.Q ) ; (1 pterm, 2 signals)
 
-out_adr_22_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # latch_9_.Q ; (2 pterms, 4 signals)
+out_adr_22_ = !( !inst_gvalid.Q & !latch_9_.Q ) ; (1 pterm, 2 signals)
 
-out_adr_23_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # latch_10_.Q ; (2 pterms, 4 signals)
+out_adr_23_ = !( !inst_gvalid.Q & !latch_10_.Q ) ; (1 pterm, 2 signals)
 
-out_adr_24_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # latch_11_.Q ; (2 pterms, 4 signals)
+out_adr_24_ = !( !inst_gvalid.Q & !latch_11_.Q ) ; (1 pterm, 2 signals)
 
-out_adr_25_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # latch_12_.Q ; (2 pterms, 4 signals)
+out_adr_25_ = !( !inst_gvalid.Q & !latch_12_.Q ) ; (1 pterm, 2 signals)
 
-out_adr_26_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # latch_13_.Q ; (2 pterms, 4 signals)
+out_adr_26_ = !( !inst_gvalid.Q & !latch_13_.Q ) ; (1 pterm, 2 signals)
 
-out_adr_2_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q & grmadr_5_.Q
-    # ti_adr_13_ & !inst_grmpage.Q
-    # ti_adr_14_ & ti_adr_13_
-    # ti_gsel & ti_adr_13_ ; (4 pterms, 5 signals)
+out_adr_2_ = ti_adr_13_ & !inst_gvalid.Q
+    # inst_gvalid.Q & grmadr_5_.Q ; (2 pterms, 3 signals)
 
-out_adr_3_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q & grmadr_4_.Q
-    # ti_adr_12_ & !inst_grmpage.Q
-    # ti_adr_14_ & ti_adr_12_
-    # ti_gsel & ti_adr_12_ ; (4 pterms, 5 signals)
+out_adr_3_ = ti_adr_12_ & !inst_gvalid.Q
+    # inst_gvalid.Q & grmadr_4_.Q ; (2 pterms, 3 signals)
 
-out_adr_4_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q & grmadr_3_.Q
-    # ti_adr_11_ & !inst_grmpage.Q
-    # ti_adr_14_ & ti_adr_11_
-    # ti_gsel & ti_adr_11_ ; (4 pterms, 5 signals)
+out_adr_4_ = ti_adr_11_ & !inst_gvalid.Q
+    # inst_gvalid.Q & grmadr_3_.Q ; (2 pterms, 3 signals)
 
-out_adr_5_ = !ti_gsel & !ti_adr_14_ & grmadr_2_.Q & inst_grmpage.Q
-    # ti_adr_14_ & ti_adr_10_
-    # ti_gsel & ti_adr_10_
-    # ti_adr_10_ & !inst_grmpage.Q ; (4 pterms, 5 signals)
+out_adr_5_ = ti_adr_10_ & !inst_gvalid.Q
+    # grmadr_2_.Q & inst_gvalid.Q ; (2 pterms, 3 signals)
 
-out_adr_6_ = !ti_gsel & !ti_adr_14_ & grmadr_1_.Q & inst_grmpage.Q
-    # ti_adr_14_ & ti_adr_9_
-    # ti_gsel & ti_adr_9_
-    # ti_adr_9_ & !inst_grmpage.Q ; (4 pterms, 5 signals)
+out_adr_6_ = ti_adr_9_ & !inst_gvalid.Q
+    # grmadr_1_.Q & inst_gvalid.Q ; (2 pterms, 3 signals)
 
-out_adr_7_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q & grmadr_0_.Q
-    # ti_adr_8_ & !inst_grmpage.Q
-    # ti_adr_14_ & ti_adr_8_
-    # ti_gsel & ti_adr_8_ ; (4 pterms, 5 signals)
+out_adr_7_ = ti_adr_8_ & !inst_gvalid.Q
+    # inst_gvalid.Q & grmadr_0_.Q ; (2 pterms, 3 signals)
 
-out_adr_8_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # ti_adr_7_ ; (2 pterms, 4 signals)
+out_adr_8_ = !( !ti_adr_7_ & !inst_gvalid.Q ) ; (1 pterm, 2 signals)
 
-out_adr_9_ = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # ti_adr_6_ ; (2 pterms, 4 signals)
+out_adr_9_ = !( !ti_adr_6_ & !inst_gvalid.Q ) ; (1 pterm, 2 signals)
 
 out_reset.D = !ti_gsel & ti_adr_14_
     # out_reset.Q ; (2 pterms, 3 signals)
 out_reset.C = !ti_we ; (1 pterm, 1 signal)
 
 ti_data_0_ = out_data_7_ ; (1 pterm, 1 signal)
-ti_data_0_.OE = un3_ti_data ; (1 pterm, 1 signal)
+ti_data_0_.OE = dataout ; (1 pterm, 1 signal)
 
 ti_data_1_ = out_data_6_ ; (1 pterm, 1 signal)
-ti_data_1_.OE = un3_ti_data ; (1 pterm, 1 signal)
+ti_data_1_.OE = dataout ; (1 pterm, 1 signal)
 
 ti_data_2_ = out_data_5_ ; (1 pterm, 1 signal)
-ti_data_2_.OE = un3_ti_data ; (1 pterm, 1 signal)
+ti_data_2_.OE = dataout ; (1 pterm, 1 signal)
 
 ti_data_3_ = out_data_4_ ; (1 pterm, 1 signal)
-ti_data_3_.OE = un3_ti_data ; (1 pterm, 1 signal)
+ti_data_3_.OE = dataout ; (1 pterm, 1 signal)
 
 ti_data_4_ = out_data_3_ ; (1 pterm, 1 signal)
-ti_data_4_.OE = un3_ti_data ; (1 pterm, 1 signal)
+ti_data_4_.OE = dataout ; (1 pterm, 1 signal)
 
 ti_data_5_ = out_data_2_ ; (1 pterm, 1 signal)
-ti_data_5_.OE = un3_ti_data ; (1 pterm, 1 signal)
+ti_data_5_.OE = dataout ; (1 pterm, 1 signal)
 
 ti_data_6_ = out_data_1_ ; (1 pterm, 1 signal)
-ti_data_6_.OE = un3_ti_data ; (1 pterm, 1 signal)
+ti_data_6_.OE = dataout ; (1 pterm, 1 signal)
 
 ti_data_7_ = out_data_0_ ; (1 pterm, 1 signal)
-ti_data_7_.OE = un3_ti_data ; (1 pterm, 1 signal)
-
-un3_ti_data = ti_we & !ti_gsel & !ti_adr_14_ & inst_grmpage.Q
-    # ti_we & !ti_rom ; (2 pterms, 5 signals)
+ti_data_7_.OE = dataout ; (1 pterm, 1 signal)
 

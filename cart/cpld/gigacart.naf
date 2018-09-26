@@ -22,6 +22,7 @@ ti_data[0]  b
 ti_we  i
 ti_rom  i
 ti_gsel  i
+ti_gclk  i
 out_adr[26]  o
 out_adr[25]  o
 out_adr[24]  o

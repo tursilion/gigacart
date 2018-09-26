@@ -26,9 +26,16 @@ EnableDebug=0
 CompileWithDebug=0
 [$LibMap$]
 work=.
+[Team]
+Enable=0
+File=
+[Files]
+/..\..\untitled.awc=-1
+[Files.Data]
+.\..\untitled.awc=Accelerated Waveform Configuration
 [SpecTracer]
 WindowVisible=0
 [HierarchyViewer]
-HierarchyInformation=
+HierarchyInformation=gigacart|myarch|0 
 ShowHide=ShowTopLevel
 Selected=
