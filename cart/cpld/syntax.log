@@ -4,7 +4,7 @@
 #Hostname: NIGHTMARE
 
 $ Start of Compile
-#Tue Sep 25 23:47:55 2018
+#Wed Sep 26 23:14:08 2018
 
 Synopsys VHDL Compiler, version comp201403rcp1, Build 060R, built May 27 2014
 @N|Running in 64-bit mode
@@ -16,6 +16,6 @@ Copyright (C) 1994-2014 Synopsys, Inc. This software and the associated document
 At c_vhdl Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 69MB peak: 70MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Tue Sep 25 23:47:55 2018
+# Wed Sep 26 23:14:09 2018
 
 ###########################################################]

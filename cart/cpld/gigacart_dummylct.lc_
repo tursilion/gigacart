@@ -126,12 +126,12 @@ Default=UP;
 [FITTER RESULTS]
 I/O_pin_util = 0;
 I/O_pin = 0;
-Logic_PT_util = 55;
-Logic_PT = 176;
+Logic_PT_util = 56;
+Logic_PT = 181;
 Occupied_MC_util = 0;
 Occupied_MC = 0;
-Occupied_PT_util = 53;
-Occupied_PT = 176;
+Occupied_PT_util = 54;
+Occupied_PT = 181;
 GLB_input_util = 0;
 GLB_input = 0;
 

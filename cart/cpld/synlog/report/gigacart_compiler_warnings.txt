@@ -1,17 +1,21 @@
-@W: CG296 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":106:1:106:7|Incomplete sensitivity list - assuming completeness
-@W: CG290 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":135:36:135:42|Referenced variable ti_gsel is not in sensitivity list
-@W: CG290 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":109:36:109:41|Referenced variable ti_rom is not in sensitivity list
-@W: CG296 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":259:1:259:7|Incomplete sensitivity list - assuming completeness
-@W: CG290 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":261:40:261:46|Referenced variable gactive is not in sensitivity list
-@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":66:2:66:3|Input data for signal gvalid contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
-@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":66:2:66:3|Input data for signal gactive contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":158:2:158:3|Found combinational loop at grminc[0]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":158:2:158:3|Found combinational loop at grminc[1]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":158:2:158:3|Found combinational loop at grminc[2]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":158:2:158:3|Found combinational loop at grminc[3]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":158:2:158:3|Found combinational loop at grminc[4]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":158:2:158:3|Found combinational loop at grminc[5]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":158:2:158:3|Found combinational loop at grminc[6]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":158:2:158:3|Found combinational loop at grminc[7]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":46:32:46:34|Found combinational loop at grminc[0]
+@W: CD638 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":52:8:52:13|Signal gadrwr is undriven 
+@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":60:2:60:3|Input data for signal gvalid contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
+@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":60:2:60:3|Input data for signal gactive contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":177:2:177:3|Found combinational loop at grmadr[0]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":191:2:191:3|Found combinational loop at grminc[0]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":177:2:177:3|Found combinational loop at grmadr[1]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":191:2:191:3|Found combinational loop at grminc[1]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":177:2:177:3|Found combinational loop at grmadr[2]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":191:2:191:3|Found combinational loop at grminc[2]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":177:2:177:3|Found combinational loop at grmadr[3]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":191:2:191:3|Found combinational loop at grminc[3]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":177:2:177:3|Found combinational loop at grmadr[4]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":191:2:191:3|Found combinational loop at grminc[4]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":177:2:177:3|Found combinational loop at grmadr[5]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":191:2:191:3|Found combinational loop at grminc[5]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":177:2:177:3|Found combinational loop at grmadr[6]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":191:2:191:3|Found combinational loop at grminc[6]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":177:2:177:3|Found combinational loop at grmadr[7]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":191:2:191:3|Found combinational loop at grminc[7]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":49:32:49:34|Found combinational loop at grmadr[0]
 

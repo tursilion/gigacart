@@ -14,7 +14,7 @@ Project_Summary
 ~~~~~~~~~~~~~~~
 Project Name         :  gigacart
 Project Path         :  D:\work\TI\dragonslair\cart\cpld
-Project Fitted on    :  Tue Sep 25 23:48:05 2018
+Project Fitted on    :  Wed Sep 26 22:53:52 2018
 
 Device               :  M4064_64
 Package              :  100
@@ -31,7 +31,7 @@ Source Format        :  Pure_VHDL
 Compilation_Times
 ~~~~~~~~~~~~~~~~~
 Prefit Time                     0 secs
-Load Design Time                0.05 secs
+Load Design Time                0.03 secs
 Partition Time                  0.00 secs
 Place Time                      0.00 secs
 Route Time                      0.00 secs
@@ -41,15 +41,15 @@ Total Fit Time                  00:00:01
 Design_Summary
 ~~~~~~~~~~~~~~
 Total Input Pins                25
-Total Logic Functions           71
+Total Logic Functions           70
   Total Output Pins             28
   Total Bidir I/O Pins          8
-  Total Buried Nodes            35
-Total Flip-Flops                26
-  Total D Flip-Flops            26
+  Total Buried Nodes            34
+Total Flip-Flops                19
+  Total D Flip-Flops            19
   Total T Flip-Flops            0
   Total Latches                 0
-Total Product Terms             152
+Total Product Terms             164
 
 Total Reserved Pins             0
 Total Locked Pins               0
@@ -71,19 +71,19 @@ Dedicated Pins
   Input-Only Pins                   6        0      6    -->     0
   I/O / Enable Pins                 2        0      2    -->     0
 I/O Pins                           62        0     62    -->     0
-Logic Functions                    64       71      0    -->   110
+Logic Functions                    64       70      0    -->   109
   Input Registers                  64        0     64    -->     0
 
 GLB Inputs                        144        0    144    -->     0
-Logical Product Terms             320      176    144    -->    55
+Logical Product Terms             320      181    139    -->    56
 Occupied GLBs                       4        0      4    -->     0
 Macrocells                         64        0     64    -->     0
 
 Control Product Terms:
   GLB Clock/Clock Enables           4        0      4    -->     0
   GLB Reset/Presets                 4        0      4    -->     0
-  Macrocell Clocks                 64       26     38    -->    40
-  Macrocell Clock Enables          64       23     41    -->    35
+  Macrocell Clocks                 64       19     45    -->    29
+  Macrocell Clock Enables          64       16     48    -->    25
   Macrocell Enables                64        8     56    -->    12
   Macrocell Resets                 64        2     62    -->     3
   Macrocell Presets                64        0     64    -->     0
@@ -212,7 +212,7 @@ Pinout_Listing
 ~~~~~~~~~~~~~~
       | Pin   | Bank |GLB |Assigned|                 | Signal|
 Pin No| Type  |Number|Pad |Pin     |     I/O Type    | Type  | Signal name
-----------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 1     | GND   |   -  |    |        |                 |       |
 2     | TDI   |   -  |    |        |                 |       |
 3     |  I_O  |   0  | A8 |        |                 |       |
@@ -313,7 +313,7 @@ Pin No| Type  |Number|Pad |Pin     |     I/O Type    | Type  | Signal name
 98    |  I_O  |   0  | A5 |        |                 |       |
 99    |  I_O  |   0  | A6 |        |                 |       |
 100   |  I_O  |   0  | A7 |        |                 |       |
-----------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 
 <Note> GLB Pad : This notation refers to the GLB I/O pad number in the device.
 <Note> Assigned Pin : user or dedicated input assignment (E.g. Clock pins).
@@ -387,21 +387,15 @@ Output_Signal_List
   --  --  2  -   1  0 COM                  ----  Fast     Up out_adr_24_
   --  --  2  -   1  0 COM                  ----  Fast     Up out_adr_25_
   --  --  2  -   1  0 COM                  ----  Fast     Up out_adr_26_
-  --  --  3  -   2  0 COM                  ----  Fast     Up out_adr_2_
+  --  --  4  -   2  0 COM                  ----  Fast     Up out_adr_2_
   --  --  3  -   2  0 COM                  ----  Fast     Up out_adr_3_
-  --  --  3  -   2  0 COM                  ----  Fast     Up out_adr_4_
+  --  --  4  -   2  0 COM                  ----  Fast     Up out_adr_4_
   --  --  3  -   2  0 COM                  ----  Fast     Up out_adr_5_
-  --  --  3  -   2  0 COM                  ----  Fast     Up out_adr_6_
-  --  --  3  -   2  0 COM                  ----  Fast     Up out_adr_7_
+  --  --  4  -   2  0 COM                  ----  Fast     Up out_adr_6_
+  --  --  4  -   2  0 COM                  ----  Fast     Up out_adr_7_
   --  --  2  -   1  0 COM                  ----  Fast     Up out_adr_8_
   --  --  2  -   1  0 COM                  ----  Fast     Up out_adr_9_
   --  --  4  -   4  0 DFF      R           ----  Fast     Up out_reset
-  --  --  2  -   2  0 COM          *       ----  Fast     Up ti_data_0_
-  --  --  2  -   2  0 COM          *       ----  Fast     Up ti_data_1_
-  --  --  2  -   2  0 COM          *       ----  Fast     Up ti_data_2_
-  --  --  2  -   2  0 COM          *       ----  Fast     Up ti_data_3_
-  --  --  2  -   2  0 COM          *       ----  Fast     Up ti_data_4_
-  --  --  2  -   2  0 COM          *       ----  Fast     Up ti_data_5_
 ------------------------------------------------------------------------
 
 <Note> CLS = Number of clusters used
@@ -424,6 +418,12 @@ Bidir_Signal_List
           N         L Mc   R E U C O F B Fanout
  Pin GLB  P LL PTs  S Type E S P E E P P         Slew Pullup Signal
 -----------------------------------------------------------------------
+  --  --  2  -   2  0 COM          *       ----  Fast     Up ti_data_0_
+  --  --  2  -   2  0 COM          *       ----  Fast     Up ti_data_1_
+  --  --  2  -   2  0 COM          *       ----  Fast     Up ti_data_2_
+  --  --  2  -   2  0 COM          *       ----  Fast     Up ti_data_3_
+  --  --  2  -   2  0 COM          *       ----  Fast     Up ti_data_4_
+  --  --  2  -   2  0 COM          *       ----  Fast     Up ti_data_5_
   --  --  2  -   2  0 COM          *       ----  Fast     Up ti_data_6_
   --  --  2  -   2  0 COM          *       ----  Fast     Up ti_data_7_
 -----------------------------------------------------------------------
@@ -447,28 +447,26 @@ Buried_Signal_List
         I         C      P R P       Node
         N         L Mc   R E U C I F Fanout
 Mc GLB  P LL PTs  S Type E S P E R P         Signal
-----------------------------------------------------------
---  --  2  -   2  0 COM                ----  G_36
---  --  3  -   3  0 COM                ----  G_38
---  --  2  -   2  0 COM                ----  G_40
---  --  3  -   3  0 COM                ----  G_42
---  --  4  -   4  0 COM                ----  G_44
---  --  5  -   2  0 COM                ----  G_46
---  --  6  -   2  0 COM                ----  G_48
---  --  1  -   1  0 COM                ----  N_110_i
---  --  3  -   1  0 COM                ----  N_89
+---------------------------------------------------------------
+--  --  4  -   2  0 COM                ----  N_76
+--  --  4  -   2  0 COM                ----  N_80
+--  --  5  -   4  0 COM                ----  N_95_mux
 --  --  3  -   2  0 COM                ----  dataout
---  --  3  -   4  0 DFF      R *       ----  grmadr_0_
---  --  3  -   4  0 DFF      R *       ----  grmadr_1_
---  --  3  -   4  0 DFF      R *       ----  grmadr_2_
---  --  3  -   4  0 DFF      R *       ----  grmadr_3_
---  --  3  -   4  0 DFF      R *       ----  grmadr_4_
---  --  3  -   4  0 DFF      R *       ----  grmadr_5_
---  --  3  -   4  0 DFF      R *       ----  grmadr_6_
---  --  3  -   4  0 DFF      R *       ----  grmadr_7_
+--  --  6  -   4  0 COM                ----  grmadr_11_0__un0_n
+--  --  7  -   4  0 COM                ----  grmadr_11_0__un1_n
+--  --  6  -   4  0 COM                ----  grmadr_11_1__un0_n
+--  --  5  -   3  0 COM                ----  grmadr_11_1__un1_n
+--  --  6  -   5  0 COM                ----  grmadr_11_2__n
+--  --  6  -   4  0 COM                ----  grmadr_11_3__un0_n
+--  --  5  -   3  0 COM                ----  grmadr_11_3__un1_n
+--  --  6  -   5  0 COM                ----  grmadr_11_4__n
+--  --  6  -   4  0 COM                ----  grmadr_11_5__un0_n
+--  --  5  -   3  0 COM                ----  grmadr_11_5__un1_n
+--  --  6  -   5  0 COM                ----  grmadr_11_6__n
 --  --  4  -   3  0 DFF    * R         ----  inst_gactive
---  --  6  -   4  0 DFF      R *       ----  inst_grmpage
---  --  6  -   4  0 DFF    * R         ----  inst_gvalid
+--  --  2  -   3  0 DFF      R         ----  inst_ginc
+--  --  8  -   5  0 DFF      R *       ----  inst_grmpage
+--  --  5  -   4  0 DFF    * R *       ----  inst_gvalid
 --  --  3  -   4  0 DFF      R *       ----  latch_0_
 --  --  3  -   4  0 DFF      R *       ----  latch_10_
 --  --  3  -   4  0 DFF      R *       ----  latch_11_
@@ -483,8 +481,9 @@ Mc GLB  P LL PTs  S Type E S P E R P         Signal
 --  --  3  -   4  0 DFF      R *       ----  latch_7_
 --  --  3  -   4  0 DFF      R *       ----  latch_8_
 --  --  3  -   4  0 DFF      R *       ----  latch_9_
+--  --  2  -   1  0 COM                ----  un7_gactive
 --  --  1   1  0 PTOE             ----     ti_data_0_.OE
-----------------------------------------------------------
+---------------------------------------------------------------
 
 <Note> CLS = Number of clusters used
        INP = Number of input signals
@@ -503,81 +502,93 @@ Mc GLB  P LL PTs  S Type E S P E R P         Signal
 
 PostFit_Equations
 ~~~~~~~~~~~~~~~~~
-G_36 = N_110_i & !G_36
-    # !N_110_i & G_36 ; (2 pterms, 2 signals)
+N_76 = grmadr_11_5__un0_n & N_95_mux & grmadr_11_6__n
+    # grmadr_11_5__un1_n & N_95_mux & grmadr_11_6__n ; (2 pterms, 4 signals)
 
-G_38 = N_110_i & G_36 & !G_38
-    # !G_36 & G_38
-    # !N_110_i & G_38 ; (3 pterms, 3 signals)
+N_80 = grmadr_11_3__un0_n & N_76 & grmadr_11_4__n
+    # grmadr_11_3__un1_n & N_76 & grmadr_11_4__n ; (2 pterms, 4 signals)
 
-G_40 = N_89 & !G_40
-    # !N_89 & G_40 ; (2 pterms, 2 signals)
-
-G_42 = N_89 & G_40 & !G_42
-    # !G_40 & G_42
-    # !N_89 & G_42 ; (3 pterms, 3 signals)
-
-G_44 = N_89 & G_40 & G_42 & !G_44
-    # !G_42 & G_44
-    # !G_40 & G_44
-    # !N_89 & G_44 ; (4 pterms, 4 signals)
-
-G_46.X1 = N_89 & G_40 & G_42 & G_44 ; (1 pterm, 4 signals)
-G_46.X2 = G_46 ; (1 pterm, 1 signal)
-
-G_48.X1 = N_89 & G_40 & G_42 & G_44 & G_46 ; (1 pterm, 5 signals)
-G_48.X2 = G_48 ; (1 pterm, 1 signal)
-
-N_110_i = !N_110_i ; (1 pterm, 1 signal)
-
-N_89 = N_110_i & G_36 & G_38 ; (1 pterm, 3 signals)
+N_95_mux = ti_data_7_.PIN & !ti_gsel & ti_adr_14_ & !un7_gactive
+    # un7_gactive & !N_95_mux
+    # !ti_adr_14_ & !un7_gactive & N_95_mux
+    # ti_gsel & !un7_gactive & N_95_mux ; (4 pterms, 5 signals)
 
 dataout = ti_we & !ti_rom
     # ti_we & inst_gvalid.Q ; (2 pterms, 3 signals)
 
-grmadr_0_.D = G_48 ; (1 pterm, 1 signal)
-grmadr_0_.C = ti_gclk ; (1 pterm, 1 signal)
-grmadr_0_.CE = !inst_gactive.Q ; (1 pterm, 1 signal)
+grmadr_11_0__un0_n = !( !ti_gsel & ti_adr_14_ & !ti_data_0_.PIN
+    # !ti_adr_14_ & !grmadr_11_0__un1_n & !grmadr_11_0__un0_n
+    # ti_gsel & !grmadr_11_0__un1_n & !grmadr_11_0__un0_n
+    # un7_gactive ) ; (4 pterms, 6 signals)
 
-grmadr_1_.D = G_46 ; (1 pterm, 1 signal)
-grmadr_1_.C = ti_gclk ; (1 pterm, 1 signal)
-grmadr_1_.CE = !inst_gactive.Q ; (1 pterm, 1 signal)
+grmadr_11_0__un1_n.X1 = !N_80 & un7_gactive
+    # un7_gactive & !grmadr_11_2__n
+    # !grmadr_11_1__un1_n & !grmadr_11_1__un0_n & un7_gactive ; (3 pterms, 5 signals)
+grmadr_11_0__un1_n.X2 = !grmadr_11_0__un1_n & !grmadr_11_0__un0_n
+       & un7_gactive ; (1 pterm, 3 signals)
 
-grmadr_2_.D = G_44 ; (1 pterm, 1 signal)
-grmadr_2_.C = ti_gclk ; (1 pterm, 1 signal)
-grmadr_2_.CE = !inst_gactive.Q ; (1 pterm, 1 signal)
+grmadr_11_1__un0_n = !( !ti_gsel & ti_adr_14_ & !ti_data_1_.PIN
+    # !ti_adr_14_ & !grmadr_11_1__un1_n & !grmadr_11_1__un0_n
+    # ti_gsel & !grmadr_11_1__un1_n & !grmadr_11_1__un0_n
+    # un7_gactive ) ; (4 pterms, 6 signals)
 
-grmadr_3_.D = G_42 ; (1 pterm, 1 signal)
-grmadr_3_.C = ti_gclk ; (1 pterm, 1 signal)
-grmadr_3_.CE = !inst_gactive.Q ; (1 pterm, 1 signal)
+grmadr_11_1__un1_n.X1 = grmadr_11_1__un1_n & un7_gactive
+    # grmadr_11_1__un0_n & un7_gactive ; (2 pterms, 3 signals)
+grmadr_11_1__un1_n.X2 = N_80 & un7_gactive & grmadr_11_2__n ; (1 pterm, 3 signals)
 
-grmadr_4_.D = G_40 ; (1 pterm, 1 signal)
-grmadr_4_.C = ti_gclk ; (1 pterm, 1 signal)
-grmadr_4_.CE = !inst_gactive.Q ; (1 pterm, 1 signal)
+grmadr_11_2__n = N_80 & un7_gactive & !grmadr_11_2__n
+    # !ti_gsel & ti_adr_14_ & ti_data_2_.PIN & !un7_gactive
+    # !N_80 & un7_gactive & grmadr_11_2__n
+    # !ti_adr_14_ & !un7_gactive & grmadr_11_2__n
+    # ti_gsel & !un7_gactive & grmadr_11_2__n ; (5 pterms, 6 signals)
 
-grmadr_5_.D = G_38 ; (1 pterm, 1 signal)
-grmadr_5_.C = ti_gclk ; (1 pterm, 1 signal)
-grmadr_5_.CE = !inst_gactive.Q ; (1 pterm, 1 signal)
+grmadr_11_3__un0_n = !( !ti_gsel & ti_adr_14_ & !ti_data_3_.PIN
+    # !ti_adr_14_ & !grmadr_11_3__un1_n & !grmadr_11_3__un0_n
+    # ti_gsel & !grmadr_11_3__un1_n & !grmadr_11_3__un0_n
+    # un7_gactive ) ; (4 pterms, 6 signals)
 
-grmadr_6_.D = G_36 ; (1 pterm, 1 signal)
-grmadr_6_.C = ti_gclk ; (1 pterm, 1 signal)
-grmadr_6_.CE = !inst_gactive.Q ; (1 pterm, 1 signal)
+grmadr_11_3__un1_n.X1 = grmadr_11_3__un1_n & un7_gactive
+    # grmadr_11_3__un0_n & un7_gactive ; (2 pterms, 3 signals)
+grmadr_11_3__un1_n.X2 = N_76 & un7_gactive & grmadr_11_4__n ; (1 pterm, 3 signals)
 
-grmadr_7_.D = N_110_i ; (1 pterm, 1 signal)
-grmadr_7_.C = ti_gclk ; (1 pterm, 1 signal)
-grmadr_7_.CE = !inst_gactive.Q ; (1 pterm, 1 signal)
+grmadr_11_4__n = N_76 & un7_gactive & !grmadr_11_4__n
+    # !ti_gsel & ti_adr_14_ & ti_data_4_.PIN & !un7_gactive
+    # !N_76 & un7_gactive & grmadr_11_4__n
+    # !ti_adr_14_ & !un7_gactive & grmadr_11_4__n
+    # ti_gsel & !un7_gactive & grmadr_11_4__n ; (5 pterms, 6 signals)
+
+grmadr_11_5__un0_n = !( !ti_gsel & ti_adr_14_ & !ti_data_5_.PIN
+    # !ti_adr_14_ & !grmadr_11_5__un1_n & !grmadr_11_5__un0_n
+    # ti_gsel & !grmadr_11_5__un1_n & !grmadr_11_5__un0_n
+    # un7_gactive ) ; (4 pterms, 6 signals)
+
+grmadr_11_5__un1_n.X1 = grmadr_11_5__un1_n & un7_gactive
+    # grmadr_11_5__un0_n & un7_gactive ; (2 pterms, 3 signals)
+grmadr_11_5__un1_n.X2 = un7_gactive & N_95_mux & grmadr_11_6__n ; (1 pterm, 3 signals)
+
+grmadr_11_6__n = un7_gactive & N_95_mux & !grmadr_11_6__n
+    # !ti_gsel & ti_adr_14_ & ti_data_6_.PIN & !un7_gactive
+    # un7_gactive & !N_95_mux & grmadr_11_6__n
+    # !ti_adr_14_ & !un7_gactive & grmadr_11_6__n
+    # ti_gsel & !un7_gactive & grmadr_11_6__n ; (5 pterms, 6 signals)
 
 inst_gactive.D = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q ; (1 pterm, 3 signals)
 inst_gactive.C = !( !ti_gsel & !ti_gclk ) ; (1 pterm, 2 signals)
 inst_gactive.AR = ti_gsel & ti_gclk ; (1 pterm, 2 signals)
 
-inst_grmpage.D = !G_44 & !G_46 & G_48 ; (1 pterm, 3 signals)
+inst_ginc.D = inst_gactive.Q ; (1 pterm, 1 signal)
+inst_ginc.C = !( ti_gclk & !inst_gactive.Q ) ; (1 pterm, 2 signals)
+
+inst_grmpage.D = grmadr_11_0__un0_n & !grmadr_11_1__un1_n
+       & !grmadr_11_1__un0_n & !grmadr_11_2__n
+    # grmadr_11_0__un1_n & !grmadr_11_1__un1_n & !grmadr_11_1__un0_n
+       & !grmadr_11_2__n ; (2 pterms, 5 signals)
 inst_grmpage.C = !ti_we ; (1 pterm, 1 signal)
 inst_grmpage.CE = !ti_gsel & ti_adr_14_ ; (1 pterm, 2 signals)
 
-inst_gvalid.D = !ti_gsel & !ti_adr_14_ & inst_gvalid.Q & inst_grmpage.Q
-    # !ti_gsel & !ti_adr_14_ & inst_gactive.Q & inst_grmpage.Q ; (2 pterms, 5 signals)
+inst_gvalid.D = !ti_gsel & !ti_adr_14_ & inst_grmpage.Q ; (1 pterm, 3 signals)
 inst_gvalid.C = !( !ti_gsel & !ti_gclk ) ; (1 pterm, 2 signals)
+inst_gvalid.CE = !( !ti_gsel & !ti_adr_14_ & !inst_gactive.Q & inst_grmpage.Q ) ; (1 pterm, 4 signals)
 inst_gvalid.AR = ti_gsel & ti_gclk ; (1 pterm, 2 signals)
 
 latch_0_.D = ti_adr_14_ ; (1 pterm, 1 signal)
@@ -637,7 +648,7 @@ latch_9_.C = ti_we ; (1 pterm, 1 signal)
 latch_9_.CE = !ti_rom ; (1 pterm, 1 signal)
 
 out_adr_0_ = ti_adr_15_ & !inst_gvalid.Q
-    # inst_gvalid.Q & grmadr_7_.Q ; (2 pterms, 3 signals)
+    # inst_gvalid.Q & N_95_mux ; (2 pterms, 3 signals)
 
 out_adr_10_ = !( !ti_adr_5_ & !inst_gvalid.Q ) ; (1 pterm, 2 signals)
 
@@ -660,7 +671,7 @@ out_adr_18_ = !( !inst_gvalid.Q & !latch_5_.Q ) ; (1 pterm, 2 signals)
 out_adr_19_ = !( !inst_gvalid.Q & !latch_6_.Q ) ; (1 pterm, 2 signals)
 
 out_adr_1_ = ti_adr_14_ & !inst_gvalid.Q
-    # inst_gvalid.Q & grmadr_6_.Q ; (2 pterms, 3 signals)
+    # inst_gvalid.Q & grmadr_11_6__n ; (2 pterms, 3 signals)
 
 out_adr_20_ = !( !inst_gvalid.Q & !latch_7_.Q ) ; (1 pterm, 2 signals)
 
@@ -676,23 +687,23 @@ out_adr_25_ = !( !inst_gvalid.Q & !latch_12_.Q ) ; (1 pterm, 2 signals)
 
 out_adr_26_ = !( !inst_gvalid.Q & !latch_13_.Q ) ; (1 pterm, 2 signals)
 
-out_adr_2_ = ti_adr_13_ & !inst_gvalid.Q
-    # inst_gvalid.Q & grmadr_5_.Q ; (2 pterms, 3 signals)
+out_adr_2_ = !( !grmadr_11_5__un1_n & !grmadr_11_5__un0_n & inst_gvalid.Q
+    # !ti_adr_13_ & !inst_gvalid.Q ) ; (2 pterms, 4 signals)
 
 out_adr_3_ = ti_adr_12_ & !inst_gvalid.Q
-    # inst_gvalid.Q & grmadr_4_.Q ; (2 pterms, 3 signals)
+    # inst_gvalid.Q & grmadr_11_4__n ; (2 pterms, 3 signals)
 
-out_adr_4_ = ti_adr_11_ & !inst_gvalid.Q
-    # inst_gvalid.Q & grmadr_3_.Q ; (2 pterms, 3 signals)
+out_adr_4_ = !( !grmadr_11_3__un1_n & !grmadr_11_3__un0_n & inst_gvalid.Q
+    # !ti_adr_11_ & !inst_gvalid.Q ) ; (2 pterms, 4 signals)
 
 out_adr_5_ = ti_adr_10_ & !inst_gvalid.Q
-    # inst_gvalid.Q & grmadr_2_.Q ; (2 pterms, 3 signals)
+    # inst_gvalid.Q & grmadr_11_2__n ; (2 pterms, 3 signals)
 
-out_adr_6_ = ti_adr_9_ & !inst_gvalid.Q
-    # inst_gvalid.Q & grmadr_1_.Q ; (2 pterms, 3 signals)
+out_adr_6_ = !( !grmadr_11_1__un1_n & !grmadr_11_1__un0_n & inst_gvalid.Q
+    # !ti_adr_9_ & !inst_gvalid.Q ) ; (2 pterms, 4 signals)
 
-out_adr_7_ = ti_adr_8_ & !inst_gvalid.Q
-    # inst_gvalid.Q & grmadr_0_.Q ; (2 pterms, 3 signals)
+out_adr_7_ = !( !grmadr_11_0__un1_n & !grmadr_11_0__un0_n & inst_gvalid.Q
+    # !ti_adr_8_ & !inst_gvalid.Q ) ; (2 pterms, 4 signals)
 
 out_adr_8_ = !( !ti_adr_7_ & !inst_gvalid.Q ) ; (1 pterm, 2 signals)
 
@@ -725,6 +736,8 @@ ti_data_6_.OE = dataout ; (1 pterm, 1 signal)
 
 ti_data_7_ = out_data_0_ ; (1 pterm, 1 signal)
 ti_data_7_.OE = dataout ; (1 pterm, 1 signal)
+
+un7_gactive = !inst_gactive.Q & inst_ginc.Q ; (1 pterm, 2 signals)
 
 
 

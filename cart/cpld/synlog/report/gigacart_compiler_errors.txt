@@ -1,2 +1,2 @@
-@E: CL121 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":46:32:46:34|Can't find control signal for grminc
+@E: CL123 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":191:2:191:3|Logic for grminc_4(0 to 7) does not match a standard flip-flop
 
