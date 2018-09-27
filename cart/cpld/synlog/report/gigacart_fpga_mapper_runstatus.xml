@@ -37,10 +37,10 @@ The file contains the job information from mapper to be displayed as part of the
 <data>0h:00m:00s</data>
 </info>
 <info name="Peak Memory">
-<data>104MB</data>
+<data>103MB</data>
 </info>
 <info name="Date &amp; Time">
-<data type="timestamp">1538027625</data>
+<data type="timestamp">1538034336</data>
 </info>
 </job_info>
 </job_run_status>

@@ -6,7 +6,7 @@
 #Implementation: cpld
 
 $ Start of Compile
-#Wed Sep 26 23:14:09 2018
+#Thu Sep 27 00:45:34 2018
 
 Synopsys VHDL Compiler, version comp201403rcp1, Build 060R, built May 27 2014
 @N|Running in 64-bit mode
@@ -16,31 +16,68 @@ Copyright (C) 1994-2014 Synopsys, Inc. This software and the associated document
 @N:"D:\work\ti\dragonslair\cart\cpld\design.vhd":19:7:19:14|Top entity is set to gigacart.
 File D:\work\ti\dragonslair\cart\cpld\design.vhd changed - recompiling
 VHDL syntax check successful!
+File D:\work\ti\dragonslair\cart\cpld\design.vhd changed - recompiling
 @N: CD630 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":19:7:19:14|Synthesizing work.gigacart.myarch 
-@W: CD638 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":52:8:52:13|Signal gadrwr is undriven 
 Post processing for work.gigacart.myarch
-@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":60:2:60:3|Input data for signal gvalid contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
-@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":60:2:60:3|Input data for signal gactive contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":177:2:177:3|Found combinational loop at grmadr[0]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":191:2:191:3|Found combinational loop at grminc[0]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":177:2:177:3|Found combinational loop at grmadr[1]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":191:2:191:3|Found combinational loop at grminc[1]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":177:2:177:3|Found combinational loop at grmadr[2]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":191:2:191:3|Found combinational loop at grminc[2]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":177:2:177:3|Found combinational loop at grmadr[3]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":191:2:191:3|Found combinational loop at grminc[3]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":177:2:177:3|Found combinational loop at grmadr[4]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":191:2:191:3|Found combinational loop at grminc[4]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":177:2:177:3|Found combinational loop at grmadr[5]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":191:2:191:3|Found combinational loop at grminc[5]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":177:2:177:3|Found combinational loop at grmadr[6]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":191:2:191:3|Found combinational loop at grminc[6]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":177:2:177:3|Found combinational loop at grmadr[7]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":191:2:191:3|Found combinational loop at grminc[7]
+@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":173:2:173:3|Input data for signal grminc(0 to 7) contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
+@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":58:2:58:3|Input data for signal gvalid contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
+@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":58:2:58:3|Input data for signal gactive contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
 @W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":49:32:49:34|Found combinational loop at grmadr[0]
-@E: CL123 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":191:2:191:3|Logic for grminc_4(0 to 7) does not match a standard flip-flop
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":49:32:49:34|Found combinational loop at grmadr[1]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":49:32:49:34|Found combinational loop at grmadr[2]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":49:32:49:34|Found combinational loop at grmadr[3]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":49:32:49:34|Found combinational loop at grmadr[4]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":49:32:49:34|Found combinational loop at grmadr[5]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":49:32:49:34|Found combinational loop at grmadr[6]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":49:32:49:34|Found combinational loop at grmadr[7]
 @END
+
+At c_vhdl Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 70MB peak: 71MB)
+
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Wed Sep 26 23:14:09 2018
+# Thu Sep 27 00:45:35 2018
+
+###########################################################]
+Synopsys Netlist Linker, version comp201403rcp1, Build 060R, built May 27 2014
+@N|Running in 64-bit mode
+File D:\work\ti\dragonslair\cart\cpld\synwork\gigacart_comp.srs changed - recompiling
+
+At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 68MB peak: 68MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+# Thu Sep 27 00:45:36 2018
+
+###########################################################]
+Map & Optimize Report
+
+Synopsys CPLD Technology Mapper, Version maplat, Build 923R, Built May  6 2014
+Copyright (C) 1994-2013, Synopsys, Inc. This software and the associated documentation are proprietary to Synopsys, Inc. This software may only be used in accordance with the terms and conditions of a written license agreement with Synopsys, Inc.  All other use or distribution of the software is strictly prohibited.
+Product Version I-2014.03LC 
+@N: MF248 |Running in 64-bit mode.
+---------------------------------------
+Resource Usage Report
+
+Simple gate primitives:
+DFFC            15 uses
+DFF             9 uses
+DFFRH           1 use
+DFFCRH          1 use
+IBUF            25 uses
+BUFTH           6 uses
+BI_DIR          2 uses
+OBUF            28 uses
+INV             62 uses
+AND2            47 uses
+OR2             8 uses
+
+
+@N: FC100 |Timing Report not generated for this device, please use place and route tools for timing analysis.
+I-2014.03LC 
+Mapper successful!
+
+At Mapper Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 39MB peak: 103MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+# Thu Sep 27 00:45:36 2018
 
 ###########################################################]

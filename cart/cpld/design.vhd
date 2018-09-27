@@ -55,7 +55,6 @@ BEGIN
 	-- ti_adr(14)='1' means address, not data, 
 	PROCESS (ti_gclk, ti_gsel)
 	BEGIN
---		if (ti_gclk'EVENT and ti_gclk='1') then
 		if (rising_edge(ti_gclk)) then
 			if (ti_gsel='0' AND grmpage='1' AND ti_adr(14)='0') THEN
 				IF (gactive = '1') THEN
@@ -67,7 +66,6 @@ BEGIN
 				gvalid <= '0';
 				gactive <= '0';
 			END IF;
---		ELSIF (ti_gsel'EVENT and ti_gsel='1') THEN
 		ELSIF (rising_edge(ti_gsel)) THEN
 			gvalid <= '0';
 			gactive <= '0';
@@ -78,14 +76,6 @@ BEGIN
 	-- !WE is delayed on our hardware... so there may be brief conflict
 	-- Could we delay? Without a clock?
 	-- is this better combitorial than process? Can I learn to spell 'combitorial'?
---	PROCESS (gvalid, ti_rom, ti_we)
---	BEGIN
---		IF (gvalid = '1' OR ti_rom = '0') THEN
---			dataout <= ti_we; 	-- output okay when WE is high (not a write)
---		ELSE
---			dataout <= '0';
---		END IF;
---	END PROCESS;
 	dataout <= ti_we when (gvalid = '1' OR ti_rom = '0') ELSE ('0');
 
 	-- output data from ROM on read, otherwise tristate data bus (bit inversion)
@@ -102,7 +92,6 @@ BEGIN
 	PROCESS (ti_we, ti_rom)
 	BEGIN
 		-- capture on rising edge of WE (if ROM is active)
---		if (ti_we'EVENT AND ti_we='1' AND ti_rom='0') THEN
 		if (rising_edge(ti_we) AND ti_rom='0') THEN
 			-- we dont capture the TI lsb because it ALWAYS
 			-- changes due to the 16->8 bit multiplexer
@@ -131,7 +120,7 @@ BEGIN
 	END PROCESS;
 
 	-- handle the GROM address write (two bytes)
-	PROCESS (ti_we, gactive, ti_gsel, ti_adr(14))
+	PROCESS (ti_we, gvalid, ti_gsel, ti_adr(14))
 	BEGIN
 		-- ti_adr(14)='1' means address event, ti_we='0' means write
 		-- cart hardware means that the WE falling edge is always after GSEL falls
@@ -145,11 +134,10 @@ BEGIN
 		-- the console ROM ALWAYS writes the GROM address and does not rely on this
 		-- auto-increment (strictly, the address readback assumes it). Since there will
 		-- be real GROMs in the system to deal with that part, we can skip all that circuitry.
---		IF (ti_we'EVENT AND ti_we='0' AND ti_gsel='0' AND ti_adr(14)='1') THEN
 		IF (falling_edge(ti_we) AND ti_gsel='0' AND ti_adr(14)='1') THEN
 			-- the limited bits available makes this a little more complex...
 			-- grmpage is true for '100'. Nothing else to shift up
-			grmpage <= (grmadr(0)) AND (NOT grmadr(1)) AND (NOT grmadr(2));
+			grmpage <= (grminc(0)) AND (NOT grminc(1)) AND (NOT grminc(2));
 
 			-- writing least significant byte, we need to cache this
 			-- read the new byte into the LSB (no inversion here)
@@ -171,9 +159,8 @@ BEGIN
 			-- time from first access, easily meeting the 200ns post-reset requirement.
 			bounce <= '1';
 		END IF;
-
-		-- reload the address at the beginning of a access cycle
-		if (rising_edge(gactive)) THEN
+		IF (rising_edge(gvalid)) THEN
+			-- reload the address at the beginning of a access cycle
 			grmadr <= grminc;
 		END IF;
 	END PROCESS;
@@ -181,14 +168,12 @@ BEGIN
 	-- handle setting and clearing the ginc variable for just one GCLK after gactive
 	PROCESS (gvalid, ti_we)
 	BEGIN
+		-- after any write (assuming address), get the grmadr
 		-- after a grom read, get the increment
-		IF (falling_edge(gvalid)) THEN
-			grminc <= grmadr + 1;
-		END IF;
-		-- after any write, copy the address to grminc
-		-- this is hacky, but it works for address writes
 		IF (rising_edge(ti_we)) THEN
 			grminc <= grmadr;
+		ELSIF (falling_edge(gvalid)) THEN
+			grminc <= grmadr+1;
 		END IF;
 	END PROCESS;
 			

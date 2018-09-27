@@ -1,2 +1,2 @@
-<Error>  F38019:  Number of logic functions 70 in the design exceeds the device limit of 64.
-Project 'gigacart' failed during design rules check!
+<Warning>  P38088:  Balanced partitioning turned off.
+Project 'gigacart' was Fitted Successfully!

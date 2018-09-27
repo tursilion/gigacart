@@ -1,2 +1,3 @@
-@E: CL123 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":191:2:191:3|Logic for grminc_4(0 to 7) does not match a standard flip-flop
+@E: CG119 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":139:28:139:31|Expecting closing )
+@E|Parse errors encountered - exiting
 

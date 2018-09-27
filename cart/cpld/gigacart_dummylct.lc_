@@ -95,6 +95,101 @@ User_max_glb_fanin = 36;
 Adjust_input_assignments = Off;
 
 [LOCATION ASSIGNMENTS]
+// Block A
+out_data_7_=pin,94,-,A,3;
+out_data_6_=pin,93,-,A,2;
+out_data_5_=pin,92,-,A,1;
+out_data_4_=pin,91,-,A,0;
+ti_adr_14_=pin,3,-,A,8;
+out_adr_26_=pin,99,-,A,6;
+out_adr_0_=pin,97,-,A,4;
+ti_data_6_=pin,11,-,A,15;
+ti_data_5_=pin,10,-,A,14;
+ti_data_4_=pin,9,-,A,13;
+ti_data_3_=pin,8,-,A,3;
+ti_data_2_=pin,6,-,A,2;
+ti_data_1_=pin,5,-,A,1;
+ti_data_0_=pin,4,-,A,0;
+out_adr_25_=pin,100,-,A,7;
+out_adr_17_=pin,98,-,A,5;
+grminc_1_=node,-,-,A,9;
+inst_gvalid=node,-,-,A,8;
+grminc_7_=node,-,-,A,10;
+inst_gactive=node,-,-,A,11;
+// Block B
+ti_adr_15_=pin,34,-,B,3;
+ti_we=pin,16,-,B,13;
+ti_rom=pin,15,-,B,14;
+ti_gclk=pin,36,-,B,1;
+ti_adr_13_=pin,31,-,B,4;
+ti_adr_12_=pin,30,-,B,5;
+ti_adr_11_=pin,29,-,B,6;
+ti_adr_10_=pin,28,-,B,7;
+ti_adr_7_=pin,22,-,B,8;
+ti_adr_6_=pin,20,-,B,10;
+ti_adr_5_=pin,19,-,B,11;
+ti_adr_4_=pin,17,-,B,12;
+ti_adr_3_=pin,21,-,B,9;
+ti_data_7_=pin,14,-,B,0;
+grminc_0_=node,-,-,B,1;
+latch_1_=node,-,-,B,2;
+latch_2_=node,-,-,B,3;
+latch_3_=node,-,-,B,4;
+latch_4_=node,-,-,B,5;
+latch_5_=node,-,-,B,6;
+latch_6_=node,-,-,B,7;
+latch_7_=node,-,-,B,8;
+latch_8_=node,-,-,B,9;
+latch_10_=node,-,-,B,10;
+latch_11_=node,-,-,B,11;
+latch_12_=node,-,-,B,12;
+latch_13_=node,-,-,B,13;
+dataout=node,-,-,B,14;
+// Block C
+ti_gsel=pin,44,-,C,3;
+out_adr_7_=pin,56,-,C,2;
+out_adr_6_=pin,55,-,C,1;
+out_adr_5_=pin,54,-,C,0;
+out_adr_4_=pin,53,-,C,8;
+out_adr_3_=pin,50,-,C,7;
+out_adr_2_=pin,49,-,C,6;
+out_adr_22_=pin,61,-,C,15;
+out_adr_19_=pin,60,-,C,5;
+out_adr_18_=pin,59,-,C,13;
+out_adr_8_=pin,58,-,C,3;
+out_reset=pin,47,-,C,4;
+grminc_2_=node,-,-,C,10;
+grminc_3_=node,-,-,C,11;
+grminc_4_=node,-,-,C,12;
+grminc_5_=node,-,-,C,14;
+inst_grmpage=node,-,-,C,9;
+// Block D
+out_data_1_=pin,87,-,D,0;
+out_data_0_=pin,86,-,D,1;
+out_adr_1_=pin,84,-,D,3;
+out_adr_24_=pin,81,-,D,4;
+out_adr_23_=pin,80,-,D,5;
+out_adr_21_=pin,64,-,D,15;
+out_adr_20_=pin,65,-,D,14;
+out_adr_16_=pin,79,-,D,6;
+out_adr_15_=pin,78,-,D,7;
+out_adr_14_=pin,72,-,D,8;
+out_adr_13_=pin,71,-,D,0;
+out_adr_12_=pin,70,-,D,1;
+out_adr_11_=pin,69,-,D,2;
+out_adr_10_=pin,67,-,D,12;
+out_adr_9_=pin,66,-,D,13;
+grminc_6_=node,-,-,D,9;
+latch_0_=node,-,-,D,10;
+latch_9_=node,-,-,D,11;
+// Input/Clock Pins
+out_data_3_=pin,89,-,-,-;
+out_data_2_=pin,88,-,-,-;
+
+// Input Pins
+ti_adr_8_=pin,23,-,-,-;
+ti_adr_9_=pin,27,-,-,-;
+
 [PTOE ASSIGNMENTS]
 
 [FAST BYPASS]
@@ -109,6 +204,67 @@ Default=NONE;
 ;
 
 [IO TYPES]
+ti_adr_15_=LVTTL_5V,pin,-,-;
+out_data_7_=LVCMOS33,pin,-,-;
+out_data_6_=LVCMOS33,pin,-,-;
+ti_we=LVTTL_5V,pin,-,-;
+out_data_5_=LVCMOS33,pin,-,-;
+ti_rom=LVTTL_5V,pin,-,-;
+out_data_4_=LVCMOS33,pin,-,-;
+ti_gsel=LVTTL_5V,pin,-,-;
+out_data_3_=LVCMOS33,pin,-,-;
+ti_gclk=LVTTL_5V,pin,-,-;
+out_data_2_=LVCMOS33,pin,-,-;
+out_data_1_=LVCMOS33,pin,-,-;
+out_data_0_=LVCMOS33,pin,-,-;
+ti_adr_14_=LVTTL_5V,pin,-,-;
+ti_adr_13_=LVTTL_5V,pin,-,-;
+ti_adr_12_=LVTTL_5V,pin,-,-;
+ti_adr_11_=LVTTL_5V,pin,-,-;
+ti_adr_10_=LVTTL_5V,pin,-,-;
+ti_adr_9_=LVTTL_5V,pin,-,-;
+ti_adr_8_=LVTTL_5V,pin,-,-;
+ti_adr_7_=LVTTL_5V,pin,-,-;
+ti_adr_6_=LVTTL_5V,pin,-,-;
+ti_adr_5_=LVTTL_5V,pin,-,-;
+ti_adr_4_=LVTTL_5V,pin,-,-;
+ti_adr_3_=LVTTL_5V,pin,-,-;
+out_adr_7_=LVTTL,pin,1,-;
+out_adr_6_=LVTTL,pin,1,-;
+out_adr_5_=LVTTL,pin,1,-;
+out_adr_4_=LVTTL,pin,1,-;
+ti_data_7_=LVTTL,pin,0,-;
+out_adr_3_=LVTTL,pin,1,-;
+out_adr_2_=LVTTL,pin,1,-;
+out_adr_26_=LVTTL,pin,0,-;
+out_adr_1_=LVTTL,pin,1,-;
+out_adr_0_=LVTTL,pin,0,-;
+ti_data_6_=LVTTL,pin,0,-;
+ti_data_5_=LVTTL,pin,0,-;
+ti_data_4_=LVTTL,pin,0,-;
+ti_data_3_=LVTTL,pin,0,-;
+ti_data_2_=LVTTL,pin,0,-;
+ti_data_1_=LVTTL,pin,0,-;
+ti_data_0_=LVTTL,pin,0,-;
+out_adr_25_=LVTTL,pin,0,-;
+out_adr_24_=LVTTL,pin,1,-;
+out_adr_23_=LVTTL,pin,1,-;
+out_adr_22_=LVTTL,pin,1,-;
+out_adr_21_=LVTTL,pin,1,-;
+out_adr_20_=LVTTL,pin,1,-;
+out_adr_19_=LVTTL,pin,1,-;
+out_adr_18_=LVTTL,pin,1,-;
+out_adr_17_=LVTTL,pin,0,-;
+out_adr_16_=LVTTL,pin,1,-;
+out_adr_15_=LVTTL,pin,1,-;
+out_adr_14_=LVTTL,pin,1,-;
+out_adr_13_=LVTTL,pin,1,-;
+out_adr_12_=LVTTL,pin,1,-;
+out_adr_11_=LVTTL,pin,1,-;
+out_adr_10_=LVTTL,pin,1,-;
+out_adr_9_=LVTTL,pin,1,-;
+out_adr_8_=LVTTL,pin,1,-;
+out_reset=LVTTL,pin,1,-;
 
 [PLL ASSIGNMENTS]
 
@@ -124,16 +280,16 @@ Default=FAST;
 Default=UP;
 
 [FITTER RESULTS]
-I/O_pin_util = 0;
-I/O_pin = 0;
-Logic_PT_util = 56;
-Logic_PT = 181;
-Occupied_MC_util = 0;
-Occupied_MC = 0;
-Occupied_PT_util = 54;
-Occupied_PT = 181;
-GLB_input_util = 0;
-GLB_input = 0;
+I/O_pin_util = 85;
+I/O_pin = 55;
+Logic_PT_util = 30;
+Logic_PT = 96;
+Occupied_MC_util = 96;
+Occupied_MC = 62;
+Occupied_PT_util = 43;
+Occupied_PT = 146;
+GLB_input_util = 52;
+GLB_input = 76;
 
 [TIMING CONSTRAINTS]
 layer=OFF;
