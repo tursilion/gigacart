@@ -8,6 +8,6 @@ STIMULUS autotest.vhd
 MODULE design.vhd
 MODSTYLE gigacart Normal
 STIMULUS gigacart testbench.vhd
-SYNTHESIS_TOOL Synplify
+SYNTHESIS_TOOL LSE
 SIMULATOR_TOOL ActiveHDL
 TOPMODULE gigacart

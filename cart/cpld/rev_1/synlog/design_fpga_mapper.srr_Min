@@ -1,0 +1,292 @@
+
+
+##### START OF TIMING REPORT #####[
+# Timing Report written on Sat Sep 29 18:19:28 2018
+#
+
+
+Top view:               gigacart
+Requested Frequency:    1.0 MHz
+Wire load mode:         top
+Paths requested:        5
+Constraint File(s):    
+@N: MT320 |Timing report estimates place and route data. Please look at the place and route timing report for final timing.
+
+@N: MT322 |Clock constraints cover only FF-to-FF paths associated with the clock.
+
+
+
+Performance Summary 
+*******************
+
+
+Worst slack in design: -0.582
+
+                   Requested     Estimated     Requested     Estimated                 Clock        Clock              
+Starting Clock     Frequency     Frequency     Period        Period        Slack       Type         Group              
+-----------------------------------------------------------------------------------------------------------------------
+gigacart|ti_we     1.0 MHz       94.2 MHz      1000.000      10.612        989.388     inferred     Inferred_clkgroup_0
+System             1.0 MHz       80.9 MHz      1000.000      12.368        987.632     system       system_clkgroup    
+=======================================================================================================================
+
+
+
+Clock Relationships
+*******************
+
+Clocks                          |    rise  to  rise   |    fall  to  fall    |    rise  to  fall   |    fall  to  rise 
+-----------------------------------------------------------------------------------------------------------------------
+Starting        Ending          |  constraint  slack  |  constraint  slack   |  constraint  slack  |  constraint  slack
+-----------------------------------------------------------------------------------------------------------------------
+System          System          |  0.000       1.518  |  No paths    -       |  No paths    -      |  No paths    -    
+gigacart|ti_we  System          |  No paths    -      |  No paths    -       |  No paths    -      |  0.000       1.968
+gigacart|ti_we  gigacart|ti_we  |  No paths    -      |  0.000       -0.582  |  No paths    -      |  No paths    -    
+=======================================================================================================================
+ Note: 'No paths' indicates there are no paths in the design for that pair of clock edges.
+       'Diff grp' indicates that paths exist but the starting clock and ending clock are in different clock groups.
+
+
+
+Interface Information 
+*********************
+
+No IO constraint found
+
+
+
+====================================
+Detailed Report for Clock: gigacart|ti_we
+====================================
+
+
+
+Starting Points with Worst Slack
+********************************
+
+              Starting                                               Arrival           
+Instance      Reference          Type        Pin     Net             Time        Slack 
+              Clock                                                                    
+---------------------------------------------------------------------------------------
+grmadr[1]     gigacart|ti_we     FD1P3AX     Q       grmadr[1]       3.197       -0.582
+grmpage       gigacart|ti_we     FD1P3IZ     Q       grmpage         3.648       1.968 
+bounce        gigacart|ti_we     FD1S3AX     Q       out_reset_c     3.648       7.383 
+grmadr[0]     gigacart|ti_we     FD1P3AX     Q       grmadr[0]       3.648       7.383 
+grmadr[2]     gigacart|ti_we     FD1P3AX     Q       grmadr[2]       3.648       7.383 
+=======================================================================================
+
+
+Ending Points with Worst Slack
+******************************
+
+             Starting                                                    Required           
+Instance     Reference          Type        Pin     Net                  Time         Slack 
+             Clock                                                                          
+--------------------------------------------------------------------------------------------
+grmpage      gigacart|ti_we     FD1P3IZ     CD      grmadr[1]            3.780        -0.582
+gvalid       gigacart|ti_we     FD1P3DX     SP      gactive_1_sqmuxa     3.570        1.968 
+bounce       gigacart|ti_we     FD1S3AX     D       N_26_0               0.022        7.383 
+grmpage      gigacart|ti_we     FD1P3IZ     D       N_71                 0.022        7.383 
+gactive      gigacart|ti_we     FD1S3DX     D       un4_ti_gsel          -0.428       8.285 
+gvalid       gigacart|ti_we     FD1P3DX     D       un4_ti_gsel          -0.428       8.285 
+============================================================================================
+
+
+
+Worst Path Information
+***********************
+
+
+Path information for path number 1: 
+    Propagation time:                        3.197
+    + Clock delay at starting point:         0.000 (ideal)
+    - Requested Period:                      0.000
+    - Hold time:                             3.780
+    - Clock delay at ending point:           0.000 (ideal)
+    = Slack (critical) :                     -0.582
+
+    Number of logic level(s):                0
+    Starting point:                          grmadr[1] / Q
+    Ending point:                            grmpage / CD
+    The start point is clocked by            gigacart|ti_we [falling] on pin CK
+    The end   point is clocked by            gigacart|ti_we [falling] on pin CK
+
+Instance / Net                 Pin      Pin               Arrival     No. of    
+Name               Type        Name     Dir     Delay     Time        Fan Out(s)
+--------------------------------------------------------------------------------
+grmadr[1]          FD1P3AX     Q        Out     3.197     3.197       -         
+grmadr[1]          Net         -        -       -         -           2         
+grmpage            FD1P3IZ     CD       In      0.000     3.197       -         
+================================================================================
+
+
+Path information for path number 2: 
+    Propagation time:                        5.538
+    + Clock delay at starting point:         0.000 (ideal)
+    - Requested Period:                      0.000
+    - Hold time:                             3.570
+    - Clock delay at ending point:           0.000 (ideal)
+0.000
+    = Slack (non-critical) :                 1.968
+
+    Number of logic level(s):                1
+    Starting point:                          grmpage / Q
+    Ending point:                            gvalid / SP
+    The start point is clocked by            gigacart|ti_we [falling] on pin CK
+    The end   point is clocked by            System [rising] on pin CK
+
+Instance / Net                    Pin      Pin               Arrival     No. of    
+Name                 Type         Name     Dir     Delay     Time        Fan Out(s)
+-----------------------------------------------------------------------------------
+grmpage              FD1P3IZ      Q        Out     3.648     3.648       -         
+grmpage              Net          -        -       -         -           2         
+gactive_1_sqmuxa     ORCALUT4     D        In      0.000     3.648       -         
+gactive_1_sqmuxa     ORCALUT4     Z        Out     1.890     5.538       -         
+gactive_1_sqmuxa     Net          -        -       -         -           1         
+gvalid               FD1P3DX      SP       In      0.000     5.538       -         
+===================================================================================
+
+
+Path information for path number 3: 
+    Propagation time:                        7.406
+    + Clock delay at starting point:         0.000 (ideal)
+    - Requested Period:                      0.000
+    - Hold time:                             0.022
+    - Clock delay at ending point:           0.000 (ideal)
+    = Slack (non-critical) :                 7.383
+
+    Number of logic level(s):                1
+    Starting point:                          bounce / Q
+    Ending point:                            bounce / D
+    The start point is clocked by            gigacart|ti_we [falling] on pin CK
+    The end   point is clocked by            gigacart|ti_we [falling] on pin CK
+
+Instance / Net                  Pin      Pin               Arrival     No. of    
+Name               Type         Name     Dir     Delay     Time        Fan Out(s)
+---------------------------------------------------------------------------------
+bounce             FD1S3AX      Q        Out     3.648     3.648       -         
+out_reset_c        Net          -        -       -         -           2         
+bounce_1           ORCALUT4     A        In      0.000     3.648       -         
+bounce_1           ORCALUT4     Z        Out     3.758     7.406       -         
+N_26_0             Net          -        -       -         -           1         
+bounce             FD1S3AX      D        In      0.000     7.406       -         
+=================================================================================
+
+
+Path information for path number 4: 
+    Propagation time:                        7.406
+    + Clock delay at starting point:         0.000 (ideal)
+    - Requested Period:                      0.000
+    - Hold time:                             0.022
+    - Clock delay at ending point:           0.000 (ideal)
+    = Slack (non-critical) :                 7.383
+
+    Number of logic level(s):                1
+    Starting point:                          grmadr[0] / Q
+    Ending point:                            grmpage / D
+    The start point is clocked by            gigacart|ti_we [falling] on pin CK
+    The end   point is clocked by            gigacart|ti_we [falling] on pin CK
+
+Instance / Net                  Pin      Pin               Arrival     No. of    
+Name               Type         Name     Dir     Delay     Time        Fan Out(s)
+---------------------------------------------------------------------------------
+grmadr[0]          FD1P3AX      Q        Out     3.648     3.648       -         
+grmadr[0]          Net          -        -       -         -           2         
+G_26               ORCALUT4     A        In      0.000     3.648       -         
+G_26               ORCALUT4     Z        Out     3.758     7.406       -         
+N_71               Net          -        -       -         -           1         
+grmpage            FD1P3IZ      D        In      0.000     7.406       -         
+=================================================================================
+
+
+Path information for path number 5: 
+    Propagation time:                        7.406
+    + Clock delay at starting point:         0.000 (ideal)
+    - Requested Period:                      0.000
+    - Hold time:                             0.022
+    - Clock delay at ending point:           0.000 (ideal)
+    = Slack (non-critical) :                 7.383
+
+    Number of logic level(s):                1
+    Starting point:                          grmadr[2] / Q
+    Ending point:                            grmpage / D
+    The start point is clocked by            gigacart|ti_we [falling] on pin CK
+    The end   point is clocked by            gigacart|ti_we [falling] on pin CK
+
+Instance / Net                  Pin      Pin               Arrival     No. of    
+Name               Type         Name     Dir     Delay     Time        Fan Out(s)
+---------------------------------------------------------------------------------
+grmadr[2]          FD1P3AX      Q        Out     3.648     3.648       -         
+grmadr[2]          Net          -        -       -         -           2         
+G_26               ORCALUT4     B        In      0.000     3.648       -         
+G_26               ORCALUT4     Z        Out     3.758     7.406       -         
+N_71               Net          -        -       -         -           1         
+grmpage            FD1P3IZ      D        In      0.000     7.406       -         
+=================================================================================
+
+
+
+
+====================================
+Detailed Report for Clock: System
+====================================
+
+
+
+Starting Points with Worst Slack
+********************************
+
+             Starting                                      Arrival          
+Instance     Reference     Type        Pin     Net         Time        Slack
+             Clock                                                          
+----------------------------------------------------------------------------
+gactive      System        FD1S3DX     Q       gactive     3.197       1.518
+============================================================================
+
+
+Ending Points with Worst Slack
+******************************
+
+             Starting                                               Required          
+Instance     Reference     Type        Pin     Net                  Time         Slack
+             Clock                                                                    
+--------------------------------------------------------------------------------------
+gvalid       System        FD1P3DX     SP      gactive_1_sqmuxa     3.570        1.518
+======================================================================================
+
+
+
+Worst Path Information
+***********************
+
+
+Path information for path number 1: 
+    Propagation time:                        5.088
+    + Clock delay at starting point:         0.000 (ideal)
+-0.000
+    - Requested Period:                      0.000
+    - Hold time:                             3.570
+    - Clock delay at ending point:           0.000 (ideal)
+0.000
+    = Slack (non-critical) :                 1.518
+
+    Number of logic level(s):                1
+    Starting point:                          gactive / Q
+    Ending point:                            gvalid / SP
+    The start point is clocked by            System [rising] on pin CK
+    The end   point is clocked by            System [rising] on pin CK
+
+Instance / Net                    Pin      Pin               Arrival     No. of    
+Name                 Type         Name     Dir     Delay     Time        Fan Out(s)
+-----------------------------------------------------------------------------------
+gactive              FD1S3DX      Q        Out     3.197     3.197       -         
+gactive              Net          -        -       -         -           1         
+gactive_1_sqmuxa     ORCALUT4     A        In      0.000     3.197       -         
+gactive_1_sqmuxa     ORCALUT4     Z        Out     1.890     5.088       -         
+gactive_1_sqmuxa     Net          -        -       -         -           1         
+gvalid               FD1P3DX      SP       In      0.000     5.088       -         
+===================================================================================
+
+
+
+##### END OF TIMING REPORT #####]
+

@@ -1,0 +1,7 @@
+C:\ispLEVER_Classic2_0\synpbase\bin64\syn_nfilter.exe  -link  -multisrs  D:\work\TI\dragonslair\cart\cpld\rev_1\synwork\design_comp.srs  -osyn  D:\work\TI\dragonslair\cart\cpld\rev_1\synwork\design_mult.srs  -log  D:\work\TI\dragonslair\cart\cpld\rev_1\synlog\design_multi_srs_gen.srr 
+rc:0 success:1
+D:\work\TI\dragonslair\cart\cpld\rev_1\synwork\design_comp.srs|i|1538270365|3564
+D:\work\TI\dragonslair\cart\cpld\rev_1\synwork\design_mult.srs|o|1538270367|3741
+D:\work\TI\dragonslair\cart\cpld\rev_1\synlog\design_multi_srs_gen.srr|o|1538270367|640
+C:\ispLEVER_Classic2_0\synpbase\bin\syn_nfilter.exe|i|1401259936|2741760
+C:\ispLEVER_Classic2_0\synpbase\bin64\syn_nfilter.exe|i|1401260132|6337536

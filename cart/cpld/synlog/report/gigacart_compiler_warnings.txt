@@ -1,12 +1,4 @@
-@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":173:2:173:3|Input data for signal grminc(0 to 7) contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
-@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":58:2:58:3|Input data for signal gvalid contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
-@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":58:2:58:3|Input data for signal gactive contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":49:32:49:34|Found combinational loop at grmadr[0]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":49:32:49:34|Found combinational loop at grmadr[1]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":49:32:49:34|Found combinational loop at grmadr[2]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":49:32:49:34|Found combinational loop at grmadr[3]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":49:32:49:34|Found combinational loop at grmadr[4]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":49:32:49:34|Found combinational loop at grmadr[5]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":49:32:49:34|Found combinational loop at grmadr[6]
-@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":49:32:49:34|Found combinational loop at grmadr[7]
+@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":147:2:147:3|Input data for signal grmadr(0 to 7) contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
+@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":62:2:62:3|Input data for signal gvalid contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
+@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":62:2:62:3|Input data for signal gactive contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
 

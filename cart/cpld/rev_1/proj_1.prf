@@ -1,0 +1,9 @@
+#
+# Logical Preferences generated for Lattice by Synplify maplat, Build 923R.
+#
+
+FREQUENCY PORT "ti_we" 1.0 MHz;
+# Output Constraints
+# Input Constraints
+
+# End of generated Logical Preferences.

@@ -10,19 +10,19 @@ The file contains the job information from compiler to be displayed as part of t
     <title>Start of Compile</title>
   </report_link> 
   <job_status>
-    <data>Completed    </data>
+    <data>Failed    </data>
   </job_status>
 <job_info> 
 			<info name="Notes">
-  <data>4</data>
+  <data>3</data>
   <report_link name="more"><data>D:\work\ti\dragonslair\cart\cpld\synlog\report\gigacart_compiler_notes.txt</data></report_link>
   </info>
 			<info name="Warnings">
-  <data>11</data>
+  <data>0</data>
   <report_link name="more"><data>D:\work\ti\dragonslair\cart\cpld\synlog\report\gigacart_compiler_warnings.txt</data></report_link>
   </info>
 			<info name="Errors">
-  <data>0</data>
+  <data>2</data>
   <report_link name="more"><data>D:\work\ti\dragonslair\cart\cpld\synlog\report\gigacart_compiler_errors.txt</data></report_link>
   </info>
 			<info name="CPU Time">
@@ -35,7 +35,7 @@ The file contains the job information from compiler to be displayed as part of t
   <data>-</data>
   </info>
 			<info name="Date &amp;Time">
-  <data type="timestamp">1538034335</data>
+  <data type="timestamp">1538272564</data>
   </info>
 			</job_info>
 </job_run_status>

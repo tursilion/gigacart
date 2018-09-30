@@ -36,6 +36,6 @@ File=
 [SpecTracer]
 WindowVisible=0
 [HierarchyViewer]
-HierarchyInformation=gigacart|myarch|0 
+HierarchyInformation= 
 ShowHide=ShowTopLevel
 Selected=

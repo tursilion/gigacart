@@ -1,12 +1,14 @@
--- TODO: pretty sure the only option left is I'm crashing the GROMs by driving the bus
--- too quickly, need to pull in GROM CLK and wait at least one rising->rising cycle
--- before providing data, and see if that fixes the lockup.
+-- TODO: the crash on hardware seems to be related to WHEN I increment the GROM address, so
+-- trying to space it out. I had it mostly working once, but lost that code, so grrr!
+
+-- I am currently spacing things along with the GROMCLK... I am not convinced it's really
+-- necessary but having both valid and active signals is nice for this spacing.
 
 -- This version removes the extra chip selects but instead supports GROM with NO paging!
 -- ROM and GROM pages can safely overlap
 
 -- Note that this version supports NO ROM enable on the flash (and not the 512MB mode either!)
--- It uses a different method for reset (releases on first !ROMS pulse)
+-- It uses a different method for reset (releases on first GROM address write)
 -- The GROM is hard-wired to respond at the >8000 slot and is only 256 bytes long, repeating.
 -- It maps to the last 256 bytes of the flash (all other bits are '1')
 
@@ -45,7 +47,6 @@ ARCHITECTURE myarch OF gigacart IS
 
 -- grom emulation
 	SIGNAL grmadr  : unsigned (0 TO 7) := "00000000"; -- 8 bits of GROM mapped address (256 bytes! note inverted order for math)
-	SIGNAL grminc  : unsigned (0 TO 7) := "00000000"; -- 8 bits of GROM incrementing address (256 bytes! note inverted order for math)
 	SIGNAL grmpage : STD_ULOGIC := '0'; -- single bit - true when page is "100", else false
 	SIGNAL gactive : STD_ULOGIC := '0'; -- single bit used to delay gvalid (grom cycle is active)
 	SIGNAL gvalid  : STD_ULOGIC := '0'; -- internal register to reuse valid test (we are acting on grom cycle)
@@ -53,7 +54,7 @@ BEGIN
 	-- determine if GROM data is active by GROM select and internal address match and mode pin
 	-- we respond only to the >8000 GROM by setting the single bit true or false when received
 	-- ti_adr(14)='1' means address, not data, 
-	PROCESS (ti_gclk, ti_gsel)
+	PROCESS (ALL)
 	BEGIN
 		if (rising_edge(ti_gclk)) then
 			if (ti_gsel='0' AND grmpage='1' AND ti_adr(14)='0') THEN
@@ -62,20 +63,25 @@ BEGIN
 				ELSE
 					gactive <= '1';
 				END IF;
-			ELSE
-				gvalid <= '0';
-				gactive <= '0';
+--			ELSE
+--				gvalid <= '0';
+--				gactive <= '0';
 			END IF;
-		ELSIF (rising_edge(ti_gsel)) THEN
-			gvalid <= '0';
-			gactive <= '0';
+			if (ti_gsel = '1') THEN
+--				gvalid <= '0';
+--				gactive <= '0';
+				IF (gvalid = '0') THEN
+					gactive <= '0';
+				ELSE
+					gvalid <= '0';
+				END IF;
+			END IF;
 		END IF;
 	END PROCESS;
 
 	-- check whether we should gate flash data onto the TI data bus
 	-- !WE is delayed on our hardware... so there may be brief conflict
 	-- Could we delay? Without a clock?
-	-- is this better combitorial than process? Can I learn to spell 'combitorial'?
 	dataout <= ti_we when (gvalid = '1' OR ti_rom = '0') ELSE ('0');
 
 	-- output data from ROM on read, otherwise tristate data bus (bit inversion)
@@ -89,38 +95,40 @@ BEGIN
 	ti_data(7) <= out_data(0) WHEN (dataout = '1') ELSE ('Z'); -- LSB
 
 	-- handle the ROM latch on write
-	PROCESS (ti_we, ti_rom)
+	PROCESS (ALL)
 	BEGIN
 		-- capture on rising edge of WE (if ROM is active)
-		if (rising_edge(ti_we) AND ti_rom='0') THEN
-			-- we dont capture the TI lsb because it ALWAYS
-			-- changes due to the 16->8 bit multiplexer
-			-- remember TI bit order - 0 is MSB
-			latch(11) <= ti_adr(3); -- MSB
-			latch(10) <= ti_adr(4);
-			latch(9) <= ti_adr(5);
-			latch(8) <= ti_adr(6);
-			latch(7) <= ti_adr(7);
-			latch(6) <= ti_adr(8);
-			latch(5) <= ti_adr(9);
-			latch(4) <= ti_adr(10);
-			latch(3) <= ti_adr(11);
-			latch(2) <= ti_adr(12);
-			latch(1) <= ti_adr(13);
-			latch(0) <= ti_adr(14); -- LSB
-
-			-- two extra bits come from the data bus
-			latch(13) <= ti_data(6); -- MSB
-			latch(12) <= ti_data(7); -- LSB
-
-			-- two bits of chip select (for 512MB mode over 4 chips)
---			chip(1) <= ti_data(4); -- MSB
---			chip(0) <= ti_data(5); -- LSB
+		IF (rising_edge(ti_we)) THEN
+			IF (ti_rom='0') THEN
+				-- we dont capture the TI lsb because it ALWAYS
+				-- changes due to the 16->8 bit multiplexer
+				-- remember TI bit order - 0 is MSB
+				latch(11) <= ti_adr(3); -- MSB
+				latch(10) <= ti_adr(4);
+				latch(9) <= ti_adr(5);
+				latch(8) <= ti_adr(6);
+				latch(7) <= ti_adr(7);
+				latch(6) <= ti_adr(8);
+				latch(5) <= ti_adr(9);
+				latch(4) <= ti_adr(10);
+				latch(3) <= ti_adr(11);
+				latch(2) <= ti_adr(12);
+				latch(1) <= ti_adr(13);
+				latch(0) <= ti_adr(14); -- LSB
+	
+				-- two extra bits come from the data bus
+				latch(13) <= ti_data(6); -- MSB
+				latch(12) <= ti_data(7); -- LSB
+	
+				-- two bits of chip select (for 512MB mode over 4 chips)
+	--			chip(1) <= ti_data(4); -- MSB
+	--			chip(0) <= ti_data(5); -- LSB
+			END IF;
 		END IF;
 	END PROCESS;
 
 	-- handle the GROM address write (two bytes)
-	PROCESS (ti_we, gvalid, ti_gsel, ti_adr(14))
+	PROCESS (ALL)
 	BEGIN
 		-- ti_adr(14)='1' means address event, ti_we='0' means write
 		-- cart hardware means that the WE falling edge is always after GSEL falls
@@ -134,52 +142,43 @@ BEGIN
 		-- the console ROM ALWAYS writes the GROM address and does not rely on this
 		-- auto-increment (strictly, the address readback assumes it). Since there will
 		-- be real GROMs in the system to deal with that part, we can skip all that circuitry.
-		IF (falling_edge(ti_we) AND ti_gsel='0' AND ti_adr(14)='1') THEN
-			-- the limited bits available makes this a little more complex...
-			-- grmpage is true for '100'. Nothing else to shift up
-			grmpage <= (grminc(0)) AND (NOT grminc(1)) AND (NOT grminc(2));
-
-			-- writing least significant byte, we need to cache this
-			-- read the new byte into the LSB (no inversion here)
-			-- hopefully the data bus is stable!
-			-- we need all the bits, otherwise we can't calculate the grmpage...
-			grmadr(0) <= ti_data(0); -- MSB
-			grmadr(1) <= ti_data(1);
-			grmadr(2) <= ti_data(2);
-			grmadr(3) <= ti_data(3);
-			grmadr(4) <= ti_data(4);
-			grmadr(5) <= ti_data(5);
-			grmadr(6) <= ti_data(6);
-			grmadr(7) <= ti_data(7); -- LSB
-
-			-- while we're here, the first GROM address write is about 139 cycles
-			-- or 46uS from reset, which meets the reset requirement of 35uS
-			-- and also actually happens on 99/4 and v2.2 machines, unlike ROMS.
-			-- this releases the reset line to the flash chip. We're still a long
-			-- time from first access, easily meeting the 200ns post-reset requirement.
-			bounce <= '1';
+		IF (falling_edge(ti_we)) THEN
+			IF (ti_gsel='0' AND ti_adr(14)='1') THEN
+				-- the limited bits available makes this a little more complex...
+				-- grmpage is true for '100'. Nothing else to shift up
+				grmpage <= (grmadr(0)) AND (NOT grmadr(1)) AND (NOT grmadr(2));
+	
+				-- writing least significant byte, we need to cache this
+				-- read the new byte into the LSB (no inversion here)
+				-- hopefully the data bus is stable!
+				-- we need all the bits, otherwise we can't calculate the grmpage...
+				grmadr(0) <= ti_data(0); -- MSB
+				grmadr(1) <= ti_data(1);
+				grmadr(2) <= ti_data(2);
+				grmadr(3) <= ti_data(3);
+				grmadr(4) <= ti_data(4);
+				grmadr(5) <= ti_data(5);
+				grmadr(6) <= ti_data(6);
+				grmadr(7) <= ti_data(7); -- LSB
+	
+				-- while we're here, the first GROM address write is about 139 cycles
+				-- or 46uS from reset, which meets the reset requirement of 35uS
+				-- and also actually happens on 99/4 and v2.2 machines, unlike ROMS.
+				-- this releases the reset line to the flash chip. We're still a long
+				-- time from first access, easily meeting the 200ns post-reset requirement.
+				bounce <= '1';
+			END IF;
 		END IF;
-		IF (rising_edge(gvalid)) THEN
-			-- reload the address at the beginning of a access cycle
-			grmadr <= grminc;
-		END IF;
-	END PROCESS;
-
-	-- handle setting and clearing the ginc variable for just one GCLK after gactive
-	PROCESS (gvalid, ti_we)
-	BEGIN
-		-- after any write (assuming address), get the grmadr
-		-- after a grom read, get the increment
-		IF (rising_edge(ti_we)) THEN
-			grminc <= grmadr;
-		ELSIF (falling_edge(gvalid)) THEN
-			grminc <= grmadr+1;
+-- TODO: enabling this breaks everything - GROM doesn't work at all anymore
+		IF (falling_edge(gactive)) THEN
+			grmadr <= grmadr + 1;
+		ELSE
+			grmadr <= grmadr;
 		END IF;
 	END PROCESS;
-			
 
 	-- handle addresses to the ROM chip (which is always enabled)
-	out_adr(26 DOWNTO 13) <= ("11111111111111") WHEN (gvalid = '1') ELSE latch(13 DOWNTO 0);
+	out_adr(26 DOWNTO 13) <= (others => '1') WHEN (gvalid = '1') ELSE latch(13 DOWNTO 0) ;
 
 	-- need to invert the rest... (8k of address space)
 	out_adr(12) <= gvalid OR ti_adr(3);

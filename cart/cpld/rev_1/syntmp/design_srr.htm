@@ -1,0 +1,293 @@
+<html><body><samp><pre>
+<!@TC:1538270365>
+#Build: Synplify Pro I-2014.03LC , Build 063R, May 27 2014
+#install: C:\ispLEVER_Classic2_0\synpbase
+#OS: Windows 7 6.2
+#Hostname: NIGHTMARE
+
+#Implementation: rev_1
+
+<a name=compilerReport1>$ Start of Compile</a>
+#Sat Sep 29 18:19:25 2018
+
+Synopsys VHDL Compiler, version comp201403rcp1, Build 060R, built May 27 2014
+@N: : <!@TM:1538270365> | Running in 64-bit mode 
+Copyright (C) 1994-2014 Synopsys, Inc. This software and the associated documentation are proprietary to Synopsys, Inc. This software may only be used in accordance with the terms and conditions of a written license agreement with Synopsys, Inc.  All other use, reproduction, or distribution of this software is strictly prohibited.
+
+@N:<a href="@N:CD720:@XP_HELP">CD720</a> : <a href="C:\ispLEVER_Classic2_0\synpbase\lib\vhd\std.vhd:123:18:123:22:@N:CD720:@XP_MSG">std.vhd(123)</a><!@TM:1538270365> | Setting time resolution to ns
+@N: : <a href="D:\work\TI\dragonslair\cart\cpld\design.vhd:21:7:21:15:@N::@XP_MSG">design.vhd(21)</a><!@TM:1538270365> | Top entity is set to gigacart.
+VHDL syntax check successful!
+@N:<a href="@N:CD630:@XP_HELP">CD630</a> : <a href="D:\work\TI\dragonslair\cart\cpld\design.vhd:21:7:21:15:@N:CD630:@XP_MSG">design.vhd(21)</a><!@TM:1538270365> | Synthesizing work.gigacart.myarch 
+<font color=#A52A2A>@W:<a href="@W:CD638:@XP_HELP">CD638</a> : <a href="D:\work\TI\dragonslair\cart\cpld\design.vhd:50:8:50:14:@W:CD638:@XP_MSG">design.vhd(50)</a><!@TM:1538270365> | Signal grminc is undriven </font>
+Post processing for work.gigacart.myarch
+<font color=#A52A2A>@W:<a href="@W:CL116:@XP_HELP">CL116</a> : <a href="D:\work\TI\dragonslair\cart\cpld\design.vhd:138:2:138:4:@W:CL116:@XP_MSG">design.vhd(138)</a><!@TM:1538270365> | Input data for signal grmadr(0 to 7) contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.</font>
+<font color=#A52A2A>@W:<a href="@W:CL116:@XP_HELP">CL116</a> : <a href="D:\work\TI\dragonslair\cart\cpld\design.vhd:60:2:60:4:@W:CL116:@XP_MSG">design.vhd(60)</a><!@TM:1538270365> | Input data for signal gvalid contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.</font>
+<font color=#A52A2A>@W:<a href="@W:CL116:@XP_HELP">CL116</a> : <a href="D:\work\TI\dragonslair\cart\cpld\design.vhd:60:2:60:4:@W:CL116:@XP_MSG">design.vhd(60)</a><!@TM:1538270365> | Input data for signal gactive contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.</font>
+@END
+
+At c_vhdl Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 70MB peak: 71MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+# Sat Sep 29 18:19:25 2018
+
+###########################################################]
+Synopsys Netlist Linker, version comp201403rcp1, Build 060R, built May 27 2014
+@N: : <!@TM:1538270367> | Running in 64-bit mode 
+@N:<a href="@N:NF107:@XP_HELP">NF107</a> : <a href="D:\work\TI\dragonslair\cart\cpld\design.vhd:21:7:21:15:@N:NF107:@XP_MSG">design.vhd(21)</a><!@TM:1538270367> | Selected library: work cell: gigacart view myarch as top level
+@N:<a href="@N:NF107:@XP_HELP">NF107</a> : <a href="D:\work\TI\dragonslair\cart\cpld\design.vhd:21:7:21:15:@N:NF107:@XP_MSG">design.vhd(21)</a><!@TM:1538270367> | Selected library: work cell: gigacart view myarch as top level
+
+At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 68MB peak: 68MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+# Sat Sep 29 18:19:27 2018
+
+###########################################################]
+Map & Optimize Report
+
+<a name=mapperReport2>Synopsys Lattice ORCA FPGA Technology Mapper, Version maplat, Build 923R, Built May  6 2014</a>
+Copyright (C) 1994-2013, Synopsys, Inc. This software and the associated documentation are proprietary to Synopsys, Inc. This software may only be used in accordance with the terms and conditions of a written license agreement with Synopsys, Inc.  All other use or distribution of the software is strictly prohibited.
+Product Version I-2014.03LC 
+@N:<a href="@N:MF248:@XP_HELP">MF248</a> : <!@TM:1538270368> | Running in 64-bit mode. 
+Setting fanout limit to 100
+<font color=#A52A2A>@W:<a href="@W:MT462:@XP_HELP">MT462</a> : <a href="d:\work\ti\dragonslair\cart\cpld\design.vhd:60:2:60:4:@W:MT462:@XP_MSG">design.vhd(60)</a><!@TM:1538270368> | Net un1_ti_gclk_1 appears to be an unidentified clock source. Assuming default frequency. </font>
+<font color=#A52A2A>@W:<a href="@W:MT462:@XP_HELP">MT462</a> : <a href="d:\work\ti\dragonslair\cart\cpld\design.vhd:138:2:138:4:@W:MT462:@XP_MSG">design.vhd(138)</a><!@TM:1538270368> | Net un1_ti_we_1 appears to be an unidentified clock source. Assuming default frequency. </font>
+
+Starting Early Timing Optimization (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 116MB peak: 116MB)
+
+
+Finished Early Timing Optimization (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 116MB peak: 116MB)
+
+<font color=#A52A2A>@W:<a href="@W:MT420:@XP_HELP">MT420</a> : <!@TM:1538270368> | Found inferred clock gigacart|ti_we with period 1000.00ns. Please declare a user-defined clock on object "p:ti_we"</font> 
+
+
+
+<a name=timingReport3>##### START OF TIMING REPORT #####[</a>
+# Timing Report written on Sat Sep 29 18:19:28 2018
+#
+
+
+Top view:               gigacart
+Requested Frequency:    1.0 MHz
+Wire load mode:         top
+Paths requested:        5
+Constraint File(s):    
+@N:<a href="@N:MT320:@XP_HELP">MT320</a> : <!@TM:1538270368> | Timing report estimates place and route data. Please look at the place and route timing report for final timing. 
+
+@N:<a href="@N:MT322:@XP_HELP">MT322</a> : <!@TM:1538270368> | Clock constraints cover only FF-to-FF paths associated with the clock. 
+
+
+
+<a name=performanceSummary4>Performance Summary </a>
+*******************
+
+
+Worst slack in design: 986.988
+
+                   Requested     Estimated     Requested     Estimated                 Clock        Clock              
+Starting Clock     Frequency     Frequency     Period        Period        Slack       Type         Group              
+-----------------------------------------------------------------------------------------------------------------------
+gigacart|ti_we     1.0 MHz       94.2 MHz      1000.000      10.612        989.388     inferred     Inferred_clkgroup_0
+System             1.0 MHz       80.9 MHz      1000.000      12.368        987.632     system       system_clkgroup    
+=======================================================================================================================
+
+
+
+
+
+<a name=clockRelationships5>Clock Relationships</a>
+*******************
+
+Clocks                          |    rise  to  rise     |    fall  to  fall     |    rise  to  fall   |    fall  to  rise   
+----------------------------------------------------------------------------------------------------------------------------
+Starting        Ending          |  constraint  slack    |  constraint  slack    |  constraint  slack  |  constraint  slack  
+----------------------------------------------------------------------------------------------------------------------------
+System          System          |  1000.000    987.632  |  No paths    -        |  No paths    -      |  No paths    -      
+gigacart|ti_we  System          |  No paths    -        |  No paths    -        |  No paths    -      |  1000.000    986.988
+gigacart|ti_we  gigacart|ti_we  |  No paths    -        |  1000.000    989.388  |  No paths    -      |  No paths    -      
+============================================================================================================================
+ Note: 'No paths' indicates there are no paths in the design for that pair of clock edges.
+       'Diff grp' indicates that paths exist but the starting clock and ending clock are in different clock groups.
+
+
+
+<a name=interfaceInfo6>Interface Information </a>
+*********************
+
+No IO constraint found
+
+
+
+====================================
+<a name=clockReport7>Detailed Report for Clock: gigacart|ti_we</a>
+====================================
+
+
+
+<a name=startingSlack8>Starting Points with Worst Slack</a>
+********************************
+
+              Starting                                               Arrival            
+Instance      Reference          Type        Pin     Net             Time        Slack  
+              Clock                                                                     
+----------------------------------------------------------------------------------------
+grmpage       gigacart|ti_we     FD1P3IZ     Q       grmpage         5.212       986.988
+bounce        gigacart|ti_we     FD1S3AX     Q       out_reset_c     5.212       989.388
+grmadr[0]     gigacart|ti_we     FD1P3AX     Q       grmadr[0]       5.212       989.388
+grmadr[2]     gigacart|ti_we     FD1P3AX     Q       grmadr[2]       5.212       989.388
+grmadr[1]     gigacart|ti_we     FD1P3AX     Q       grmadr[1]       4.568       990.032
+========================================================================================
+
+
+<a name=endingSlack9>Ending Points with Worst Slack</a>
+******************************
+
+             Starting                                                    Required            
+Instance     Reference          Type        Pin     Net                  Time         Slack  
+             Clock                                                                           
+---------------------------------------------------------------------------------------------
+gvalid       gigacart|ti_we     FD1P3DX     SP      gactive_1_sqmuxa     994.900      986.988
+bounce       gigacart|ti_we     FD1S3AX     D       N_26_0               999.968      989.388
+gactive      gigacart|ti_we     FD1S3DX     D       un4_ti_gsel          1000.612     989.388
+grmpage      gigacart|ti_we     FD1P3IZ     D       N_71                 999.968      989.388
+gvalid       gigacart|ti_we     FD1P3DX     D       un4_ti_gsel          1000.612     989.388
+grmpage      gigacart|ti_we     FD1P3IZ     CD      grmadr[1]            994.600      990.032
+=============================================================================================
+
+
+
+<a name=worstPaths10>Worst Path Information</a>
+<a href="D:\work\TI\dragonslair\cart\cpld\rev_1\design.srr:srsfD:\work\TI\dragonslair\cart\cpld\rev_1\design.srs:fp:9861:10371:@XP_NAMES_GATE">View Worst Path in Analyst</a>
+***********************
+
+
+Path information for path number 1: 
+      Requested Period:                      1000.000
+    - Setup time:                            5.100
+    + Clock delay at ending point:           0.000 (ideal)
+    + Estimated clock delay at ending point: 0.000
+    = Required time:                         994.900
+
+    - Propagation time:                      7.912
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     986.988
+
+    Number of logic level(s):                1
+    Starting point:                          grmpage / Q
+    Ending point:                            gvalid / SP
+    The start point is clocked by            gigacart|ti_we [falling] on pin CK
+    The end   point is clocked by            System [rising] on pin CK
+
+Instance / Net                    Pin      Pin               Arrival     No. of    
+Name                 Type         Name     Dir     Delay     Time        Fan Out(s)
+-----------------------------------------------------------------------------------
+grmpage              FD1P3IZ      Q        Out     5.212     5.212       -         
+grmpage              Net          -        -       -         -           2         
+gactive_1_sqmuxa     ORCALUT4     D        In      0.000     5.212       -         
+gactive_1_sqmuxa     ORCALUT4     Z        Out     2.700     7.912       -         
+gactive_1_sqmuxa     Net          -        -       -         -           1         
+gvalid               FD1P3DX      SP       In      0.000     7.912       -         
+===================================================================================
+
+
+
+
+====================================
+<a name=clockReport11>Detailed Report for Clock: System</a>
+====================================
+
+
+
+<a name=startingSlack12>Starting Points with Worst Slack</a>
+********************************
+
+             Starting                                      Arrival            
+Instance     Reference     Type        Pin     Net         Time        Slack  
+             Clock                                                            
+------------------------------------------------------------------------------
+gactive      System        FD1S3DX     Q       gactive     4.568       987.632
+==============================================================================
+
+
+<a name=endingSlack13>Ending Points with Worst Slack</a>
+******************************
+
+             Starting                                               Required            
+Instance     Reference     Type        Pin     Net                  Time         Slack  
+             Clock                                                                      
+----------------------------------------------------------------------------------------
+gvalid       System        FD1P3DX     SP      gactive_1_sqmuxa     994.900      987.632
+========================================================================================
+
+
+
+<a name=worstPaths14>Worst Path Information</a>
+<a href="D:\work\TI\dragonslair\cart\cpld\rev_1\design.srr:srsfD:\work\TI\dragonslair\cart\cpld\rev_1\design.srs:fp:12899:13409:@XP_NAMES_GATE">View Worst Path in Analyst</a>
+***********************
+
+
+Path information for path number 1: 
+      Requested Period:                      1000.000
+    - Setup time:                            5.100
+    + Clock delay at ending point:           0.000 (ideal)
+    + Estimated clock delay at ending point: 0.000
+    = Required time:                         994.900
+
+    - Propagation time:                      7.268
+    - Clock delay at starting point:         0.000 (ideal)
+    - Estimated clock delay at start point:  -0.000
+    = Slack (non-critical) :                 987.632
+
+    Number of logic level(s):                1
+    Starting point:                          gactive / Q
+    Ending point:                            gvalid / SP
+    The start point is clocked by            System [rising] on pin CK
+    The end   point is clocked by            System [rising] on pin CK
+
+Instance / Net                    Pin      Pin               Arrival     No. of    
+Name                 Type         Name     Dir     Delay     Time        Fan Out(s)
+-----------------------------------------------------------------------------------
+gactive              FD1S3DX      Q        Out     4.568     4.568       -         
+gactive              Net          -        -       -         -           1         
+gactive_1_sqmuxa     ORCALUT4     A        In      0.000     4.568       -         
+gactive_1_sqmuxa     ORCALUT4     Z        Out     2.700     7.268       -         
+gactive_1_sqmuxa     Net          -        -       -         -           1         
+gvalid               FD1P3DX      SP       In      0.000     7.268       -         
+===================================================================================
+
+
+
+##### END OF TIMING REPORT #####]
+
+---------------------------------------
+<a name=resourceUsage15>Resource Usage Report</a>
+Part: 2c04a-4
+
+Register bits: 26 of 400 (6%)
+PIC Latch:       0
+I/O cells:       61
+
+Details:
+BMZ6:           8
+FD1P3AX:        22
+FD1P3DX:        1
+FD1P3IZ:        1
+FD1S3AX:        1
+FD1S3DX:        1
+IBM:            25
+INV:            2
+OB6:            28
+ORCALUT4:       36 (packable)
+ORCALUT4:       0 (not packable)
+VHI:            1
+VLO:            1
+I-2014.03LC 
+Mapper successful!
+
+At Mapper Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 54MB peak: 118MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+# Sat Sep 29 18:19:28 2018
+
+###########################################################]
+
+</pre></samp></body></html>

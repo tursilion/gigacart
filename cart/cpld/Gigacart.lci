@@ -15,7 +15,7 @@ Parent = lc4k64v.lci;
 DATE = 09/25/2018;
 TIME = 19:24:33;
 Source_Format = Pure_VHDL;
-Synthesis = Synplify;
+Synthesis = LSE;
 
 [Ignore Assignments]
 
@@ -261,3 +261,7 @@ layer = OFF;
 
 [Nodal Constraints]
 layer = OFF;
+
+[VHDL LSE constraints]
+VHDL2008 = True;
+"Optimization Goal" = Area;
