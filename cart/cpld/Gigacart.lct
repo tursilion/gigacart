@@ -12,8 +12,8 @@ EN_PinMacrocell = yes;
 
 [Revision]
 Parent = lc4k64v.lci;
-DATE = 09/25/2018;
-TIME = 19:24:33;
+DATE = 10/09/2018;
+TIME = 22:53:24;
 Source_Format = Pure_VHDL;
 Synthesis = LSE;
 
@@ -24,7 +24,7 @@ Synthesis = LSE;
 [Backannotate Assignments]
 
 [Global Constraints]
-Fitter_effort_level = Medium;
+Fitter_effort_level = High;
 Logic_optimization_effort = 3;
 
 [Location Assignments]
@@ -109,7 +109,7 @@ NONE = ti_data_4_;
 [OSM Bypass]
 
 [Input Registers]
-NONE = out_data_0_, ti_rom;
+NONE = out_data_0_, ti_rom, ti_we;
 
 [Netlist/Delay Format]
 NetList = VHDL;
@@ -179,6 +179,7 @@ ti_gsel = LVTTL_5V, PIN, 1, -;
 ti_gclk = LVTTL_5V, PIN, 0, -;
 
 [Pullup]
+Default = UP;
 
 [Slewrate]
 SLOW = ti_data_4_, ti_data_0_, ti_data_5_, ti_data_6_, ti_data_7_, ti_data_1_, 

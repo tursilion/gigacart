@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------
 Lattice Synthesis Timing Report, Version  
-Sat Sep 29 22:47:29 2018
+Wed Oct 10 00:29:42 2018
 
 Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
 Copyright (c) 1995 AT&T Corp.   All rights reserved.
@@ -18,25 +18,13 @@ Report level:    verbose report, limited to 3 items per constraint
 
 
 ================================================================================
-Constraint: create_clock -period 1000.000000 -name clk3 [get_nets ti_we_c]
+Constraint: create_clock -period 1000.000000 -name clk1 [get_nets ti_gclk_N_48]
             0 items scored, 0 timing errors detected.
 --------------------------------------------------------------------------------
 
 
 ================================================================================
-Constraint: create_clock -period 1000.000000 -name clk2 [get_nets ti_gclk_c]
-            0 items scored, 0 timing errors detected.
---------------------------------------------------------------------------------
-
-
-================================================================================
-Constraint: create_clock -period 1000.000000 -name clk1 [get_nets gactive_N_24]
-            0 items scored, 0 timing errors detected.
---------------------------------------------------------------------------------
-
-
-================================================================================
-Constraint: create_clock -period 1000.000000 -name clk0 [get_nets ti_we_N_45]
+Constraint: create_clock -period 1000.000000 -name clk0 [get_nets out_adr_c]
             0 items scored, 0 timing errors detected.
 --------------------------------------------------------------------------------
 
@@ -47,16 +35,10 @@ Constraint                              |   Constraint|       Actual|Levels
 --------------------------------------------------------------------------------
                                         |             |             |
 create_clock -period 1000.000000 -name  |             |             |
-clk3 [get_nets ti_we_c]                 |            -|            -|     0  
+clk1 [get_nets ti_gclk_N_48]            |            -|            -|     0  
                                         |             |             |
 create_clock -period 1000.000000 -name  |             |             |
-clk2 [get_nets ti_gclk_c]               |            -|            -|     0  
-                                        |             |             |
-create_clock -period 1000.000000 -name  |             |             |
-clk1 [get_nets gactive_N_24]            |            -|            -|     0  
-                                        |             |             |
-create_clock -period 1000.000000 -name  |             |             |
-clk0 [get_nets ti_we_N_45]              |            -|            -|     0  
+clk0 [get_nets out_adr_c]               |            -|            -|     0  
                                         |             |             |
 --------------------------------------------------------------------------------
 
@@ -73,5 +55,5 @@ Timing errors: 0  Score: 0
 Constraints cover  0 paths, 0 nets, and 0 connections (0.0% coverage)
 
 
-Peak memory: 56905728 bytes, TRCE: 1175552 bytes, DLYMAN: 0 bytes
+Peak memory: 56950784 bytes, TRCE: 1122304 bytes, DLYMAN: 0 bytes
 CPU_TIME_REPORT: 0 secs 

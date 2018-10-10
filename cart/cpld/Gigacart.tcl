@@ -84480,3 +84480,11834 @@ if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj g
 
 ########## Tcl recorder end at 09/29/18 22:47:28 ###########
 
+
+########## Tcl recorder starts at 10/08/18 23:28:36 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:28:36 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:28:41 ##########
+
+# Commands to make the Process: 
+# Compile EDIF File
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:28:41 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:29:00 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:29:00 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:29:01 ##########
+
+# Commands to make the Process: 
+# Compile EDIF File
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:29:01 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:30:08 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:30:08 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:30:11 ##########
+
+# Commands to make the Process: 
+# Compile EDIF File
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:30:11 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:31:17 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:31:17 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:32:28 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:32:28 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:32:35 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:32:35 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:41:57 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:41:57 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:42:01 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:42:02 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:43:54 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:43:54 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:43:58 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:43:58 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:44:12 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:44:12 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:44:16 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:44:16 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:45:47 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:45:47 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:45:53 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:45:53 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:47:35 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:47:36 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:47:39 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:47:39 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:48:50 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:48:50 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:48:54 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:48:54 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:49:29 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:49:29 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:49:34 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:49:34 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:51:37 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:51:37 ###########
+
+
+########## Tcl recorder starts at 10/08/18 23:51:42 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/08/18 23:51:42 ###########
+
+
+########## Tcl recorder starts at 10/09/18 00:13:01 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 00:13:01 ###########
+
+
+########## Tcl recorder starts at 10/09/18 00:13:06 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 00:13:06 ###########
+
+
+########## Tcl recorder starts at 10/09/18 00:22:49 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 00:22:49 ###########
+
+
+########## Tcl recorder starts at 10/09/18 00:22:53 ##########
+
+# Commands to make the Process: 
+# Compile EDIF File
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 00:22:53 ###########
+
+
+########## Tcl recorder starts at 10/09/18 00:23:29 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 00:23:29 ###########
+
+
+########## Tcl recorder starts at 10/09/18 00:23:41 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 00:23:41 ###########
+
+
+########## Tcl recorder starts at 10/09/18 00:24:34 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 00:24:34 ###########
+
+
+########## Tcl recorder starts at 10/09/18 00:24:40 ##########
+
+# Commands to make the Process: 
+# Compile EDIF File
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 00:24:40 ###########
+
+
+########## Tcl recorder starts at 10/09/18 00:53:00 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 00:53:00 ###########
+
+
+########## Tcl recorder starts at 10/09/18 00:53:02 ##########
+
+# Commands to make the Process: 
+# Compile EDIF File
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 00:53:02 ###########
+
+
+########## Tcl recorder starts at 10/09/18 00:53:25 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 00:53:25 ###########
+
+
+########## Tcl recorder starts at 10/09/18 00:53:27 ##########
+
+# Commands to make the Process: 
+# Compile EDIF File
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 00:53:27 ###########
+
+
+########## Tcl recorder starts at 10/09/18 00:53:40 ##########
+
+# Commands to make the Process: 
+# Compile EDIF File
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 00:53:40 ###########
+
+
+########## Tcl recorder starts at 10/09/18 00:53:49 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 00:53:49 ###########
+
+
+########## Tcl recorder starts at 10/09/18 00:53:51 ##########
+
+# Commands to make the Process: 
+# Compile EDIF File
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 00:53:51 ###########
+
+
+########## Tcl recorder starts at 10/09/18 00:54:12 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 00:54:12 ###########
+
+
+########## Tcl recorder starts at 10/09/18 00:57:01 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 00:57:01 ###########
+
+
+########## Tcl recorder starts at 10/09/18 00:57:05 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 00:57:05 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:02:40 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:02:40 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:02:43 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:02:43 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:03:02 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:03:02 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:03:05 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:03:05 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:03:43 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:03:43 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:03:45 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:03:46 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:03:49 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:03:49 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:04:02 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:04:02 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:04:06 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:04:06 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:06:09 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:06:09 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:06:22 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:06:22 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:19:48 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:19:48 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:19:57 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:19:57 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:20:21 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:20:22 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:20:24 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:20:24 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:21:26 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:21:26 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:21:30 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:21:30 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:23:21 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:23:21 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:23:25 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:23:25 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:24:03 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:24:03 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:24:47 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:24:47 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:24:51 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:24:51 ###########
+
+
+########## Tcl recorder starts at 10/09/18 01:25:59 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 01:25:59 ###########
+
+
+########## Tcl recorder starts at 10/09/18 20:44:34 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 20:44:34 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:05:52 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:05:52 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:06:00 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:06:00 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:06:25 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:06:25 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:06:29 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:06:29 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:07:31 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:07:31 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:07:37 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:07:37 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:07:52 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:07:52 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:07:56 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:07:56 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:09:06 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:09:06 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:28:02 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:28:02 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:28:09 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:28:09 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:28:23 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:28:23 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:28:25 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:28:25 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:30:17 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:30:17 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:30:20 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:30:20 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:34:09 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:34:09 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:34:12 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:34:12 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:46:29 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:46:29 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:49:49 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:49:49 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:50:47 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:50:47 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:50:52 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:50:52 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:52:08 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:52:08 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:52:12 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:52:12 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:56:44 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:56:44 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:56:48 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:56:48 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:57:41 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:57:41 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:57:44 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:57:44 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:58:13 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:58:13 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:58:17 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:58:17 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:58:31 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:58:31 ###########
+
+
+########## Tcl recorder starts at 10/09/18 21:58:34 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 21:58:34 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:08:42 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:08:42 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:08:46 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:08:46 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:08:58 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:08:58 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:09:02 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:09:02 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:12:21 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:12:21 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:12:24 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:12:24 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:15:10 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:15:10 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:15:15 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:15:15 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:15:37 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:15:37 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:15:43 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:15:43 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:16:50 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:16:50 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:18:14 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:18:14 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:18:18 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:18:18 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:21:03 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:21:03 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:21:07 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:21:07 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:24:07 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:24:07 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:24:11 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:24:11 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:31:02 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:31:02 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:31:05 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:31:05 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:31:38 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:31:38 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:31:42 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:31:42 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:32:16 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:32:16 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:32:20 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:32:20 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:47:46 ##########
+
+# Commands to make the Process: 
+# Optimization Constraint
+# - none -
+# Application to view the Process: 
+# Optimization Constraint
+if [catch {open opt_cmd.rs2 w} rspFile] {
+	puts stderr "Cannot create response file opt_cmd.rs2: $rspFile"
+} else {
+	puts $rspFile "-global -lci gigacart.lct -touch gigacart.imp
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/optedit\" @opt_cmd.rs2"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:47:46 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:47:50 ##########
+
+# Commands to make the Process: 
+# Constraint Editor
+if [runCmd "\"$cpld_bin/blifstat\" -i gigacart.bl5 -o gigacart.sif"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+# Application to view the Process: 
+# Constraint Editor
+if [catch {open lattice_cmd.rs2 w} rspFile] {
+	puts stderr "Cannot create response file lattice_cmd.rs2: $rspFile"
+} else {
+	puts $rspFile "-nodal -src gigacart.bl5 -type BLIF -presrc gigacart.bl3 -crf gigacart.crf -sif gigacart.sif -devfile \"$install_dir/ispcpld/dat/lc4k/m4s_64_64.dev\" -lci gigacart.lct
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lciedit\" @lattice_cmd.rs2"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:47:50 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:48:55 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:48:55 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:52:19 ##########
+
+# Commands to make the Process: 
+# Constraint Editor
+if [runCmd "\"$cpld_bin/blifstat\" -i gigacart.bl5 -o gigacart.sif"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+# Application to view the Process: 
+# Constraint Editor
+if [catch {open lattice_cmd.rs2 w} rspFile] {
+	puts stderr "Cannot create response file lattice_cmd.rs2: $rspFile"
+} else {
+	puts $rspFile "-nodal -src gigacart.bl5 -type BLIF -presrc gigacart.bl3 -crf gigacart.crf -sif gigacart.sif -devfile \"$install_dir/ispcpld/dat/lc4k/m4s_64_64.dev\" -lci gigacart.lct
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lciedit\" @lattice_cmd.rs2"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:52:19 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:52:33 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:52:33 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:52:53 ##########
+
+# Commands to make the Process: 
+# Constraint Editor
+if [runCmd "\"$cpld_bin/blifstat\" -i gigacart.bl5 -o gigacart.sif"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+# Application to view the Process: 
+# Constraint Editor
+if [catch {open lattice_cmd.rs2 w} rspFile] {
+	puts stderr "Cannot create response file lattice_cmd.rs2: $rspFile"
+} else {
+	puts $rspFile "-nodal -src gigacart.bl5 -type BLIF -presrc gigacart.bl3 -crf gigacart.crf -sif gigacart.sif -devfile \"$install_dir/ispcpld/dat/lc4k/m4s_64_64.dev\" -lci gigacart.lct
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lciedit\" @lattice_cmd.rs2"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:52:53 ###########
+
+
+########## Tcl recorder starts at 10/09/18 22:53:29 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 22:53:29 ###########
+
+
+########## Tcl recorder starts at 10/09/18 23:17:53 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 23:17:53 ###########
+
+
+########## Tcl recorder starts at 10/09/18 23:17:56 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 23:17:56 ###########
+
+
+########## Tcl recorder starts at 10/09/18 23:19:36 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 23:19:36 ###########
+
+
+########## Tcl recorder starts at 10/09/18 23:19:40 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 23:19:40 ###########
+
+
+########## Tcl recorder starts at 10/09/18 23:41:01 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 23:41:01 ###########
+
+
+########## Tcl recorder starts at 10/09/18 23:41:06 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 23:41:06 ###########
+
+
+########## Tcl recorder starts at 10/09/18 23:57:12 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 23:57:12 ###########
+
+
+########## Tcl recorder starts at 10/09/18 23:57:17 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 23:57:17 ###########
+
+
+########## Tcl recorder starts at 10/09/18 23:58:46 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 23:58:46 ###########
+
+
+########## Tcl recorder starts at 10/09/18 23:58:49 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 23:58:49 ###########
+
+
+########## Tcl recorder starts at 10/09/18 23:59:51 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 23:59:51 ###########
+
+
+########## Tcl recorder starts at 10/09/18 23:59:56 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/09/18 23:59:56 ###########
+
+
+########## Tcl recorder starts at 10/10/18 00:02:54 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/10/18 00:02:55 ###########
+
+
+########## Tcl recorder starts at 10/10/18 00:03:25 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/10/18 00:03:25 ###########
+
+
+########## Tcl recorder starts at 10/10/18 00:28:31 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/10/18 00:28:31 ###########
+
+
+########## Tcl recorder starts at 10/10/18 00:28:34 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/10/18 00:28:34 ###########
+
+
+########## Tcl recorder starts at 10/10/18 00:28:57 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/10/18 00:28:57 ###########
+
+
+########## Tcl recorder starts at 10/10/18 00:28:59 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/10/18 00:28:59 ###########
+
+
+########## Tcl recorder starts at 10/10/18 00:29:39 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/10/18 00:29:39 ###########
+
+
+########## Tcl recorder starts at 10/10/18 00:29:41 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/10/18 00:29:41 ###########
+
+
+########## Tcl recorder starts at 10/10/18 00:33:48 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 10/10/18 00:33:48 ###########
+

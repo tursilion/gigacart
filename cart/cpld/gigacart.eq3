@@ -7,183 +7,134 @@
 
 Equations:
 
-dataout = ti_we & !ti_rom
-    # ti_we & gvalid_106.Q ; (2 pterms, 3 signals)
+dataout = ti_we & out_adr_25_.Q & !ti_gsel & !ti_adr_14_ & grmpage_105.Q
+    # ti_we & !ti_rom ; (2 pterms, 6 signals)
 
-gactive_107.D = !( ti_gsel & !gvalid_106.Q ) ; (1 pterm, 2 signals)
-gactive_107.C = ti_gclk ; (1 pterm, 1 signal)
-gactive_107.CE = gactive_107_0 ; (1 pterm, 1 signal)
+gactive_104.D = !( !out_adr_25_.Q & ti_gsel ) ; (1 pterm, 2 signals)
+gactive_104.C = !ti_gclk ; (1 pterm, 1 signal)
+gactive_104.CE = !( out_adr_25_.Q & ti_gsel ) ; (1 pterm, 2 signals)
 
-gactive_107_0 = ti_gsel & !gvalid_106.Q
-    # !ti_gsel & !ti_adr_14_ & grmpage_109.Q ; (2 pterms, 4 signals)
+grmadr_122__i0.T = !ti_adr_14_ & grmadr_122__i1.Q & grmadr_122__i2.Q
+       & grmadr_122__i3.Q & grmadr_122__i4.Q & grmadr_122__i5.Q
+       & grmadr_122__i6.Q & grmadr_122__i7.Q
+    # !ti_we & !ti_data_0_.PIN & ti_adr_14_ & grmadr_122__i0.Q
+    # !ti_we & ti_data_0_.PIN & ti_adr_14_ & !grmadr_122__i0.Q ; (3 pterms, 11 signals)
+grmadr_122__i0.C = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-grmadr_130__i0.T = grmadr_130__i1.Q & grmadr_130__i2.Q & grmadr_130__i3.Q
-       & grmadr_130__i4.Q & grmadr_130__i5.Q & grmadr_130__i6.Q
-       & grmadr_130__i7.Q ; (1 pterm, 7 signals)
-grmadr_130__i0.C = !gactive_107.Q ; (1 pterm, 1 signal)
+grmadr_122__i1.T = !ti_adr_14_ & grmadr_122__i2.Q & grmadr_122__i3.Q
+       & grmadr_122__i4.Q & grmadr_122__i5.Q & grmadr_122__i6.Q
+       & grmadr_122__i7.Q
+    # !ti_data_1_.PIN & !ti_we & ti_adr_14_ & grmadr_122__i1.Q
+    # ti_data_1_.PIN & !ti_we & ti_adr_14_ & !grmadr_122__i1.Q ; (3 pterms, 10 signals)
+grmadr_122__i1.C = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-grmadr_130__i1.T = grmadr_130__i2.Q & grmadr_130__i3.Q & grmadr_130__i4.Q
-       & grmadr_130__i5.Q & grmadr_130__i6.Q & grmadr_130__i7.Q ; (1 pterm, 6 signals)
-grmadr_130__i1.C = !gactive_107.Q ; (1 pterm, 1 signal)
+grmadr_122__i2.T = !ti_adr_14_ & grmadr_122__i3.Q & grmadr_122__i4.Q
+       & grmadr_122__i5.Q & grmadr_122__i6.Q & grmadr_122__i7.Q
+    # !ti_data_2_.PIN & !ti_we & ti_adr_14_ & grmadr_122__i2.Q
+    # ti_data_2_.PIN & !ti_we & ti_adr_14_ & !grmadr_122__i2.Q ; (3 pterms, 9 signals)
+grmadr_122__i2.C = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-grmadr_130__i2.T = grmadr_130__i3.Q & grmadr_130__i4.Q & grmadr_130__i5.Q
-       & grmadr_130__i6.Q & grmadr_130__i7.Q ; (1 pterm, 5 signals)
-grmadr_130__i2.C = !gactive_107.Q ; (1 pterm, 1 signal)
+grmadr_122__i3.T = !ti_adr_14_ & grmadr_122__i4.Q & grmadr_122__i5.Q
+       & grmadr_122__i6.Q & grmadr_122__i7.Q
+    # !ti_data_3_.PIN & !ti_we & ti_adr_14_ & grmadr_122__i3.Q
+    # ti_data_3_.PIN & !ti_we & ti_adr_14_ & !grmadr_122__i3.Q ; (3 pterms, 8 signals)
+grmadr_122__i3.C = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-grmadr_130__i3.D.X1 = grmadr_130__i3.Q ; (1 pterm, 1 signal)
-grmadr_130__i3.D.X2 = grmadr_130__i4.Q & grmadr_130__i5.Q & grmadr_130__i6.Q
-       & grmadr_130__i7.Q ; (1 pterm, 4 signals)
-grmadr_130__i3.C = !gactive_107.Q ; (1 pterm, 1 signal)
+grmadr_122__i4.T = !ti_adr_14_ & grmadr_122__i5.Q & grmadr_122__i6.Q
+       & grmadr_122__i7.Q
+    # !ti_data_4_.PIN & !ti_we & ti_adr_14_ & grmadr_122__i4.Q
+    # ti_data_4_.PIN & !ti_we & ti_adr_14_ & !grmadr_122__i4.Q ; (3 pterms, 7 signals)
+grmadr_122__i4.C = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-grmadr_130__i4.D = !grmadr_130__i4.Q & grmadr_130__i5.Q & grmadr_130__i6.Q
-       & grmadr_130__i7.Q
-    # grmadr_130__i4.Q & !grmadr_130__i6.Q
-    # grmadr_130__i4.Q & !grmadr_130__i5.Q
-    # grmadr_130__i4.Q & !grmadr_130__i7.Q ; (4 pterms, 4 signals)
-grmadr_130__i4.C = !gactive_107.Q ; (1 pterm, 1 signal)
+grmadr_122__i5.D.X1 = !ti_adr_14_ & grmadr_122__i6.Q & grmadr_122__i7.Q
+    # !ti_data_5_.PIN & !ti_we & ti_adr_14_ & grmadr_122__i5.Q
+    # ti_data_5_.PIN & !ti_we & ti_adr_14_ & !grmadr_122__i5.Q ; (3 pterms, 6 signals)
+grmadr_122__i5.D.X2 = grmadr_122__i5.Q ; (1 pterm, 1 signal)
+grmadr_122__i5.C = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-grmadr_130__i5.D = !grmadr_130__i5.Q & grmadr_130__i6.Q & grmadr_130__i7.Q
-    # grmadr_130__i5.Q & !grmadr_130__i6.Q
-    # grmadr_130__i5.Q & !grmadr_130__i7.Q ; (3 pterms, 3 signals)
-grmadr_130__i5.C = !gactive_107.Q ; (1 pterm, 1 signal)
+grmadr_122__i6.D = !ti_adr_14_ & !grmadr_122__i6.Q & grmadr_122__i7.Q
+    # ti_we & ti_adr_14_ & grmadr_122__i6.Q
+    # !ti_adr_14_ & grmadr_122__i6.Q & !grmadr_122__i7.Q
+    # !ti_we & ti_adr_14_ & ti_data_6_.PIN ; (4 pterms, 5 signals)
+grmadr_122__i6.C = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-grmadr_130__i6.D = grmadr_130__i6.Q & !grmadr_130__i7.Q
-    # !grmadr_130__i6.Q & grmadr_130__i7.Q ; (2 pterms, 2 signals)
-grmadr_130__i6.C = !gactive_107.Q ; (1 pterm, 1 signal)
+grmadr_122__i7.D = ti_data_7_.PIN & !ti_we & ti_adr_14_
+    # ti_we & ti_adr_14_ & grmadr_122__i7.Q
+    # !ti_adr_14_ & !grmadr_122__i7.Q ; (3 pterms, 4 signals)
+grmadr_122__i7.C = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-grmadr_130__i7.D = !grmadr_130__i7.Q ; (1 pterm, 1 signal)
-grmadr_130__i7.C = !gactive_107.Q ; (1 pterm, 1 signal)
+grmpage_105.D = !ti_adr_14_ & grmadr_122__i0.Q & !grmadr_122__i1.Q
+    # ti_we & grmadr_122__i0.Q & !grmadr_122__i1.Q
+    # grmadr_122__i0.Q & !grmadr_122__i1.Q & !grmadr_122__i2.Q ; (3 pterms, 5 signals)
+grmpage_105.C = out_adr_25_.Q ; (1 pterm, 1 signal)
+grmpage_105.CE = !ti_we & ti_adr_14_ ; (1 pterm, 2 signals)
 
-grmpage_109.D = !ti_adr_14_ & grmadr_130__i0.Q & !grmadr_130__i1.Q
-    # ti_gsel & grmadr_130__i0.Q & !grmadr_130__i1.Q
-    # grmadr_130__i0.Q & !grmadr_130__i1.Q & !grmadr_130__i2.Q ; (3 pterms, 5 signals)
-grmpage_109.C = !ti_we ; (1 pterm, 1 signal)
-grmpage_109.CE = !ti_gsel & ti_adr_14_ ; (1 pterm, 2 signals)
+out_adr_0_ = ti_adr_15_ & !out_adr_25_.Q
+    # out_adr_25_.Q & grmadr_122__i7.Q ; (2 pterms, 3 signals)
 
-gvalid_106.D = !( ti_gsel & gvalid_106.Q ) ; (1 pterm, 2 signals)
-gvalid_106.C = ti_gclk ; (1 pterm, 1 signal)
-gvalid_106.CE = gvalid_106_0 ; (1 pterm, 1 signal)
+out_adr_10_ = !( !out_adr_25_.Q & !ti_adr_5_ ) ; (1 pterm, 2 signals)
 
-gvalid_106_0 = ti_gsel & gvalid_106.Q
-    # !ti_gsel & !ti_adr_14_ & grmpage_109.Q & gactive_107.Q ; (2 pterms, 5 signals)
+out_adr_11_ = !( !out_adr_25_.Q & !ti_adr_4_ ) ; (1 pterm, 2 signals)
 
-latch_i0_i0.D = ti_adr_14_ ; (1 pterm, 1 signal)
-latch_i0_i0.C = ti_we ; (1 pterm, 1 signal)
-latch_i0_i0.CE = !ti_rom ; (1 pterm, 1 signal)
+out_adr_12_ = !( !out_adr_25_.Q & !ti_adr_3_ ) ; (1 pterm, 2 signals)
 
-latch_i0_i1.D = ti_adr_13_ ; (1 pterm, 1 signal)
-latch_i0_i1.C = ti_we ; (1 pterm, 1 signal)
-latch_i0_i1.CE = !ti_rom ; (1 pterm, 1 signal)
+out_adr_13_ = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-latch_i0_i10.D = ti_adr_4_ ; (1 pterm, 1 signal)
-latch_i0_i10.C = ti_we ; (1 pterm, 1 signal)
-latch_i0_i10.CE = !ti_rom ; (1 pterm, 1 signal)
+out_adr_14_ = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-latch_i0_i11.D = ti_adr_3_ ; (1 pterm, 1 signal)
-latch_i0_i11.C = ti_we ; (1 pterm, 1 signal)
-latch_i0_i11.CE = !ti_rom ; (1 pterm, 1 signal)
+out_adr_15_ = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-latch_i0_i12.D = ti_data_7_.PIN ; (1 pterm, 1 signal)
-latch_i0_i12.C = ti_we ; (1 pterm, 1 signal)
-latch_i0_i12.CE = !ti_rom ; (1 pterm, 1 signal)
+out_adr_16_ = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-latch_i0_i13.D = ti_data_6_.PIN ; (1 pterm, 1 signal)
-latch_i0_i13.C = ti_we ; (1 pterm, 1 signal)
-latch_i0_i13.CE = !ti_rom ; (1 pterm, 1 signal)
+out_adr_17_ = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-latch_i0_i2.D = ti_adr_12_ ; (1 pterm, 1 signal)
-latch_i0_i2.C = ti_we ; (1 pterm, 1 signal)
-latch_i0_i2.CE = !ti_rom ; (1 pterm, 1 signal)
+out_adr_18_ = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-latch_i0_i3.D = ti_adr_11_ ; (1 pterm, 1 signal)
-latch_i0_i3.C = ti_we ; (1 pterm, 1 signal)
-latch_i0_i3.CE = !ti_rom ; (1 pterm, 1 signal)
+out_adr_19_ = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-latch_i0_i4.D = ti_adr_10_ ; (1 pterm, 1 signal)
-latch_i0_i4.C = ti_we ; (1 pterm, 1 signal)
-latch_i0_i4.CE = !ti_rom ; (1 pterm, 1 signal)
+out_adr_1_ = !out_adr_25_.Q & ti_adr_14_
+    # out_adr_25_.Q & grmadr_122__i6.Q ; (2 pterms, 3 signals)
 
-latch_i0_i5.D = ti_adr_9_ ; (1 pterm, 1 signal)
-latch_i0_i5.C = ti_we ; (1 pterm, 1 signal)
-latch_i0_i5.CE = !ti_rom ; (1 pterm, 1 signal)
+out_adr_20_ = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-latch_i0_i6.D = ti_adr_8_ ; (1 pterm, 1 signal)
-latch_i0_i6.C = ti_we ; (1 pterm, 1 signal)
-latch_i0_i6.CE = !ti_rom ; (1 pterm, 1 signal)
+out_adr_21_ = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-latch_i0_i7.D = ti_adr_7_ ; (1 pterm, 1 signal)
-latch_i0_i7.C = ti_we ; (1 pterm, 1 signal)
-latch_i0_i7.CE = !ti_rom ; (1 pterm, 1 signal)
+out_adr_22_ = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-latch_i0_i8.D = ti_adr_6_ ; (1 pterm, 1 signal)
-latch_i0_i8.C = ti_we ; (1 pterm, 1 signal)
-latch_i0_i8.CE = !ti_rom ; (1 pterm, 1 signal)
+out_adr_23_ = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-latch_i0_i9.D = ti_adr_5_ ; (1 pterm, 1 signal)
-latch_i0_i9.C = ti_we ; (1 pterm, 1 signal)
-latch_i0_i9.CE = !ti_rom ; (1 pterm, 1 signal)
+out_adr_24_ = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-out_adr_0_ = ti_adr_15_ & !gvalid_106.Q
-    # grmadr_130__i7.Q & gvalid_106.Q ; (2 pterms, 3 signals)
+out_adr_25_.D = !( out_adr_25_.Q & ti_gsel ) ; (1 pterm, 2 signals)
+out_adr_25_.C = !ti_gclk ; (1 pterm, 1 signal)
+out_adr_25_.CE = out_adr_25__0 ; (1 pterm, 1 signal)
 
-out_adr_10_ = !( !ti_adr_5_ & !gvalid_106.Q ) ; (1 pterm, 2 signals)
+out_adr_25__0 = !ti_gsel & gactive_104.Q
+    # out_adr_25_.Q & ti_gsel ; (2 pterms, 3 signals)
 
-out_adr_11_ = !( !ti_adr_4_ & !gvalid_106.Q ) ; (1 pterm, 2 signals)
+out_adr_26_ = out_adr_25_.Q ; (1 pterm, 1 signal)
 
-out_adr_12_ = !( !ti_adr_3_ & !gvalid_106.Q ) ; (1 pterm, 2 signals)
+out_adr_2_ = !out_adr_25_.Q & ti_adr_13_
+    # out_adr_25_.Q & grmadr_122__i5.Q ; (2 pterms, 3 signals)
 
-out_adr_13_ = !( !latch_i0_i0.Q & !gvalid_106.Q ) ; (1 pterm, 2 signals)
+out_adr_3_ = !out_adr_25_.Q & ti_adr_12_
+    # out_adr_25_.Q & grmadr_122__i4.Q ; (2 pterms, 3 signals)
 
-out_adr_14_ = !( !latch_i0_i1.Q & !gvalid_106.Q ) ; (1 pterm, 2 signals)
+out_adr_4_ = !out_adr_25_.Q & ti_adr_11_
+    # out_adr_25_.Q & grmadr_122__i3.Q ; (2 pterms, 3 signals)
 
-out_adr_15_ = !( !latch_i0_i2.Q & !gvalid_106.Q ) ; (1 pterm, 2 signals)
+out_adr_5_ = !out_adr_25_.Q & ti_adr_10_
+    # out_adr_25_.Q & grmadr_122__i2.Q ; (2 pterms, 3 signals)
 
-out_adr_16_ = !( !latch_i0_i3.Q & !gvalid_106.Q ) ; (1 pterm, 2 signals)
+out_adr_6_ = !out_adr_25_.Q & ti_adr_9_
+    # out_adr_25_.Q & grmadr_122__i1.Q ; (2 pterms, 3 signals)
 
-out_adr_17_ = !( !latch_i0_i4.Q & !gvalid_106.Q ) ; (1 pterm, 2 signals)
+out_adr_7_ = !out_adr_25_.Q & ti_adr_8_
+    # out_adr_25_.Q & grmadr_122__i0.Q ; (2 pterms, 3 signals)
 
-out_adr_18_ = !( !latch_i0_i5.Q & !gvalid_106.Q ) ; (1 pterm, 2 signals)
+out_adr_8_ = !( !out_adr_25_.Q & !ti_adr_7_ ) ; (1 pterm, 2 signals)
 
-out_adr_19_ = !( !latch_i0_i6.Q & !gvalid_106.Q ) ; (1 pterm, 2 signals)
-
-out_adr_1_ = ti_adr_14_ & !gvalid_106.Q
-    # grmadr_130__i6.Q & gvalid_106.Q ; (2 pterms, 3 signals)
-
-out_adr_20_ = !( !latch_i0_i7.Q & !gvalid_106.Q ) ; (1 pterm, 2 signals)
-
-out_adr_21_ = !( !latch_i0_i8.Q & !gvalid_106.Q ) ; (1 pterm, 2 signals)
-
-out_adr_22_ = !( !latch_i0_i9.Q & !gvalid_106.Q ) ; (1 pterm, 2 signals)
-
-out_adr_23_ = !( !latch_i0_i10.Q & !gvalid_106.Q ) ; (1 pterm, 2 signals)
-
-out_adr_24_ = !( !latch_i0_i11.Q & !gvalid_106.Q ) ; (1 pterm, 2 signals)
-
-out_adr_25_ = !( !latch_i0_i12.Q & !gvalid_106.Q ) ; (1 pterm, 2 signals)
-
-out_adr_26_ = !( !latch_i0_i13.Q & !gvalid_106.Q ) ; (1 pterm, 2 signals)
-
-out_adr_2_ = ti_adr_13_ & !gvalid_106.Q
-    # grmadr_130__i5.Q & gvalid_106.Q ; (2 pterms, 3 signals)
-
-out_adr_3_ = ti_adr_12_ & !gvalid_106.Q
-    # grmadr_130__i4.Q & gvalid_106.Q ; (2 pterms, 3 signals)
-
-out_adr_4_ = ti_adr_11_ & !gvalid_106.Q
-    # grmadr_130__i3.Q & gvalid_106.Q ; (2 pterms, 3 signals)
-
-out_adr_5_ = ti_adr_10_ & !gvalid_106.Q
-    # grmadr_130__i2.Q & gvalid_106.Q ; (2 pterms, 3 signals)
-
-out_adr_6_ = ti_adr_9_ & !gvalid_106.Q
-    # grmadr_130__i1.Q & gvalid_106.Q ; (2 pterms, 3 signals)
-
-out_adr_7_ = ti_adr_8_ & !gvalid_106.Q
-    # grmadr_130__i0.Q & gvalid_106.Q ; (2 pterms, 3 signals)
-
-out_adr_8_ = !( !ti_adr_7_ & !gvalid_106.Q ) ; (1 pterm, 2 signals)
-
-out_adr_9_ = !( !ti_adr_6_ & !gvalid_106.Q ) ; (1 pterm, 2 signals)
+out_adr_9_ = !( !out_adr_25_.Q & !ti_adr_6_ ) ; (1 pterm, 2 signals)
 
 out_reset = 1 ; (1 pterm, 0 signal)
 

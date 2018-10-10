@@ -1,19 +1,19 @@
  ispLEVER Classic 2.0.00.17.20.15 Fitter Report File 
 Project Name,gigacart
 Project Path,D:\work\TI\dragonslair\cart\cpld
-Project Fitted on,Sat Sep 29 22:47:32 2018
+Project Fitted on,Wed Oct 10 00:29:46 2018
 
 Pin,Pin_Type,Bank,GLB_Pad,Assigned,I/O_Type,Signal_Type,Signal_Name
 1,GND,-,,,,,
 2,TDI,-,,,,,
 3,I_O,0,A8,*,LVTTL_5V,Input,ti_adr_14_
-4,I_O,0,A9,*,LVTTL,Tri-Out,ti_data_0_
-5,I_O,0,A10,*,LVTTL,Tri-Out,ti_data_1_
-6,I_O,0,A11,*,LVTTL,Tri-Out,ti_data_2_
+4,I_O,0,A9,*,LVTTL,Bidir,ti_data_0_
+5,I_O,0,A10,*,LVTTL,Bidir,ti_data_1_
+6,I_O,0,A11,*,LVTTL,Bidir,ti_data_2_
 7,GNDIO0,-,,,,,
-8,I_O,0,A12,*,LVTTL,Tri-Out,ti_data_3_
-9,I_O,0,A13,*,LVTTL,Tri-Out,ti_data_4_
-10,I_O,0,A14,*,LVTTL,Tri-Out,ti_data_5_
+8,I_O,0,A12,*,LVTTL,Bidir,ti_data_3_
+9,I_O,0,A13,*,LVTTL,Bidir,ti_data_4_
+10,I_O,0,A14,*,LVTTL,Bidir,ti_data_5_
 11,I_O,0,A15,*,LVTTL,Bidir,ti_data_6_
 12,IN0,0,,,,,
 13,VCCIO0,-,,,,,

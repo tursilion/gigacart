@@ -1,5 +1,5 @@
 #PLAFILE     gigacart.bl5
-#DATE        Sat Sep 29 22:47:32 2018
+#DATE        Wed Oct 10 00:29:46 2018
 
 #DESIGN      gigacart
 #DEVICE      MACH4S-64
@@ -10,8 +10,6 @@ DATA GLOBAL tINDIO:0
 
 
 // Signal locations
-DATA LOCATION ti_adr_4_:B_*_17
-DATA LOCATION ti_adr_3_:B_*_21
 DATA LOCATION ti_adr_15_:B_*_34
 DATA LOCATION ti_we:B_*_16
 DATA LOCATION ti_rom:B_*_15
@@ -35,23 +33,24 @@ DATA LOCATION ti_adr_8_:*_*_23
 DATA LOCATION ti_adr_7_:B_*_22
 DATA LOCATION ti_adr_6_:B_*_20
 DATA LOCATION ti_adr_5_:B_*_19
-DATA LOCATION ti_data_6_:A_15_11
+DATA LOCATION ti_adr_4_:B_*_17
+DATA LOCATION ti_adr_3_:B_*_21
 DATA LOCATION ti_data_5_:A_14_10
-DATA LOCATION ti_data_7_:B_0_14
 DATA LOCATION ti_data_4_:A_13_9
 DATA LOCATION ti_data_3_:A_3_8
 DATA LOCATION ti_data_2_:A_2_6
+DATA LOCATION ti_data_7_:B_0_14
 DATA LOCATION ti_data_1_:A_1_5
 DATA LOCATION ti_data_0_:A_0_4
 DATA LOCATION out_adr_25_:A_7_100
-DATA LOCATION out_adr_26_:A_6_99
 DATA LOCATION out_adr_24_:D_4_81
 DATA LOCATION out_adr_23_:D_5_80
 DATA LOCATION out_adr_22_:C_15_61
-DATA LOCATION out_reset:C_4_47
+DATA LOCATION out_adr_26_:A_6_99
 DATA LOCATION out_adr_21_:D_15_64
 DATA LOCATION out_adr_20_:D_14_65
 DATA LOCATION out_adr_19_:C_5_60
+DATA LOCATION out_reset:C_4_47
 DATA LOCATION out_adr_18_:C_13_59
 DATA LOCATION out_adr_17_:A_5_98
 DATA LOCATION out_adr_16_:D_6_79
@@ -71,38 +70,21 @@ DATA LOCATION out_adr_3_:C_7_50
 DATA LOCATION out_adr_2_:C_6_49
 DATA LOCATION out_adr_1_:D_3_84
 DATA LOCATION out_adr_0_:A_4_97
-DATA LOCATION dataout:A_12
-DATA LOCATION latch_i0_i13:A_8
-DATA LOCATION latch_i0_i12:B_3
-DATA LOCATION latch_i0_i11:A_9
-DATA LOCATION latch_i0_i10:A_10
-DATA LOCATION latch_i0_i9:D_9
-DATA LOCATION latch_i0_i8:D_10
-DATA LOCATION latch_i0_i7:C_9
-DATA LOCATION latch_i0_i6:C_10
-DATA LOCATION latch_i0_i5:A_11
-DATA LOCATION latch_i0_i4:D_11
-DATA LOCATION latch_i0_i3:C_11
-DATA LOCATION latch_i0_i2:C_12
-DATA LOCATION latch_i0_i1:C_14
-DATA LOCATION latch_i0_i0:B_4
-DATA LOCATION grmadr_130__i0:B_12
-DATA LOCATION grmadr_130__i1:B_13
-DATA LOCATION grmadr_130__i2:B_14
-DATA LOCATION grmadr_130__i3:B_8
-DATA LOCATION grmadr_130__i4:B_2
-DATA LOCATION grmadr_130__i5:B_7
-DATA LOCATION grmadr_130__i6:B_9
-DATA LOCATION grmadr_130__i7:B_15
-DATA LOCATION grmpage_109:B_1
-DATA LOCATION gactive_107:B_5
-DATA LOCATION gvalid_106:B_6
-DATA LOCATION gactive_107_0:B_10
-DATA LOCATION gvalid_106_0:B_11
+DATA LOCATION ti_data_6_:A_15_11
+DATA LOCATION dataout:A_10
+DATA LOCATION grmadr_122__i0:B_1
+DATA LOCATION grmadr_122__i1:B_2
+DATA LOCATION grmadr_122__i2:B_3
+DATA LOCATION grmadr_122__i3:B_5
+DATA LOCATION grmadr_122__i4:B_7
+DATA LOCATION grmadr_122__i5:D_9
+DATA LOCATION grmadr_122__i6:A_8
+DATA LOCATION grmadr_122__i7:B_9
+DATA LOCATION grmpage_105:C_9
+DATA LOCATION gactive_104:A_9
+DATA LOCATION out_adr_25__0:B_12
 
 // Signals direction
-DATA IO_DIR ti_adr_4_:IN
-DATA IO_DIR ti_adr_3_:IN
 DATA IO_DIR ti_adr_15_:IN
 DATA IO_DIR ti_we:IN
 DATA IO_DIR ti_rom:IN
@@ -126,23 +108,24 @@ DATA IO_DIR ti_adr_8_:IN
 DATA IO_DIR ti_adr_7_:IN
 DATA IO_DIR ti_adr_6_:IN
 DATA IO_DIR ti_adr_5_:IN
-DATA IO_DIR ti_data_6_:BI
-DATA IO_DIR ti_data_5_:TRI
+DATA IO_DIR ti_adr_4_:IN
+DATA IO_DIR ti_adr_3_:IN
+DATA IO_DIR ti_data_5_:BI
+DATA IO_DIR ti_data_4_:BI
+DATA IO_DIR ti_data_3_:BI
+DATA IO_DIR ti_data_2_:BI
 DATA IO_DIR ti_data_7_:BI
-DATA IO_DIR ti_data_4_:TRI
-DATA IO_DIR ti_data_3_:TRI
-DATA IO_DIR ti_data_2_:TRI
-DATA IO_DIR ti_data_1_:TRI
-DATA IO_DIR ti_data_0_:TRI
+DATA IO_DIR ti_data_1_:BI
+DATA IO_DIR ti_data_0_:BI
 DATA IO_DIR out_adr_25_:OUT
-DATA IO_DIR out_adr_26_:OUT
 DATA IO_DIR out_adr_24_:OUT
 DATA IO_DIR out_adr_23_:OUT
 DATA IO_DIR out_adr_22_:OUT
-DATA IO_DIR out_reset:OUT
+DATA IO_DIR out_adr_26_:OUT
 DATA IO_DIR out_adr_21_:OUT
 DATA IO_DIR out_adr_20_:OUT
 DATA IO_DIR out_adr_19_:OUT
+DATA IO_DIR out_reset:OUT
 DATA IO_DIR out_adr_18_:OUT
 DATA IO_DIR out_adr_17_:OUT
 DATA IO_DIR out_adr_16_:OUT
@@ -162,21 +145,21 @@ DATA IO_DIR out_adr_3_:OUT
 DATA IO_DIR out_adr_2_:OUT
 DATA IO_DIR out_adr_1_:OUT
 DATA IO_DIR out_adr_0_:OUT
+DATA IO_DIR ti_data_6_:BI
 
 // Signals Slew Rate
-DATA SLEW ti_data_6_
 DATA SLEW ti_data_5_
-DATA SLEW ti_data_7_
 DATA SLEW ti_data_4_
 DATA SLEW ti_data_3_
 DATA SLEW ti_data_2_
+DATA SLEW ti_data_7_
 DATA SLEW ti_data_1_
 DATA SLEW ti_data_0_
 DATA SLEW out_adr_25_
-DATA SLEW out_adr_26_
 DATA SLEW out_adr_24_
 DATA SLEW out_adr_23_
 DATA SLEW out_adr_22_
+DATA SLEW out_adr_26_
 DATA SLEW out_adr_21_
 DATA SLEW out_adr_20_
 DATA SLEW out_adr_19_
@@ -199,75 +182,61 @@ DATA SLEW out_adr_3_
 DATA SLEW out_adr_2_
 DATA SLEW out_adr_1_
 DATA SLEW out_adr_0_
+DATA SLEW ti_data_6_
 
 // Signals using Shared Clock or CE
-DATA tBCLK latch_i0_i13.C
-DATA tBCLK latch_i0_i11.C
-DATA tBCLK latch_i0_i10.C
-DATA tBCLK latch_i0_i9.C
-DATA tBCLK latch_i0_i8.C
-DATA tBCLK latch_i0_i7.C
-DATA tBCLK latch_i0_i6.C
-DATA tBCLK latch_i0_i5.C
-DATA tBCLK latch_i0_i4.C
-DATA tBCLK latch_i0_i3.C
-DATA tBCLK latch_i0_i2.C
-DATA tBCLK latch_i0_i1.C
-DATA tBCLK grmadr_130__i0.C
-DATA tBCLK grmadr_130__i1.C
-DATA tBCLK grmadr_130__i2.C
-DATA tBCLK grmadr_130__i3.C
-DATA tBCLK grmadr_130__i4.C
-DATA tBCLK grmadr_130__i5.C
-DATA tBCLK grmadr_130__i6.C
-DATA tBCLK grmadr_130__i7.C
+DATA tBCLK out_adr_25_.C
+DATA tBCLK grmadr_122__i0.C
+DATA tBCLK grmadr_122__i1.C
+DATA tBCLK grmadr_122__i2.C
+DATA tBCLK grmadr_122__i3.C
+DATA tBCLK grmadr_122__i4.C
+DATA tBCLK grmadr_122__i5.C
+DATA tBCLK grmadr_122__i7.C
+DATA tBCLK grmpage_105.C
+DATA tBCLK gactive_104.C
 
 // Signals using global PT OEs
-DATA tGPTOE ti_data_6_
 DATA tGPTOE ti_data_5_
-DATA tGPTOE ti_data_7_
 DATA tGPTOE ti_data_4_
 DATA tGPTOE ti_data_3_
 DATA tGPTOE ti_data_2_
+DATA tGPTOE ti_data_7_
 DATA tGPTOE ti_data_1_
 DATA tGPTOE ti_data_0_
+DATA tGPTOE ti_data_6_
 
 // Block Load Adders
-DATA tBLA gvalid_106:3
+DATA tBLA out_adr_25_:3
 DATA tBLA ti_we:3
-DATA tBLA ti_rom:3
-DATA tBLA grmadr_130__i7:1
-DATA tBLA grmadr_130__i6:1
-DATA tBLA grmadr_130__i5:1
-DATA tBLA grmadr_130__i4:1
-DATA tBLA grmadr_130__i3:1
-DATA tBLA grmadr_130__i2:1
-DATA tBLA grmadr_130__i1:1
-DATA tBLA grmadr_130__i0:1
-DATA tBLA ti_adr_4_:1
-DATA tBLA ti_adr_3_:1
-DATA tBLA ti_adr_14_:1
-DATA tBLA ti_adr_10_:1
-DATA tBLA ti_adr_9_:1
+DATA tBLA ti_adr_14_:3
+DATA tBLA grmadr_122__i7:2
+DATA tBLA grmadr_122__i6:2
+DATA tBLA grmadr_122__i5:2
+DATA tBLA grmadr_122__i4:1
+DATA tBLA grmadr_122__i3:1
+DATA tBLA grmadr_122__i2:1
+DATA tBLA grmadr_122__i1:1
+DATA tBLA grmadr_122__i0:1
+DATA tBLA ti_gsel:1
 
 // Signals using OSM or fast 5-PTs path
-DATA tOSM ti_data_6_
 DATA tOSM ti_data_5_
-DATA tOSM ti_data_7_
 DATA tOSM ti_data_4_
 DATA tOSM ti_data_3_
 DATA tOSM ti_data_2_
+DATA tOSM ti_data_7_
 DATA tOSM ti_data_1_
 DATA tOSM ti_data_0_
 DATA tOSM out_adr_25_
-DATA tOSM out_adr_26_
 DATA tOSM out_adr_24_
 DATA tOSM out_adr_23_
 DATA tOSM out_adr_22_
-DATA tOSM out_reset
+DATA tOSM out_adr_26_
 DATA tOSM out_adr_21_
 DATA tOSM out_adr_20_
 DATA tOSM out_adr_19_
+DATA tOSM out_reset
 DATA tOSM out_adr_18_
 DATA tOSM out_adr_17_
 DATA tOSM out_adr_16_
@@ -287,3 +256,4 @@ DATA tOSM out_adr_3_
 DATA tOSM out_adr_2_
 DATA tOSM out_adr_1_
 DATA tOSM out_adr_0_
+DATA tOSM ti_data_6_

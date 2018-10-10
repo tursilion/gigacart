@@ -1,13 +1,12 @@
 ----------------------------------------------------------------------
 Report for cell gigacart.TECH
-Register bits:  25 of 880 (2.841%)
+Register bits:  11 of 880 (1.250%)
 I/O cells:      61
                                   Cell usage:
                                cell     count   Res Usage(%)
-                             BI_DIR         2          100.0
-                              BUFTH         6          100.0
+                             BI_DIR         8          100.0
                                 DFF         8          100.0
-                               DFFC        17          100.0
+                               DFFC         3          100.0
                                IBUF        25          100.0
                                OBUF        28          100.0
-                              TOTAL        86
+                              TOTAL        72
