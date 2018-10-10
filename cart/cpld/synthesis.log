@@ -3,7 +3,7 @@ Copyright (c) 1995 AT&T Corp.   All rights reserved.
 Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
 Copyright (c) 2001 Agere Systems   All rights reserved.
 Copyright (c) 2002-2015 Lattice Semiconductor Corporation,  All rights reserved.
-Wed Oct 10 00:29:42 2018
+Wed Oct 10 01:00:18 2018
 
 
 Command Line:  C:\ispLEVER_Classic2_0\lse/bin/nt/synthesis -f gigacart.synproj 
@@ -63,7 +63,6 @@ INFO - synthesis: design.vhd(39): analyzing architecture myarch. VHDL-1010
 unit gigacart is not yet analyzed. VHDL-1485
 design.vhd(21): executing gigacart(myarch)
 
-WARNING - synthesis: design.vhd(46): using initial value "00000000000000" for latch since it is never assigned. VHDL-1303
 WARNING - synthesis: design.vhd(37): replacing existing netlist gigacart(myarch). VHDL-1205
 Top module name (VHDL): gigacart
 Loading NGL library 'C:/ispLEVER_Classic2_0/lse/xo2c00/data/xo2clib.ngl'...
@@ -74,46 +73,47 @@ Top-level module name = gigacart.
 
 
 
-WARNING - synthesis: design.vhd(173): Register bounce_107 is stuck at One. VDB-5014
+WARNING - synthesis: design.vhd(178): Register bounce_107 is stuck at One. VDB-5014
 Applying 1.000000 MHz constraint to all clocks
 
 WARNING - synthesis: No .lpf file will be written because the -lpf option is not used or is set to zero.
 Results of NGD DRC are available in gigacart_drc.log.
 
 ################### Begin Area Report (gigacart)######################
-Number of register bits => 11 of 880 (1 % )
+Number of register bits => 26 of 880 (2 % )
 AND2 => 44
 AND4 => 1
 BI_DIR => 8
-DFF => 8
-DFFC => 3
+DFF => 2
+DFFC => 24
 GND => 1
 IBUF => 25
-INV => 12
+INV => 10
 OBUF => 28
-OR2 => 26
+OR2 => 39
 VCC => 1
 XOR2 => 8
 ################### End Area Report ##################
 
 ################### Begin Clock Report ######################
 Clock Nets
-Number of Clocks: 2
-  Net : out_adr_c, loads : 39
-  Net : ti_gclk_N_48, loads : 2
+Number of Clocks: 3
+  Net : gvalid, loads : 40
+  Net : ti_we_c, loads : 17
+  Net : ti_gclk_N_54, loads : 2
 Clock Enable Nets
 Number of Clock Enables: 0
 Top 0 highest fanout Clock Enables:
 Highest fanout non-clock nets
 Top 10 highest fanout non-clock nets:
-  Net : grmadr_0__N_17, loads : 11
-  Net : n449, loads : 9
+  Net : ti_rom_N_24, loads : 15
+  Net : ti_adr_c_14, loads : 13
+  Net : ti_adr_14__N_44, loads : 9
+  Net : n286, loads : 9
   Net : dataout, loads : 8
-  Net : n477, loads : 8
-  Net : ti_adr_c_14, loads : 4
+  Net : n446, loads : 8
   Net : grmadr_1, loads : 4
   Net : grmadr_2, loads : 4
-  Net : ti_gsel_c, loads : 3
   Net : grmadr_0, loads : 3
   Net : grmadr_3, loads : 3
 ################### End Clock Report ##################
@@ -125,10 +125,13 @@ Constraint                              |   Constraint|       Actual|Levels
 --------------------------------------------------------------------------------
                                         |             |             |
 create_clock -period 1000.000000 -name  |             |             |
-clk1 [get_nets ti_gclk_N_48]            |            -|            -|     0  
+clk2 [get_nets ti_we_c]                 |            -|            -|     0  
                                         |             |             |
 create_clock -period 1000.000000 -name  |             |             |
-clk0 [get_nets out_adr_c]               |            -|            -|     0  
+clk1 [get_nets gvalid]                  |            -|            -|     0  
+                                        |             |             |
+create_clock -period 1000.000000 -name  |             |             |
+clk0 [get_nets ti_gclk_N_54]            |            -|            -|     0  
                                         |             |             |
 --------------------------------------------------------------------------------
 
@@ -136,8 +139,8 @@ clk0 [get_nets out_adr_c]               |            -|            -|     0
 All constraints were met.
 
 
-Peak Memory Usage: 54.508  MB
+Peak Memory Usage: 54.555  MB
 
 --------------------------------------------------------------
-Elapsed CPU time for LSE flow : 0.703  secs
+Elapsed CPU time for LSE flow : 0.641  secs
 --------------------------------------------------------------
