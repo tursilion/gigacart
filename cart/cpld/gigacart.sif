@@ -1,60 +1,12 @@
 // Node Statistic Information File
 // Tool:  ispLEVER Classic 2.0.00.17.20.15
-// Design 'gigacart' created   Tue Oct 09 22:32:22 2018
+// Design 'gigacart' created   Mon Oct 15 00:38:49 2018
 
 // Fmax Logic Level: 2.
 
-// Path: grmpage_105.Q
-//    -> gvalid_102_0
-//    -> gvalid_102.CE
-
-// Signal Name: out_adr_20_
-// Type: Output
-BEGIN out_adr_20_
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Node      	latch_i0_i7.Q       	1
-Fanin Node      	gvalid_102.Q        	1
-END
-
-// Signal Name: out_adr_19_
-// Type: Output
-BEGIN out_adr_19_
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Node      	latch_i0_i6.Q       	1
-Fanin Node      	gvalid_102.Q        	1
-END
-
-// Signal Name: out_adr_18_
-// Type: Output
-BEGIN out_adr_18_
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Node      	latch_i0_i5.Q       	1
-Fanin Node      	gvalid_102.Q        	1
-END
-
-// Signal Name: out_adr_17_
-// Type: Output
-BEGIN out_adr_17_
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Node      	latch_i0_i4.Q       	1
-Fanin Node      	gvalid_102.Q        	1
-END
+// Path: grmadr_i4.Q
+//    -> n399
+//    -> grmadr_i3.D
 
 // Signal Name: ti_data_7_
 // Type: Bidi
@@ -78,78 +30,6 @@ Logic Levels		N/A
 Fanin Node      	dataout.BLIF        	2
 END
 
-// Signal Name: out_adr_16_
-// Type: Output
-BEGIN out_adr_16_
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Node      	latch_i0_i3.Q       	1
-Fanin Node      	gvalid_102.Q        	1
-END
-
-// Signal Name: out_adr_15_
-// Type: Output
-BEGIN out_adr_15_
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Node      	latch_i0_i2.Q       	1
-Fanin Node      	gvalid_102.Q        	1
-END
-
-// Signal Name: out_adr_14_
-// Type: Output
-BEGIN out_adr_14_
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Node      	latch_i0_i1.Q       	1
-Fanin Node      	gvalid_102.Q        	1
-END
-
-// Signal Name: out_adr_13_
-// Type: Output
-BEGIN out_adr_13_
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Node      	latch_i0_i0.Q       	1
-Fanin Node      	gvalid_102.Q        	1
-END
-
-// Signal Name: out_adr_12_
-// Type: Output
-BEGIN out_adr_12_
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_adr_3_.BLIF      	0
-Fanin Node      	gvalid_102.Q        	1
-END
-
-// Signal Name: out_adr_11_
-// Type: Output
-BEGIN out_adr_11_
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_adr_4_.BLIF      	0
-Fanin Node      	gvalid_102.Q        	1
-END
-
 // Signal Name: out_adr_26_
 // Type: Output
 BEGIN out_adr_26_
@@ -159,43 +39,7 @@ Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
 Fanin Node      	latch_i0_i13.Q      	1
-Fanin Node      	gvalid_102.Q        	1
-END
-
-// Signal Name: out_adr_10_
-// Type: Output
-BEGIN out_adr_10_
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_adr_5_.BLIF      	0
-Fanin Node      	gvalid_102.Q        	1
-END
-
-// Signal Name: out_adr_9_
-// Type: Output
-BEGIN out_adr_9_
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_adr_6_.BLIF      	0
-Fanin Node      	gvalid_102.Q        	1
-END
-
-// Signal Name: out_adr_8_
-// Type: Output
-BEGIN out_adr_8_
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_adr_7_.BLIF      	0
-Fanin Node      	gvalid_102.Q        	1
+Fanin Node      	gvalid_103.Q        	1
 END
 
 // Signal Name: out_reset
@@ -206,110 +50,6 @@ Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
-END
-
-// Signal Name: out_adr_7_
-// Type: Output
-BEGIN out_adr_7_
-Fanin Number		3
-Pterm Number		2
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_adr_8_.BLIF      	0
-Fanin Node      	grmadr_i7_i0.Q      	1
-Fanin Node      	gvalid_102.Q        	1
-END
-
-// Signal Name: out_adr_6_
-// Type: Output
-BEGIN out_adr_6_
-Fanin Number		3
-Pterm Number		2
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_adr_9_.BLIF      	0
-Fanin Node      	grmadr_i7_i1.Q      	1
-Fanin Node      	gvalid_102.Q        	1
-END
-
-// Signal Name: out_adr_5_
-// Type: Output
-BEGIN out_adr_5_
-Fanin Number		3
-Pterm Number		2
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_adr_10_.BLIF     	0
-Fanin Node      	grmadr_i7_i2.Q      	1
-Fanin Node      	gvalid_102.Q        	1
-END
-
-// Signal Name: out_adr_4_
-// Type: Output
-BEGIN out_adr_4_
-Fanin Number		3
-Pterm Number		2
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_adr_11_.BLIF     	0
-Fanin Node      	grmadr_i7_i3.Q      	1
-Fanin Node      	gvalid_102.Q        	1
-END
-
-// Signal Name: out_adr_3_
-// Type: Output
-BEGIN out_adr_3_
-Fanin Number		3
-Pterm Number		2
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_adr_12_.BLIF     	0
-Fanin Node      	grmadr_i7_i4.Q      	1
-Fanin Node      	gvalid_102.Q        	1
-END
-
-// Signal Name: out_adr_2_
-// Type: Output
-BEGIN out_adr_2_
-Fanin Number		3
-Pterm Number		2
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_adr_13_.BLIF     	0
-Fanin Node      	grmadr_i7_i5.Q      	1
-Fanin Node      	gvalid_102.Q        	1
-END
-
-// Signal Name: out_adr_1_
-// Type: Output
-BEGIN out_adr_1_
-Fanin Number		3
-Pterm Number		2
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_adr_14_.BLIF     	0
-Fanin Node      	grmadr_i7_i6.Q      	1
-Fanin Node      	gvalid_102.Q        	1
-END
-
-// Signal Name: out_adr_0_
-// Type: Output
-BEGIN out_adr_0_
-Fanin Number		3
-Pterm Number		2
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_adr_15_.BLIF     	0
-Fanin Node      	grmadr_i7_i7.Q      	1
-Fanin Node      	gvalid_102.Q        	1
 END
 
 // Signal Name: ti_data_6_
@@ -475,7 +215,7 @@ Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
 Fanin Node      	latch_i0_i12.Q      	1
-Fanin Node      	gvalid_102.Q        	1
+Fanin Node      	gvalid_103.Q        	1
 END
 
 // Signal Name: out_adr_24_
@@ -487,7 +227,7 @@ Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
 Fanin Node      	latch_i0_i11.Q      	1
-Fanin Node      	gvalid_102.Q        	1
+Fanin Node      	gvalid_103.Q        	1
 END
 
 // Signal Name: out_adr_23_
@@ -499,7 +239,7 @@ Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
 Fanin Node      	latch_i0_i10.Q      	1
-Fanin Node      	gvalid_102.Q        	1
+Fanin Node      	gvalid_103.Q        	1
 END
 
 // Signal Name: out_adr_22_
@@ -511,7 +251,7 @@ Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
 Fanin Node      	latch_i0_i9.Q       	1
-Fanin Node      	gvalid_102.Q        	1
+Fanin Node      	gvalid_103.Q        	1
 END
 
 // Signal Name: out_adr_21_
@@ -523,13 +263,273 @@ Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
 Fanin Node      	latch_i0_i8.Q       	1
-Fanin Node      	gvalid_102.Q        	1
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_20_
+// Type: Output
+BEGIN out_adr_20_
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Node      	latch_i0_i7.Q       	1
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_19_
+// Type: Output
+BEGIN out_adr_19_
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Node      	latch_i0_i6.Q       	1
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_18_
+// Type: Output
+BEGIN out_adr_18_
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Node      	latch_i0_i5.Q       	1
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_17_
+// Type: Output
+BEGIN out_adr_17_
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Node      	latch_i0_i4.Q       	1
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_16_
+// Type: Output
+BEGIN out_adr_16_
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Node      	latch_i0_i3.Q       	1
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_15_
+// Type: Output
+BEGIN out_adr_15_
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Node      	latch_i0_i2.Q       	1
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_14_
+// Type: Output
+BEGIN out_adr_14_
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Node      	latch_i0_i1.Q       	1
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_13_
+// Type: Output
+BEGIN out_adr_13_
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Node      	latch_i0_i0.Q       	1
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_12_
+// Type: Output
+BEGIN out_adr_12_
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_adr_3_.BLIF      	0
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_11_
+// Type: Output
+BEGIN out_adr_11_
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_adr_4_.BLIF      	0
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_10_
+// Type: Output
+BEGIN out_adr_10_
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_adr_5_.BLIF      	0
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_9_
+// Type: Output
+BEGIN out_adr_9_
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_adr_6_.BLIF      	0
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_8_
+// Type: Output
+BEGIN out_adr_8_
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_adr_7_.BLIF      	0
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_7_
+// Type: Output
+BEGIN out_adr_7_
+Fanin Number		3
+Pterm Number		2
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_adr_8_.BLIF      	0
+Fanin Node      	grmadr_i0.Q         	3
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_6_
+// Type: Output
+BEGIN out_adr_6_
+Fanin Number		3
+Pterm Number		2
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_adr_9_.BLIF      	0
+Fanin Node      	grmadr_i1.Q         	2
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_5_
+// Type: Output
+BEGIN out_adr_5_
+Fanin Number		3
+Pterm Number		2
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_adr_10_.BLIF     	0
+Fanin Node      	grmadr_i2.Q         	4
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_4_
+// Type: Output
+BEGIN out_adr_4_
+Fanin Number		3
+Pterm Number		2
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_adr_11_.BLIF     	0
+Fanin Node      	grmadr_i3.Q         	3
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_3_
+// Type: Output
+BEGIN out_adr_3_
+Fanin Number		3
+Pterm Number		2
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_adr_12_.BLIF     	0
+Fanin Node      	grmadr_i4.Q         	3
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_2_
+// Type: Output
+BEGIN out_adr_2_
+Fanin Number		3
+Pterm Number		2
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_adr_13_.BLIF     	0
+Fanin Node      	grmadr_i5.Q         	2
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_1_
+// Type: Output
+BEGIN out_adr_1_
+Fanin Number		3
+Pterm Number		2
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_adr_14_.BLIF     	0
+Fanin Node      	grmadr_i6.Q         	4
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: out_adr_0_
+// Type: Output
+BEGIN out_adr_0_
+Fanin Number		3
+Pterm Number		2
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_adr_15_.BLIF     	0
+Fanin Node      	grmadr_i7.Q         	3
+Fanin Node      	gvalid_103.Q        	1
 END
 
 // Signal Name: dataout
 // Type: Node
 BEGIN dataout
-Fanin Number		4
+Fanin Number		6
 Pterm Number		2
 Fanin per Macrocell	N/A
 Cluster PT		N/A
@@ -537,7 +537,9 @@ Logic Levels		N/A
 Fanin Input     	ti_we.BLIF          	0
 Fanin Input     	ti_rom.BLIF         	0
 Fanin Input     	ti_gsel.BLIF        	0
-Fanin Node      	gvalid_102.Q        	1
+Fanin Input     	ti_adr_14_.BLIF     	0
+Fanin Node      	grmpage_105.Q       	3
+Fanin Node      	gvalid_103.Q        	1
 END
 
 // Signal Name: latch_i0_i13.D
@@ -1002,275 +1004,347 @@ Logic Levels		N/A
 Fanin Input     	ti_rom.BLIF         	0
 END
 
-// Signal Name: grmadr_i7_i0.D
+// Signal Name: grmadr_i0.T
 // Type: Node_reg
-BEGIN grmadr_i7_i0.D
-Fanin Number		1
-Pterm Number		1
+BEGIN grmadr_i0.T
+Fanin Number		11
+Pterm Number		3
 Fanin per Macrocell	N/A
 Cluster PT		N/A
-Logic Levels		N/A
-Fanin Output    	ti_data_7_.PIN      	1
-END
-
-// Signal Name: grmadr_i7_i0.C
-// Type: Node_reg
-BEGIN grmadr_i7_i0.C
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_we.BLIF          	0
-END
-
-// Signal Name: grmadr_i7_i0.CE
-// Type: Node_reg
-BEGIN grmadr_i7_i0.CE
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_gsel.BLIF        	0
+Logic Levels		1
 Fanin Input     	ti_adr_14_.BLIF     	0
-END
-
-// Signal Name: grmadr_i7_i1.D
-// Type: Node_reg
-BEGIN grmadr_i7_i1.D
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Output    	ti_data_6_.PIN      	1
-END
-
-// Signal Name: grmadr_i7_i1.C
-// Type: Node_reg
-BEGIN grmadr_i7_i1.C
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_we.BLIF          	0
-END
-
-// Signal Name: grmadr_i7_i1.CE
-// Type: Node_reg
-BEGIN grmadr_i7_i1.CE
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_gsel.BLIF        	0
-Fanin Input     	ti_adr_14_.BLIF     	0
-END
-
-// Signal Name: grmadr_i7_i2.D
-// Type: Node_reg
-BEGIN grmadr_i7_i2.D
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Output    	ti_data_5_.PIN      	1
-END
-
-// Signal Name: grmadr_i7_i2.C
-// Type: Node_reg
-BEGIN grmadr_i7_i2.C
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_we.BLIF          	0
-END
-
-// Signal Name: grmadr_i7_i2.CE
-// Type: Node_reg
-BEGIN grmadr_i7_i2.CE
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_gsel.BLIF        	0
-Fanin Input     	ti_adr_14_.BLIF     	0
-END
-
-// Signal Name: grmadr_i7_i3.D
-// Type: Node_reg
-BEGIN grmadr_i7_i3.D
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Output    	ti_data_4_.PIN      	1
-END
-
-// Signal Name: grmadr_i7_i3.C
-// Type: Node_reg
-BEGIN grmadr_i7_i3.C
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_we.BLIF          	0
-END
-
-// Signal Name: grmadr_i7_i3.CE
-// Type: Node_reg
-BEGIN grmadr_i7_i3.CE
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_gsel.BLIF        	0
-Fanin Input     	ti_adr_14_.BLIF     	0
-END
-
-// Signal Name: grmadr_i7_i4.D
-// Type: Node_reg
-BEGIN grmadr_i7_i4.D
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Output    	ti_data_3_.PIN      	1
-END
-
-// Signal Name: grmadr_i7_i4.C
-// Type: Node_reg
-BEGIN grmadr_i7_i4.C
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_we.BLIF          	0
-END
-
-// Signal Name: grmadr_i7_i4.CE
-// Type: Node_reg
-BEGIN grmadr_i7_i4.CE
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_gsel.BLIF        	0
-Fanin Input     	ti_adr_14_.BLIF     	0
-END
-
-// Signal Name: grmadr_i7_i5.D
-// Type: Node_reg
-BEGIN grmadr_i7_i5.D
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Output    	ti_data_2_.PIN      	1
-END
-
-// Signal Name: grmadr_i7_i5.C
-// Type: Node_reg
-BEGIN grmadr_i7_i5.C
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_we.BLIF          	0
-END
-
-// Signal Name: grmadr_i7_i5.CE
-// Type: Node_reg
-BEGIN grmadr_i7_i5.CE
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_gsel.BLIF        	0
-Fanin Input     	ti_adr_14_.BLIF     	0
-END
-
-// Signal Name: grmadr_i7_i6.D
-// Type: Node_reg
-BEGIN grmadr_i7_i6.D
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Output    	ti_data_1_.PIN      	1
-END
-
-// Signal Name: grmadr_i7_i6.C
-// Type: Node_reg
-BEGIN grmadr_i7_i6.C
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_we.BLIF          	0
-END
-
-// Signal Name: grmadr_i7_i6.CE
-// Type: Node_reg
-BEGIN grmadr_i7_i6.CE
-Fanin Number		2
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_gsel.BLIF        	0
-Fanin Input     	ti_adr_14_.BLIF     	0
-END
-
-// Signal Name: grmadr_i7_i7.D
-// Type: Node_reg
-BEGIN grmadr_i7_i7.D
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
+Fanin Node      	grmadr_i0.Q         	3
+Fanin Node      	grmadr_i1.Q         	2
+Fanin Node      	grmadr_i2.Q         	4
+Fanin Node      	grmadr_i3.Q         	3
+Fanin Node      	grmadr_i4.Q         	3
+Fanin Node      	grmadr_i5.Q         	2
+Fanin Node      	grmadr_i6.Q         	4
+Fanin Node      	grmadr_i7.Q         	3
+Fanin Node      	gadd_108.Q          	1
 Fanin Output    	ti_data_0_.PIN      	1
 END
 
-// Signal Name: grmadr_i7_i7.C
+// Signal Name: grmadr_i0.C
 // Type: Node_reg
-BEGIN grmadr_i7_i7.C
+BEGIN grmadr_i0.C
 Fanin Number		1
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
-Fanin Input     	ti_we.BLIF          	0
+Fanin Node      	gvalid_103.Q        	1
 END
 
-// Signal Name: grmadr_i7_i7.CE
+// Signal Name: grmadr_i0.CE-
 // Type: Node_reg
-BEGIN grmadr_i7_i7.CE
+BEGIN grmadr_i0.CE
 Fanin Number		2
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
-Fanin Input     	ti_gsel.BLIF        	0
+Fanin Input     	ti_we.BLIF          	0
+Fanin Input     	ti_adr_14_.BLIF     	0
+END
+
+// Signal Name: grmadr_i1.D.X1
+// Type: Node_reg
+BEGIN grmadr_i1.D.X1
+Fanin Number		6
+Pterm Number		2
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		2
+Fanin Input     	ti_adr_14_.BLIF     	0
+Fanin Node      	grmadr_i1.Q         	2
+Fanin Node      	grmadr_i2.Q         	4
+Fanin Node      	grmadr_i3.Q         	3
+Fanin Node      	n399.BLIF           	1
+Fanin Output    	ti_data_1_.PIN      	1
+END
+
+// Signal Name: grmadr_i1.D.X2
+// Type: Node_reg
+BEGIN grmadr_i1.D.X2
+Fanin Number		6
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		2
+Fanin Input     	ti_adr_14_.BLIF     	0
+Fanin Node      	grmadr_i1.Q         	2
+Fanin Node      	grmadr_i2.Q         	4
+Fanin Node      	grmadr_i3.Q         	3
+Fanin Node      	n399.BLIF           	1
+Fanin Output    	ti_data_1_.PIN      	1
+END
+
+// Signal Name: grmadr_i1.C
+// Type: Node_reg
+BEGIN grmadr_i1.C
+Fanin Number		1
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: grmadr_i1.CE-
+// Type: Node_reg
+BEGIN grmadr_i1.CE
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_we.BLIF          	0
+Fanin Input     	ti_adr_14_.BLIF     	0
+END
+
+// Signal Name: grmadr_i2.D
+// Type: Node_reg
+BEGIN grmadr_i2.D
+Fanin Number		5
+Pterm Number		4
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		2
+Fanin Input     	ti_adr_14_.BLIF     	0
+Fanin Node      	grmadr_i2.Q         	4
+Fanin Node      	grmadr_i3.Q         	3
+Fanin Node      	n399.BLIF           	1
+Fanin Output    	ti_data_2_.PIN      	1
+END
+
+// Signal Name: grmadr_i2.C
+// Type: Node_reg
+BEGIN grmadr_i2.C
+Fanin Number		1
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: grmadr_i2.CE-
+// Type: Node_reg
+BEGIN grmadr_i2.CE
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_we.BLIF          	0
+Fanin Input     	ti_adr_14_.BLIF     	0
+END
+
+// Signal Name: grmadr_i3.D
+// Type: Node_reg
+BEGIN grmadr_i3.D
+Fanin Number		4
+Pterm Number		3
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		2
+Fanin Input     	ti_adr_14_.BLIF     	0
+Fanin Node      	grmadr_i3.Q         	3
+Fanin Node      	n399.BLIF           	1
+Fanin Output    	ti_data_3_.PIN      	1
+END
+
+// Signal Name: grmadr_i3.C
+// Type: Node_reg
+BEGIN grmadr_i3.C
+Fanin Number		1
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: grmadr_i3.CE-
+// Type: Node_reg
+BEGIN grmadr_i3.CE
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_we.BLIF          	0
+Fanin Input     	ti_adr_14_.BLIF     	0
+END
+
+// Signal Name: grmadr_i4.T
+// Type: Node_reg
+BEGIN grmadr_i4.T
+Fanin Number		7
+Pterm Number		3
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		1
+Fanin Input     	ti_adr_14_.BLIF     	0
+Fanin Node      	grmadr_i4.Q         	3
+Fanin Node      	grmadr_i5.Q         	2
+Fanin Node      	grmadr_i6.Q         	4
+Fanin Node      	grmadr_i7.Q         	3
+Fanin Node      	gadd_108.Q          	1
+Fanin Output    	ti_data_4_.PIN      	1
+END
+
+// Signal Name: grmadr_i4.C
+// Type: Node_reg
+BEGIN grmadr_i4.C
+Fanin Number		1
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: grmadr_i4.CE-
+// Type: Node_reg
+BEGIN grmadr_i4.CE
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_we.BLIF          	0
+Fanin Input     	ti_adr_14_.BLIF     	0
+END
+
+// Signal Name: grmadr_i5.D.X1
+// Type: Node_reg
+BEGIN grmadr_i5.D.X1
+Fanin Number		6
+Pterm Number		2
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		1
+Fanin Input     	ti_adr_14_.BLIF     	0
+Fanin Node      	grmadr_i5.Q         	2
+Fanin Node      	grmadr_i6.Q         	4
+Fanin Node      	grmadr_i7.Q         	3
+Fanin Node      	gadd_108.Q          	1
+Fanin Output    	ti_data_5_.PIN      	1
+END
+
+// Signal Name: grmadr_i5.D.X2
+// Type: Node_reg
+BEGIN grmadr_i5.D.X2
+Fanin Number		6
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		1
+Fanin Input     	ti_adr_14_.BLIF     	0
+Fanin Node      	grmadr_i5.Q         	2
+Fanin Node      	grmadr_i6.Q         	4
+Fanin Node      	grmadr_i7.Q         	3
+Fanin Node      	gadd_108.Q          	1
+Fanin Output    	ti_data_5_.PIN      	1
+END
+
+// Signal Name: grmadr_i5.C
+// Type: Node_reg
+BEGIN grmadr_i5.C
+Fanin Number		1
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: grmadr_i5.CE-
+// Type: Node_reg
+BEGIN grmadr_i5.CE
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_we.BLIF          	0
+Fanin Input     	ti_adr_14_.BLIF     	0
+END
+
+// Signal Name: grmadr_i6.D
+// Type: Node_reg
+BEGIN grmadr_i6.D
+Fanin Number		5
+Pterm Number		4
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		1
+Fanin Input     	ti_adr_14_.BLIF     	0
+Fanin Node      	grmadr_i6.Q         	4
+Fanin Node      	grmadr_i7.Q         	3
+Fanin Node      	gadd_108.Q          	1
+Fanin Output    	ti_data_6_.PIN      	1
+END
+
+// Signal Name: grmadr_i6.C
+// Type: Node_reg
+BEGIN grmadr_i6.C
+Fanin Number		1
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: grmadr_i6.CE-
+// Type: Node_reg
+BEGIN grmadr_i6.CE
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_we.BLIF          	0
+Fanin Input     	ti_adr_14_.BLIF     	0
+END
+
+// Signal Name: grmadr_i7.D
+// Type: Node_reg
+BEGIN grmadr_i7.D
+Fanin Number		4
+Pterm Number		3
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		1
+Fanin Input     	ti_adr_14_.BLIF     	0
+Fanin Node      	grmadr_i7.Q         	3
+Fanin Node      	gadd_108.Q          	1
+Fanin Output    	ti_data_7_.PIN      	1
+END
+
+// Signal Name: grmadr_i7.C
+// Type: Node_reg
+BEGIN grmadr_i7.C
+Fanin Number		1
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Node      	gvalid_103.Q        	1
+END
+
+// Signal Name: grmadr_i7.CE-
+// Type: Node_reg
+BEGIN grmadr_i7.CE
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_we.BLIF          	0
 Fanin Input     	ti_adr_14_.BLIF     	0
 END
 
@@ -1282,11 +1356,11 @@ Pterm Number		3
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		1
-Fanin Input     	ti_gsel.BLIF        	0
+Fanin Input     	ti_we.BLIF          	0
 Fanin Input     	ti_adr_14_.BLIF     	0
-Fanin Node      	grmadr_i7_i0.Q      	1
-Fanin Node      	grmadr_i7_i1.Q      	1
-Fanin Node      	grmadr_i7_i2.Q      	1
+Fanin Node      	grmadr_i0.Q         	3
+Fanin Node      	grmadr_i1.Q         	2
+Fanin Node      	grmadr_i2.Q         	4
 END
 
 // Signal Name: grmpage_105.C
@@ -1297,7 +1371,7 @@ Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
-Fanin Input     	ti_we.BLIF          	0
+Fanin Node      	gvalid_103.Q        	1
 END
 
 // Signal Name: grmpage_105.CE
@@ -1308,25 +1382,25 @@ Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
-Fanin Input     	ti_gsel.BLIF        	0
+Fanin Input     	ti_we.BLIF          	0
 Fanin Input     	ti_adr_14_.BLIF     	0
 END
 
-// Signal Name: gactive_103.D
+// Signal Name: gactive_102.D
 // Type: Node_reg
-BEGIN gactive_103.D
+BEGIN gactive_102.D
 Fanin Number		2
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		1
 Fanin Input     	ti_gsel.BLIF        	0
-Fanin Node      	gvalid_102.Q        	1
+Fanin Node      	gvalid_103.Q        	1
 END
 
-// Signal Name: gactive_103.C
+// Signal Name: gactive_102.C
 // Type: Node_reg
-BEGIN gactive_103.C
+BEGIN gactive_102.C
 Fanin Number		1
 Pterm Number		1
 Fanin per Macrocell	N/A
@@ -1335,32 +1409,21 @@ Logic Levels		N/A
 Fanin Input     	ti_gclk.BLIF        	0
 END
 
-// Signal Name: gactive_103.CE
+// Signal Name: gvalid_103.D
 // Type: Node_reg
-BEGIN gactive_103.CE
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		2
-Fanin Node      	gactive_103_0.BLIF  	2
-END
-
-// Signal Name: gvalid_102.D
-// Type: Node_reg
-BEGIN gvalid_102.D
+BEGIN gvalid_103.D
 Fanin Number		2
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		1
 Fanin Input     	ti_gsel.BLIF        	0
-Fanin Node      	gvalid_102.Q        	1
+Fanin Node      	gactive_102.Q       	1
 END
 
-// Signal Name: gvalid_102.C
+// Signal Name: gvalid_103.C
 // Type: Node_reg
-BEGIN gvalid_102.C
+BEGIN gvalid_103.C
 Fanin Number		1
 Pterm Number		1
 Fanin per Macrocell	N/A
@@ -1369,44 +1432,54 @@ Logic Levels		N/A
 Fanin Input     	ti_gclk.BLIF        	0
 END
 
-// Signal Name: gvalid_102.CE
+// Signal Name: gadd_108.D
 // Type: Node_reg
-BEGIN gvalid_102.CE
+BEGIN gadd_108.D
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_we.BLIF          	0
+Fanin Input     	ti_adr_14_.BLIF     	0
+END
+
+// Signal Name: gadd_108.C
+// Type: Node_reg
+BEGIN gadd_108.C
 Fanin Number		1
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
-Logic Levels		2
-Fanin Node      	gvalid_102_0.BLIF   	2
+Logic Levels		N/A
+Fanin Node      	gvalid_103.Q        	1
 END
 
-// Signal Name: gactive_103_0
-// Type: Node
-BEGIN gactive_103_0
-Fanin Number		4
-Pterm Number		2
+// Signal Name: gadd_108.CE-
+// Type: Node_reg
+BEGIN gadd_108.CE
+Fanin Number		2
+Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
-Fanin Input     	ti_gsel.BLIF        	0
+Fanin Input     	ti_we.BLIF          	0
 Fanin Input     	ti_adr_14_.BLIF     	0
-Fanin Node      	grmpage_105.Q       	3
-Fanin Node      	gvalid_102.Q        	1
 END
 
-// Signal Name: gvalid_102_0
+// Signal Name: n399
 // Type: Node
-BEGIN gvalid_102_0
+BEGIN n399
 Fanin Number		5
-Pterm Number		2
+Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
-Fanin Input     	ti_gsel.BLIF        	0
-Fanin Input     	ti_adr_14_.BLIF     	0
-Fanin Node      	grmpage_105.Q       	3
-Fanin Node      	gactive_103.Q       	1
-Fanin Node      	gvalid_102.Q        	1
+Fanin Node      	grmadr_i4.Q         	3
+Fanin Node      	grmadr_i5.Q         	2
+Fanin Node      	grmadr_i6.Q         	4
+Fanin Node      	grmadr_i7.Q         	3
+Fanin Node      	gadd_108.Q          	1
 END
 
 // Design 'gigacart' used clock signal list:

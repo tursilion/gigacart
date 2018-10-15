@@ -65,7 +65,7 @@ Section Member   Rename                   Array-Notation          Array Number  
         Port      out_data_0_                 out_data[0]                       2            7            
 End
 Section Cross Reference File
-Design 'gigacart' created Wed Oct 10 01:00:20 2018
+Design 'gigacart' created Mon Oct 15 00:38:49 2018
    Type              New Name                               Original Name
 // ----------------------------------------------------------------------
    Net            ti_data_6__n                                ti_data[6]

@@ -1,0 +1,28 @@
+Multicolor is 1536 bytes per screen (full)
+Dragon's Lair, packed, is ~80MB (~48MB free!)
+
+10855 frames
+Bitmap frames are 6144 bytes + 1544 bytes = 7688 bytes = 83,453,240 bytes
+But IIRC I cheat and do 8192 bytes per frame (one bank), so 88,924,160 bytes or 84MB (exactly)
+Waste is 504 bytes per frame, 5,470,920 bytes total.
+
+Free space is 44MB, then.
+
+In multicolor mode, a frame at the same frame rate would be 1536 + 1544 = 3080 bytes.
+There's enough space for 14,979 multicolor frames. 
+
+If we doubled the framerate (but not the audio), it would be 1536*2+1544 = 4616 bytes.
+That has space for 9,995 frames (original rate) at double the frame rate. At 9 frames per second (original rate), we'd have to trim 860 frames, 95 seconds, which is a fair bit.
+
+But we could drop the mirrored rooms? That's:
+Ropes:  217 frames
+Horse:  270 frames
+Smithy: 347 frames
+Wizard: 308 frames
+Crypt:  264 frames
+Knight: 280 frames
+Pond:   371 frames
+------------------
+       2057 frames of mirrored data
+
+Hmm. But so far, multicolored images of DL look really bad. Try adding dither to the converter.

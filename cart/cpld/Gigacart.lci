@@ -12,8 +12,8 @@ EN_PinMacrocell = yes;
 
 [Revision]
 Parent = lc4k64v.lci;
-DATE = 10/09/2018;
-TIME = 22:53:24;
+DATE = 10/15/2018;
+TIME = 00:36:59;
 Source_Format = Pure_VHDL;
 Synthesis = LSE;
 
@@ -90,6 +90,10 @@ ti_adr_15_ = Pin, 34, -, B, 3;
 out_reset = Pin, 47, -, C, 4;
 ti_gsel = Pin, 44, -, C, 3;
 ti_gclk = Pin, 36, -, B, 1;
+out_rom1 = Pin, 41, -, C, 0;
+out_rom2 = Pin, 42, -, C, 1;
+out_rom3 = Pin, 43, -, C, 2;
+out_rom4 = Pin, 48, -, C, 5;
 
 [Group Assignments]
 layer = OFF;
@@ -154,6 +158,7 @@ out_adr_26_ = LVTTL, PIN, 0, -;
 out_reset = LVTTL, PIN, 1, -;
 out_data_0_ = LVCMOS33, PIN, 1, -;
 ti_rom = LVTTL_5V, PIN, 0, -;
+ti_we = LVTTL_5V, PIN, 0, -;
 out_data_1_ = LVCMOS33, PIN, 1, -;
 out_data_2_ = LVCMOS33, PIN, 1, -;
 out_data_3_ = LVCMOS33, PIN, 0, -;
@@ -171,12 +176,15 @@ ti_adr_9_ = LVTTL_5V, PIN, 0, -;
 ti_adr_10_ = LVTTL_5V, PIN, 0, -;
 ti_adr_11_ = LVTTL_5V, PIN, 0, -;
 ti_adr_12_ = LVTTL_5V, PIN, 0, -;
-ti_we = LVTTL_5V, PIN, 0, -;
 ti_adr_15_ = LVTTL_5V, PIN, 0, -;
 ti_adr_14_ = LVTTL_5V, PIN, 0, -;
 ti_adr_13_ = LVTTL_5V, PIN, 0, -;
 ti_gsel = LVTTL_5V, PIN, 1, -;
 ti_gclk = LVTTL_5V, PIN, 0, -;
+out_rom1 = LVTTL, PIN, 1, -;
+out_rom2 = LVTTL, PIN, 1, -;
+out_rom3 = LVTTL, PIN, 1, -;
+out_rom4 = LVTTL, PIN, 1, -;
 
 [Pullup]
 Default = UP;

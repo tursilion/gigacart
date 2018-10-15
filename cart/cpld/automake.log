@@ -1,10 +1,13 @@
 ispLEVER Auto-Make Log File
 ---------------------------
 
-Updating: Hierarchy
+Updating: Constraint Editor
 Start to record tcl script...
 Finished recording TCL script.
 
-Starting: 'C:\ispLEVER_Classic2_0\ispcpld\bin\vhd2jhd.exe design.vhd -o design.jhd -m "C:\ispLEVER_Classic2_0\ispcpld/generic/lib/vhd/location.map" -p "C:\ispLEVER_Classic2_0\ispcpld/generic/lib"'
+Starting: 'C:\ispLEVER_Classic2_0\ispcpld\bin\blifstat.exe -i gigacart.bl5 -o gigacart.sif'
 
 Done: completed successfully.
+
+Launching: 'C:\ispLEVER_Classic2_0\ispcpld\bin\lciedit.exe @lattice_cmd.rs2'
+

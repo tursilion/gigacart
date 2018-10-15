@@ -34,7 +34,10 @@ ENTITY gigacart IS
 		-- flash interface ("out" really means "flash")
 		out_adr  : OUT STD_ULOGIC_VECTOR (26 DOWNTO 0);	-- (97,84,49,50,53,54,55,56,58,66,67,69,70,71,72,78,79,98,59,60,65,64,61,80,81,100,99) 27 bits (128MB)
 		out_data : IN STD_ULOGIC_VECTOR (7 DOWNTO 0);	-- (86,87,88,89,91,92,93,94) 8 bits
---		out_rom  : OUT STD_ULOGIC;			-- (85) ROM select (active low)
+--		out_rom1 : OUT STD_ULOGIC;			-- ROM select 1 (active low)
+--		out_rom2 : OUT STD_ULOGIC;			-- ROM select 2 (active low)
+--		out_rom3 : OUT STD_ULOGIC;			-- ROM select 3 (active low)
+--		out_rom4 : OUT STD_ULOGIC;			-- ROM select 4 (active low)
 		out_reset: OUT STD_ULOGIC			-- (47) output to hold flash chips in reset at startup
 	);
 END gigacart;

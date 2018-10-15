@@ -12,7 +12,7 @@
 *	li r12,>0006	20
 *	stcr @JOYDAT,8	60
 *
-*	mov @JOYDAT,r12		30
+*	mov @JOYDAT,r12		30 
 *	mov r12,r10			18
 *	inv r12				14
 *	xor @joyold,r12		30
@@ -406,6 +406,24 @@ jtstlp
 
 wtlp
 	bl @joyfast
+	
+	ci r0,>EF00				* up
+	jne noup
+	li r9,10
+	a r9,@fridx
+	jmp jtstlp
+	
+noup
+	ci r0,>f700				* down
+	jne nodown
+	li r9,10
+	s r9,@fridx
+	joc nowrap
+	clr @fridx
+nowrap
+	jmp jtstlp
+	
+nodown	
 	ci r0,>FD00				* left
 	jne noleft
 	mov @fridx,r0
@@ -414,14 +432,13 @@ wtlp
 	jmp jtstlp
 
 noleft	
-	ci r0,>FB00
+	ci r0,>FB00				* right
 	jne wtlp
 	mov @fridx,r0
 	ci r0,32767
 	jeq wtlp
 	inc @fridx
 	jmp jtstlp
-	
 
 ** RUNVID **
 **
@@ -1122,6 +1139,7 @@ JOYFAST
 	li r12,>0006
 	clr r0
 	stcr r0,8			* get result
+	mov r0,r9
 	B *r11
 
 SETSND
