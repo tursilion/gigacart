@@ -26,3 +26,6 @@ Pond:   371 frames
        2057 frames of mirrored data
 
 Hmm. But so far, multicolored images of DL look really bad. Try adding dither to the converter.
+
+A multicolor flicker looks okay, though....
+
