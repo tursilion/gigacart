@@ -1,0 +1,31 @@
+* expects that JOYMASK get a bitmask of bits to be set (tested with CZC)
+* and if any match, then playback is exitted (then we can check the result)
+* The joystick is in JOYDAT and the last is in JOYOLD for edge detection.
+* R12 is not used for anything but the joystick read.
+
+  AORG >8230
+JOYMASK		BSS 2		* set mask in MSB - if joystick matches it, exit early
+JOYDAT		BSS 2		* store joystick read here
+JOYOLD		BSS 2		* last joystick read for edge detect (set to 0 on entry)
+
+*JOYFAST
+	li r12,>0024	20
+	li r10,>0600	20
+	ldcr r10,3		30
+*	
+*	<delay here of 38 cycles or so, debounce 9901>
+*	
+	li r12,>0006	20
+	stcr @JOYDAT,8	60
+*
+	mov @JOYDAT,r12		30 
+	mov r12,r10			18
+	inv r12				14
+	xor @joyold,r12		30
+	soc r10,r12			18
+	inv r10				14
+	mov r10,@joyold		30
+	czc @JOYMASK,r12	30
+	jne exitlp			12
+
+	
