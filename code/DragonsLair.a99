@@ -1,0 +1,877 @@
+**************
+* Dragon's Lair for the TI-99/4A - by M.Brent aka Tursi
+* A big extension of my AV Playback code, as below
+* Licensed by Digital Leisure - holy crap!
+* A real licensed release of a major property in 2017... I mean 2018...
+* I mean 2019. Damn it. ;)
+**************
+* AV Playback code - by m.brent aka Tursi
+* F18A support added - will autodetect
+* and play the appropriate version.
+*
+* Updated 11/4/2018 - now has more correct timing
+* and reads QUIT and the Joystick
+* F18A side also updated
+* joystick support for fast forward/reverse
+*
+* Final Version:	
+* Fixed for: sound chip timing
+*            gigacart switching (16-bits worth - 512MB)
+*
+* Each frame has 6144 bytes of video, and 1544 bytes of audio.
+* approximate output is: 
+* 8.6458 fps and 13372 Hz (but audio is best calculated
+* as (frames * 6144) = samples / duration = rate)
+*
+**************
+
+SOUND   EQU >8400
+VDPWA   EQU >8C02
+VDPWD   EQU >8C00
+VDPRD   EQU >8800
+
+    DEF MAIN
+
+SAVE EQU >83FC
+SAVE2 EQU >83FE
+FRAMES EQU >600A
+
+* register equates (all bits are active high)
+* the newly read bits from the joystick (set for one frame)
+JOYDAT EQU 4
+* the last read bits from the joystick (continuous)
+JOYOLD EQU 5
+* a mask of bits that should immediately exit the scene
+JOYMASK EQU 6
+
+* joystick bits:
+* 10 = up
+* 08 = down
+* 02 = left
+* 04 = right
+* 01 = fire
+
+    AORG >6000
+
+* WARNING: if you change the scratchpad code, update these addresses
+* in the code they are LOOP1X and LOOP18X   
+** TODO: verify these address - hand adjusted
+LOOP1   EQU >83B8   
+LOOP18  EQU >83B8
+    
+* cart header - >600A receives the bank to loop at
+* Note: for gigacart can use GROM startup instead...
+        DATA >AA01,>0200,>0000,PROG1,>0000
+* subprogram pointer, invalid for ROM, gets the number of frames to loop at
+* frame count is set for the attract mode for now...
+        DATA >0175
+PROG1   DATA >0000,MAIN,>0A4D
+        TEXT 'OVIE TEST'
+        EVEN
+
+MAIN
+    CLR @>6000   * even though this bank doesn't need it, needs to be the same on all banks
+
+* this should be at >6020 to make all banks line up 
+    LIMI 0
+    LWPI >8300
+    
+*   * set up sound chip
+    LI R0,>9FBF     * mute all channels
+    MOVB R0,@SOUND
+    SWPB R0
+    MOVB R0,@SOUND
+    LI R0,>DFFF
+    MOVB R0,@SOUND
+    SWPB R0
+    MOVB R0,@SOUND
+    LI R0,>8100     * highest frequency
+    MOVB R0,@SOUND
+    SWPB R0
+    MOVB R0,@SOUND
+    
+* test for F18A, and unlock. 
+* run 9918A version if it's not there.
+* We just check if the GPU is present by having it 
+* run a short program
+* F18A blind unlock code
+    LI R0,>B91C             * VR1/57, value 00011100
+    BL @VDPWTA              * write once (corrupts VDPR1)
+    BL @VDPWTA              * write again (unlocks enhanced mode)
+
+* If we are not on the F18A, then R1 is screwed up now, that's okay
+    LI R0,>5C00
+    BL @VDPWTA
+    LI R1,GPUTEST
+    LI R2,10
+TSTLP
+    MOVB *R1+,@VDPWD        * copy program
+    DEC R2
+    JNE TSTLP
+    
+    LI R0,>5C10             * test address
+    BL @VDPWTA
+    CLR @VDPWD              * clear it
+    CLR @VDPWD
+    
+* Start the GPU program, pause, then check the result
+    LI R0,>B61C             * MSB
+    BL @VDPWTA
+    LI R0,>B700             * LSB and start
+    BL @VDPWTA
+    NOP                     * give it a moment - it's WAY faster than we are
+    LI R0,>1C10
+    BL @VDPWTA
+    NOP
+    MOVB @VDPRD,R1          * read the data
+    SWPB R1
+    MOVB @VDPRD,R1
+    CI R1,>3412
+    JNE F18NO
+    B @F18YES
+
+F18NO   
+*   * set up bitmap
+    BL @BITMAP
+    
+* Now copy from OUTLOOP to FINAL into scratchpad
+* at >8320 - we'll run from there so that paging
+* doesn't bite us (although there is room in each
+* video page for this code...)
+    LI R0,>8320
+    LI R1,OUTLOOP
+CPLP1
+    MOV *R1+,*R0+
+    CI R1,FINAL
+    JL CPLP1
+    
+* set up copy
+
+* We /could/ get away with 3 blocks, and I did that originally.
+* The idea of using four is to interleave the painting more so
+* pattern updates are more closely followed by color udpates.
+* it causes more obvious paints, but this looks better than the flicker.
+*
+* With the discovery that LI is faster than MOV in scratchpad,
+* I've freed up all the fixed value registers that were used only to init
+*
+
+* loop repeat point
+LOOP4EVR
+
+*	R0 is reserved for scratch
+*	R1 is reserved for scratch
+*	R2 is used for joystick calculations
+*   R3 is used (on F18A side only) to hold the VDP address
+    CLR R4			* R4 is reserved for JOYDAT
+    CLR R5			* R5 is reserved for JOYOLD
+    LI R6,>0700		* R6 is reserved for JOYMASK (left,right,fire)
+	MOV @FRAMES,r7
+    li r8,>6002     * address for paging
+    clr r9          * data for paging
+    li r10,>6020	* address we are reading from
+*   R11 reserved for BL
+	LI R12,>0006    * fixed for CRU access to keyboard and joystick (columns at 15,16,17)
+    LI r13,VDPWD
+    li r14,VDPWA
+    li r15,SOUND
+    SBZ 15			* first bit of keyboard select is always 0, only need to change 16&17
+    
+*
+* try to keep the cycles between sound writes about even
+* the setup blocks need to be 2 cycles longer than the copy blocks
+* to make up for the JNE fallthrough being 2 cycles shorter.
+*
+* Although the smaller code needs fewer bytes to VDP, to keep the
+* code reasonably tight, we now need SIX copy loops.
+* 
+* The data pattern needs to be (P=PATTERN, C=COLOR, S=Sound):
+* 1     S
+* 192   PPPPS   first 1/3rd, chars 0-95
+* 1     S
+* 192   CCCCS
+* 1     S
+* 192   PPPPS   second 1/3rd, chars 0-95
+* 1     S
+* 192   CCCCS
+* 1     S
+* 192   PPPPS   second 1/3rd, chars 96-191
+* 1     S
+* 192   CCCCS
+* 1     S
+* 192   PPPPS   third 1/3rd, chars 0-95
+* 1     S
+* 192   CCCCS
+*
+* Repeat - above sequence is first pattern data, then color data (color at >2000)
+* We are interleaving the pattern and color through each table
+*
+*                                                  8Bit 16bit 
+
+* So go to 'er!
+    B @>8320
+    
+* absolute return point, so we don't need to save R11
+* When we get here, JOYDAT has the newly detected joystick data
+* JOYOLD has the joystick data ('1' is active)
+* if R7 is >FFFF, then the video has played out
+ABSRET
+	BL @HANDLEJOY
+	JMP LOOP4EVR
+
+**********************************
+* Code for quit, joystick, and frame countdown are interleaved with the
+* frames, with the intent of keeping the audio properly spaced.
+* Despite my best attempts to cycle count, in the end I just
+* removed the delays and pushed it as best I could.
+* original goal was 220 cycles between samples, final result was
+* to get as close as possible to what the main loop achieves, which
+* is about 218 cycles. Luckily there are 192 loops of tight copies,
+* and then the blocks below which are a bit off. This means I made
+* the delay blocks as close as possible to 48 cycles, but the reality
+* is that 40 cycles is actually closer to correct.
+**********************************
+
+* follow code is copied to >8320 and run from scratchpad
+* can enable this AORG to get the scratchpad address of LOOP1X
+* AORG >8320
+OUTLOOP
+
+* increment page, and prepare the address to copy from (10 jmp to here)
+    MOV r9,*R8+                                     30
+    LI R10,>6020                                    12  - 52 cycles (12 cycles over)
+
+* Pattern 1 
+    LI R0,>0040     * start address table 1 >0000   12
+    BL @LOOP1                                       20
+
+* check page increment
+    CI R8,>8000                                     14  - check for end of cart space
+    JNE NOTLP                                       10  - continue if not there yet
+    LI R8,>6002                                     ...12 - else reset and
+    AI R9,>0100                                     ...10 - increment data
+NOTLP   
+	SBZ 16											12
+	SBZ 17											12 - set QUIT column - 48 cycles (8 cycles over)
+
+* Color 1
+    LI R0,>0060     * start address table 3 >2000   12
+    BL @LOOP1                                       20
+    
+* check for end of video
+	DEC R7											10
+	JOC NOTYET										10
+	CLR @>6000                                      ...26 (reset cartridge bank for code jump)
+	B @ABSRET										...16-2 for branch, but we are looping
+NOTYET
+* read the FCTN and EQUALS keys
+	TB 0											12 (equals)
+	JEQ KEYOK										10
+	TB 4											...12 (fctn)
+	JEQ KEYOK										...10
+	CLR @>6000                                      ......26 (reset cartridge bank for code jump)
+	B @REBOOT										......16-2 (but who cares, we're rebooting)
+KEYOK
+*	         										  - 42 cycles (2 cycles over)
+*                                                      (22 over if equals down, count not calculated on repeat)
+
+* Pattern 2
+    LI R0,>0048     * start address table 2 >0800   12
+    BL @LOOP1                                       20
+    
+* prepare joystick read
+	SBO 16                                          12
+	SBO 17                                          12 - select column 6
+* delay
+    SRL R0,2                                        16 - 40 cycles
+
+* Color 2
+    LI R0,>0068     * start address table 4 >2800   12
+    BL @LOOP1                                       20
+
+* read the joystick lines
+	STCR JOYDAT,8								    44 - 44 cycles (4 over)
+
+* Pattern 2b
+    LI R0,>004B     * start address table 5 >0B00   12
+    BL @LOOP1                                       20
+
+* check joystick results
+	mov JOYDAT,r2	                                14 - make a copy to work on
+	mov JOYDAT,r2	                               	14 - waste time
+	inv JOYDAT		                                10 - invert the bits - 38 cycles (2 short)
+
+* Color 2b
+    LI R0,>006B     * start address table 7 >2B00   12
+    BL @LOOP1                                       20
+
+* continue processing joystick data
+	xor JOYOLD,JOYDAT                               14 - xor with old to get changed
+	szc r2,JOYDAT	                                14 - and to get only newly active bits (ignore released)
+	inv r2			                                10 - prepare to save off new 'old' - 38 cycles (2 short)
+
+* Pattern 3
+    LI R0,>0050     * start address table 6 >1000   12
+    BL @LOOP1                                       20
+
+* finish processing the joystick, including early exit check
+	mov r2,JOYOLD	                                14
+	czc JOYMASK,JOYDAT                              14
+	jeq JOYOK		                                10 - normal case, we do not exit!
+	CLR @>6000                                      ...26 (reset cartridge bank for code jump)
+	B @ABSRET                                       ...16 (joystick told us to exit)
+JOYOK
+*                                                      - 38 cycles (2 short)
+
+* Color 3
+    LI R0,>0070     * start address table 8 >3000   12
+    BL @LOOP1                                       20
+
+* back to the top!
+    JMP OUTLOOP                                     10
+    
+* this is the actual copy block - VDP address in R0, which is destroyed
+LOOP1X
+*                                                   42 (init & BL & RT + 48 cycles wasted in callers)
+    MOVB R0,*R14                                    26
+	MOVB @>8301,*R14								34 (R0 LSB)
+    LI R0,192                                       12
+    MOVB *R10+,*R15   * write sound                 62  -   224 (6 over, when 48 cycles are used)
+
+* This loop executes 192 times, then ONE of the other paths happens, so the slight
+* miscounts are not too easily noticed.
+LOOP1Y
+    MOVB *R10+,*R13   * data                        34
+    MOVB *R10+,*R13   * data                        34
+    MOVB *R10+,*R13   * data                        34
+    MOVB *R10+,*R13   * data                        34
+    MOVB *R10+,*R15   * write sound                 62  -   218 (including dec and jne)
+    DEC R0                                          10
+    JNE LOOP1Y                                      10
+    
+    B *R11                                          12 (-2 for JNE fallthrough)
+    
+FINAL
+
+*************** 
+*************** F18A Version
+*************** 
+
+F18YES  
+* good, copy the GPU program in and start it
+    LI R0,>5B80
+    BL @VDPWTA
+    LI R1,GPUGO
+GLDLP
+    MOVB *R1+,@VDPWD
+    CI R1,GPUEND
+    JNE GLDLP
+    
+* start running (it will move itself into high memory)
+    LI R0,>B61B             * MSB
+    BL @VDPWTA
+    LI R0,>B780             * LSB and start
+    BL @VDPWTA
+    
+*   * set up bitmap
+    BL @BITMAP
+    
+* Now copy from OUTLOOP18 to FINAL18 into scratchpad
+* at >8320 - we'll run from there so that paging
+* doesn't bite us (although there is room in each
+* video page for this code...)
+    LI R0,>8320
+    LI R1,OUTLOOP18
+CPLP118
+    MOV *R1+,*R0+
+    CI R1,FINAL18
+    JL CPLP118
+    
+* Theory of op:
+* This uses 4 copies like the original code, and has the same
+* timing and tearing limitations. The difference is that
+* each block is copied to 'unused' video RAM, and a command
+* written to the polling GPU program.
+* The GPU then copies the block as instructed.
+* First, the CPU writes the pattern table, then toggles the
+* GPU. The GPU copies the pattern data to a block in high
+* memory (mostly because we're out of memory in the main
+* VDP space, and we can afford the time).
+* The CPU then (possibly starting overlapped) copies the
+* color table to the buffer. The command next written
+* instructs the GPU to copy both pattern and color to the
+* correct place for display. Because the GPU has random access
+* to VDP memory, it can alternate writes for minimum time
+* between updates. Because it's so blinding fast, it should
+* easily finish the update before the next block is ready.
+* the result should be nearly flicker-free video.
+*
+
+* loop repeat point for F18A
+LOOP418
+
+* So, the 9900 always writes starting at >1B80,
+* it then writes one extra byte to >1E80, containg a GPU
+* command:
+* 0x80  -   copy to second buffer
+* 0x20  -   copy first blocks
+* 0x28  -   copy second blocks
+* 0x2B  -   copy third blocks
+* 0x30  -   copy fourth blocks
+
+*	R0 is reserved for scratch
+*	R1 is reserved for scratch
+*	R2 is used for joystick calculations
+*   R3 is used (on F18A side only) to hold the VDP address
+	LI R3,>805B		* address of VDP buffer (>1B80)
+    CLR R4			* R4 is reserved for JOYDAT
+    CLR R5			* R5 is reserved for JOYOLD
+    LI R6,>0700		* R6 is reserved for JOYMASK (left,right,fire)
+	MOV @FRAMES,r7
+    li r8,>6002     * address for paging
+    clr r9          * data for paging
+    li r10,>6020	* address we are reading from
+*   R11 reserved for BL
+	LI R12,>0006    * fixed for CRU access to keyboard and joystick (columns at 15,16,17)
+    LI r13,VDPWD
+    li r14,VDPWA
+    li r15,SOUND
+    SBZ 15			* first bit of keyboard select is always 0, only need to change 16&17
+    
+* So go to 'er!
+    B @>8320
+    
+* absolute return point, so we don't need to save R11
+* When we get here, JOYDAT has the newly detected joystick data
+* JOYOLD has the joystick data ('1' is active)
+* if R7 is >FFFF, then the video has played out
+ABSRET18
+	BL @HANDLEJOY
+	JMP LOOP418    
+	
+**********************************
+* following code is copied to >8320 and run from scratchpad
+* it's unfortunate we need an F18A version, but the minor
+* changes are worth it, to keep performance up.
+**********************************
+* can enable this AORG to get the scratchpad address of LOOP18X
+* AORG >8320
+
+OUTLOOP18
+* increment page, and prepare the address to copy from (10 jmp to here)
+    MOV r9,*R8+                                     30
+    LI R10,>6020                                    12  - 52 cycles (12 cycles over)
+
+* Pattern 1
+    LI R0,>8000     * command address table         12
+    BL @LOOP18                                      20
+
+* check page increment
+    CI R8,>8000                                     14  - check for end of cart space
+    JNE NOTLP18                                     10  - continue if not there yet
+    LI R8,>6002                                     ...12 - else reset and
+    AI R9,>0100                                     ...10 - increment data
+NOTLP18   
+	SBZ 16											12
+	SBZ 17											12 - set QUIT column - 48 cycles (8 cycles over)
+
+* Color 1
+    LI R0,>2000     * command copy first blocks     12
+    BL @LOOP18                                      20
+
+* check for end of video
+	DEC R7											10
+	JOC NOTYET18   									10
+	CLR @>6000                                      ...26 (reset cartridge bank for code jump)
+	B @ABSRET18										...16-2 for branch, but we are looping
+NOTYET18
+* read the FCTN and EQUALS keys
+	TB 0											12 (equals)
+	JEQ KEYOK18										10
+	TB 4											...12 (fctn)
+	JEQ KEYOK18										...10
+	CLR @>6000                                      ......26 (reset cartridge bank for code jump)
+	B @REBOOT										......16-2 (but who cares, we're rebooting)
+KEYOK18
+*	         										  - 42 cycles (2 cycles over)
+*                                                      (22 over if equals down, count not calculated on repeat)
+
+* Pattern 2
+    LI R0,>8000     * command address table         12
+    BL @LOOP18                                      20
+
+* prepare joystick read
+	SBO 16                                          12
+	SBO 17                                          12 - select column 6
+* delay
+    SRL R0,2                                        16 - 40 cycles
+    
+* Color 2
+    LI R0,>2800     * command copy second blocks    12
+    BL @LOOP18                                      20
+
+* read the joystick lines
+	STCR JOYDAT,8								    44 - 44 cycles (4 over)
+
+* Pattern 2b
+    LI R0,>8000     * command address table         12
+    BL @LOOP18                                      20
+
+* check joystick results
+	mov JOYDAT,r2	                                14 - make a copy to work on
+	mov JOYDAT,r2	                               	14 - waste time
+	inv JOYDAT		                                10 - invert the bits - 38 cycles (2 short)
+
+* Color 2b
+    LI R0,>2B00     * command copy third blocks     12
+    BL @LOOP18                                      20
+    
+* continue processing joystick data
+	xor JOYOLD,JOYDAT                               14 - xor with old to get changed
+	szc r2,JOYDAT	                                14 - and to get only newly active bits (ignore released)
+	inv r2			                                10 - prepare to save off new 'old' - 38 cycles (2 short)
+
+* Pattern 3
+    LI R0,>8000     * command address table         12
+    BL @LOOP18                                      20
+
+* finish processing the joystick, including early exit check
+	mov r2,JOYOLD	                                14
+	czc JOYMASK,JOYDAT                              14
+	jeq JOYOK18		                                10 - normal case, we do not exit!
+	CLR @>6000                                      ...26 (reset cartridge bank for code jump)
+	B @ABSRET                                       ...16 (joystick told us to exit)
+JOYOK18
+*                                                      - 38 cycles (2 short)
+
+* Color 3
+    LI R0,>3000     * command copy fourth blocks    12
+    BL @LOOP18                                      20
+
+* back to the top!
+    JMP OUTLOOP18                                   14  10
+
+* this is the actual copy block 
+* pass the command byte in R0, R1 is destroyed (unlike the non-F18A version which takes and destroys R0)
+LOOP18X
+*                                                   42 (init & BL & RT + 48 cycles wasted in callers)
+    MOVB R3,*R14                                    26
+    MOVB @>8307,*R14								34 (R3 LSB)
+    LI R1,192                                       12
+    MOVB *R10+,*R15   * write sound                 62  -   224 (6 over, when 48 cycles are used)
+
+* This loop executes 192 times, then ONE of the other paths happens, so the slight
+* miscounts are not too easily noticed.
+LOOP18Y
+    MOVB *R10+,*R13   * data                        34
+    MOVB *R10+,*R13   * data                        34
+    MOVB *R10+,*R13   * data                        34
+    MOVB *R10+,*R13   * data                        34
+    MOVB *R10+,*R15   * write sound                 62  -   218 (including dec and jne)
+    DEC R1                                          10
+    JNE LOOP18Y                                     10
+    
+    MOVB R0,*R13									26	- command byte - makes us 26 more over
+    B *R11
+
+FINAL18
+
+* GPU code (loads at >1B80 in VDP, copies itself to >4000)
+* to make life easy, position independent code! (VDP
+* addresses are hard coded though, that's fine)
+GPUGO
+    li r0,>1B80+GPURUN-GPUGO
+    li r1,>4300
+GCPLP
+    MOV *r0+,*r1+
+    ci r0,>1b80+GPUEND-GPUGO
+    jne GCPLP
+
+* now jump to it!   
+    B @>4300
+    
+* this code running at >4300
+GPURUN
+    clr @>1E80      * zero command
+    CLR R0
+GPUWAIT
+    MOVB @>1E80,R0  * get it
+    JEQ GPUWAIT     * nothing yet
+    CLR @>1E80      * clear it
+    JLT BUFCPY      * copying to second buffer
+    
+* main buffer copy - copy >4000 to pattern, and >1B80 to color
+* R0 contains the color table target address
+    MOV R0,R1       * for pattern table
+    ANDI R1,>1FFF
+    LI R2,>1B80     * R2->R0 for the color table
+    LI R3,>4000     * R3->R1 for the pattern table
+    LI R4,96        * we can move words instead of bytes
+GPUVLP  
+    MOV *R2+,*R0+
+    MOV *R3+,*R1+
+    MOV *R2+,*R0+
+    MOV *R3+,*R1+
+    MOV *R2+,*R0+
+    MOV *R3+,*R1+
+    MOV *R2+,*R0+
+    MOV *R3+,*R1+
+    DEC R4
+    JNE GPUVLP
+    JMP GPURUN      * go wait again
+
+BUFCPY
+    LI R0,>1B80     * 9900 write buffer
+    LI R1,>4000     * second buffer target when >80
+    LI R2,96        * we can move words instead of bytes
+GPUBLP
+    MOV *R0+,*R1+
+    MOV *R0+,*R1+
+    MOV *R0+,*R1+
+    MOV *R0+,*R1+
+    DEC R2
+    JNE GPUBLP
+    JMP GPURUN      * go wait again
+
+GPUEND
+
+* GPU TEST must be 10 bytes...
+GPUTEST
+    LI R0,>1234
+    MOV R0,@>1C10
+    IDLE
+
+* Setup for normal 0 mode
+* returns with video off - set VDP R1 to E2 to enable (>81E2)
+BITMAP
+    MOV R11,@SAVE
+
+* set display and disable sprites
+    LI R1,BMREGS
+    BL @LOADRG
+    
+* set up SIT - copy from BORDSIT
+    LI R0,>5800
+    LI R1,BORDSIT
+    LI R2,768
+    BL @VMBW
+    
+* now it takes a few loops to copy in the
+* color and pattern data, they are spaced
+* set up COLOR - copy from BORDCOL
+* chars 0x60-0xff
+    LI R0,>6300
+    LI R1,BORDCOL
+    LI R2,160*8
+    BL @VMBW
+    
+* chars 0x1C0-0x1FF (R1 already set)
+	LI R0,>6E00
+	LI R2,64*8
+	BL @VMBW
+	
+* chars 0x260-0x2FF (R1 already set)
+	LI R0,>7300
+	LI R2,160*8
+	BL @VMBW
+
+* set up PATTERN - copy from BORDPAT
+* chars 0x60-0xff
+    LI R0,>4300
+    LI R1,BORDPAT
+    LI R2,160*8
+    BL @VMBW
+    
+* chars 0x1C0-0x1FF (R1 already set)
+	LI R0,>4E00
+	LI R2,64*8
+	BL @VMBW
+	
+* chars 0x260-0x2FF (R1 already set)
+	LI R0,>5300
+	LI R2,160*8
+	BL @VMBW
+
+* back to caller    
+    MOV @SAVE,R11
+    B *R11
+
+* R0 - VDP address (with >4000 set)
+* R1 - src address
+* R2 - count
+VMBW
+	MOV R11,@SAVE2
+	BL @VDPWTA	* set address
+LPA1
+	MOVB *R1+,@>8C00
+	DEC R2
+	JNE LPA1
+	MOV @SAVE2,R11
+	B *R11
+
+* registers for bitmap (and 5B00 is the address of the sprite table)
+* background is transparent (the only color never redefined)
+* PDT - >0000
+* SIT - >1800
+* SDT - >1800
+* CT  - >2000
+* SAL - >1B00
+BMREGS DATA >81E0,>8002,>8206,>83ff,>8403,>8536,>8603,>8700,>5B00,>0000
+
+* load regs list to VDP address, end on >0000 and write >D0 (for sprites)
+* address of table in R1 (destroyed)
+LOADRG
+LOADLP
+    MOV *R1+,R0
+    JEQ LDRDN
+    SWPB R0
+    MOVB R0,@>8C02
+    SWPB R0
+    MOVB R0,@>8C02
+    JMP LOADLP
+LDRDN
+    LI R1,>D000
+    MOVB R1,@>8C00
+    B *R11
+
+* Write address or register
+VDPWTA
+    SWPB R0
+    MOVB R0,@>8C02
+    SWPB R0
+    MOVB R0,@>8C02
+    B *R11  
+
+* clean up scratchpad so we can safely reboot
+REBOOT
+	LI R0,>8304
+	LI R1,252
+RBLP1
+	CLR *R0+
+	DECT R1
+	JNE RBLP1
+	BLWP @>0000
+	
+* quick little joystick handlers for the video playback code, conveniently
+* lets me test the callbacks for Dragon's Lair
+HANDLEJOY
+* so we either played out the video (R7 = FFFF), in which case we just return,
+* or we are going to process the joystick, fast-forward or rewind or pause,
+* then return right back to >8320. >8320 resets the cart page, so we don't
+* need to worry about being in the middle of a page.
+
+* joystick bits:
+* 10 = up
+* 08 = down
+* 02 = left
+* 04 = right
+* 01 = fire
+
+	INC R7		* lazy test for -1
+	JNE MUSTBEJOY
+	B *R11
+	
+MUSTBEJOY
+	DEC R7		* just to keep it clean
+
+*******************
+	LI R0,>0200
+	COC R0,JOYDAT
+	JNE NOLEFT
+	
+* Left, rewind 10 frames - don't rewind past zero
+	AI R7,10
+	AI R8,-20		* pages are multiplied by 2
+	CI R8,>6002
+	JHE BACK2SCR	* didn't wrap, go back to work
+	
+	MOV R9,R9
+	JEQ R9CLAMP		* jump if we're already at zero
+	
+    AI R9,->0100
+	LI R8,>7FFC
+	JMP BACK2SCR	* did last bank, back to work
+	
+R9CLAMP
+	MOV @FRAMES,R7	* reset frame count
+	LI R8,>6002		* we were at zero, so clamp it
+	JMP BACK2SCR
+
+*******************
+	
+NOLEFT
+	LI R0,>0400
+	COC R0,JOYDAT
+	JNE NORIGHT
+	
+* right, advance 10 frames - don't advance past the end
+	CI R7,11
+	JL BACK2SCR
+
+	AI R7,-10
+	AI R8,20
+	CI R8,>8000
+	JL BACK2SCR	* didn't wrap, go back to work
+	
+    AI R9,>0100                                     ...10 - increment data
+	LI R8,>6002
+	JMP BACK2SCR	* did last bank, back to work
+
+*******************
+	
+NORIGHT
+	LI R0,>0100
+	COC R0,JOYDAT
+	JNE NOFIRE
+
+* just pause, then... we'll sit here until fire is pressed again
+PAUSELP
+* check for quit	
+	SBZ 16
+	SBZ 17											12 - set QUIT column - 48 cycles (8 cycles over)
+
+* delay
+    SRL R0,2
+
+* read the FCTN and EQUALS keys
+	TB 0											12 (equals)
+	JEQ KEYOKPS
+	TB 4											...12 (fctn)
+	JEQ KEYOKPS
+	B @REBOOT
+KEYOKPS
+	
+* prepare joystick read
+	SBO 16
+	SBO 17                                          12 - select column 6
+* delay
+    SRL R0,2
+    
+* read the joystick lines
+	STCR JOYDAT,8
+
+* check joystick results
+	mov JOYDAT,r2	                                14 - make a copy to work on
+	inv JOYDAT		                                10 - invert the bits - 38 cycles (2 short)
+
+	xor JOYOLD,JOYDAT                               14 - xor with old to get changed
+	szc r2,JOYDAT	                                14 - and to get only newly active bits (ignore released)
+	inv r2			                                10 - prepare to save off new 'old' - 38 cycles (2 short)
+
+	mov r2,JOYOLD	                                14
+	ci JOYDAT,>0100									Fire?
+	jne PAUSELP
+
+*******************
+	
+NOFIRE
+BACK2SCR
+	B @>8320
+
+
+	COPY "D:\work\ti\dragonslair\code\BorderOut_pat.inc"
+	COPY "D:\work\ti\dragonslair\code\BorderOut_p.inc"
+	COPY "D:\work\ti\dragonslair\code\BorderOut_c.inc"
+	
+    END
+    

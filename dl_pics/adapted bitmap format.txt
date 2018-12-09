@@ -1,0 +1,9 @@
+The video playback routines use the first characters in each segment, so we need to shuffle our border bitmap graphics around to accomodate this.
+
+The first segment uses characters >00 to >5F, so we start encoding at >60. We get 4 rows solid, and then 4 rows of just 4 characters on each edge of the border.
+
+The second segment uses characters >00 to >BF, so we start encoding at >C0. We have just 8 rows of 4 characters on each edge of the border.
+
+The third segment uses characters >00 to >5F again, so we start encoding at >60. We get 4 rows of just 4 characters on each edge of the border, then 4 rows solid.
+
+I'm just going to hand-encode the LCD characters in there...
