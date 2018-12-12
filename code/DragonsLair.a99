@@ -49,7 +49,6 @@ CFGPRES	EQU >2a4a		* HL presents
     DEF MAIN
     
 * TODO: HINT ARROWS
-* TODO: RIGHT/WRONG BEEPS
 * TODO: display score
 * TODO: display lives remaining
     
@@ -58,8 +57,9 @@ CFGPRES	EQU >2a4a		* HL presents
 * WARNING: init code takes advantage of this packing
 ******
 * 8300-831f	Registers
-* 8320-83d3	misc code (playback, paging, etc)
+* 8320-83d7	misc code (playback, paging, etc)
 * ...
+* 83F0-83F1 beepvol
 * 83F2-83F3 save3 (WORD)
 * 83F4	 	arcade(BYTE)
 * 83F5		hard  (BYTE)
@@ -71,6 +71,7 @@ CFGPRES	EQU >2a4a		* HL presents
 * 83fe-83ff	save2 (WORD)
 ******
 
+BEEPVOL equ >83F0	* used to make the joystick accept beep on channel 2
 SAVE3 equ >83F2
 cfgarcade equ >83f4	 * non-zero if arcade order instead of enhanced
 cfghard	equ >83f5	* non-zero if hard mode instead of easy
@@ -105,12 +106,6 @@ JOYFIRE EQU >0100
 
     AORG >6000
 
-* WARNING: if you change the scratchpad code, update these addresses
-* in the code they are LOOP1X and LOOP18X   
-** TODO: verify these address - hand adjusted
-LOOP1   EQU >83B8   
-LOOP18  EQU >83B8
-    
 * cart header - >600A receives the bank to loop at
 * Note: for gigacart we use GROM startup instead... so '55' instead of 'aa' to mask it
         DATA >5501,>0200,>0000,PROG1
@@ -144,6 +139,12 @@ MAIN
     MOVB R0,@SOUND
     SWPB R0
     MOVB R0,@SOUND
+    LI R0,>C004		* beep frequency on ch 3 (no buzz?)
+    MOVB R0,@SOUND
+    SWPB R0
+    MOVB R0,@SOUND
+	LI R0,>DFD8		* beep volumes
+	MOV R0,@BEEPVOL
     
 * setup some persistent variables
 	CLR @cfgarcade		* also clears cfghard
@@ -306,7 +307,12 @@ LOOP4EVR
 * When we get here, JOYDAT has the newly detected joystick data
 * JOYOLD has the joystick data ('1' is active)
 * if R7 is >FFFF, then the video has played out
+* (After we increment, it's if R7 is zero)
 ABSRET
+	INC R7
+	JEQ NOBEEP
+	MOVB @BEEPVOL+1,@SOUND
+NOBEEP
 	MOV @SAVE2,R11
 	B *R11
 
@@ -427,7 +433,9 @@ LOOP1X
     MOVB R0,*R14                                    26
 	MOVB @>8301,*R14								34 (R0 LSB)
     LI R0,192                                       12
-    MOVB *R10+,*R15   * write sound                 62  -   224 (6 over, when 48 cycles are used)
+*   MOVB *R10+,*R15   * write sound                 62  -   224 (6 over, when 48 cycles are used)
+	INC R10				* discard one cart sample	10
+	MOVB @BEEPVOL,*R15	* beep tone					54	-	226 (8 over, when 48 cycles are used)
 
 * This loop executes 192 times, then ONE of the other paths happens, so the slight
 * miscounts are not too easily noticed.
@@ -550,14 +558,6 @@ LOOP418
     
 * So go to 'er!
     B @>8320
-    
-* absolute return point, so we don't need to save R11
-* When we get here, JOYDAT has the newly detected joystick data
-* JOYOLD has the joystick data ('1' is active)
-* if R7 is >FFFF, then the video has played out
-ABSRET18
-	MOV @SAVE2,R11
-	B *R11
 	
 **********************************
 * following code is copied to >8320 and run from scratchpad
@@ -593,7 +593,7 @@ NOTLP18
 	DEC R7											10
 	JOC NOTYET18   									10
 	CLR @>6000                                      ...26 (reset cartridge bank for code jump)
-	B @ABSRET18										...16-2 for branch, but we are looping
+	B @ABSRET										...16-2 for branch, but we are looping (shared return)
 NOTYET18
 * read the FCTN and EQUALS keys
 	TB 0											12 (equals)
@@ -668,7 +668,9 @@ LOOP18X
     MOVB R3,*R14                                    26
     MOVB @>8307,*R14								34 (R3 LSB)
     LI R1,192                                       12
-    MOVB *R10+,*R15   * write sound                 62  -   224 (6 over, when 48 cycles are used)
+*   MOVB *R10+,*R15     * write sound               62  -   224 (6 over, when 48 cycles are used)
+	INC R10				* discard one cart sample	10
+	MOVB @BEEPVOL,*R15	* beep tone					54	-	226 (8 over, when 48 cycles are used)
 
 * This loop executes 192 times, then ONE of the other paths happens, so the slight
 * miscounts are not too easily noticed.
@@ -685,6 +687,10 @@ LOOP18Y
     B *R11
 
 FINAL18
+
+* back refs for the Scratchpad address of the loops
+LOOP1   EQU LOOP1X-OUTLOOP+>8320
+LOOP18  EQU LOOP18X-OUTLOOP18+>8320
 
 * GPU code (loads at >1B80 in VDP, copies itself to >4000)
 * to make life easy, position independent code! (VDP
@@ -1190,6 +1196,8 @@ ATTRACT
 * start the options screen up	
 OPTIONS
 	BL @BLACKVID
+	MOVB @BEEPVOL,@SOUND	* mute beep
+	
 OPTDRAW	
 	LI R0,CFGHEA		* base config page
 	MOVB @cfgarcade,R1
@@ -1261,10 +1269,15 @@ NONEWKEY
 	JEQ OPTLP			* nothing pressed
 	
 * option screen exitted with fire -- start the game
+	MOVB @BEEPVOL+1,@SOUND	* beep
+	BL @BLACKVID
+	
 	CLR @lives			* and scr1
 	clr @scr2			* and scr3
 	BL @showscore
 	BL @showlives
+
+	MOVB @BEEPVOL,@SOUND	* mute beep
 	
 * TODO AND START THE GAME... for now we loop
 	B @GAMESTART
