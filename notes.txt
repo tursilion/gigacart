@@ -38,15 +38,7 @@ JOYFIRE EQU >01
 liveasy equ 5
 livhard equ 3
 
-Scratchpad usage:
-8300-831f	Registers
-8320-83d3	misc code (playback, paging, etc)
-...
-83f7		f18a flag (true or 0)
-83F8        lives
-83f9-83fb	score
-83fc-83fd	save
-83fe-83ff	save2
+
 
 
 For score, recommend 3 bytes BCD (6 digits), and 1 byte for lives

@@ -35,9 +35,9 @@ VDPST	EQU >8802
 * Some graphic frame defines
 *
 CFGHEA	EQU >2a40		* first configuration screen page
-CFGENH	EQU 1			* enhanced adds '1' over arcade
-CFGHARD	EQU 2			* hard adds '2' over easy
-CFGNOHINT EQU 4			* no hints adds '4' over hints
+*CFGENH	EQU 1			* enhanced adds '1' over arcade
+*CFGHARD EQU 2			* hard adds '2' over easy
+*CFGNOHINT EQU 4		* no hints adds '4' over hints
 CFGPAT	EQU >6000		* where is the color data
 CFGCOL	EQU >6C00		* where is the pattern data
 CFGSIT 	EQU >7800		* where is the SIT (only care once, mind...)
@@ -47,7 +47,34 @@ CFGLIC	EQU >2a49		* license
 CFGPRES	EQU >2a4a		* HL presents
 
     DEF MAIN
+    
+* TODO: HINT ARROWS
+* TODO: RIGHT/WRONG BEEPS
+* TODO: display score
+* TODO: display lives remaining
+    
+******
+* Scratchpad usage
+* WARNING: init code takes advantage of this packing
+******
+* 8300-831f	Registers
+* 8320-83d3	misc code (playback, paging, etc)
+* ...
+* 83F2-83F3 save3 (WORD)
+* 83F4	 	arcade(BYTE)
+* 83F5		hard  (BYTE)
+* 83F6		hints (BYTE)
+* 83f7		f18a flag (true or 0) (BYTE)
+* 83F8      lives (BYTE)
+* 83f9-83fb	score (3 BYTES)
+* 83fc-83fd	save  (WORD)
+* 83fe-83ff	save2 (WORD)
+******
 
+SAVE3 equ >83F2
+cfgarcade equ >83f4	 * non-zero if arcade order instead of enhanced
+cfghard	equ >83f5	* non-zero if hard mode instead of easy
+cfghints equ >83f6	* non-zero if hints should be shown
 f18aflg equ >83f7	* non-zero if F18A detected (test with movb)
 lives equ >83f8		* lives remaining
 scr1 equ >83f9		* 3 bytes of score in BCD
@@ -117,6 +144,12 @@ MAIN
     MOVB R0,@SOUND
     SWPB R0
     MOVB R0,@SOUND
+    
+* setup some persistent variables
+	CLR @cfgarcade		* also clears cfghard
+	clr @cfghints		* also clears f18aflg, but we check that below
+	clr @lives			* also clears scr1
+	clr @scr2			* also clears scr3
     
 * test for F18A, and unlock. 
 * run 9918A version if it's not there.
@@ -881,7 +914,7 @@ RESTG18
 	
 * stop the GPU and then Reset (no harm if it's not F18)
 	LI R0,>B800				* stop the GPU -- this does stop the GPU
-	BL @VDPWA				* GPU will stop long before we're done
+	BL @VDPWTA				* GPU will stop long before we're done
 
 	MOV @SAVE2,R11
 	B *R11
@@ -892,10 +925,10 @@ LOCKF18
 
 * reset the F18A to defaults (except palette, requires 1.6)	
 	LI R0,>B280				* VR2/50, value 10000000
-	BL @VDPWA				* reset and lock F18A, or corrupt R2
+	BL @VDPWTA				* reset and lock F18A, or corrupt R2
 	
 	LI R0,>B900       		* VR1/57, value 00000000
-	BL @VDPWA          		* write once (corrupts VDPR1)
+	BL @VDPWTA          	* write once (corrupts VDPR1)
 	
 	MOV @SAVE2,R11
 	B *R11	
@@ -903,6 +936,43 @@ LOCKF18
 **********************
 * More subroutines! so unorganized!
 **********************
+* Corrupts R12,R13 - only checks for S,D or H
+* S	row 1, address >10 - return 1
+* D	row 2, address >10 - return 2
+* H	row 4, address >08 - return 4
+KSCAN
+		LI R13,>0100
+		LI R12,>0024		* column select
+		LDCR R13,3
+		SRC R12,7			* Delay?
+		LI R12,>0010		* row select
+		TB 0
+		JEQ KEYNS
+		LI R13,>0100
+		B *R11
+KEYNS
+		LI R13,>0200
+		LI R12,>0024		* column select
+		LDCR R13,3
+		SRC R12,7			* Delay?
+		LI R12,>0010		* row select
+		TB 0
+		JEQ KEYND
+		LI R13,>0200
+		B *R11
+KEYND
+		LI R13,>0400
+		LI R12,>0024		* column select
+		LDCR R13,3
+		SRC R12,7			* Delay?
+		LI R12,>0008		* row select
+		TB 0
+		JEQ KEYNH
+		LI R13,>0400
+		B *R11
+KEYNH
+		CLR R13
+		B *R11
 
 * VSMW - VDP Single Byte Multiple Write
 * VDP - R0 (with >4000 set)
@@ -930,7 +1000,7 @@ JOYFAST
 	STCR R10,8 			* Fetch CRU
 	CZC @QUITK,R10 		* QUIT key?
 	JNE MENUKY
-	B @REBOOT				* reboot if yes
+	B @REBOOT			* reboot if yes
 MENUKY
 * read joystick
 	li r12,>0024
@@ -942,16 +1012,11 @@ MENUKY
 	stcr JOYDAT,8
 	INV JOYDAT			* make sure '1' bits are active
 	B *R11
-
-* shows a frame from R0 and waits for R1 frames
-* also kills R9,R10,R12,R13,JOYDAT....
-* must be possible to abort with fire button (but not HOLDING fire)
-SHOWANDPAUSE
-	MOV R11,@SAVE
-	MOV R0,R9		* src page
-	MOV R1,R13
 	
-* first black the color table to avoid corruption
+* set the color table for video to black
+BLACKVID
+	MOV R11,@SAVE3
+	
 	LI R0,>6000
 	CLR R1
 	LI R2,768
@@ -964,7 +1029,29 @@ SHOWANDPAUSE
 	LI R0,>7000
 	LI R2,768
 	BL @VSMW
+	
+	MOV @SAVE3,R11
+	B *R11
 
+* same as SHOWANDPAUSE below without the blackvid call, for the options screen
+SHOWANDPAUSE2
+	MOV R11,@SAVE
+	MOV R0,R9		* src page
+	MOV R1,R13
+	JMP SAPCONT
+	
+* shows a frame from R0 and waits for R1 frames
+* also kills R9,R10,R12,R13,JOYDAT....
+* must be possible to abort with fire button (but not HOLDING fire)
+SHOWANDPAUSE
+	MOV R11,@SAVE
+	MOV R0,R9		* src page
+	MOV R1,R13
+	
+* first black the color table to avoid corruption
+	BL @BLACKVID
+
+SAPCONT	
 * now load the new image
 	LI R0,>4000		* pattern
 	LI R1,CFGPAT
@@ -1048,6 +1135,14 @@ nof18vid
 donevid
 	MOV @SAVE,R11
 	B *R11
+	
+showscore
+* TODO: show score (BCD)
+	B *R11
+	
+showlives
+* TODO: show lives (0-5)
+	B *R11
 
 *********************************************************
 * Actual game code starting up here (post-init)
@@ -1092,9 +1187,90 @@ ATTRACT
 * else loop back around
 	JMP ATTRACT
 	
+* start the options screen up	
 OPTIONS
-* FOR NOW, JUST LOOP SO I SEE IT WORKS
+	BL @BLACKVID
+OPTDRAW	
+	LI R0,CFGHEA		* base config page
+	MOVB @cfgarcade,R1
+	JNE OPT1
+	AI R0,1				* ENHANCED adds 1 frame to base
+OPT1
+	MOVB @cfghard,R1
+	JEQ OPT2
+	AI R0,2				* HARD adds 2 frames to base
+OPT2
+	MOVB @cfghints,R1
+	JNE OPT3
+	AI R0,4				* HINTS add 4 frames to base
+OPT3
+	LI R1,1				* don't wait
+	BL @SHOWANDPAUSE2	* get it up
+
+* now we loop through the options, checking
+* keyboard for cfg keys (H,S,D) and joystick fire
+* KSCAN uses R12,r13 (return in R13). R14 will be old key.
+* JOYFAST uses R12,JOYDAT and JOYOLD
+	BL @KSCAN
+	MOV R13,R14
+	BL @JOYFAST
+	ANDI JOYDAT,JOYFIRE
+	MOV JOYDAT,JOYOLD
+
+OPTLP
+	BL @KSCAN
+	C R13,R14		* changed?
+	JEQ NONEWKEY
+	MOV R13,R14		* remember change
+	CI R13,>0100	* was it S?
+	JNE NOKEYS
+* Handle S
+	MOVB @cfgarcade,r0
+	inv r0
+	movb r0,@cfgarcade
+	jmp OPTDRAW
+
+NOKEYS
+	CI R13,>0200	* was it D?
+	JNE NOKEYD
+* Handle D
+	MOVB @cfghard,r0
+	inv r0
+	movb r0,@cfghard
+	jmp OPTDRAW
+	
+NOKEYD
+	CI R13,>0400	* was it H?
+	JNE NONEWKEY	* whatever
+* handle H
+	MOVB @cfghints,r0
+	inv r0
+	movb r0,@cfghints
+	jmp OPTDRAW
+
+NONEWKEY
+	MOV R13,R13		* any key pressed?
+	JNE OPTLP		* yes, wait for release
+
+* no key pressed, so check joystick
+	BL @JOYFAST
+	ANDI JOYDAT,JOYFIRE
+	C JOYDAT,JOYOLD		* changed?
+	JEQ OPTLP			* nope
+	MOV JOYDAT,JOYOLD	* save new state
+	JEQ OPTLP			* nothing pressed
+	
+* option screen exitted with fire -- start the game
+	CLR @lives			* and scr1
+	clr @scr2			* and scr3
+	BL @showscore
+	BL @showlives
+	
+* TODO AND START THE GAME... for now we loop
 	B @GAMESTART
+	
+	
+	
 
     END
     
