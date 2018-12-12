@@ -1,0 +1,25 @@
+* this resides in the last 256 bytes of the 128MB ROM image, and is served as GROM at >8000
+Header at >8000
+	ID:	 	AA 01
+	Count:	01 00
+	PowerUp:00 00
+	Program:80 0C
+	DSR:    00 00
+	Sub:    00 00
+
+Program list at >800C
+	LINK:	00 00
+	Start:	80 1D
+	Length: 0C
+	Text:   DRAGONS LAIR
+
+Program at >801D
+	07 20	ALL >20					* clear screen
+    87 8F	DCLR @>6000				* set bank to first
+    DD 00							* (address offset is >8300)
+	bf 00	DST >601c at @>8300		* store CPU start address (hard coded)
+	60 1c
+	0f f0	XML >F0					* XML vector >8300	
+	0b		EXIT					* in case it returns, reboot
+	00		RTN						* in case THAT returns, return ;)
+

@@ -1,0 +1,41 @@
+Relative brightness of TI colors (0-15)
+
+Fade in colors in right column...
+---------------------------------
+
+0 - trans			0		0 0 0 0
+1 - Black			0		0 0 0 0
+2 - Med Green		7.984	0 4 C 2
+3 - Lt Green		9.810	0 C 2 3
+4 - Dk Blue			5.553	0 0 4 4
+5 - Lt Blue			7.325	0 0 4 5
+6 - Dk Red			7.278	0 0 6 6
+7 - Cyan			11.124	0 4 5 7
+8 - Med Red			7.876	0 0 6 8
+9 - Lt Red			9.278	0 6 8 9
+A - Dk Yellow		11.273	0 C A A
+B - Lt Yellow		12.501	0 C A B
+C - Dk Green		7.283	0 4 C C
+D - Magenta			7.891	0 4 6 D
+E - Grey			12		0 C 2 E
+F - White			15		0 C 2 F
+
+Sorted...
+----------
+
+1 - Black			0
+4 - Dk Blue			5.553
+6 - Dk Red			7.278
+C - Dk Green		7.283
+5 - Lt Blue			7.325
+8 - Med Red			7.876
+D - Magenta			7.891
+2 - Med Green		7.984
+9 - Lt Red			9.278
+3 - Lt Green		9.810
+7 - Cyan			11.124
+A - Dk Yellow		11.273
+E - Grey			12
+B - Lt Yellow		12.501
+F - White			15
+

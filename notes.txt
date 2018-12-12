@@ -1,0 +1,73 @@
+CFGHEA	EQU >2a40		* first configuration screen page
+CFGENH	EQU 1			* enhanced adds '1' over arcade
+CFGHARD	EQU 2			* hard adds '2' over easy
+CFGNOHINT EQU 4			* no hints adds '4' over hints
+CFGCOL	EQU >0000		* where is the color data
+CFGPAT	EQU >0C00		* where is the pattern data
+CFGSIT 	EQU >1800		* where is the SIT (only care once, mind...)
+CFGBORD EQU >2A3F		* border graphics
+CFGF18	EQU >2a48		* F18A
+CFGLIC	EQU >2a49		* license
+CFGPRES	EQU >2a4a		* HL presents
+
+f18aflg equ >83f7
+lives equ >83f8		* lives remaining
+scr1 equ >83f9		* 3 bytes of score in BCD
+scr2 equ >83fa
+scr3 equ >83fb
+SAVE EQU >83FC
+SAVE2 EQU >83FE
+FRAMES EQU >600A
+
+* register equates (all bits are active high)
+* the newly read bits from the joystick (set for one frame)
+JOYDAT EQU 4
+* the last read bits from the joystick (continuous)
+JOYOLD EQU 5
+* a mask of bits that should immediately exit the scene
+JOYMASK EQU 6
+* joystick bits
+JOYUP EQU >10
+JOYDOWN EQU >08
+JOYLEFT EQU >02
+JOYRIGHT EQU >04
+JOYFIRE EQU >01
+
+
+* number of lives
+liveasy equ 5
+livhard equ 3
+
+Scratchpad usage:
+8300-831f	Registers
+8320-83d3	misc code (playback, paging, etc)
+...
+83f7		f18a flag (true or 0)
+83F8        lives
+83f9-83fb	score
+83fc-83fd	save
+83fe-83ff	save2
+
+
+For score, recommend 3 bytes BCD (6 digits), and 1 byte for lives
+
+
+Fix up these entry blocks for entry to video playback
+
+VIDNOF18
+VIDYESF18
+
+Look for B @>8320 and "HANDLEJOY" branches to clean up the joystick entry.
+ABSRET and ABSRET18 are currently the return points from scratchpad, HANDLEJOY is a subroutine.
+
+
+* VMBWP via a page - corrupts scratchpad at >8320	
+* R0 - VDP address (with >4000 set)
+* R1 - src address
+* R2 - count
+* R3 - video page to copy from (as in ROM LAYOUT.txt)
+
+Video blocks: (768 bytes each)
+0000
+0800 - 1536 (2 blocks)
+1000

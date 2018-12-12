@@ -29,12 +29,37 @@ SOUND   EQU >8400
 VDPWA   EQU >8C02
 VDPWD   EQU >8C00
 VDPRD   EQU >8800
+VDPST	EQU >8802
+
+**
+* Some graphic frame defines
+*
+CFGHEA	EQU >2a40		* first configuration screen page
+CFGENH	EQU 1			* enhanced adds '1' over arcade
+CFGHARD	EQU 2			* hard adds '2' over easy
+CFGNOHINT EQU 4			* no hints adds '4' over hints
+CFGPAT	EQU >6000		* where is the color data
+CFGCOL	EQU >6C00		* where is the pattern data
+CFGSIT 	EQU >7800		* where is the SIT (only care once, mind...)
+CFGBORD EQU >2A3F		* border graphics
+CFGF18	EQU >2a48		* F18A
+CFGLIC	EQU >2a49		* license
+CFGPRES	EQU >2a4a		* HL presents
 
     DEF MAIN
 
+f18aflg equ >83f7	* non-zero if F18A detected (test with movb)
+lives equ >83f8		* lives remaining
+scr1 equ >83f9		* 3 bytes of score in BCD
+scr2 equ >83fa
+scr3 equ >83fb
 SAVE EQU >83FC
 SAVE2 EQU >83FE
 FRAMES EQU >600A
+
+* number of lives
+liveasy equ 5
+livhard equ 3
 
 * register equates (all bits are active high)
 * the newly read bits from the joystick (set for one frame)
@@ -45,11 +70,11 @@ JOYOLD EQU 5
 JOYMASK EQU 6
 
 * joystick bits:
-* 10 = up
-* 08 = down
-* 02 = left
-* 04 = right
-* 01 = fire
+JOYUP EQU >1000
+JOYDOWN EQU >0800
+JOYLEFT EQU >0200
+JOYRIGHT EQU >0400
+JOYFIRE EQU >0100
 
     AORG >6000
 
@@ -60,15 +85,18 @@ LOOP1   EQU >83B8
 LOOP18  EQU >83B8
     
 * cart header - >600A receives the bank to loop at
-* Note: for gigacart can use GROM startup instead...
-        DATA >AA01,>0200,>0000,PROG1,>0000
+* Note: for gigacart we use GROM startup instead... so '55' instead of 'aa' to mask it
+        DATA >5501,>0200,>0000,PROG1
+QUITK        
+        DATA >1100		* reusing this useless pointer for QUIT detection
 * subprogram pointer, invalid for ROM, gets the number of frames to loop at
 * frame count is set for the attract mode for now...
-        DATA >0175
+        DATA >0174
 PROG1   DATA >0000,MAIN,>0A4D
         TEXT 'OVIE TEST'
         EVEN
 
+* MAIN must be at >601C - if you change it, change the GPL too
 MAIN
     CLR @>6000   * even though this bank doesn't need it, needs to be the same on all banks
 
@@ -92,6 +120,16 @@ MAIN
     
 * test for F18A, and unlock. 
 * run 9918A version if it's not there.
+
+* if user is holding shift, then skip F18A test and run without
+	LI R12,>0024
+	CLR R1
+	LDCR R1,3
+	NOP
+	LI R12,>0010
+	TB 0			* is shift pressed?
+	JNE F18NO		* if so, skip the GPU test
+
 * We just check if the GPU is present by having it 
 * run a short program
 * F18A blind unlock code
@@ -133,7 +171,19 @@ TSTLP
 F18NO   
 *   * set up bitmap
     BL @BITMAP
-    
+    CLR R0
+    MOVB R0,@f18aflg
+    B @GAMESTART
+
+** Video playback here. Pass in:
+** R6 - JOYMASK
+** R7 - number of frames in clip
+** R8 - page to start at
+**
+VIDNOF18
+* save return
+	MOV R11,@SAVE2
+	
 * Now copy from OUTLOOP to FINAL into scratchpad
 * at >8320 - we'll run from there so that paging
 * doesn't bite us (although there is room in each
@@ -156,7 +206,15 @@ CPLP1
 * I've freed up all the fixed value registers that were used only to init
 *
 
-* loop repeat point
+* Convert R8 (page number) into R8/R9 (address/data)
+	MOV r8,r9
+	SRL R9,4
+	ANDI R9,>0F00
+	ANDI R8,>0FFF
+	SLA R8,1
+	AI R8,>6000
+
+* Loop point
 LOOP4EVR
 
 *	R0 is reserved for scratch
@@ -165,10 +223,10 @@ LOOP4EVR
 *   R3 is used (on F18A side only) to hold the VDP address
     CLR R4			* R4 is reserved for JOYDAT
     CLR R5			* R5 is reserved for JOYOLD
-    LI R6,>0700		* R6 is reserved for JOYMASK (left,right,fire)
-	MOV @FRAMES,r7
-    li r8,>6002     * address for paging
-    clr r9          * data for paging
+*   LI R6,>0700		* R6 is reserved for JOYMASK (left,right,fire)
+*	MOV @FRAMES,r7
+*   li r8,>6002     * address for paging
+*   clr r9          * data for paging
     li r10,>6020	* address we are reading from
 *   R11 reserved for BL
 	LI R12,>0006    * fixed for CRU access to keyboard and joystick (columns at 15,16,17)
@@ -216,8 +274,8 @@ LOOP4EVR
 * JOYOLD has the joystick data ('1' is active)
 * if R7 is >FFFF, then the video has played out
 ABSRET
-	BL @HANDLEJOY
-	JMP LOOP4EVR
+	MOV @SAVE2,R11
+	B *R11
 
 **********************************
 * Code for quit, joystick, and frame countdown are interleaved with the
@@ -350,7 +408,6 @@ LOOP1Y
     JNE LOOP1Y                                      10
     
     B *R11                                          12 (-2 for JNE fallthrough)
-    
 FINAL
 
 *************** 
@@ -375,7 +432,19 @@ GLDLP
     
 *   * set up bitmap
     BL @BITMAP
-    
+    SETO R0
+    MOVB R0,@f18aflg
+    B @GAMESTART
+
+** Video playback here. Pass in:
+** R6 - JOYMASK
+** R7 - number of frames in clip
+** R8 - page to start at
+**
+VIDYESF18
+* Save the return address
+	MOV R11,@SAVE2
+
 * Now copy from OUTLOOP18 to FINAL18 into scratchpad
 * at >8320 - we'll run from there so that paging
 * doesn't bite us (although there is room in each
@@ -407,6 +476,14 @@ CPLP118
 * the result should be nearly flicker-free video.
 *
 
+* Convert R8 (page number) into R8/R9 (address/data)
+	MOV r8,r9
+	SRL R9,4
+	ANDI R9,>0F00
+	ANDI R8,>0FFF
+	SLA R8,1
+	AI R8,>6000
+
 * loop repeat point for F18A
 LOOP418
 
@@ -426,10 +503,10 @@ LOOP418
 	LI R3,>805B		* address of VDP buffer (>1B80)
     CLR R4			* R4 is reserved for JOYDAT
     CLR R5			* R5 is reserved for JOYOLD
-    LI R6,>0700		* R6 is reserved for JOYMASK (left,right,fire)
-	MOV @FRAMES,r7
-    li r8,>6002     * address for paging
-    clr r9          * data for paging
+*   LI R6,>0700		* R6 is reserved for JOYMASK (left,right,fire)
+*	MOV @FRAMES,r7
+*   li r8,>6002     * address for paging
+*   clr r9          * data for paging
     li r10,>6020	* address we are reading from
 *   R11 reserved for BL
 	LI R12,>0006    * fixed for CRU access to keyboard and joystick (columns at 15,16,17)
@@ -446,8 +523,8 @@ LOOP418
 * JOYOLD has the joystick data ('1' is active)
 * if R7 is >FFFF, then the video has played out
 ABSRET18
-	BL @HANDLEJOY
-	JMP LOOP418    
+	MOV @SAVE2,R11
+	B *R11
 	
 **********************************
 * following code is copied to >8320 and run from scratchpad
@@ -635,7 +712,7 @@ GPUBLP
 
 GPUEND
 
-* GPU TEST must be 10 bytes...
+* GPU TEST must be 10 bytes... (copied and run on F18A GPU)
 GPUTEST
     LI R0,>1234
     MOV R0,@>1C10
@@ -650,64 +727,97 @@ BITMAP
     LI R1,BMREGS
     BL @LOADRG
     
-* set up SIT - copy from BORDSIT
+* set up SIT - copy from first graphic frame
     LI R0,>5800
-    LI R1,BORDSIT
+    LI R1,CFGSIT
     LI R2,768
-    BL @VMBW
+    LI R3,CFGHEA	* frame to copy from
+    BL @VMBWP
     
 * now it takes a few loops to copy in the
 * color and pattern data, they are spaced
-* set up COLOR - copy from BORDCOL
-* chars 0x60-0xff
-    LI R0,>6300
-    LI R1,BORDCOL
-    LI R2,160*8
-    BL @VMBW
-    
-* chars 0x1C0-0x1FF (R1 already set)
-	LI R0,>6E00
-	LI R2,64*8
-	BL @VMBW
-	
-* chars 0x260-0x2FF (R1 already set)
-	LI R0,>7300
-	LI R2,160*8
-	BL @VMBW
-
-* set up PATTERN - copy from BORDPAT
+* Pattern is packed first (unlike the video stills)
+* set up PATTERN - (R1 already set)
 * chars 0x60-0xff
     LI R0,>4300
-    LI R1,BORDPAT
+    LI R1,CFGPAT
     LI R2,160*8
-    BL @VMBW
+    LI R3,CFGBORD
+    BL @VMBWP
     
 * chars 0x1C0-0x1FF (R1 already set)
 	LI R0,>4E00
 	LI R2,64*8
-	BL @VMBW
+    LI R3,CFGBORD
+	BL @VMBWP
 	
 * chars 0x260-0x2FF (R1 already set)
 	LI R0,>5300
 	LI R2,160*8
-	BL @VMBW
+    LI R3,CFGBORD
+	BL @VMBWP
+
+* set up COLOR (R1 is already set)
+* chars 0x60-0xff
+    LI R0,>6300
+    LI R2,160*8
+    LI R3,CFGBORD
+    BL @VMBWP
+    
+* chars 0x1C0-0x1FF (R1 already set)
+	LI R0,>6E00
+	LI R2,64*8
+    LI R3,CFGBORD
+	BL @VMBWP
+	
+* chars 0x260-0x2FF (R1 already set)
+	LI R0,>7300
+	LI R2,160*8
+    LI R3,CFGBORD
+	BL @VMBWP
 
 * back to caller    
     MOV @SAVE,R11
     B *R11
-
+	
+* VMBWP via a page - corrupts scratchpad at >8320	
 * R0 - VDP address (with >4000 set)
-* R1 - src address
+* R1 - src address (register saved but incremented)
 * R2 - count
-VMBW
-	MOV R11,@SAVE2
-	BL @VDPWTA	* set address
-LPA1
-	MOVB *R1+,@>8C00
-	DEC R2
-	JNE LPA1
+* R3 - video page to copy from (as in ROM LAYOUT.txt)
+VMBWP
+	MOV R11,@SAVE2 		* frees R11
+	BL @VDPWTA	   		* set VDP address - frees R0
+* copy the code into scratchpad
+	LI R11,VMBWPA  		* R11 is free to reuse
+	LI R0,>8320	   		* R0 is free to reuse
+VMBCP1	
+	MOV *R11+,*R0+
+	CI R11,VMBWPE
+	JNE VMBCP1
+* Get the banking info ready (convert index into page and data)
+	MOV r3,r0	   		* r0 is free to reuse
+	SRL R0,4
+	ANDI R0,>0F00
+	ANDI R3,>0FFF
+	SLA R3,1
+	AI R3,>6000
+* Do the actual copy
+	BL @>8320
+* and back to caller	
 	MOV @SAVE2,R11
 	B *R11
+	
+VMBWPA
+* Entry here at >8320. R3 has page address, R0 has page data in MSB
+	MOV R0,*R3
+LPA2
+	MOVB *R1+,@>8C00
+	DEC R2
+	JNE LPA2
+	CLR @>6000
+	B *R11
+VMBWPE
 
 * registers for bitmap (and 5B00 is the address of the sprite table)
 * background is transparent (the only color never redefined)
@@ -744,134 +854,247 @@ VDPWTA
 
 * clean up scratchpad so we can safely reboot
 REBOOT
+* reset F18A
+	BL @RESTF18
+	BL @LOCKF18
+* wipe scratchpad	
 	LI R0,>8304
 	LI R1,252
 RBLP1
 	CLR *R0+
 	DECT R1
 	JNE RBLP1
+* soft reset of console	
 	BLWP @>0000
 	
-* quick little joystick handlers for the video playback code, conveniently
-* lets me test the callbacks for Dragon's Lair
-HANDLEJOY
-* so we either played out the video (R7 = FFFF), in which case we just return,
-* or we are going to process the joystick, fast-forward or rewind or pause,
-* then return right back to >8320. >8320 resets the cart page, so we don't
-* need to worry about being in the middle of a page.
+**
+* RESTF18 - Reset the GPU on the F18 (no harm if not F18, 
+* but expect registers to be messed up)	
+* We don't use palettes, so removed that code
+RESTF18
+	MOVB @f18aflg,R0		* do nothing if no F18A
+	JNE RESTG18
+	B *R11
 
-* joystick bits:
-* 10 = up
-* 08 = down
-* 02 = left
-* 04 = right
-* 01 = fire
+RESTG18	
+	MOV R11,@SAVE2
+	
+* stop the GPU and then Reset (no harm if it's not F18)
+	LI R0,>B800				* stop the GPU -- this does stop the GPU
+	BL @VDPWA				* GPU will stop long before we're done
 
-	INC R7		* lazy test for -1
-	JNE MUSTBEJOY
+	MOV @SAVE2,R11
 	B *R11
 	
-MUSTBEJOY
-	DEC R7		* just to keep it clean
+* lock F18 if it's still unlocked (pre 1.6)
+LOCKF18
+	MOV R11,@SAVE2
 
-*******************
-	LI R0,>0200
-	COC R0,JOYDAT
-	JNE NOLEFT
+* reset the F18A to defaults (except palette, requires 1.6)	
+	LI R0,>B280				* VR2/50, value 10000000
+	BL @VDPWA				* reset and lock F18A, or corrupt R2
 	
-* Left, rewind 10 frames - don't rewind past zero
-	AI R7,10
-	AI R8,-20		* pages are multiplied by 2
-	CI R8,>6002
-	JHE BACK2SCR	* didn't wrap, go back to work
+	LI R0,>B900       		* VR1/57, value 00000000
+	BL @VDPWA          		* write once (corrupts VDPR1)
 	
-	MOV R9,R9
-	JEQ R9CLAMP		* jump if we're already at zero
+	MOV @SAVE2,R11
+	B *R11	
 	
-    AI R9,->0100
-	LI R8,>7FFC
-	JMP BACK2SCR	* did last bank, back to work
+**********************
+* More subroutines! so unorganized!
+**********************
+
+* VSMW - VDP Single Byte Multiple Write
+* VDP - R0 (with >4000 set)
+* Byte- R1 MSB
+* Cnt - R2
+VSMW
+	MOV R11,@SAVE2
+	BL @VDPWTA	   		* set VDP address - frees R0
+VSMW1
+	MOVB R1,@VDPWD
+	DEC R2
+	JNE VSMW1
+	MOV @SAVE2,R11
+	B *R11
+
+* Fast joystick read with fire - kills R12 and R10, uses JOYDAT
+* blocking, too, there's a NOP
+* also checks for QUIT
+JOYFAST
+* check QUIT (same code as console ROM)
+	LI 12,>0024 		* Load CRU
+	LDCR @>0012,3
+	SRC 12,7			* delay
+	LI 12,>0006
+	STCR R10,8 			* Fetch CRU
+	CZC @QUITK,R10 		* QUIT key?
+	JNE MENUKY
+	B @REBOOT				* reboot if yes
+MENUKY
+* read joystick
+	li r12,>0024
+	li r10,>0600
+	ldcr r10,3
+	NOP
+	NOP
+	li r12,>0006
+	stcr JOYDAT,8
+	INV JOYDAT			* make sure '1' bits are active
+	B *R11
+
+* shows a frame from R0 and waits for R1 frames
+* also kills R9,R10,R12,R13,JOYDAT....
+* must be possible to abort with fire button (but not HOLDING fire)
+SHOWANDPAUSE
+	MOV R11,@SAVE
+	MOV R0,R9		* src page
+	MOV R1,R13
 	
-R9CLAMP
-	MOV @FRAMES,R7	* reset frame count
-	LI R8,>6002		* we were at zero, so clamp it
-	JMP BACK2SCR
-
-*******************
+* first black the color table to avoid corruption
+	LI R0,>6000
+	CLR R1
+	LI R2,768
+	BL @VSMW
 	
-NOLEFT
-	LI R0,>0400
-	COC R0,JOYDAT
-	JNE NORIGHT
+	LI R0,>6800
+	LI R2,1536
+	BL @VSMW
 	
-* right, advance 10 frames - don't advance past the end
-	CI R7,11
-	JL BACK2SCR
+	LI R0,>7000
+	LI R2,768
+	BL @VSMW
 
-	AI R7,-10
-	AI R8,20
-	CI R8,>8000
-	JL BACK2SCR	* didn't wrap, go back to work
+* now load the new image
+	LI R0,>4000		* pattern
+	LI R1,CFGPAT
+	LI R2,768
+	MOV R9,R3
+	BL @VMBWP
 	
-    AI R9,>0100                                     ...10 - increment data
-	LI R8,>6002
-	JMP BACK2SCR	* did last bank, back to work
-
-*******************
+	LI R0,>4800
+	LI R2,1536
+	MOV R9,R3
+	BL @VMBWP
 	
-NORIGHT
-	LI R0,>0100
-	COC R0,JOYDAT
-	JNE NOFIRE
-
-* just pause, then... we'll sit here until fire is pressed again
-PAUSELP
-* check for quit	
-	SBZ 16
-	SBZ 17											12 - set QUIT column - 48 cycles (8 cycles over)
-
-* delay
-    SRL R0,2
-
-* read the FCTN and EQUALS keys
-	TB 0											12 (equals)
-	JEQ KEYOKPS
-	TB 4											...12 (fctn)
-	JEQ KEYOKPS
-	B @REBOOT
-KEYOKPS
+	LI R0,>5000
+	LI R2,768
+	MOV R9,R3
+	BL @VMBWP
 	
-* prepare joystick read
-	SBO 16
-	SBO 17                                          12 - select column 6
-* delay
-    SRL R0,2
-    
-* read the joystick lines
-	STCR JOYDAT,8
-
-* check joystick results
-	mov JOYDAT,r2	                                14 - make a copy to work on
-	inv JOYDAT		                                10 - invert the bits - 38 cycles (2 short)
-
-	xor JOYOLD,JOYDAT                               14 - xor with old to get changed
-	szc r2,JOYDAT	                                14 - and to get only newly active bits (ignore released)
-	inv r2			                                10 - prepare to save off new 'old' - 38 cycles (2 short)
-
-	mov r2,JOYOLD	                                14
-	ci JOYDAT,>0100									Fire?
-	jne PAUSELP
-
-*******************
+	LI R0,>6000		* color
+	LI R2,768
+	MOV R9,R3
+	BL @VMBWP
 	
-NOFIRE
-BACK2SCR
-	B @>8320
-
-
-	COPY "D:\work\ti\dragonslair\code\BorderOut_pat.inc"
-	COPY "D:\work\ti\dragonslair\code\BorderOut_p.inc"
-	COPY "D:\work\ti\dragonslair\code\BorderOut_c.inc"
+	LI R0,>6800
+	LI R2,1536
+	MOV R9,R3
+	BL @VMBWP
 	
+	LI R0,>7000
+	LI R2,768
+	MOV R9,R3
+	BL @VMBWP
+
+	MOV @SAVE,R11
+* fall into delay	
+	
+* delay for R13 frames, allow exit on fire	
+DELAY	
+	MOV R11,@SAVE
+	BL @JOYFAST
+	ANDI JOYDAT,JOYFIRE		* FIRE key (save current status)
+	MOV JOYDAT,JOYOLD
+	MOVB @VDPST,R11			* clear VDP status
+
+DELLP
+	BL @JOYFAST
+	ANDI JOYDAT,JOYFIRE		* only fire
+	C JOYDAT,JOYOLD			* check for change
+	JEQ DELSKIP				* no change
+	MOV JOYDAT,JOYOLD		* backup, and test for zero
+	JNE DELDONE				* if it's pressed
+
+DELSKIP	
+	CLR R12					* set CRU base (doesn't need to be in loop, but provides delay)
+	TB 2 					* check VDP interrupt input
+	JEQ DELLP				* if not set, keep waiting
+	MOVB @VDPST,R11	  		* reset status
+	DEC R13
+	JNE DELLP
+
+DELDONE	
+	MOV @SAVE,R11
+	B *R11
+	
+***
+* Handle a single video clip until it returns
+* TODO: parameters and limiting
+*
+VIDEO
+	MOV R11,@SAVE
+
+* check for F18A or not
+	MOVB @f18aflg,r0
+	jeq nof18vid
+	
+	bl @VIDYESF18
+	jmp donevid
+	
+nof18vid
+	bl @VIDNOF18
+	
+donevid
+	MOV @SAVE,R11
+	B *R11
+
+*********************************************************
+* Actual game code starting up here (post-init)
+*********************************************************
+GAMESTART
+
+* run a simple attract mode
+	
+* if F18A is detected, then show that splash screen first
+	MOVB @f18aflg,R0
+	jeq nof18splash
+	LI R0,CFGF18
+	LI R1,120
+	BL @SHOWANDPAUSE
+nof18splash
+
+ATTRACT
+* harmlesslion presents
+	LI R0,CFGPRES
+	LI R1,180
+	BL @SHOWANDPAUSE
+	MOV JOYDAT,JOYDAT
+	JNE OPTIONS
+	
+* start video playback of the attract mode
+* (which is hardcoded and loops atm...)
+	LI JOYMASK,JOYFIRE
+	LI R7,>0175			* attract mode frames
+	LI R8,>0001			* attract mode starts at
+	BL @VIDEO
+	ANDI JOYDAT,JOYFIRE
+	MOV JOYDAT,JOYDAT
+	JNE OPTIONS
+	
+* the license screen
+	LI R0,CFGLIC
+	LI R1,480
+	BL @SHOWANDPAUSE
+	MOV JOYDAT,JOYDAT
+	JNE OPTIONS
+
+* else loop back around
+	JMP ATTRACT
+	
+OPTIONS
+* FOR NOW, JUST LOOP SO I SEE IT WORKS
+	B @GAMESTART
+
     END
     

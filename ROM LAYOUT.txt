@@ -1,15 +1,20 @@
 output.bin -> output_Cart8.bin
 -- first, run cartrepack on it
 -- next, delete the first 8k program page
--- second, truncate the file at 0x547DFFF - the rest will be unused space
+-- second, truncate the file at 0x547DFFF (size + 1) - the rest will be unused space. (There are some wasted pages)
 -- run a quick script to delete the 0xAA byte at the beginning of each page - we are to start from GROM.
 
 -- Easter Egg? We have 32 bytes at the beginning of each page that used to be for header, 
    and 472 bytes at the end of each page that's just padding.
+   
+-- The masking of address to data bits: 
+	12 bits of address and 2 bits of data: D A A A
+	Address * 2 + 0x6000
 
+0000	Base program
 
-0000	00Attract.bin
-	0000-0175	Attract animation
+0001	00Attract.bin (-1 frame!!! Editted by the script!)
+	0001-0175	Attract animation
 
 0176	a1drawbridge.bin
 	0182-018A	Ressurection
@@ -998,3 +1003,28 @@ output.bin -> output_Cart8.bin
 2937	(last frame)
 (10,551 frames)
 
+2398 	(skip to frame 10,815 - empty space inbetween - ~ 2MB)
+
+2A3F	Game screen border graphics	-- different format than screens, and pattern, then color...
+2A40	Config hints/easy/arcade -- these screens are 3k pattern, 3k color, and 768 bytes SIT (SIT always the same)
+2A41	Config hints/easy/enhanced
+2A42	Config hints/hard/arcade
+2A43	Config hints/hard/enhanced
+2A44	Config No hints/easy/arcade
+2A45	Config No hints/easy/enhanced
+2A46	config no hints/hard/arcade
+2a47	config no hints/hard/enhanced
+2A48	F18A detected
+2A49 	HL/Digital Leisure license and copywrite
+2A4A	HL Presents
+
+
+
+
+
+Hints: On/Off
+Difficulty: Easy/Hard
+Sequence: Arcade/Enhanced
+
+
+--Script is building the ROM correctly, need to change the code to read the border graphics from the marked page above...

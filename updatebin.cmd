@@ -1,3 +1,8 @@
+@Echo are you SURE you want to run this again?
+pause
+pause
+
+
 @rem 192 scenes... yikes.bin
 
 cartunpack D:\work\TI\dragonslair\video\00Attract\3S01.wmv.bin -n 00Attract.bin
