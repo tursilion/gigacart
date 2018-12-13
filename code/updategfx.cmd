@@ -28,9 +28,9 @@ d:\work\ti\uncartify\debug\uncartify output_Cart8.bin
 
 @rem append the still frames to the video file (note they are not in video format!)
 @rem note we are assuming that the still frames are each exactly 8k and not padding individually
-@rem final size is 128MB minus 8192 for the program and 256 for the GPL
+@rem final size is 128MB minus 8192 for the program and 256 for the GPL (so not based on size of data!)
 cd dl_pics
-copy /y /b ..\output_Cart8.bin + /b BorderOut.bin + /b ConfigHintsEasyArcade.bin + /b ConfigHintsEasyEnhanced.bin + /b ConfigHintsHardArcade.bin + /b ConfigHintsHardEnhanced.bin + /b ConfigNoHintsEasyArcade.bin + /b ConfigNoHintsEasyEnhanced.bin + /b ConfigNoHintsHardArcade.bin + /b ConfigNoHintsHardEnhanced.bin + /B F18A.bin + /b HLSplash.bin + /b HLTitle.bin /b CartROMData.bin
+copy /y /b ..\output_Cart8.bin + /b BorderOut.bin + /b ConfigHintsEasyArcade.bin + /b ConfigHintsEasyEnhanced.bin + /b ConfigHintsHardArcade.bin + /b ConfigHintsHardEnhanced.bin + /b ConfigNoHintsEasyArcade.bin + /b ConfigNoHintsEasyEnhanced.bin + /b ConfigNoHintsHardArcade.bin + /b ConfigNoHintsHardEnhanced.bin + /B F18A.bin + /b HLSplash.bin + /b HLTitle.bin + /b ..\code\sprites.bin /b CartROMData.bin
 d:\work\setbinsize\release\setbinsize CartROMData.bin 134209280
 
 @rem rebuild the code

@@ -1017,14 +1017,30 @@ output.bin -> output_Cart8.bin
 2A48	F18A detected
 2A49 	HL/Digital Leisure license and copywrite
 2A4A	HL Presents
+2A4B	Sprites
 
 
 
 
 
-Hints: On/Off
-Difficulty: Easy/Hard
-Sequence: Arcade/Enhanced
+VDP Usage:
+0000-17ff	PDT
+1800-1Aff	SIT (SDT starts here)
+1B00-1B1F	SAL (blank)
+1B20-1B7F	Free for SDT - chars 100-111 (up)
+1B80-1B9F	SAL (Up)
+1BA0-1BFF	Free for SDT - chars 116-127 (right)
+1C00-1C1F	SAL (Down)
+1C20-1C7F	Free for SDT - chars 132-143 (down)
+1C80-1C9F	SAL (Left)
+1CA0-1CFF	Free for SDT - chars 148-159 (left)
+1D00-1D1F	SAL (Right)
+1D20-1D7F	Free for SDT - chars 164-175 (fire)
+1D80-1D9F	SAL (Fire)
+1DA0-1FFF	Free for SDT - chars 180-255
+2000-37FF	CT
+3800-3FFF	Free
 
 
---Script is building the ROM correctly, need to change the code to read the border graphics from the marked page above...
+SAL resolution is every >80 bytes. So 5 SALs:
+

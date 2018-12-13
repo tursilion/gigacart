@@ -45,12 +45,39 @@ CFGBORD EQU >2A3F		* border graphics
 CFGF18	EQU >2a48		* F18A
 CFGLIC	EQU >2a49		* license
 CFGPRES	EQU >2a4a		* HL presents
+CFGSPRITES EQU >2A4B	* sprite tables and patterns
 
     DEF MAIN
     
-* TODO: HINT ARROWS
-* TODO: display score
-* TODO: display lives remaining
+* TODO: HINT ARROWS (sprites are in)
+* TODO: credits page (credit DLP, etc)
+* TODO: game itself of course... ;)
+
+* TODO: score increment. There are only 13 increment values:
+* 49,251,379,495,915,1326,2191,2675,3255,3551,4026,4750,5000
+* That isn't a concern right now.
+* Each byte stores a valid from 0-99, but it's not stored as
+* BCD to simplify the math. Values greater than 99, we just
+* wrap them around and do the carry. Then we just use a lookup table
+* to convert each value from 0-99 into two digits for display (200 bytes)
+
+* TODO: table layout...
+* I am probably NOT going to be able to store everything in the 8k program space,
+* so, copying one row from banked memory into scratchpad or VDP may be needed.
+* start frame, frame count, timeout ok?, valid joystick (byte), good joystick (byte), hint sprites, good scene, bad scene, timeout scene
+*
+* start frame - the page index of the first frame
+* frame count - the number of frames in the clip
+* timeout ok? - if zero, timeout means death, else it's life
+* valid joyst - the mask of joystick bits to test for
+* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
+* good scene  - the next scene to play on success
+* bad scene   - the next scene to play on failure
+* timeout sc  - the next scene to play after timeout
+*
+* 16 bytes per entry (for easy shifting)... approx 754 scenes, so 12k
+* we'll allocate 2 pages for it (16K) and 16 bytes in scratchpad for the current one
     
 ******
 * Scratchpad usage
@@ -59,6 +86,9 @@ CFGPRES	EQU >2a4a		* HL presents
 * 8300-831f	Registers
 * 8320-83d7	misc code (playback, paging, etc)
 * ...
+* 83DA		playrow (byte)
+* 83DB-83DF 5 bytes of 'played scene' data (1 bit per scene, used to deal with selection)
+* 83E0-83EF current row of table data (16 bytes)
 * 83F0-83F1 beepvol
 * 83F2-83F3 save3 (WORD)
 * 83F4	 	arcade(BYTE)
@@ -71,6 +101,9 @@ CFGPRES	EQU >2a4a		* HL presents
 * 83fe-83ff	save2 (WORD)
 ******
 
+PLAYROW equ >83da	* current row in the play table
+PLAYED equ >83db	* bit-table (5 bytes) of completed scenes, used for sequence
+TABLEDAT equ >83e0	* copy of 16 bytes of table data for current video
 BEEPVOL equ >83F0	* used to make the joystick accept beep on channel 2
 SAVE3 equ >83F2
 cfgarcade equ >83f4	 * non-zero if arcade order instead of enhanced
@@ -78,7 +111,7 @@ cfghard	equ >83f5	* non-zero if hard mode instead of easy
 cfghints equ >83f6	* non-zero if hints should be shown
 f18aflg equ >83f7	* non-zero if F18A detected (test with movb)
 lives equ >83f8		* lives remaining
-scr1 equ >83f9		* 3 bytes of score in BCD
+scr1 equ >83f9		* 3 bytes of score in sort-of BCD - see above
 scr2 equ >83fa
 scr3 equ >83fb
 SAVE EQU >83FC
@@ -814,6 +847,13 @@ BITMAP
 	LI R2,160*8
     LI R3,CFGBORD
 	BL @VMBWP
+	
+* set up sprite tables (will overwrite existing byte)
+	LI R0,>5B00		* SAL (blank), all data will follow (see sprites.a99)
+	LI R1,>6000
+	LI R2,>0290
+	LI R3,CFGSPRITES
+	BL @VMBWP
 
 * back to caller    
     MOV @SAVE,R11
@@ -858,7 +898,7 @@ LPA2
 	B *R11
 VMBWPE
 
-* registers for bitmap (and 5B00 is the address of the sprite table)
+* registers for bitmap (and 5B00 is the write address of the sprite table)
 * background is transparent (the only color never redefined)
 * PDT - >0000
 * SIT - >1800
@@ -1123,7 +1163,6 @@ DELDONE
 	
 ***
 * Handle a single video clip until it returns
-* TODO: parameters and limiting
 *
 VIDEO
 	MOV R11,@SAVE
@@ -1143,11 +1182,88 @@ donevid
 	B *R11
 	
 showscore
-* TODO: show score (BCD)
+* show score (kind of BCD-ish, each byte is 0-99)
+* digits in segment 3 are characters 167 (A7) on top and add 32 for bottom
+* space is 177 (B1)
+* score starts at >1AA7
+* lives is at >1AB7
+	LI R0,>A75A
+	MOVB R0,@VDPWA
+	SWPB R0
+	MOVB R0,@VDPWA
+	CLR R1			* have to just once
+	
+	MOVB @scr1,@>8303	* R1 LSB
+	SLA R1,1		* multiply by 2
+	MOV @BCDLOOKUP(R1),R0
+	MOVB R0,@VDPWD
+	SWPB R0
+	MOVB R0,@VDPWD
+	
+	MOVB @scr2,@>8303	* R1 LSB
+	SLA R1,1		* multiply by 2
+	MOV @BCDLOOKUP(R1),R0
+	MOVB R0,@VDPWD
+	SWPB R0
+	MOVB R0,@VDPWD
+	
+	MOVB @scr3,@>8303	* R1 LSB
+	SLA R1,1		* multiply by 2
+	MOV @BCDLOOKUP(R1),R0
+	MOVB R0,@VDPWD
+	SWPB R0
+	MOVB R0,@VDPWD
+	
+	LI R0,>C75A			* second row
+	MOVB R0,@VDPWA
+	SWPB R0
+	MOVB R0,@VDPWA
+	
+	MOVB @scr1,@>8303	* R1 LSB
+	SLA R1,1		* multiply by 2
+	MOV @BCDLOOKUP(R1),R0
+	AI R0,>2020
+	MOVB R0,@VDPWD
+	SWPB R0
+	MOVB R0,@VDPWD
+	
+	MOVB @scr2,@>8303	* R1 LSB
+	SLA R1,1		* multiply by 2
+	MOV @BCDLOOKUP(R1),R0
+	AI R0,>2020
+	MOVB R0,@VDPWD
+	SWPB R0
+	MOVB R0,@VDPWD
+	
+	MOVB @scr3,@>8303	* R1 LSB
+	SLA R1,1		* multiply by 2
+	MOV @BCDLOOKUP(R1),R0
+	AI R0,>2020
+	MOVB R0,@VDPWD
+	SWPB R0
+	MOVB R0,@VDPWD
+
 	B *R11
 	
 showlives
-* TODO: show lives (0-5)
+* show lives (0-5)
+	LI R0,>B75A
+	MOVB R0,@VDPWA
+	SWPB R0
+	MOVB R0,@VDPWA
+	
+	MOVB @lives,R1
+	AI R1,>A700
+	MOVB R1,@VDPWD
+	
+	LI R0,>D75A
+	MOVB R0,@VDPWA
+	SWPB R0
+	MOVB R0,@VDPWA
+	
+	AI R1,>2000
+	MOVB R1,@VDPWD
+
 	B *R11
 
 *********************************************************
@@ -1274,6 +1390,16 @@ NONEWKEY
 	
 	CLR @lives			* and scr1
 	clr @scr2			* and scr3
+
+* set correct number of lives based on difficulty
+	li r0,liveasy
+	movb @cfghard,r0
+	jeq nlivhard
+	li r0,livhard
+nlivhard
+	swpb r0
+	movb r0,@lives
+	
 	BL @showscore
 	BL @showlives
 
@@ -1284,6 +1410,30 @@ NONEWKEY
 	
 	
 	
+	
+	
+
+
+* BCD lookup table for digits (top half only, bottom half add 32)
+* each value from 0-99 returns a word representing two digits
+BCDLOOKUP
+	DATA >A7A7,>A7A8,>A7A9,>A7AA,>A7AB,>A7AC
+	DATA >A7AD,>A7AE,>A7AF,>A7B0,>A8A7,>A8A8
+	DATA >A8A9,>A8AA,>A8AB,>A8AC,>A8AD,>A8AE
+	DATA >A8AF,>A8B0,>A9A7,>A9A8,>A9A9,>A9AA
+	DATA >A9AB,>A9AC,>A9AD,>A9AE,>A9AF,>A9B0
+	DATA >AAA7,>AAA8,>AAA9,>AAAA,>AAAB,>AAAC
+	DATA >AAAD,>AAAE,>AAAF,>AAB0,>ABA7,>ABA8
+	DATA >ABA9,>ABAA,>ABAB,>ABAC,>ABAD,>ABAE
+	DATA >ABAF,>ABB0,>ACA7,>ACA8,>ACA9,>ACAA
+	DATA >ACAB,>ACAC,>ACAD,>ACAE,>ACAF,>ACB0
+	DATA >ADA7,>ADA8,>ADA9,>ADAA,>ADAB,>ADAC
+	DATA >ADAD,>ADAE,>ADAF,>ADB0,>AEA7,>AEA8
+	DATA >AEA9,>AEAA,>AEAB,>AEAC,>AEAD,>AEAE
+	DATA >AEAF,>AEB0,>AFA7,>AFA8,>AFA9,>AFAA
+	DATA >AFAB,>AFAC,>AFAD,>AFAE,>AFAF,>AFB0
+	DATA >B0A7,>B0A8,>B0A9,>B0AA,>B0AB,>B0AC
+	DATA >B0AD,>B0AE,>B0AF,>B0B0
 
     END
     
