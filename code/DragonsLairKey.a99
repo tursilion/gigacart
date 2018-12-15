@@ -1,3 +1,7 @@
+*** Keyboard version (but not in the game part itself yet...)
+** Not the final version and not kept up
+** to date, this is just here to test the keyboard build script
+
 **************
 * Dragon's Lair for the TI-99/4A - by M.Brent aka Tursi
 * A big extension of my AV Playback code, as below
@@ -12,7 +16,6 @@
 * Updated 11/4/2018 - now has more correct timing
 * and reads QUIT and the Joystick
 * F18A side also updated
-* joystick support for fast forward/reverse
 *
 * Final Version:	
 * Fixed for: sound chip timing
@@ -24,10 +27,6 @@
 * as (frames * 6144) = samples / duration = rate)
 *
 **************
-
-** Cartridge page - >6000 for joystick and >6002 for keyboard
-** this is used by all code that needs to return to the code page
-CARTPAGE EQU >6000
 
 SOUND   EQU >8400
 VDPWA   EQU >8C02
@@ -55,20 +54,23 @@ CFGSPRITES EQU >2A4B	* sprite tables and patterns
 * TODO: game itself of course... ;)
 
 * TODO: keyboard mode:
-*		-selected from GROM menu (done)
-*		-lives on a different cartridge page (so we just return to that page instead (partially))
-*		-columns 1 AND 2 are needed (ESDX, period for sword)
+*		-selected from GROM menu
+*		-lives on a different cartridge page (so we just return to that page instead)
+*		-columns 1 AND 2 are neede (ESDX, period for sword)
 *		-No way to keep timing, I think, maybe just live with it?
-* 		-Remember to check for and fix all the instruction screens that mention keyboard!
-*		-also remember to fix both playback codes which assume >6000 for the return bank (6002 for key, partially)
+* Remember to check for and fix all the instruction screens that mention keyboard!
 
 * TODO: diagnostics (can be one way to new cartridge page, reboot when finished)
-*       -update the tools to store a checksum at the end of each cartridge page. This checksum
-*        must include the page index, so we can detect bad banking
-*		-can we install a 32k-based memory manager for debug? what's out there? Like EasyBug but for RAM.
-*		-diagnostics must check both keyboard and joystick for keyboard test and waiting for fire at the end
 
-* TODO: add game over screen (player one only (loaded))
+* TODO: screen for "release alpha lock" in joystick mode, and sit on it if needed
+
+* TODO: help screen for sprite icons (one each for keyboard and joystick)
+
+* TODO: can we make some of the arcade screens?
+*		Specifically, I'd like to remake the "Use the joystick to control the movements..." screen
+*		then follow it with the help screen
+
+* TODO: add game over screen (player one only)
 
 * TODO: score increment. There are only 13 increment values:
 * 49,251,379,495,915,1326,2191,2675,3255,3551,4026,4750,5000
@@ -133,7 +135,8 @@ scr2 equ >83fa
 scr3 equ >83fb
 SAVE EQU >83FC
 SAVE2 EQU >83FE
-	
+FRAMES EQU >600A
+
 * number of lives
 liveasy equ 5
 livhard equ 3
@@ -168,7 +171,7 @@ PROG1   DATA >0000,MAIN,>0A4D
 
 * MAIN must be at >601C - if you change it, change the GPL too
 MAIN
-    CLR @CARTPAGE   * even though this bank doesn't need it, needs to be the same on all banks
+    CLR @>6002   * even though this bank doesn't need it, needs to be the same on all banks
 
 * this should be at >6020 to make all banks line up 
     LIMI 0
@@ -406,7 +409,7 @@ NOTLP
 * check for end of video
 	DEC R7											10
 	JOC NOTYET										10
-	CLR @CARTPAGE                                   ...26 (reset cartridge bank for code jump)
+	CLR @>6002                                      ...26 (reset cartridge bank for code jump)
 	B @ABSRET										...16-2 for branch, but we are looping
 NOTYET
 * read the FCTN and EQUALS keys
@@ -414,7 +417,7 @@ NOTYET
 	JEQ KEYOK										10
 	TB 4											...12 (fctn)
 	JEQ KEYOK										...10
-	CLR @CARTPAGE                                   ......26 (reset cartridge bank for code jump)
+	CLR @>6002                                      ......26 (reset cartridge bank for code jump)
 	B @REBOOT										......16-2 (but who cares, we're rebooting)
 KEYOK
 *	         										  - 42 cycles (2 cycles over)
@@ -463,7 +466,7 @@ KEYOK
 	mov r2,JOYOLD	                                14
 	czc JOYMASK,JOYDAT                              14
 	jeq JOYOK		                                10 - normal case, we do not exit!
-	CLR @CARTPAGE                                   ...26 (reset cartridge bank for code jump)
+	CLR @>6002                                      ...26 (reset cartridge bank for code jump)
 	B @ABSRET                                       ...16 (joystick told us to exit)
 JOYOK
 *                                                      - 38 cycles (2 short)
@@ -640,7 +643,7 @@ NOTLP18
 * check for end of video
 	DEC R7											10
 	JOC NOTYET18   									10
-	CLR @CARTPAGE                                   ...26 (reset cartridge bank for code jump)
+	CLR @>6002                                      ...26 (reset cartridge bank for code jump)
 	B @ABSRET										...16-2 for branch, but we are looping (shared return)
 NOTYET18
 * read the FCTN and EQUALS keys
@@ -648,7 +651,7 @@ NOTYET18
 	JEQ KEYOK18										10
 	TB 4											...12 (fctn)
 	JEQ KEYOK18										...10
-	CLR @CARTPAGE                                   ......26 (reset cartridge bank for code jump)
+	CLR @>6002                                      ......26 (reset cartridge bank for code jump)
 	B @REBOOT										......16-2 (but who cares, we're rebooting)
 KEYOK18
 *	         										  - 42 cycles (2 cycles over)
@@ -697,7 +700,7 @@ KEYOK18
 	mov r2,JOYOLD	                                14
 	czc JOYMASK,JOYDAT                              14
 	jeq JOYOK18		                                10 - normal case, we do not exit!
-	CLR @CARTPAGE                                   ...26 (reset cartridge bank for code jump)
+	CLR @>6002                                      ...26 (reset cartridge bank for code jump)
 	B @ABSRET                                       ...16 (joystick told us to exit)
 JOYOK18
 *                                                      - 38 cycles (2 short)
@@ -909,7 +912,7 @@ LPA2
 	MOVB *R1+,@>8C00
 	DEC R2
 	JNE LPA2
-	CLR @CARTPAGE
+	CLR @>6002
 	B *R11
 VMBWPE
 
@@ -997,11 +1000,10 @@ LOCKF18
 **********************
 * More subroutines! so unorganized!
 **********************
-* Corrupts R12,R13 - only checks for S,D,H or 5
+* Corrupts R12,R13 - only checks for S,D or H
 * S	row 1, address >10 - return 1
 * D	row 2, address >10 - return 2
 * H	row 4, address >08 - return 4
-* 5 row 4, address >0E - return 8
 KSCAN
 		LI R13,>0100
 		LI R12,>0024		* column select
@@ -1033,11 +1035,6 @@ KEYND
 		LI R13,>0400
 		B *R11
 KEYNH
-		TB 3
-		JEQ KEYN5
-		LI R13,>0800
-		B *R11
-KEYN5
 		CLR R13
 		B *R11
 
@@ -1301,31 +1298,6 @@ GAMESTART
 	BL @SHOWANDPAUSE
 nof18splash
 
-* JOYSTICK ONLY - if Alpha lock is DOWN, then wait for release
-	clr r12
-	sbz >0015
-	nop
-	tb 7
-	jeq AlphaUp
-* Load warning screen
-	LI R0,>2a5c
-	LI R1,240
-	BL @SHOWANDPAUSE
-	MOV JOYDAT,JOYDAT
-	JNE OPTIONS
-* wait for up or quit
-AlphaDown
-	SBO >0015
-	BL @JOYFAST		* don't care what it reads, just using for QUIT
-	CLR R12			* restore R12
-	sbz >0015
-	nop
-	TB 7
-	JNE AlphaDown
-AlphaUp
-	SBO >0015
-** End alpha lock up for joystick routine
-
 ATTRACT
 * harmlesslion presents
 	LI R0,>2a4a
@@ -1337,22 +1309,22 @@ ATTRACT
 * start video playback of the attract mode
 * (which is hardcoded and loops atm...)
 	LI JOYMASK,JOYFIRE
-	LI R7,>0172			* attract mode frames
-	LI R8,>0003			* attract mode starts at
+	LI R7,>0174			* attract mode frames
+	LI R8,>0002			* attract mode starts at
 	BL @VIDEO
 	ANDI JOYDAT,JOYFIRE
 	MOV JOYDAT,JOYDAT
 	JNE OPTIONS
 	
-* instructions 1 (joystick)
-	LI R0,>2a4c
+* instructions 1 (keyboard)
+	LI R0,>2a4d
 	LI R1,600
 	BL @SHOWANDPAUSE
 	MOV JOYDAT,JOYDAT
 	JNE OPTIONS
 
-* instructions 2 (joystick)
-	LI R0,>2a4e
+* instructions 2 (keyboard)
+	LI R0,>2a4f
 	LI R1,240
 	BL @SHOWANDPAUSE
 	MOV JOYDAT,JOYDAT
@@ -1424,28 +1396,12 @@ NOKEYS
 	
 NOKEYD
 	CI R13,>0400	* was it H?
-	JNE NOKEYH	    * whatever
+	JNE NONEWKEY	* whatever
 * handle H
 	MOVB @cfghints,r0
 	inv r0
 	movb r0,@cfghints
 	jmp OPTDRAW
-
-NOKEYH
-	CI R13,>0800	* was it 5? (Diagnostics)
-	JNE NONEWKEY
-
-	LI R0,>8320
-	LI R1,GODIAG
-	MOV *R1+,*R0+	* copy the code to scratchpad
-	MOV *R1+,*R0+
-	MOV *R1+,*R0+
-	MOV *R1+,*R0+
-	B @>8320		* and run it
-
-GODIAG
-	CLR @>6004		* select diagnostics bank
-	B @>6000		* go run it
 
 NONEWKEY
 	MOV R13,R13		* any key pressed?

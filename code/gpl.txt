@@ -1,25 +1,54 @@
+* console displays entries in inverse order
 * this resides in the last 256 bytes of the 128MB ROM image, and is served as GROM at >8000
 Header at >8000
 	ID:	 	AA 01
-	Count:	01 00
+	Count:	02 00
 	PowerUp:00 00
 	Program:80 0C
 	DSR:    00 00
 	Sub:    00 00
 
 Program list at >800C
-	LINK:	00 00
-	Start:	80 1D
-	Length: 0C
-	Text:   DRAGONS LAIR
+	LINK:	80 32
+	Start:	80 24
+	Length: 13
+	Text:   DRAGON'S LAIR (KEY)
 
-Program at >801D
+Program at >8024
 	07 20	ALL >20					* clear screen
-    87 8F	DCLR @>6000				* set bank to first
-    DD 00							* (address offset is >8300)
-	bf 00	DST >601c at @>8300		* store CPU start address (hard coded)
+	bf 00	DST >8302 at @>8300		* store scratchpad vector address
+	83 02
+	bf 04	DST >6002 at @>8304		* store cart page address (hard coded)
+	60 02
+	40 54	BR @>8054				* continue to store rest of code and execute
+	40 54	BR @>8054				* in case COND was set...
+
+Program list at >8032
+	LINK:	00 00
+	Start:	80 4A
+	Length:	13
+	Text:	DRAGON'S LAIR (JOY)
+
+Program at >804A
+	07 20	ALL >20					* clear screen
+	bf 00	DST >8302 at @>8300		* store scratchpad vector address
+	83 02
+	bf 04	DST >6000 at @>8304		* store cart page address (hard coded)
+	60 00
+
+Continue here at >8054
+	bf 02	DST >04E0 at @>8302		* CLR (address already loaded)
+	04 e0
+	bf 06	DST >0460 at @>8306		* B @>
+	04 60
+	bf 08	DST >601c at @>8308		* ROM address (hard coded)
 	60 1c
+	
 	0f f0	XML >F0					* XML vector >8300	
 	0b		EXIT					* in case it returns, reboot
 	00		RTN						* in case THAT returns, return ;)
 
+
+** Run this code in scratchpad, to ensure 16-bit write to hardware
+** 04E0 6000	CLR @>6000			* set bank
+** 0460 601C	B @>601C			* branch to ROM

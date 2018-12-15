@@ -11,10 +11,12 @@ output.bin -> output_Cart8.bin
 	12 bits of address and 2 bits of data: D A A A
 	Address * 2 + 0x6000
 
-0000	Base program
+0000	Base program (joystick)
+0001	Base program (keyboard)
+0002	Diagnostics
 
-0001	00Attract.bin (-1 frame!!! Editted by the script!)
-	0001-0175	Attract animation
+0003	00Attract.bin (-3 frames!!! Editted by the script!)
+	0003-0175	Attract animation
 
 0176	a1drawbridge.bin
 	0182-018A	Ressurection
@@ -1018,8 +1020,23 @@ output.bin -> output_Cart8.bin
 2A49 	HL/Digital Leisure license and copywrite
 2A4A	HL Presents
 2A4B	Sprites
-
-
+2A4C	Instruction1Joy
+2A4D	Instruction1Key
+2A4E	Instruction2Joy
+2A4F	Instruction2Key
+2A50	GameOver
+2A51	ColorBars
+2A52	Diag1 - RAM
+2A53	Diag2 - ROM
+2A54	Diag3 - 9900
+2A55	Diag4 - Sound (3 tone scales, do each generator)
+2A56	Diag5 - Display (score and lives cycle 0-9 a few times)
+2A57	Diag6 - keyboard (show hint icons on joystick OR keyboard)
+2A58	Diag7 - warning about color bars (show for a few seconds)
+2A59	Diag8 - ram test failed (Address on score)
+2A5A	Diag9 - rom checksum failed (page on score)
+2A5B	Diag14 - 9900 test failed
+2A5C	AlphaLockUp
 
 
 
