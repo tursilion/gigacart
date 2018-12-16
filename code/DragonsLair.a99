@@ -49,10 +49,20 @@ CFGBORD EQU >2A3F		* border graphics
 CFGF18	EQU >2a48		* F18A
 CFGSPRITES EQU >2A4B	* sprite tables and patterns
 
+* Hint sprite tables
+HINTNONE EQU >8536
+HINTUP EQU >8537
+HINTDOWN EQU >8538
+HINTLEFT EQU >8539
+HINTRIGHT EQU >853A
+HINTFIRE EQU >853B
+
     DEF MAIN
     
 * TODO: HINT ARROWS (sprites are in)
 * TODO: game itself of course... ;)
+* TODO: Easy mode disables the death moves (that is, the valid mask matches the good mask)
+* TODO: watch mode?
 
 * TODO: keyboard mode:
 *		-selected from GROM menu (done)
@@ -62,36 +72,24 @@ CFGSPRITES EQU >2A4B	* sprite tables and patterns
 * 		-Remember to check for and fix all the instruction screens that mention keyboard!
 *		-also remember to fix both playback codes which assume >6000 for the return bank (6002 for key, partially)
 
-* TODO: diagnostics (can be one way to new cartridge page, reboot when finished)
-*       -update the tools to store a checksum at the end of each cartridge page. This checksum
-*        must include the page index, so we can detect bad banking
-*		-can we install a 32k-based memory manager for debug? what's out there? Like EasyBug but for RAM.
-*		-diagnostics must check both keyboard and joystick for keyboard test and waiting for fire at the end
-
 * TODO: add game over screen (player one only (loaded))
-
-* TODO: score increment. There are only 13 increment values:
-* 49,251,379,495,915,1326,2191,2675,3255,3551,4026,4750,5000
-* That isn't a concern right now.
-* Each byte stores a valid from 0-99, but it's not stored as
-* BCD to simplify the math. Values greater than 99, we just
-* wrap them around and do the carry. Then we just use a lookup table
-* to convert each value from 0-99 into two digits for display (200 bytes)
 
 * TODO: table layout...
 * I am probably NOT going to be able to store everything in the 8k program space,
 * so, copying one row from banked memory into scratchpad or VDP may be needed.
-* start frame, frame count, timeout ok?, valid joystick (byte), good joystick (byte), hint sprites, good scene, bad scene, timeout scene
+* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
+* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
-* timeout ok? - if zero, timeout means death, else it's life
+* death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
 * good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success
+* good scene  - the next scene to play on success (if 0, end of sequence)
 * bad scene   - the next scene to play on failure
 * timeout sc  - the next scene to play after timeout
+* score		  - score to add for this scene starting (stored the same 0-99 method as score is)
 *
 * 16 bytes per entry (for easy shifting)... approx 754 scenes, so 12k
 * we'll allocate 2 pages for it (16K) and 16 bytes in scratchpad for the current one
@@ -103,9 +101,9 @@ CFGSPRITES EQU >2A4B	* sprite tables and patterns
 * 8300-831f	Registers
 * 8320-83d7	misc code (playback, paging, etc)
 * ...
-* 83DA		playrow (byte)
-* 83DB-83DF 5 bytes of 'played scene' data (1 bit per scene, used to deal with selection)
-* 83E0-83EF current row of table data (16 bytes)
+* 83EB		just died? (BYTE)
+* 83EC-83ED scenebase
+* 83EE-83EF rowbase
 * 83F0-83F1 beepvol
 * 83F2-83F3 save3 (WORD)
 * 83F4	 	arcade(BYTE)
@@ -118,9 +116,9 @@ CFGSPRITES EQU >2A4B	* sprite tables and patterns
 * 83fe-83ff	save2 (WORD)
 ******
 
-PLAYROW equ >83da	* current row in the play table
-PLAYED equ >83db	* bit-table (5 bytes) of completed scenes, used for sequence
-TABLEDAT equ >83e0	* copy of 16 bytes of table data for current video
+justdied equ >83EB
+scenebase equ >83EC
+rowbase equ >83ee
 BEEPVOL equ >83F0	* used to make the joystick accept beep on channel 2
 SAVE3 equ >83F2
 cfgarcade equ >83f4	 * non-zero if arcade order instead of enhanced
@@ -1182,7 +1180,10 @@ DELDONE
 	B *R11
 	
 ***
-* Handle a single video clip until it returns
+* Handle a single video clip until it returns (does F18A test)
+** R6 - JOYMASK
+** R7 - number of frames in clip
+** R8 - page to start at
 *
 VIDEO
 	MOV R11,@SAVE
@@ -1285,6 +1286,26 @@ showlives
 	MOVB R1,@VDPWD
 
 	B *R11
+	
+* add the score value in R0 to score
+* Score is a 24 bit value, stored not in BCD, but 0-99 per byte
+* R0 is a 16-bit value stored in the same manner to make math easier
+* Uses R1
+ADDSCORE
+	LI R1,100*256		* 100 bytes
+	AB @>8301,@scr3		* R0 LSB
+	cb @scr3,r1			* check for rollover
+	jl adds1			* no rollover
+	sb r1,@scr3			* subtract 100
+	ab @BYTE01,r0		* deal with the carry
+adds1
+	ab r0,@scr2			* r0 msb
+	cb @scr2,r1			* check for rollover
+	jl adds2			* no rollover
+	sb r1,@scr2			* subtract 100
+	ab @BYTE01,@scr3	* increment the most significant score byte
+adds2
+	B *R11
 
 *********************************************************
 * Actual game code starting up here (post-init)
@@ -1326,7 +1347,6 @@ AlphaUp
 	SBO >0015
 ** End alpha lock up for joystick routine
 
-ATTRACT
 * harmlesslion presents
 	LI R0,>2a4a
 	LI R1,180
@@ -1334,6 +1354,8 @@ ATTRACT
 	MOV JOYDAT,JOYDAT
 	JNE OPTIONS
 	
+ATTRACT
+
 * start video playback of the attract mode
 * (which is hardcoded and loops atm...)
 	LI JOYMASK,JOYFIRE
@@ -1477,11 +1499,166 @@ nlivhard
 	
 	BL @showscore
 	BL @showlives
-
+	
+	MOVB @BYTE01,@justdied	* so we play ressurrection
 	MOVB @BEEPVOL,@SOUND	* mute beep
 	
-* TODO AND START THE GAME... for now we loop
-	B @GAMESTART
+* TODO: init scene selection logic	
+	
+* AND START THE GAME... 
+
+GAMELOOP
+* TODO: maybe move the game play logic into a separate bank with the
+*       scene data - even 1 page per scene. Then I wouldn't have to page
+*       or cache data in RAM, it'll all be available.
+* TODO: select the next scene and start it. Always drawbridge for now...
+
+	LI R0,A1DRAWBRIDGE
+	MOV R0,@scenebase
+	
+	MOVB @justdied,r0
+	jeq notdied
+	
+* play ressurection sequence
+	CLR JOYMASK
+	MOV @scenebase,r1
+	mov *r1+,r8			* starting page
+	mov *r1,r7			* number of frames
+	bl @video
+	
+* count down lives
+	sb @byte01,@lives
+	bl @showlives
+	
+* and clear the flag
+	movb @byte00,@justdied
+
+* continue here with the scene	
+notdied
+	bl @blackvid
+	
+* get the first scene
+	mov @scenebase,r0
+	ai r0,8
+	mov r0,@rowbase
+	
+* loop here until scenes are done, one way or another	
+scenelp
+
+* first, add any score that is granted for reaching this scene
+	mov @rowbase,r5
+	mov @14(r5),r0
+	bl @addscore
+	bl @showscore
+	
+* Now get the joystick mask. If we're in easy mode, we'll later replace this
+	clr JOYMASK
+	movb @4(r5),JOYMASK
+	
+* now check for easy mode
+	movb @cfghard,r1
+	jne scenehard
+	
+* overwrite mask with only the success bits	
+	movb @5(r5),JOYMASK
+scenehard
+
+* now check whether hints are on
+	movb @cfghints,r1
+	jeq scenenohints
+	
+* load up the appropriate table for the hints
+	mov @6(r5),r0
+	bl @vdpwta
+scenenohints
+
+* now finally load up the video parameters and go play it!
+	clr r7
+	movb @2(r5),r7
+	swpb r7
+	mov *r5,r8
+	bl @video
+	
+* now we have returned
+	mov @rowbase,r5	* get the base again
+	
+* we need to determine how the video ended
+* (ie: by joystick or by frames)
+	mov r7,r7				* was 0 if the video played out
+	jne scenejoy
+	
+* scene timed out, so go to timed out scene
+	mov @12(r5),r0
+	jeq scenedone		* no next scene
+	mov r0,@rowbase
+	jmp scenelp			* go play this scene
+
+* scene ended due to joystick, so determine if it was life or death	
+scenejoy
+	clr JOYMASK
+	movb @5(r5),JOYMASK
+	INV JOYMASK
+	SZCB JOYMASK,JOYDAT
+	JEQ scenedied
+	
+* looks like a safe move! go to safe scene
+	mov @8(r5),r0
+	jeq scenedone		* no next scene
+	mov r0,@rowbase
+	jmp scenelp			* go play this scene
+
+* player entered a bad movement	
+scenedied
+	mov @10(r5),r0
+	jeq scenedone		* no next scene
+	mov r0,@rowbase
+	jmp scenelp			* go play this scene
+
+* no more scenes to play out!
+scenedone
+* check if this was a death scene
+	movb @3(r5),r0		* death flag
+	jeq nodeath
+	
+* yep, player died, so set flag and check for remaining lives...
+* (the ressurrection sequence does the subtraction)
+	movb @byte01,@justdied
+	movb @lives,r0
+	jne nodeath2		* not game over yet!
+	
+* it /is/ game over, the player done bit the big one
+* play the game over scene...
+	clr JOYMASK			* no input
+	mov @scenebase,r5
+	mov @4(r5),r8		* starting page of death scene
+	mov @6(r5),r7		* number of frames
+	bl @video
+	
+* now show the gameover screen for a few seconds
+	li r0,>2a50
+	li r1,240
+	bl @showandpause
+	
+* and loop back around to the attract mode
+	b @attract
+
+* game is still playing, we jump here to basically just jump
+* back to the scene selector
+nodeath
+* TODO: we need to mark a scene 'done' if we didn't die	
+
+* we come here if we did die, but still have lives left
+nodeath2
+	b @GAMELOOP
+	
+
+	
+
+	
+	
+
+	
+
 	
 	
 	
@@ -1509,6 +1686,47 @@ BCDLOOKUP
 	DATA >AFAB,>AFAC,>AFAD,>AFAE,>AFAF,>AFB0
 	DATA >B0A7,>B0A8,>B0A9,>B0AA,>B0AB,>B0AC
 	DATA >B0AD,>B0AE,>B0AF,>B0B0
+	
+* these are just really handy...
+BYTE00
+	BYTE >00
+BYTE01
+	BYTE >01
+	
+* temporarily putting scene data here so we can develop the scene playback
+** First two words of a new scene are the ressurection start page and number of frames
+** Next two words are the game over crumbling skeleton scene and number of frames
+*
+** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
+** hint sprites, good scene, bad scene, timeout scene, score
+A1DRAWBRIDGE
+	DATA >0176,21												* ressurection
+	DATA >026D,31												* game over
+	
+** scenes **
+	
+	DATA >018B,>5F00,>0000,HINTNONE,A01EA,A01EA,A01EA,49		* Intro through monsters approach
+A01EA
+	DATA >01EA,>0600,>0101,HINTFIRE,A01F0,A028C,A028C,0			* approaching, press sword
+A01F0
+	DATA >01F0,>0800,>0000,HINTNONE,A01F8,A01F8,A01F8,49		* swing sword
+A01F8
+	DATA >01F8,>0800,>1414,HINTUP,A0200,A028C,A028C,0			* move up/right needed
+A0200
+	DATA >0200,>5400,>0000,HINTNONE,A0255,A0255,A0255,49		* climb up thru crumbling vestible
+A0255
+	DATA >0255,>0600,>1604,HINTRIGHT,A025B,A029A,A02AC,0		* move right needed (up/left dies)
+A025B
+	DATA >025B,>1200,>0000,HINTNONE,0,0,0,49					* escaping (end scene)
+
+** deaths **
+
+A028C
+	DATA >028C,>0Eff,>0000,HINTNONE,0,0,0,0						* caught by drawbridge monster
+A029A
+	DATA >029A,>12ff,>0000,HINTNONE,0,0,0,0						* falling into pit
+A02AC
+	DATA >02AC,>1eff,>0000,HINTNONE,0,0,0,0						* crushed by rocks
 
     END
     

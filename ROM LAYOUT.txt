@@ -19,7 +19,7 @@ output.bin -> output_Cart8.bin
 	0003-0175	Attract animation
 
 0176	a1drawbridge.bin
-	0182-018A	Ressurection
+	0176-018A	Ressurection
 	018B-01BF	Castle intro
 	01C0-01DA	Approach drawbridge
 	01DB-01DF	Fall through
@@ -42,7 +42,7 @@ output.bin -> output_Cart8.bin
 
 	02AC-02C9	Crushed by rocks
 
-02DF	b2drinkme.bin
+02DF	b2drinkme.bin  <--- BIN ADDRESSES FROM HERE OUT ARE WRONG, INNER LINES SHOULD BE RIGHT
 	02CA-02DD	Ressurection
 	02DE-02E9	Approaching (can move right)
 	02EA-02EE	Flame spout (must move right)

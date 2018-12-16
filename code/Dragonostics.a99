@@ -155,47 +155,6 @@ LOCKF18
 **********************
 * More subroutines! so unorganized!
 **********************
-* TODO: check ESDX and period and treat them same
-* as joystick keys... (don't need the menu keys here..)
-* (Actually, put it in JOYFAST if the joystick isn't moving)
-*
-* Corrupts R12,R13 - only checks for S,D or H
-* S	row 1, address >10 - return 1
-* D	row 2, address >10 - return 2
-* H	row 4, address >08 - return 4
-KSCAN
-		LI R13,>0100
-		LI R12,>0024		* column select
-		LDCR R13,3
-		SRC R12,7			* Delay?
-		LI R12,>0010		* row select
-		TB 0
-		JEQ KEYNS
-		LI R13,>0100
-		B *R11
-KEYNS
-		LI R13,>0200
-		LI R12,>0024		* column select
-		LDCR R13,3
-		SRC R12,7			* Delay?
-		LI R12,>0010		* row select
-		TB 0
-		JEQ KEYND
-		LI R13,>0200
-		B *R11
-KEYND
-		LI R13,>0400
-		LI R12,>0024		* column select
-		LDCR R13,3
-		SRC R12,7			* Delay?
-		LI R12,>0008		* row select
-		TB 0
-		JEQ KEYNH
-		LI R13,>0400
-		B *R11
-KEYNH
-		CLR R13
-		B *R11
 
 * VSMW - VDP Single Byte Multiple Write
 * VDP - R0 (with >4000 set)
@@ -229,10 +188,50 @@ MENUKY
 	li r12,>0024
 	li r10,>0600
 	ldcr r10,3
-	NOP
+	NOP					* delay, this plus the SETO
+	SETO JOYDAT			* zero it out (active low until after we INV below)
 	li r12,>0006
 	stcr JOYDAT,8
 	INV JOYDAT			* make sure '1' bits are active
+	JEQ TRYKEYB
+	B *R11
+* No joystick input, so we'll try keyboard instead (ESDX, period)	
+* SX and period are on row 1, ED are on row 2
+TRYKEYB	
+	LI R10,>0100
+	LI R12,>0024
+	LDCR R10,3			* select row 1
+	SRC 12,7			* delay
+	LI R12,>0006		* first bit (period)
+	tb 0
+	JEQ KEYNP
+	LI JOYDAT,JOYFIRE
+	B *R11
+KEYNP
+	TB 5
+	JEQ KEYNS
+	LI JOYDAT,JOYLEFT
+	B *R11
+KEYNS
+	TB 7
+	JEQ KEYNX
+	LI JOYDAT,JOYDOWN
+	B *R11
+KEYNX
+	LI R10,>0200
+	LI R12,>0024
+	LDCR R10,3			* select row 2
+	SRC 12,7			* delay
+	LI R12,>0010		* first bit (D)
+	TB 0
+	JEQ KEYND
+	LI JOYDAT,JOYRIGHT
+	B *R11
+KEYND
+	TB 1
+	JEQ KEYNONOTHING
+	LI JOYDAT,JOYUP
+KEYNONOTHING	
 	B *R11
 	
 * set the color table for video to black
@@ -330,10 +329,12 @@ DELLP
 	
 showscore
 * show score (kind of BCD-ish, each byte is 0-99)
+* kills r0, r1, and VDP address
 * digits in segment 3 are characters 167 (A7) on top and add 32 for bottom
 * space is 177 (B1)
 * score starts at >1AA7
 * lives is at >1AB7
+*
 	LI R0,>A75A
 	MOVB R0,@VDPWA
 	SWPB R0
@@ -501,9 +502,7 @@ d1lp4
 	cb @scr3,r3
 	jl d1n2
 	
-	swpb r2
-	movb r2,@scr3	* zero it
-	swpb r2
+	movb @>8305,@scr3	* zero it (r2 lsb)
 	ab r2,@scr2		* only need to do one carry
 d1n2
 	bl @showscore
@@ -526,11 +525,85 @@ d1ok
 ***************************************************
 	LI R0,>2a53
 	BL @SHOWANDPAUSE2
-
-* TODO: copy routine to scratchpad to checksum one page
+	
+* copy routine to scratchpad to checksum one page
 * of ROM, then check entire cart. Display current page in score.
-* This requires a tool I haven't written yet to add the checksums!
 * On failure, show >2a5a and wait for QUIT
+
+* copy the scratchpad code over to >8320
+	LI R0,d2chkstart
+	LI R1,>8320
+d2lp1
+	MOV *R0+,*R1+
+	ci R0,d2chkend
+	JNE d2lp1
+	
+* start at page 0, count separately in score
+	clr r6
+	clr @lives		* and scr1
+	clr @scr2		* and scr3
+	
+d2lp2
+	bl @showscore
+	
+	mov r6,r0		* prepare the checksum
+	bl @>8320		* do it
+	c r4,r5			* and test the result
+	jne d2fail		* they must be equal!
+	
+	inc r6			* next page
+	ci r6,>4000		* at 128MB? (8k pages)
+	jhe d2ok		* must be done!!
+	
+* increment the score digits
+	li r0,>0100		* byte increment
+	li r1,100*256	* byte 100
+	ab r0,@scr3		* next page for score
+	cb @scr3,r1		* is it time to wrap?
+	jl d2lp2		* nope
+	movb @>8301,@scr3	* zero it (r0 lsb)
+	ab r0,@scr2		* next 100s
+	cb @scr2,r1		* this one can wrap twice
+	jl d2lp2
+	movb @>8301,@scr2	* zero it (r0 lsb)
+	ab r0,@scr1		* next 10000s
+	jmp d2lp2		* this one can't wrap
+	
+* this code is copied to scratchpad and executed there
+* page in R0, messes R3, return in R4, compare in R5
+d2chkstart
+	MOV R0,R4		* start checksum with page index
+	MOV r0,r3		* split page into
+	SRL R0,4		* .. data
+	ANDI R0,>0F00	* .. limited range
+	ANDI R3,>0FFF	* .. and address
+	SLA R3,1		* .. once shifted
+	AI R3,>6000		* .. and added in
+	MOV R0,*R3		* do the page switch
+	
+	LI R0,>6000		* prepare the loop
+d2chl1
+	A *R0+,R4		* checksumming words
+	A *R0+,R4		* checksumming words
+	A *R0+,R4		* checksumming words
+	A *R0+,R4		* checksumming words
+	CI R0,>6100		* Just 256 bytes worth (for performance's sake)
+	JNE d2chl1		* loop till there
+	
+	MOV @>7FFE,R5	* read out the correct value
+	
+	CLR @CARTPAGE	* go back to the code page
+	B *R11			* and back to caller
+d2chkend	
+	
+d2fail
+	LI R0,>2a5a
+	BL @SHOWANDPAUSE2
+d2failp
+	BL @JOYFAST
+	jmp d2failp
+	
+d2ok
 
 ***************************************************
 * diag 3 - 9900

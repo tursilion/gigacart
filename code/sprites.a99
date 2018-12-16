@@ -1,7 +1,5 @@
   AORG >6000
 
-** This file is manually built into a cartridge image with Asm994a
-
 ** Each sprite is 4 chars of black, then 4 chars of white (mag3)
 **
 ** 180 - UP
