@@ -21,17 +21,21 @@ output.bin -> output_Cart8.bin
 0176	a1drawbridge.bin
 	0176-018A	Ressurection
 	018B-01BF	Castle intro
-	01C0-01DA	Approach drawbridge
+	
+	01C0-01DA	Approach drawbridge	(drawbridge is technically a lost scene)
 	01DB-01DF	Fall through
 	01E0-01E9	Monsters approach
 	01EA-01EF	Approaching - press sword
 	01F0-01F7	Swing sword
 	01F8-01FF	Move up/right needed
 	0200-0219	Climb up and run in
+	
 	021A-0231	Doors slamming shut
+	
 	0232-023E	Enter vestible
-	023F-0254	Crumbling
-	0255-025A	Move right needed
+	023F-0244	Crumbling
+	0245-0255	Stumbling (down/right needed, UL die)
+	0255-025A	Collapsing (Move right needed, UL die)
 	025B-026C	Escaping
 
 	026D-028B	Game over
@@ -44,9 +48,9 @@ output.bin -> output_Cart8.bin
 
 02DF	b2drinkme.bin  <--- BIN ADDRESSES FROM HERE OUT ARE WRONG, INNER LINES SHOULD BE RIGHT
 	02CA-02DD	Ressurection
-	02DE-02E9	Approaching (can move right)
-	02EA-02EE	Flame spout (must move right)
-	02EF-0300	Leaving
+	02DE-02E9	Approaching (can move right, UDL die) (49)
+	02EA-02EE	Flame spout (must move right, UDL die)
+	02EF-0300	Leaving (379)
 
 	0301-031F	Game over
 
@@ -56,22 +60,22 @@ output.bin -> output_Cart8.bin
 
 036e	b2vines.bin
 	0356-0369	Ressurection
-	036A-0381	Approach
+	036A-0381	Approach (49)
 	0382-0387	Vine approaches
-	0388-039C	slash with sword - new vines, weapons flash
-	039D-039F	weapons flash again
+	0388-039C	slash with sword - new vines, weapons flash (UDLR die) (49)
+	039D-039F	weapons flash again (U, DLRS die) (379)
 	03A0-03AA	jump to weapons
-	03AB-03B0	door opens, new enemy to left
-	03B1-03BE	jump to door, vines block, stairs flash
-	03BF-03C4	jump back
+	03AB-03B0	door opens, new enemy to left (R, DLS die)
+	03B1-03BE	jump to door, vines block, stairs flash (DR, ULS die) (495)
+	03BF-03C4	jump back (915)
 	03C5-03D2	start stairs, vines appear
-	03D3-03D7	table flashes
-	03D8-03DC	jump to table, door opens
-	03DD-03E0	on table, door closes
-	03E1-03E2	door opens
-	03E3-03E7	vines raise while door closes
-	03E8-03EA	door opens
-	03EB-03F1	Dirk jumps out
+	03D3-03D7	table flashes (L, UDS die)
+	03D8-03DC	jump to table, door opens (1326)
+	03DD-03E0	on table, door closes (UR anytime, does not have to match door, DLS die)
+	03E1-03E2	door opens (UR, DLS die)
+	03E3-03E7	vines raise while door closes (UR, DLS die)
+	03E8-03EA	door opens (UR, DLS die)
+	03EB-03F1	Dirk jumps out (1939)
 
 	03F2-0410	Game Over
 
@@ -85,12 +89,12 @@ output.bin -> output_Cart8.bin
 
 0486	b2wind.bin
 	0467-047B	Ressurection
-	047C-0494	"save me!"
+	047C-0494	"save me!" (49)
 	0495-04A6	Dirk opens the door
 	04A7-04AE	Blowing in
-	04AF-04BA	Dirk pauses to look at object
-	04BB-04C0	Door flashes and opens
-	04C1-04C9	Dirk blows on out
+	04AF-04BA	Dirk pauses to look at object (R, U dies)
+	04BB-04C0	Door flashes and opens (R, U dies, same)
+	04C1-04C9	Dirk blows on out (379)
 
 	04CA-04E8	Game Over
 
@@ -98,17 +102,17 @@ output.bin -> output_Cart8.bin
 
 052c	b3fire.bin
 	0508-051C	Ressurection
-	051D-0524	Entry
+	051D-0524	Entry (49)
 	0525-0534	Table drops
 	0535-0537	Lightning starts fire
-	0538-053A	Fire spreads towards Dirk
-	053B-0544	Dirk jumps back, fire dies
-	0545-054B	New lightning starts new fire behind Dirk
-	054C-0551	Dirk jumps away
-	0552-055C	New lightning starts even more fire
-	055D-0562	Dirk jumps away
-	0563-056D	Table flashes
-	056E-0585	Dirk Escapes
+	0538-053A	Fire spreads towards Dirk (R, L dies)
+	053B-0544	Dirk jumps back, fire dies (915)
+	0545-054B	New lightning starts new fire behind Dirk (UL, DR dies)
+	054C-0551	Dirk jumps away (1326)
+	0552-055C	New lightning starts even more fire (DL, UR dies)
+	055D-0562	Dirk jumps away (915)
+	0563-056D	Table flashes (L, UDR dies)
+	056E-0585	Dirk Escapes (1326)
 
 	0586-05A4	Game Over
 
@@ -118,20 +122,20 @@ output.bin -> output_Cart8.bin
 
 05f3	b3pot.bin
 	05C9-05DC	Ressurection
-	05DD-05ED	Approach
-	05EE-05F3	Slime appears
-	05F4-05F8	Dirk jumps away
+	05DD-05ED	Approach (49)
+	05EE-05F3	Slime appears (U, DLR dies)
+	05F4-05F8	Dirk jumps away (2191)
 	05F9-0601	looks at bottle
 	0602-0603	Tongue appears
-	0604-060A	Slime monster threatens
-	060B-0613	Dirk swords it
-	0614-0617	Slime drips off wall towards Dirk
-	0618-061C	Dirk jumps clear
-	061D-0625	Pot monster appears
-	0626-0637	Dirk swords it
+	0604-060A	Slime monster threatens (S, UDLR dies)
+	060B-0613	Dirk swords it (3255)
+	0614-0617	Slime drips off wall towards Dirk (D, ULR dies)
+	0618-061C	Dirk jumps clear (3255)
+	061D-0625	Pot monster appears (S, UL dies)
+	0626-0637	Dirk swords it (2191)
 	0638-063A	Slime grows
-	063B-0640	Dirk hops as slime grows
-	0641-0649	Dirk runs for it to fanfare
+	063B-0640	Dirk hops as slime grows (R, UL dies)
+	0641-0649	Dirk runs for it to fanfare (1326)
 
 	064A-0668	Game over
 
@@ -143,18 +147,18 @@ output.bin -> output_Cart8.bin
 
 06c6	b3throne.bin
 	0697-06AB	Ressurection
-	06AC-06B3	Approach
+	06AC-06B3	Approach (49)
 	06B4-06B9	Orb takes hat and sword
 	06BA-06BC	Lightning starts
-	06BD-06BF	Top view, lighting eating disc
-	06C0-06C2	clear to jump
-	06C3-06C7	First jump
-	06C8-06CC	Second jump (note no pause)
-	06CD-06D1	Eating last of disc
-	06D2-06DF	Jump to throne, get helmet and sword back
+	06BD-06BF	Top view, lighting eating disc (R, UDL dies)
+	06C0-06C2	clear to jump (R, UDL dies (same))
+	06C3-06C7	First jump (UR, DL dies)
+	06C8-06CC	Second jump (note no pause) (1326)
+	06CD-06D1	Eating last of disc (R, UDL dies) (3255)
+	06D2-06DF	Jump to throne, get helmet and sword back (2675)
 	06E0-06EF	Throne rotates
-	06F0-06F7	Lightning threatens
-	06F8-06FC	Dirk runs for it
+	06F0-06F7	Lightning threatens (R, DL dies)
+	06F8-06FC	Dirk runs for it (1939)
 	06FD-0707	Dirk exits the door
 
 	0708-0726	Game over
@@ -167,15 +171,15 @@ output.bin -> output_Cart8.bin
 
 0791	b4goons.bin
 	075D-0770	Ressurection
-	0771-0785	Climb up, door appears
-	0786-078A	Goon 1 appears
-	078B-0796	Dirk swords him
-	0797-079B	Two more appear
-	079C-07A9	Dirk climbs
-	07AA-07AD	More appear in front
-	07AE-07BD	Dirk swords them
-	07BE-07C3	Dirk reaches top of stairs
-	07C4-07D0	Dirk jumps to safety
+	0771-0785	Climb up, door appears (49)
+	0786-078A	Goon 1 appears (S, ULR dies)
+	078B-0796	Dirk swords him (379)
+	0797-079B	Two more appear (R, ULS dies)
+	079C-07A9	Dirk climbs (U, DL dies) (1326) (optional, if you press up, you skip to the top, no score)
+	07AA-07AD	More appear in front (S, DL dies) (timeout on above)
+	07AE-07BD	Dirk swords them (3255)
+	07BE-07C3	Dirk reaches top of stairs (ULN, DS dies) (no action needed, but you can die!)
+	07C4-07D0	Dirk jumps to safety (no score)
 
 	07D1-07EF	Game over
 
@@ -187,14 +191,14 @@ output.bin -> output_Cart8.bin
 
 0888	b4snakes.bin
 	084D-0860	Ressurection
-	0861-0871	Trapped!
-	0872-0876	Snake appears
-	0877-0883	Dirk swords it, another appears
-	0884-0888	Threatens
-	088A-0894	Dirk swords it, another appears
-	0895-0898	Dirk swings as skull rope drops
-	089A-089E	Rope flashes as snake hides
-	089F-08BC	Dirk pulls the rope and climbs to safety
+	0861-0871	Trapped! (49)
+	0872-0876	Snake appears (S, L dies)
+	0877-0883	Dirk swords it, another appears (495)
+	0884-0888	Threatens (S, R dies) 
+	088A-0894	Dirk swords it, another appears (SN, L dies) (2675)
+	0895-0898	Dirk swings as skull rope drops (49)
+	089A-089E	Rope flashes as snake hides (UR)
+	089F-08BC	Dirk pulls the rope and climbs to safety (1939)
 
 	08BD-08DB	Game Over
 
@@ -202,8 +206,9 @@ output.bin -> output_Cart8.bin
 
 0936	b4wall.bin
 	08F7-090A	Ressurection
-	090B-0921	Enter, wall closing, Dirk reacts
-	0922-0924	Dirk runs for it
+	090B-091F	Enter, wall closing, Dirk reacts (U, N dies) (49) (jump to 922)
+	0920-0921	Too late (NU dies) (just a chance to get the 'too late' death)
+	0922-0924	Dirk runs for it (379)
 	0925-092D	Jumps through
 	092E-093A	And moves on
 
@@ -215,33 +220,33 @@ output.bin -> output_Cart8.bin
 
 09c6	c5lizardking.bin
 	0982-0995	Ressurrection
-	0996-09A8	Pot steals sword, king advances
-	09A9-09AC	Dirk escapes left
+	0996-09A8	Pot steals sword, king advances (UL, DR dies) (49)
+	09A9-09AC	Dirk escapes left (1939)
 	09AD-09BF	Dirk chases pot, King chases Dirk
-	09C0-09CC	Junction, pot races by (one frame!)
-	09CD-09D2	Dirk escapes right
+	09C0-09CC	Junction, pot races by (one frame!) (R, DL dies)
+	09CD-09D2	Dirk escapes right (1326)
 	09D3-09E2	Another chase
-	09E3-09EB	Dirk waits while pot flies by
-	09EC-09F1	Dirk escapes right
+	09E3-09EB	Dirk waits while pot flies by (R, DL dies)
+	09EC-09F1	Dirk escapes right (1326)
 	09F2-09FB	Another chase
-	09FC-09FE	Pot flies by
-	09FF-0A03	Dirk escapes right
+	09FC-09FE	Pot flies by (R, DL dies)
+	09FF-0A03	Dirk escapes right (1326)
 	0A04-0A0D	shot of pot flying
 	0A0E-0A1F	Another chase
-	0A20-0A27	Dirk waits while pot flies by
-	0A28-0A2D	Dirk escapes right
+	0A20-0A27	Dirk waits while pot flies by (R, DL dies)
+	0A28-0A2D	Dirk escapes right (1326)
 	0A2E-0A36	Another chase
-	0A37-0A39	Dirk waits while pot flies by (barely visible)
-	0A3A-0A40	Dirk escapes right
-	0A41-0A4F 	Dirk watches trapped pot ahead
-	0A50-0A58	Dirk retrieves sword
-	0A59-0A65	First strike, pot has sword back
-	0A66-0A6A	Dirk darts across and gets sword
-	0A6B-0A6E	Dirk prepares sword
-	0A6F-0A73	Dirk attacks and misses, sword stuck
+	0A37-0A39	Dirk waits while pot flies by (barely visible) (R, DL dies)
+	0A3A-0A40	Dirk escapes right (2191)
+	0A41-0A4F 	Dirk watches trapped pot ahead (US, timeout dies)
+	0A50-0A58	Dirk retrieves sword (S, D dies) (3255)
+	0A59-0A65	First strike, pot has sword back (DSN)
+	0A66-0A6A	Dirk darts across and gets sword 
+	0A6B-0A6E	Dirk prepares sword (SN)
+	0A6F-0A73	Dirk attacks and misses, sword stuck (DSN, LR dies)
 	0A74-0A77	King attacks
 	0A78-0A7D	Dirk ducks and regains sword
-	0A7E-0A7F	Dirk prepares sword
+	0A7E-0A7F	Dirk prepares sword (SN)
 	0A80-0A87	Dirk attacks and defeats Lizard King
 	0A88-0AA0	Dirk collects some gold
 	0AA1-0AAC	Dirk exits the stage
@@ -254,18 +259,18 @@ output.bin -> output_Cart8.bin
 
 0b44	c5pit.bin
 	0AF3-0B07	Ressurection
-	0B08-0B13	Entrance
+	0B08-0B13	Entrance (49)
 	0B14-0B20	"hmm"
 	0B21-0B24	Stepping down
-	0B25-0B29	Slipping on wet stones
-	0B2A-0B38	Walking down stairs
-	0B39-0B3E	Monster threatens
-	0B3F-0B46	Dirk swords, monster evades
-	0B47-0B4C	Monster re-threatens
-	0B4D-0B58	Dirk walks away, like a BOSS
+	0B25-0B29	Slipping on wet stones (L)
+	0B2A-0B38	Walking down stairs (495)
+	0B39-0B3E	Monster threatens (S)
+	0B3F-0B46	Dirk swords, monster evades (1939)
+	0B47-0B4C	Monster re-threatens (LN, DR dies)
+	0B4D-0B58	Dirk walks away, like a BOSS (915)
 	0B59-0B5E	Top of stairs
-	0B5F-0B64	Portal opens, stairs flatten, chain flashes (evil)
-	0B65-0B76	Dirk climbs out
+	0B5F-0B64	Portal opens, stairs flatten, chain flashes (evil) (L, UR dies)
+	0B65-0B76	Dirk climbs out (1326)
 
 	0B77-0B95	Game over
 
@@ -277,37 +282,41 @@ output.bin -> output_Cart8.bin
 
 0c2f	c5ropes1.bin
 	0BD9-0BED	Ressurection
-	0BEE-0C01	Intro (with fanfare)
+	0BEE-0BFA	Intro (with fanfare) (49)
+	0BFB-0C00   Safe to jump right (R, UD dies) (skip to 0C1D)
 	0C02-0C05	Platform starts to move
 	0C06-0C11	"uh oh"
-	0C12-0C1C	Balancing act as platform vanishes
-	0C1D-0C26	First swing
-	0C27-0C2C	Ready to hand off
-	0C2D-0C37	Second swing
-	0C38-0C3D	Ready to hand off
-	0C3E-0C46	Third swing
-	0C47-0C49	Ready to jump
-	0C4A-0C5A	Jump to platform and run off
+	0C12-0C16	Balancing act as platform vanishes (RUD dies)
+	0C17-0C1C	Safe to jump right (R, UD dies)
+	0C1D-0C26	First swing (RUDL dies) (251)
+	0C27-0C2C	Ready to hand off (R, UDL dies)
+	0C2D-0C37	Second swing (RUDL dies) (379)
+	0C38-0C3D	Ready to hand off (R, UDL dies)
+	0C3E-0C46	Third swing (RUDL dies) (495)
+	0C47-0C49	Ready to jump (R, UDL dies)
+	0C4A-0C5A	Jump to platform and run off (915)
 
 	0C5B-0C79	Game over
 
-	0C7A-0C90	Didn't stick the platform landing (didn't move or too early?)
+	0C7A-0C90	Didn't stick the platform landing (too early?)
 
 	0C91-0CAB	Didn't let go of rope
 
 0d08	c5ropes2.bin
 	0CAC-0CBF	Ressurection
-	0CC0-0CD3	Intro (with fanfare)
+	0CC0-0CCE	Intro (with fanfare) (49)
+	0CCF-0CD3   Safe to jump Left (L, UD dies) (skip to 0CF0)
 	0CD4-0CD8	Platform starts to move
 	0CD9-0CE3	"uh oh"
-	0CE4-0CEF	Balancing act as platform vanishes
-	0CF0-0CF9	First swing
-	0CFA-0CFF	Ready to hand off
-	0D00-0D0A	Second swing
-	0D0B-0D10	Ready to hand off
-	0D11-0D19	Third swing
-	0D1A-0D1C	Ready to jump
-	0D1D-0D2D	Jump to platform and run off
+	0CE4-0CE8	Balancing act as platform vanishes (LUD dies)
+	0CE9-0CEF	Safe to jump left (L, UD dies)
+	0CF0-0CF9	First swing (RUDL dies) (379)
+	0CFA-0CFF	Ready to hand off (L, RUD dies)
+	0D00-0D0A	Second swing (RUDL dies) (495)
+	0D0B-0D10	Ready to hand off (L, RUD dies)
+	0D11-0D19	Third swing (RUDL dies) (0)
+	0D1A-0D1C	Ready to jump (L, RUD dies)
+	0D1D-0D2D	Jump to platform and run off (0)
 
 	0D2E-0D4C	Game over
 
@@ -317,24 +326,24 @@ output.bin -> output_Cart8.bin
 
 0de1	c6horse1.bin
 	0D7E-0D91	Ressurection
-	0D92-0DAF	Intro
+	0D92-0DAF	Intro (49)
 	0DB0-0DB2	Riding
-	0DB3-0DB7	Flames on left
-	0DB8-0DBC	steering clear
+	0DB3-0DB7	Flames on left (U, UL dies)
+	0DB8-0DBC	steering clear (495)
 	0DBD-0DBF	Riding
-	0DC0-0DC4	Flames on right
-	0DC5-0DCC	Steering clear
+	0DC0-0DC4	Flames on right (L, UR dies)
+	0DC5-0DCC	Steering clear (495)
 	0DCD-0DCF	Riding towards pillar
-	0DD0-0DD5	Flames on left
-	0DD6-0DDE	Steering clear
+	0DD0-0DD5	Flames on left (R, UL dies)
+	0DD6-0DDE	Steering clear (495)
 	0DDF-0DE0	Riding towards pillar
-	0DE1-0DE6	Flames on right
-	0DE7-0DEF	Steering clear
-	0DF0-0DF7	Riding towards wall
-	0DF8-0DFA	Steering clear
+	0DE1-0DE6	Flames on right (L, UR dies)
+	0DE7-0DEF	Steering clear (495)
+	0DF0-0DF7	Riding towards wall (L, UR dies)
+	0DF8-0DFA	Steering clear (1326)
 	0DFB-0DFD	Riding towards pillar
-	0DFE-0E03	Flames on right
-	0E04-0E09	Steering clear
+	0DFE-0E03	Flames on right (L, UR dies)
+	0E04-0E09	Steering clear (495)
 	0E0A-0E17	Crash landing
 	0E18-0E2D	Moving on
 
@@ -348,24 +357,24 @@ output.bin -> output_Cart8.bin
 
 0eef	c6horse2.bin
 	0E85-0E98	Ressurection
-	0E99-0EB7	Intro
+	0E99-0EB7	Intro (49)
 	0EB8-0EB9	Riding
-	0EBA-0EBF	Flames on right
-	0EC0-0EC3	steering clear
+	0EBA-0EBF	Flames on right (L, UR dies)
+	0EC0-0EC3	steering clear (915)
 	0EC4-0EC7	Riding
-	0EC8-0ECB	Flames on left
-	0ECC-0ED3	Steering clear
+	0EC8-0ECB	Flames on left (R, UL dies)
+	0ECC-0ED3	Steering clear (915)
 	0ED4-0ED6	Riding towards pillar
-	0ED7-0EDC	Flames on right
-	0EDD-0EE5	Steering clear
+	0ED7-0EDC	Flames on right (L, UR dies)
+	0EDD-0EE5	Steering clear (495)
 	0EE6-0EE7	Riding towards pillar
-	0EE8-0EED	Flames on left
-	0EEE-0EF6	Steering clear
-	0EF7-0EFE	Riding towards wall
-	0EFF-0F01	Steering clear
+	0EE8-0EED	Flames on left (R, UL dies)
+	0EEE-0EF6	Steering clear (495)
+	0EF7-0EFE	Riding towards wall (R, UL dies)
+	0EFF-0F01	Steering clear (1939)
 	0F02-0F05	Riding towards pillar
-	0F06-0F0A	Flames on left
-	0F0B-0F10	Steering clear
+	0F06-0F0A	Flames on left (R, UL dies)
+	0F0B-0F10	Steering clear (495)
 	0F11-0F1F	Crash landing
 	0F20-0F34	Moving on
 
@@ -381,21 +390,21 @@ output.bin -> output_Cart8.bin
 
 100b	c6smithy1.bin
 	0F98-0FAB	Ressurection
-	0FAC-0FCA	Sword threatens
-	0FCB-0FD1	Sword attacks
-	0FD2-0FD6	Dirk defends
+	0FAC-0FCA	Sword threatens (49)
+	0FCB-0FD1	Sword attacks (S, UDLR dies)
+	0FD2-0FD6	Dirk defends (915)
 	0FD7-0FE3	Mace threatens
-	0FE4-0FE6	Mace attacks
-	0FE7-0FEF	Dirk defends, anvil warns
-	0FF0-0FFB	Anvil threatens
-	0FFC-1000	Dirk dodges left
-	1001-100f	Spear threatens
-	1010-101C	Dirk defends
+	0FE4-0FE6	Mace attacks (S, ULR dies)
+	0FE7-0FEF	Dirk defends, anvil warns (1939)
+	0FF0-0FFB	Anvil threatens (L, DR dies)
+	0FFC-1000	Dirk dodges left (1326)
+	1001-100f	Spear threatens (S, UDLR dies)
+	1010-101C	Dirk defends (1326)
 	101D-1022	Spear ends in wall
 	1023-102E	Dirk climbs up
 	102F-103A	Dirk hardens sword
-	103B-104D	Smithy threatens
-	104E-1058	Dirk defends
+	103B-104D	Smithy threatens (S, UDL dies)
+	104E-1058	Dirk defends (915)
 	1059-1068	Dirk moves on
 
 	1069-1087	Game Over
@@ -414,21 +423,21 @@ output.bin -> output_Cart8.bin
 
 1166	c6smithy2.bin
 	10E7-10FA	Ressurection
-	10FB-1118	Sword threatens
-	1119-111F	Sword attacks
-	1120-1126	Dirk defends
+	10FB-1118	Sword threatens (49)
+	1119-111F	Sword attacks (S, UDLR dies)
+	1120-1126	Dirk defends (1326)
 	1127-1131	Mace threatens
-	1132-1135	Mace attacks
-	1136-113E	Dirk defends, anvil warns
-	113F-114A	Anvil threatens
-	114B-114F	Dirk dodges right
-	1150-115E	Spear threatens
-	115F-116B	Dirk defends
+	1132-1135	Mace attacks (S, ULR dies)
+	1136-113E	Dirk defends, anvil warns (2191)
+	113F-114A	Anvil threatens (R, DL dies)
+	114B-114F	Dirk dodges right (1326)
+	1150-115E	Spear threatens (S, UDLR dies)
+	115F-116B	Dirk defends (1326)
 	116C-1170	Spear ends in wall
 	1171-117D	Dirk climbs up
 	117E-118A	Dirk hardens sword
-	118B-119C	Smithy threatens
-	119D-11A7	Dirk defends
+	118B-119C	Smithy threatens (S, LR dies)
+	119D-11A7	Dirk defends (915)
 	11A8-11B7	Dirk moves on
 
 	11B8-11D6	Game Over
@@ -445,20 +454,20 @@ output.bin -> output_Cart8.bin
 
 	121C-1236	Dirk gets Smithed
 
-		(If you don't run, does it loop?)
+		(If you don't run, just fling Dirk across the room, mistimed UP dies)
 12c0	c6wizard1.bin (Dirk approaches early and bounces for a while)
 	1237-124A	Ressurection
-	124C-127C	Approaching
-	127D-12AA	Spinning (run at 1287,1290,129D,12A1,12AA) (2 frames each, EXCEPT 12AA)
-	12AB-12B6	Run past boppers
+	124C-127C	Approaching (49)
+	127D-12AA	Spinning (run at 1287,1290,129D,12A1,12AA) (2 frames each, EXCEPT 12AA) (U, LR dies)
+	12AB-12B6	Run past boppers (4026)
 	12B7-12C4	Wizard threatens as Dirk jumps in
-	12C5-12C8	Vines appear as wizard flashes
-	12C9-12DC	Dirk swords him
-	12DD-12E4	Vines threaten
-	12E5-12E8	Dirk runs
+	12C5-12C8	Vines appear as wizard flashes (S, DLR dies)
+	12C9-12DC	Dirk swords him (2191)
+	12DD-12E4	Vines threaten (D, ULR dies)
+	12E5-12E8	Dirk runs (1326)
 	12E9-12F1	Retreating...
-	12F2-12FC	Door opens, vines threaten
-	12FD-1303	Dirk runs for it
+	12F2-12FC	Door opens, vines threaten (U, DLR dies)
+	12FD-1303	Dirk runs for it (915)
 
 	1304-1322	Game over
 
@@ -468,20 +477,20 @@ output.bin -> output_Cart8.bin
 
 	1356-1363	Caught by vines
 
-		(If you don't run, does it loop?)
+		(If you don't run, just fling Dirk across the room, mistimed UP dies)
 13f4	c6wizard2.bin (Dirk hesitates on approach and has only one bounce)
 	1364-1377	Ressurection
-	1378-13C5	Approaching
-	13C6-13D7	Spinning (run at 13C7,13D0) (2 frames each)
-	13D8-13E2	Run past boppers
+	1378-13C5	Approaching (49)
+	13C6-13D7	Spinning (run at 13C7,13D0) (2 frames each) (U, LR dies)
+	13D8-13E2	Run past boppers (4750)
 	13E3-13F1	Wizard threatens as Dirk jumps in
-	13F2-13F5	Vines appear as wizard flashes
-	13F6-1409	Dirk swords him
-	140A-1411	Vines threaten
-	1412-1415	Dirk runs
+	13F2-13F5	Vines appear as wizard flashes (S, UD dies)
+	13F6-1409	Dirk swords him (2191)
+	140A-1411	Vines threaten (D, ULR dies)
+	1412-1415	Dirk runs (1326)
 	1416-141E	Retreating...
-	141F-142A	Door opens, vines threaten
-	142B-1430	Dirk runs for it
+	141F-142A	Door opens, vines threaten (U, DLR dies)
+	142B-1430	Dirk runs for it (915)
 
 	1431-144F	Game over
 
@@ -493,21 +502,21 @@ output.bin -> output_Cart8.bin
 
 1529	c7crypt1.bin
 	1491-14A4	Ressurection
-	14A5-14AE	"Save me!"
+	14A5-14AE	"Save me!" (49)
 	14AF-14B7	Advancing
-	14B8-14C2	Skulls attack
-	14C3-14C7	Dirk jumps back
-	14C8-14CB	Hand threatens
-	14CC-14D6	Dirk swords it
-	14D7-14DC	Slime threatens
-	14DD-14E5	Dirk jumps back
-	14E6-14E9	Hand threatens
-	14EA-14F5	Dirk swords it
-	14F6-14FB	Slime threatens
-	14FC-14FF	Dirk runs left
-	1500-1504	Ghosts threaten
-	1505-150A	Ghosts attack
-	150B-1520	Dirk swords them
+	14B8-14C2	Skulls attack (U, DLRS dies)
+	14C3-14C7	Dirk jumps back (495)
+	14C8-14CB	Hand threatens (S, UDL dies)
+	14CC-14D6	Dirk swords it (915)
+	14D7-14DC	Slime threatens (U, DLR dies)
+	14DD-14E5	Dirk jumps back (495)
+	14E6-14E9	Hand threatens (S, UDR dies)
+	14EA-14F5	Dirk swords it (915)
+	14F6-14FB	Slime threatens (L, DR dies)
+	14FC-14FF	Dirk runs left (495)
+	1500-1504	Ghosts threaten 
+	1505-150A	Ghosts attack (S, UDLR dies)
+	150B-1520	Dirk swords them (495)
 	1521-1532	Dirk exits stage
 
 	1533-1551	Game over
@@ -522,21 +531,21 @@ output.bin -> output_Cart8.bin
 
 1631	c7crypt2.bin
 	1591-15A5	Ressurection
-	15A6-15B0	"Save me!"
+	15A6-15B0	"Save me!" (49)
 	15B1-15B7	Advancing
-	15B8-15C2	Skulls attack
-	15C3-15C7	Dirk jumps back
-	15C8-15CB	Hand threatens
-	15CC-15D5	Dirk swords it
-	15D6-15DF	Slime threatens
-	15E0-15E5	Dirk jumps back
-	15E6-15EA	Hand threatens
-	15EB-15F4	Dirk swords it
-	15F5-15FB	Slime threatens
-	15FC-15FF	Dirk runs right
+	15B8-15C2	Skulls attack (U, DLRS dies)
+	15C3-15C7	Dirk jumps back (495)
+	15C8-15CB	Hand threatens (S, UDR dies)
+	15CC-15D5	Dirk swords it (2191)
+	15D6-15DF	Slime threatens (U, DLR dies)
+	15E0-15E5	Dirk jumps back (495)
+	15E6-15EA	Hand threatens (S, UDL dies)
+	15EB-15F4	Dirk swords it (2191)
+	15F5-15FB	Slime threatens (R, DL dies)
+	15FC-15FF	Dirk runs right (495)
 	1600-1605	Ghosts threaten
-	1606-160A	Ghosts attack
-	160B-1620	Dirk swords them
+	1606-160A	Ghosts attack (S, DLR dies)
+	160B-1620	Dirk swords them (495)
 	1621-1632	Dirk exits stage
 
 	1633-1651	Game over
@@ -549,28 +558,28 @@ output.bin -> output_Cart8.bin
 
 	1676-1690	Ghosts get Dirk
 
-1739	c7knight1.bin
+1739	c7knight1.bin (only the last move has a death pose!!)
 	1691-16A4	Ressurection
-	16A5-16AE	"Save me!"
+	16A5-16AE	"Save me!" (49)
 	16AF-16BA	Knight appears
 	16BB-16C4	Attack starts
-	16C5-16CB	threaten
-	16CC-16D0	Dirk jumps right
-	16D1-16D8	threaten
-	16D9-16E0	Dirk jumps left
-	16E1-16E4	threaten
-	16E5-16EF	Dirk jumps up
-	16F0-16F8	threaten
-	16F9-1701	Dirk jumps left
-	1702-1708	threaten
-	1709-170C	Dirk jumps right
-	170D-1712	threaten
-	1713-1715	Dirk jumps left
-	1716-1719	threaten
-	171A-1720	Dirk jumps right
+	16C5-16CB	threaten (R)
+	16CC-16D0	Dirk jumps right (1939)
+	16D1-16D8	threaten (L)
+	16D9-16E0	Dirk jumps left (1939)
+	16E1-16E4	threaten (U)
+	16E5-16EF	Dirk jumps up (2191)
+	16F0-16F8	threaten (L)
+	16F9-1701	Dirk jumps left (1939)
+	1702-1708	threaten (R)
+	1709-170C	Dirk jumps right (1939)
+	170D-1712	threaten (L)
+	1713-1715	Dirk jumps left (1939)
+	1716-1719	threaten (R)
+	171A-1720	Dirk jumps right (4026)
 	1721-1728	Dirk confronts knight
-	1729-1733	Knight threatens
-	1734-1746	Dirk swords him
+	1729-1733	Knight threatens (S, U dies)
+	1734-1746	Dirk swords him (2191)
 	1747-1752	Dirk exits
 	1753-175A	Dirk prepares to jump gap left
 	175B-1763	Dirk makes the jump
@@ -581,28 +590,28 @@ output.bin -> output_Cart8.bin
 
 	1795-17A1	Knight swords Dirk
 
-1851	c7knight2.bin
+1851	c7knight2.bin (this one /does/ have death moves!!)
 	17A2-17B5	Ressurection
-	17B6-17BF	"Save me!"
+	17B6-17BF	"Save me!" (49)
 	17C0-17CB	Knight appears
 	17CC-17D5	Attack starts
-	17D6-17DC	threaten
-	17DD-17E1	Dirk jumps left
-	17E2-17E9	threaten
-	17EA-17F1	Dirk jumps right
-	17F2-17F5	threaten
-	17F6-1800	Dirk jumps up
-	1801-180A	threaten
-	180B-1812	Dirk jumps right
-	1813-181A	threaten
-	181B-181E	Dirk jumps left
-	181F-1824	threaten
-	1825-1826	Dirk jumps right
-	1827-182A	threaten
-	182B-1831	Dirk jumps left
+	17D6-17DC	threaten (L, UDR dies)
+	17DD-17E1	Dirk jumps left (2191)
+	17E2-17E9	threaten (R, UDL dies)
+	17EA-17F1	Dirk jumps right (2191)
+	17F2-17F5	threaten (U, DLR dies)
+	17F6-1800	Dirk jumps up (2675)
+	1801-180A	threaten (R, UDL dies)
+	180B-1812	Dirk jumps right (2191)
+	1813-181A	threaten (L, UDR dies)
+	181B-181E	Dirk jumps left (2191)
+	181F-1824	threaten (R, UDL dies)
+	1825-1826	Dirk jumps right (2191)
+	1827-182A	threaten (L, UDR dies)
+	182B-1831	Dirk jumps left (4750)
 	1832-183A	Dirk confronts knight
-	183B-1844	Knight threatens
-	1845-1857	Dirk swords him
+	183B-1844	Knight threatens (S, U dies)
+	1845-1857	Dirk swords him (2675)
 	1858-1863	Dirk exits
 	1864-186B	Dirk prepares to jump gap right
 	186C-1874	Dirk makes the jump
@@ -615,25 +624,25 @@ output.bin -> output_Cart8.bin
 
 1969	c7pond1.bin
 	18B2-18C5	Ressurection
-	18C6-18D2	Approach
-	18D3-18D9	Threaten pit and ceiling
-	18DA-18E3	Run left
-	18E4-18E8	Threaten pit and knives
-	18E9-18F1	Roll up
-	18F2-18FD	Threaten pit
-	18FE-1906	Jump to right
-	1907-190D	Threaten pit
-	190E-1918	Jump up into pond
-	1919-1920	Threaten snakes
-	1921-192D	Step out onto switch left
-	192E-1931	Threaten ceiling
-	1932-1948	Roll free up
-	1949-194B	Threaten spider
-	194C-1955	Sword spider
-	1956-1958	Threaten pit
-	1959-196C	jump right
-	196D-1974	threaten squash
-	1975-197A	Escape right
+	18C6-18D2	Approach (49)
+	18D3-18D9	Threaten pit and ceiling (L, UDR dies)
+	18DA-18E3	Run left (1326)
+	18E4-18E8	Threaten pit and knives (U, LR dies)
+	18E9-18F1	Roll up (1939)
+	18F2-18FD	Threaten pit (R, UDL dies)
+	18FE-1906	Jump to right (2191)
+	1907-190D	Threaten pit (U, DLR dies)
+	190E-1918	Jump up into pond (2675)
+	1919-1920	Threaten snakes (L, UDRS dies)
+	1921-192D	Step out onto switch left (3255)
+	192E-1931	Threaten ceiling (U, DLR dies)
+	1932-1948	Roll free up (3551)
+	1949-194B	Threaten spider (S, DL dies)
+	194C-1955	Sword spider (4026)
+	1956-1958	Threaten pit (R, DL dies)
+	1959-195C	jump right (5000)
+	195D-196C	threaten squash (U, DLR dies)
+	196D-197A	Escape right (4750)
 
 	197B-1999	Game Over
 
@@ -653,25 +662,25 @@ output.bin -> output_Cart8.bin
 
 1adc	c7pond2.bin
 	1A1B-1A2E	Ressurection
-	1A2F-1A3C	Approach
-	1A3D-1A42	Threaten pit and ceiling
-	1A43-1A4D	Run right
-	1A4E-1A51	Threaten pit and knives
-	1A52-1A5A	Roll up
-	1A5B-1A67	Threaten pit
-	1A68-1A6F	Jump to left
-	1A70-1A76	Threaten pit
-	1A77-1A81	Jump up into pond
-	1A82-1A89	Threaten snakes
-	1A8A-1A96	Step out onto switch right
-	1A97-1A9B	Threaten ceiling
-	1A9C-1AB1	Roll free up
-	1AB2-1AB5	Threaten spider
-	1AB6-1ABE	Sword spider
-	1ABF-1AC1	Threaten pit
-	1AC2-1AD5	jump left
-	1AD6-1ADC	threaten squash
-	1ADD-1AE3	Escape left
+	1A2F-1A3C	Approach (49)
+	1A3D-1A42	Threaten pit and ceiling (R, UL dies)
+	1A43-1A4D	Run right (1939)
+	1A4E-1A51	Threaten pit and knives (U, L dies)
+	1A52-1A5A	Roll up (2191)
+	1A5B-1A67	Threaten pit (L, UDR dies)
+	1A68-1A6F	Jump to left (2675)
+	1A70-1A76	Threaten pit (U, DLR dies)
+	1A77-1A81	Jump up into pond (3255)
+	1A82-1A89	Threaten snakes (R, UDLS dies)
+	1A8A-1A96	Step out onto switch right (3551)
+	1A97-1A9B	Threaten ceiling (U, DLR dies)
+	1A9C-1AB1	Roll free up (4026)
+	1AB2-1AB5	Threaten spider (S, DR dies)
+	1AB6-1ABE	Sword spider (4026)
+	1ABF-1AC1	Threaten pit (L, DR dies)
+	1AC2-1AC6	jump left (5000)
+	1AC7-1AD5	threaten squash (U, DLR dies)
+	1AD6-1AE3	Escape left (4750)
 
 	1AE4-1B02	Game Over
 
@@ -689,35 +698,63 @@ output.bin -> output_Cart8.bin
 
 	1B6D-1B82	squished by bricks
 
-1c4e	dplatform.bin
+1c4e	dplatform.bin (die when not jumping at correct frame)
 	1B83-1B97	Ressurection
-	1B98-1BBF	Intro
-	1BC0-1BD5	falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left
-	1BD6-1BE4	In-between
-	1BE5-1BFA	falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right
-	1FBB-1C09	In-between
-	1C0B-1C1F	falling (jump at 1C0D-1C0F, 1C13-1C15, 1C19-1C1B) left
+	1B98-1BBF	Intro (49)
+	1BC0-1BD5	falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
+	1BD6-1BE4	In-between (49)
+	1BE5-1BFA	falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+	1FBB-1C09	In-between (1939)
+	1C0B-1C1F	falling (jump at 1C0D-1C0F, 1C13-1C15, 1C19-1C1B) left (L, UD dies)
 	1C20-1C3D	platform lands on ground (death)
 	
 	1C3E-1C5C	Game over
 
 	1C5D-1C72	mistimed jump
 
-	1C73-1C9E	Successful jump
+	1C73-1C9E	Successful jump (3255)
+	
+1c4e	dplatform2 (I have to fake this one with the scenes from above, didn't have a reversed!)
+	1B83-1B97	Ressurection
+	1B98-1BBF	Intro (49) (note frame order is shuffled!)
+	1BE5-1BFA	falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+	1BD6-1BE4	In-between (124)
+	1BC0-1BD5	falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
+	1FBB-1C09	In-between (2191)
+	1BE5-1BFA	falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+	1C20-1C3D	platform lands on ground (death)
+	
+	1C3E-1C5C	Game over
+
+	1C5D-1C72	mistimed jump
+
+	1C73-1C9E	Successful jump (3255)
+	
+1c4e	dplatform short (I have to fake this one with the scenes from above)
+	1B83-1B97	Ressurection
+	1B98-1BBF	Intro (49)
+	1BC0-1BD5	falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UDR dies)
+	1C20-1C3D	platform lands on ground (death)
+	
+	1C3E-1C5C	Game over
+
+	1C5D-1C72	mistimed jump
+
+	1C73-1C9E	Successful jump (3255)
 
 1d72	ebats.bin
 	1C9F-1CB2	Ressurection
-	1CB3-1CC9	Bats fly over, floor crumbles
-	1CCA-1CD2	Dirk swords them
-	1CD3-1CD6	Floor threatens, bats approach
-	1CD7-1CDB	Dirk runs left
+	1CB3-1CC9	Bats fly over, floor crumbles (S, R dies) (49)
+	1CCA-1CD2	Dirk swords them (1326)
+	1CD3-1CD6	Floor threatens, bats approach (L, R dies)
+	1CD7-1CDB	Dirk runs left (2191)
 	1CDC-1CE5	Dirk descends
-	1CE6-1CEB	Stairs collapse, bats are chasing
-	1CEC-1CFB	Dirk jumps and runs on
-	1CFC-1D00	Giant bat threatens
-	1D01-1D09	Dirk swords it
-	1D0A-1D0D	Floor threatens
-	1D0E-1D1B	Dirk runs left
+	1CE6-1CEB	Stairs collapse, bats are chasing (UL, DR dies)
+	1CEC-1CFB	Dirk jumps and runs on (1326)
+	1CFC-1D00	Giant bat threatens (S, L dies)
+	1D01-1D09	Dirk swords it (3551)
+	1D0A-1D0D	Floor threatens (L, R dies)
+	1D0E-1D1B	Dirk runs left (49)
 
 	1D1B-1D3A	Game over
 
@@ -729,16 +766,16 @@ output.bin -> output_Cart8.bin
 
 1e43	eblacknight.bin
 	1D6D-1D80	Ressurection
-	1D81-1D98	Intro
-	1D99-1DA0	Threaten
-	1DA1-1DA7	Dodge left
+	1D81-1D98	Intro (UR) (49)
+	1D99-1DA0	Threaten (L, UR dies) (379)
+	1DA1-1DA7	Dodge left (1939)
 	1DA8-1DBA	Interval
-	1DBB-1DC3	Threaten
-	1DC4-1DCB	Dodge left
-	1DCC-1DD3	odd panic shot (I've always thought was a glitch)
+	1DBB-1DC3	Threaten (L, UR dies)
+	1DC4-1DCB	Dodge left (1939)
+	1DCC-1DD3	odd panic shot (I've always thought was a glitch, skip this)
 	1DD4-1DD8	running back
-	1DD9-1DDF	threaten
-	1DE0-1DE3	Dodge right and roll to cave
+	1DD9-1DDF	threaten (R, UDL dies)
+	1DE0-1DE3	Dodge right and roll to cave (2675)
 	1DE4-1DE9	knight throws sword
 	1DEA-1DEB	Dirk waits for move
 	1DEC-1DF2	JUmp into cave and safe
@@ -751,18 +788,18 @@ output.bin -> output_Cart8.bin
 
 1f15	ecatwalk.bin
 	1E3B-1E4E	Ressurection
-	1E4F-1E61	Intro
-	1E62-1E67	Platform Threatens
-	1E68-1E6C	Jump forward
-	1E6D-1E71	Platform Threatens
-	1E72-1E74	Run clear
+	1E4F-1E61	Intro (49)
+	1E62-1E67	Platform Threatens (U, DR dies)
+	1E68-1E6C	Jump forward (915)
+	1E6D-1E71	Platform Threatens (UL, DR dies)
+	1E72-1E74	Run clear (915)
 	1E75-1E82	Run forward
-	1E83-1E86	Bats threaten
-	1E87-1E8B	Sword at bats
-	1E8C-1E94	Platform threatens, flashes
-	1E95-1E9C	Dirk jumps right
-	1E9D-1EA2	Platform crumbles
-	1EA3-1EAE	Dirk jumps for rope
+	1E83-1E86	Bats threaten (S, ULR dies)
+	1E87-1E8B	Sword at bats (2675)
+	1E8C-1E94	Platform threatens, flashes (R, UDL dies)
+	1E95-1E9C	Dirk jumps right (915)
+	1E9D-1EA2	Platform crumbles (R, UDL dies)
+	1EA3-1EAE	Dirk jumps for rope (3551)
 	1EAF-1EB7	Dirk climbs up and out
 
 	1EB8-1ED6	Game over
@@ -773,19 +810,25 @@ output.bin -> output_Cart8.bin
 
 1fdf	eelectriccage.bin
 	1EFF-1F12	Ressurection
-	1F12-1F25	Intro
-	1F26-1F2C	Threaten
-	1F2D-1F38	Jump forward, door closing
-	1F39-1F3A	Threaten, door opening
-	1F3B-1F3C	Door closed
-	1F3D-1F46	Jumping through and running on
+	1F12-1F25	Intro (49)
+	1F26-1F2C	Threaten (U, DLR dies)
+	1F2D-1F33	Jump forward, door closing (915)
+	1F34-1F36	Door open (U, DLR dies)
+	1F37-1F38	Door closed (UDLR dies)
+	1F39-1F3B	Threaten, door opening (U, DLR dies)
+	1F3C-1F3D	Door closed (UDLR dies)
+	1F3E-1F3F	Last chance to jump (U, DLR dies) (jump to 1F40)
+	1F3D-1F3F	Jumping through
+	1F40-1F46	Landing and running on (1326)
 	1F47-1F52	Electricity threatens at bridge
 	1F53-1F5F	Dirk approaches bridge, geyser fires and fades
-	1F60-1F62	Safe to run
-	1F63-1F66	Geyser fires again as Dirk steps up
-	1F67-1F6A	Safe to run
-	1F6B-1F6C	Geyser fires again as Electricity threatens (006f-00 may be in error)
-	1F6D-1F75	Dirk runs across to the right to safety while chased by electricity
+	1F58-1F5A	Safe to run (L, R dies)
+	1F5B-1F5F	Geyser fires (LR dies)
+	1F60-1F62	Safe to run (L, R dies)
+	1F63-1F66	Geyser fires again as Dirk steps up (LR dies)
+	1F67-1F6A	Safe to run (L, R dies)
+	1F6B-1F6C	Geyser fires again as Electricity threatens (may be error frames, skip)
+	1F6D-1F75	Dirk runs across to the right to safety while chased by electricity (2191)
 
 	1F76-1F94	Game over
 
@@ -795,26 +838,26 @@ output.bin -> output_Cart8.bin
 
 	1FB1-1FBE	Dirk runs into the geyser
 
-20a3	emudmen.bin
+20a3	emudmen.bin (I might have missed a step in this one...)
 	1FBF-1FD2	Ressurection
-	1FD3-1FF0	Intro
-	1FF1-2006	Mudmen, fire and geyser threaten
-	2007-201E	Dirk tries to sword to no avail
+	1FD3-1FF0	Intro (49)
+	1FF1-2006	Mudmen, fire and geyser threaten (S, UDLR dies)
+	2007-201E	Dirk tries to sword to no avail (1326)
 	201F-2027	Mudmen advance
-	2028-2034	Mudmen back Dirk towards the geyser
-	2035-203D	Dirk jumps the geyser up
-	203E-2045	Mudmen advance (chance to fall into non-geyser pools)
-	2046-204C	Dirk escapes up
-	204D-2053	New Mudmen threaten with flames
-	2054-205A	Dirk escapes left
-	205B-2061	Mudmen back Dirk towards geyser
-	2062-2073	Dirk jumps the geyser up
-	2074-2079	Dirk approaches a gap (river of mud)
-	207A-2085	Dirk jumps to the left
-	2086-2091	Mudmen back Dirk to a geyser again
-	2092-20B3	Dirk jumps the geyser up
-	20B4-20BA	Mudmen and fire threaten
-	20BB-20C9	Dirk escapes up
+	2028-2034	Mudmen back Dirk towards the geyser (UN, DLRS dies)
+	2035-203D	Dirk jumps the geyser up (1326)
+	203E-2045	Mudmen advance (chance to fall into non-geyser pools) (U, DLRS dies)
+	2046-204C	Dirk escapes up (2191)
+	204D-2053	New Mudmen threaten with flames (UR, DLS dies)
+	2054-205A	Dirk escapes left (2675)
+	205B-2061	Mudmen back Dirk towards geyser (U, DLRS dies)
+	2062-2073	Dirk jumps the geyser up (1326)
+	2074-2079	Dirk approaches a gap (river of mud) (U, DLR dies)
+	207A-2085	Dirk jumps to the left (1326)
+	2086-2091	Mudmen back Dirk to a geyser again (U, DLRS dies)
+	2092-20B3	Dirk jumps the geyser up (1326)
+	20B4-20BA	Mudmen and fire threaten (UR, DLS dies)
+	20BB-20C9	Dirk escapes up	(1326)
 	20CA-20D7	Fanfare and Dirk escapes
 
 	20D8-20F6	game over
@@ -833,29 +876,29 @@ output.bin -> output_Cart8.bin
 
 2256	epoolballs.bin
 	2166-217A	Ressurection
-	217B-218A	Intro
+	217B-218A	Intro (49)
 	218B-219E	Dirk watches
 	219F-21A3	8 ball approaches
-	21A4-21A7	Too early
-	21A8-21AD	8 ball threatens
-	21AE-21B5	Running down
-	21B6-21B8	Too early
-	21B9-21BF	8 ball threatens
-	21C0-21C6	Running down
-	21C7-21CA	Too early
-	21CB-21D0	8 ball threatens
-	21D1-21D8	Running down
-	21D9-21DB	Too early
-	21DC-21E1	8 ball threatens
-	21E2-21E9	Running down
-	21EA-21EC	Too early
-	21ED-21F3	8 ball threatens
-	21F4-21FA	Running down
-	21FB-21FD	too early
-	21FE-2204	8 ball threatens
-	2205-220B	Running down
-	220C-220F	Preparing to jump pit
-	2210-2227	Jump and run clear
+	21A4-21A7	Too early (DU dies)
+	21A8-21AD	8 ball threatens (D, U dies)
+	21AE-21B5	Running down (251)
+	21B6-21B8	Too early (DU dies)
+	21B9-21BF	8 ball threatens (D, U dies)
+	21C0-21C6	Running down (379)
+	21C7-21CA	Too early (DU dies)
+	21CB-21D0	8 ball threatens (D, U dies)
+	21D1-21D8	Running down (379)
+	21D9-21DB	Too early (DU dies)
+	21DC-21E1	8 ball threatens (D, U dies)
+	21E2-21E9	Running down (379)
+	21EA-21EC	Too early (DU dies)
+	21ED-21F3	8 ball threatens (D, U dies)
+	21F4-21FA	Running down (379)
+	21FB-21FD	too early (DU dies)
+	21FE-2204	8 ball threatens (D, U dies)
+	2205-220B	Running down (379)
+	220C-220F	Preparing to jump pit (U)
+	2210-2227	Jump and run clear (379)
 
 	2228-2246	Game over
 
@@ -865,36 +908,36 @@ output.bin -> output_Cart8.bin
 
 2356	eriver.bin
 	225D-2271	Ressurection
-	2272-22B8	Intro Ye Boulders
-	22B9-22C1	Boulder 1 Threatens
-	22C2-22C9	Move left
-	22CA-22D2	Boulder 2 Threatens
-	22D3-22DA	Move right
-	22DB-22E3	Bridge Threatens
-	22E4-22EC	Move left
-	22ED-22F4	Wall Threatens
-	22F5-22FD	Move right
+	2272-22B8	Intro Ye Boulders (49)
+	22B9-22C1	Boulder 1 Threatens (L, UR dies)
+	22C2-22C9	Move left (379)
+	22CA-22D2	Boulder 2 Threatens (R, UL dies)
+	22D3-22DA	Move right (379)
+	22DB-22E3	Bridge Threatens (L, UR dies)
+	22E4-22EC	Move left (379)
+	22ED-22F4	Wall Threatens (R, UL dies)
+	22F5-22FD	Move right (379)
 	22FE-2315	Intro Ye Rapids
-	2316-2322	Drifting right
-	2323-232A	Corrected
-	232B-2337	Drifting left
-	2338-2340	Corrected
-	2341-234D	drifing right
-	234E-2359	Corrected
-	235A-2365	Drifing left
-	2366-2372	Corrected
+	2316-2322	Drifting right (UR, L dies)
+	2323-232A	Corrected (495)
+	232B-2337	Drifting left (UL, R dies)
+	2338-2340	Corrected (495)
+	2341-234D	drifing right (UR, L dies)
+	234E-2359	Corrected (495)
+	235A-2365	Drifing left (UL, R dies)
+	2366-2372	Corrected (495)
 	2373-2387	Intro Ye Whirlpools
-	2388-2395	Threatens
-	2396-23A1	Escape right
-	23A2-23AD	Threatens
-	23AE-23B9	Escape left
-	23BA-23C3	Threatens
-	23C4-23CF	Escape right
-	23D0-23DB	Threatens
-	23DC-23E6	Escape left
+	2388-2395	Threatens (R, UL dies)
+	2396-23A1	Escape right (251)
+	23A2-23AD	Threatens (L, UR dies)
+	23AE-23B9	Escape left (251)
+	23BA-23C3	Threatens (R, UL dies)
+	23C4-23CF	Escape right (251)
+	23D0-23DB	Threatens (L, UR dies)
+	23DC-23E6	Escape left (251)
 	23E7-23FB	Shipwrecked!
-	23FC-2407	Flying near chain
-	2408-2413	Grab and swing
+	23FC-2407	Flying near chain (UR, DL dies)
+	2408-2413	Grab and swing (495)
 	2414-2422	Dirk exits stage
 
 	2423-2441	Game Over
@@ -915,14 +958,14 @@ output.bin -> output_Cart8.bin
 
 25bf	evanishingfloor.bin
 	24B1-24C4	Ressurection
-	24C5-24E5	Intro
-	24E6-24EB	Fire and floor threatens
-	24EC-24EF	Dirk jumps back
-	24F0-24F3	Fire and floor threatens
-	24F4-24F7	Dirk jumps... right? Up?
+	24C5-24E5	Intro (49)
+	24E6-24EB	Fire and floor threatens (D, LR dies)
+	24EC-24EF	Dirk jumps back (1939)
+	24F0-24F3	Fire and floor threatens (U, DL dies)
+	24F4-24F7	Dirk jumps... right? Up? (2675)
 	24F8-24FC	Confusing posturing with floor (jump up)
-	24FD-2503	Doors open as floor vanishes
-	2504-250C	Dirk chooses LEFT door and exits
+	24FD-2503	Doors open as floor vanishes (L, UDR dies)
+	2504-250C	Dirk chooses LEFT door and exits (1939)
 
 	250D-252B	Game over
 
@@ -934,55 +977,55 @@ output.bin -> output_Cart8.bin
 	
 2676	fdragonslair.bin
 	2564-2577	Ressurection
-	2578-259D	Intro
-	259E-25A2	Treasure threatens
-	25A3-25AB	Dirk rebalances to left
+	2578-259D	Intro (49)
+	259E-25A2	Treasure threatens (L)
+	25A3-25AB	Dirk rebalances to left (1326)
 	25AC-25B1	Pan to Singe
 	25B2-25C4	Singe sleeps
 	25C5-25DD	Daphne wakes
 	25DE-25F3	Dirk jumps down
-	25F4-2605	Singe wakes and breathes fire
-	2606-2613	Dirk takes cover to left
+	25F4-2605	Singe wakes and breathes fire (L, URS dies)
+	2606-2613	Dirk takes cover to left (1939)
 	2614-262A	Singe looks around
 	262B-263F	Singe pretends to sleep
 	2640-2649	Dirk waits
-	264A-264D	Treasure threatens
-	264E-265E	Dirk catches to left
+	264A-264D	Treasure threatens (L)
+	264E-265E	Dirk catches to left (1326)
 	265F-2681	Dirk jumps to Daphne. "Save me!"
 	2682-26DA	Daphne explains how to defeat Singe
 	26DB-26E8	Shot of the magic sword
 	26E9-26F8	Singe incoming
 	26F9-2708	Singe searching with claws
 	2709-270F	Dirk ducking
-	2710-2714	Singe threatens with claws
-	2715-271C	Dirk escapes left
+	2710-2714	Singe threatens with claws (DL, S dies)
+	2715-271C	Dirk escapes left (1326)
 	271D-2728	Daphne reacts. What a bimbo.
-	2729-2733	The chase is on!
-	2734-273F	Singe flames at Dirk
+	2729-2733	The chase is on! (U)
+	2734-273F	Singe flames at Dirk (2191)
 	2740-274D	To the pillar!
-	274E-2752	Singe threatens with tail
-	2753-2769	Dirk ducks and runs
+	274E-2752	Singe threatens with tail (DL, URS dies)
+	2753-2769	Dirk ducks and runs (1939)
 	276A-2774	Daphne again
-	2775-277E	Dirk running
-	277F-2783	Singe flames again (hit up?)
-	2784-2788	Singe misses
+	2775-277E	Dirk running (U)
+	277F-2783	Singe flames again (R, DL dies) (2191)
+	2784-2788	Singe misses (3255)
 	2789-2790	Singe advances
 	2791-279A	Dirk running
-	279B-27A2	Dirk spies the sword
-	27A3-27AF	Face off at center ice (above the sword)
-	27B0-27B8	Dirk goes for the sword
+	279B-27A2	Dirk spies the sword (UR)
+	27A3-27AF	Face off at center ice (above the sword) (RS) (2191)
+	27B0-27B8	Dirk goes for the sword (3551)
 	27B9-27BE	Singe threatens
 	27BF-27C0	Singe attacks and misses
 	27C1-27C6	Dirk has the sword
-	27C7-27CB	Singe flames again
-	27CC-27D9	Dirk blocks with the sword
+	27C7-27CB	Singe flames again (S, UDLR dies)
+	27CC-27D9	Dirk blocks with the sword (4026)
 	27DA-27E1	Does anyone actually like Daphne? Beyond sex appeal, that is?
-	27E2-27EF	Singe threatens with tail
-	27F0-27F7	Dirk dodges left
-	27F8-27FA	Singe flames again (hit sword?)
-	27FB-27FC	Dirk deflects (hit forward?)
-	27FD-2803	Dirk jumps forward (hit sword)
-	2804-280F	Dirk hurls the sword and connects
+	27E2-27EF	Singe threatens with tail (UL, R dies)
+	27F0-27F7	Dirk dodges left (2191)
+	27F8-27FA	Singe flames again (S)
+	27FB-27FC	Dirk deflects (4750)
+	27FD-2803	Dirk jumps forward (S)
+	2804-280F	Dirk hurls the sword and connects (5000)
 	2810-2823	Singe falls
 	2824-282A	Key bounces around Singe's neck
 	282B-2834	Dirk takes the key
@@ -1056,8 +1099,8 @@ VDP Usage:
 1D80-1D9F	SAL (Fire)
 1DA0-1FFF	Free for SDT - chars 180-255
 2000-37FF	CT
-3800-3FFF	Free
+3800-3B01	Used by F18A as an offscreen buffer and command
+3B02-3FFF	Free
 
-
-SAL resolution is every >80 bytes. So 5 SALs:
+SAL resolution is every >80 bytes. So 5 SALs.
 

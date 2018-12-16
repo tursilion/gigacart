@@ -59,9 +59,6 @@ HINTFIRE EQU >853B
 
     DEF MAIN
     
-* TODO: HINT ARROWS (sprites are in)
-* TODO: game itself of course... ;)
-* TODO: Easy mode disables the death moves (that is, the valid mask matches the good mask)
 * TODO: watch mode?
 
 * TODO: keyboard mode:
@@ -72,11 +69,7 @@ HINTFIRE EQU >853B
 * 		-Remember to check for and fix all the instruction screens that mention keyboard!
 *		-also remember to fix both playback codes which assume >6000 for the return bank (6002 for key, partially)
 
-* TODO: add game over screen (player one only (loaded))
-
-* TODO: table layout...
-* I am probably NOT going to be able to store everything in the 8k program space,
-* so, copying one row from banked memory into scratchpad or VDP may be needed.
+* table layout...
 * start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
 * hint sprites, good scene, bad scene, timeout scene, score
 *
@@ -92,7 +85,8 @@ HINTFIRE EQU >853B
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is)
 *
 * 16 bytes per entry (for easy shifting)... approx 754 scenes, so 12k
-* we'll allocate 2 pages for it (16K) and 16 bytes in scratchpad for the current one
+* Each scene will get its own 8k page to play with, to avoid memory limitations
+* We have lots of pages. ;)
     
 ******
 * Scratchpad usage
@@ -503,7 +497,7 @@ FINAL
 
 F18YES  
 * good, copy the GPU program in and start it
-    LI R0,>5B80
+    LI R0,>7800
     BL @VDPWTA
     LI R1,GPUGO
 GLDLP
@@ -512,9 +506,9 @@ GLDLP
     JNE GLDLP
     
 * start running (it will move itself into high memory)
-    LI R0,>B61B             * MSB
+    LI R0,>B638             * MSB
     BL @VDPWTA
-    LI R0,>B780             * LSB and start
+    LI R0,>B700             * LSB and start
     BL @VDPWTA
     
 *   * set up bitmap
@@ -574,8 +568,8 @@ CPLP118
 * loop repeat point for F18A
 LOOP418
 
-* So, the 9900 always writes starting at >1B80,
-* it then writes one extra byte to >1E80, containg a GPU
+* So, the 9900 always writes starting at >3800,
+* it then writes one extra byte to >3B00, containg a GPU
 * command:
 * 0x80  -   copy to second buffer
 * 0x20  -   copy first blocks
@@ -587,7 +581,7 @@ LOOP418
 *	R1 is reserved for scratch
 *	R2 is used for joystick calculations
 *   R3 is used (on F18A side only) to hold the VDP address
-	LI R3,>805B		* address of VDP buffer (>1B80)
+	LI R3,>0078		* address of VDP buffer (>3800)
     CLR R4			* R4 is reserved for JOYDAT
     CLR R5			* R5 is reserved for JOYOLD
 *   LI R6,>0700		* R6 is reserved for JOYMASK (left,right,fire)
@@ -738,15 +732,15 @@ FINAL18
 LOOP1   EQU LOOP1X-OUTLOOP+>8320
 LOOP18  EQU LOOP18X-OUTLOOP18+>8320
 
-* GPU code (loads at >1B80 in VDP, copies itself to >4000)
+* GPU code (loads at >3800 in VDP, copies itself to >4000)
 * to make life easy, position independent code! (VDP
 * addresses are hard coded though, that's fine)
 GPUGO
-    li r0,>1B80+GPURUN-GPUGO
+    li r0,>3800+GPURUN-GPUGO
     li r1,>4300
 GCPLP
     MOV *r0+,*r1+
-    ci r0,>1b80+GPUEND-GPUGO
+    ci r0,>3800+GPUEND-GPUGO
     jne GCPLP
 
 * now jump to it!   
@@ -754,19 +748,19 @@ GCPLP
     
 * this code running at >4300
 GPURUN
-    clr @>1E80      * zero command
+    clr @>3B00      * zero command
     CLR R0
 GPUWAIT
-    MOVB @>1E80,R0  * get it
+    MOVB @>3B00,R0  * get it
     JEQ GPUWAIT     * nothing yet
-    CLR @>1E80      * clear it
+    CLR @>3B00      * clear it
     JLT BUFCPY      * copying to second buffer
     
-* main buffer copy - copy >4000 to pattern, and >1B80 to color
+* main buffer copy - copy >4000 to pattern, and >3800 to color
 * R0 contains the color table target address
     MOV R0,R1       * for pattern table
     ANDI R1,>1FFF
-    LI R2,>1B80     * R2->R0 for the color table
+    LI R2,>3800     * R2->R0 for the color table
     LI R3,>4000     * R3->R1 for the pattern table
     LI R4,96        * we can move words instead of bytes
 GPUVLP  
@@ -783,7 +777,7 @@ GPUVLP
     JMP GPURUN      * go wait again
 
 BUFCPY
-    LI R0,>1B80     * 9900 write buffer
+    LI R0,>3800     * 9900 write buffer
     LI R1,>4000     * second buffer target when >80
     LI R2,96        * we can move words instead of bytes
 GPUBLP
@@ -1692,6 +1686,10 @@ BYTE00
 	BYTE >00
 BYTE01
 	BYTE >01
+
+
+** TODO: The arcade startup should be the castle intro, the slamming doors,
+**       and then the first scene - confirmed via YouTube. No drawbridge. Which sucks.
 	
 * temporarily putting scene data here so we can develop the scene playback
 ** First two words of a new scene are the ressurection start page and number of frames
@@ -1705,7 +1703,9 @@ A1DRAWBRIDGE
 	
 ** scenes **
 	
-	DATA >018B,>5F00,>0000,HINTNONE,A01EA,A01EA,A01EA,49		* Intro through monsters approach
+	DATA >018B,>3500,>0000,HINTNONE,A01C0,A01C0,A01C0,0			* Castle Intro
+A01C0
+	DATA >01C0,>2A00,>0000,HINTNONE,A01EA,A01EA,A01EA,49		* drawbridge through monsters approach
 A01EA
 	DATA >01EA,>0600,>0101,HINTFIRE,A01F0,A028C,A028C,0			* approaching, press sword
 A01F0
@@ -1713,11 +1713,17 @@ A01F0
 A01F8
 	DATA >01F8,>0800,>1414,HINTUP,A0200,A028C,A028C,0			* move up/right needed
 A0200
-	DATA >0200,>5400,>0000,HINTNONE,A0255,A0255,A0255,49		* climb up thru crumbling vestible
+	DATA >0200,>1A00,>0000,HINTNONE,A021A,A021A,A021A,49		* climb up and run in
+A021A
+	DATA >021A,>1800,>0000,HINTNONE,A0232,A0232,A0232,0			* slamming doors
+A0232
+	DATA >0232,>1300,>0000,HINTNONE,A0245,A0245,A0245,49		* enter vestible
+A0245
+	DATA >0245,>0F00,>1E0C,HINTDOWN,A0255,A029A,A029A,0			* stumbling (need down/right)
 A0255
-	DATA >0255,>0600,>1604,HINTRIGHT,A025B,A029A,A02AC,0		* move right needed (up/left dies)
+	DATA >0255,>0600,>1604,HINTRIGHT,A025B,A029A,A02AC,251		* move right needed (up/left dies)
 A025B
-	DATA >025B,>1200,>0000,HINTNONE,0,0,0,49					* escaping (end scene)
+	DATA >025B,>1100,>0000,HINTNONE,0,0,0,251					* escaping (end scene)
 
 ** deaths **
 
