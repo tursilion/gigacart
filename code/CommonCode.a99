@@ -1,0 +1,94 @@
+* Just some stuff that all files need to keep in sync...
+
+SOUND   EQU >8400
+VDPWA   EQU >8C02
+VDPWD   EQU >8C00
+VDPRD   EQU >8800
+VDPST	EQU >8802
+
+* how many frames of code are before the video/data starts
+VIDEOFFSET EQU 4
+
+* Hint sprite tables
+HINTNONE EQU >8536
+HINTUP EQU >8537
+HINTDOWN EQU >8538
+HINTLEFT EQU >8539
+HINTRIGHT EQU >853A
+HINTFIRE EQU >853B
+
+******
+* Scratchpad usage
+* WARNING: init code takes advantage of this packing
+******
+* 8300-831f	Registers
+* 8320-83d7	misc code (playback, paging, etc)
+* ...
+* 83E4		sceneret (address to return to after a scene)
+* 83E6		Video return (holds the page to return after video)
+* 83E8		Video Page (holds 6000 or 6002 for joystick or keyboard video)
+* 83EA		(free byte)
+* 83EB		just died? (BYTE)
+* 83EC-83ED scenebase
+* 83EE-83EF rowbase
+* 83F0-83F1 beepvol
+* 83F2-83F3 save3 (WORD)
+* 83F4	 	arcade(BYTE)
+* 83F5		hard  (BYTE)
+* 83F6		hints (BYTE)
+* 83f7		f18a flag (true or 0) (BYTE)
+* 83F8      lives (BYTE)
+* 83f9-83fb	score (3 BYTES)
+* 83fc-83fd	save  (WORD)
+* 83fe-83ff	save2 (WORD)
+******
+
+sceneret equ >83e4
+VIDEORET EQU >83E6		* tracks which page video should return to (Actual cartridge address, not index!)
+VIDEOPAGE EQU >83E8		* tracks which page (6000 or 6002) video is on
+** 83ea FREE
+justdied equ >83EB
+scenebase equ >83EC
+rowbase equ >83ee
+BEEPVOL equ >83F0	* used to make the joystick accept beep on channel 2
+SAVE3 equ >83F2
+cfgarcade equ >83f4	 * non-zero if arcade order instead of enhanced
+cfghard	equ >83f5	* non-zero if hard mode instead of easy
+cfghints equ >83f6	* non-zero if hints should be shown
+f18aflg equ >83f7	* non-zero if F18A detected (test with movb)
+lives equ >83f8		* lives remaining
+scr1 equ >83f9		* 3 bytes of score in sort-of BCD - see above
+scr2 equ >83fa
+scr3 equ >83fb
+SAVE EQU >83FC
+SAVE2 EQU >83FE
+
+**
+* Some graphic frame defines (hell with it... see ROM LAYOUT.txt)
+*
+CFGHEA	EQU >2a40		* first configuration screen page
+*CFGENH	EQU 1			* enhanced adds '1' over arcade
+*CFGHARD EQU 2			* hard adds '2' over easy
+*CFGNOHINT EQU 4		* no hints adds '4' over hints
+CFGSIT 	EQU >7800		* where is the SIT (only care once, mind...)
+CFGBORD EQU >2A3F		* border graphics
+CFGF18	EQU >2a48		* F18A
+CFGSPRITES EQU >2A4B	* sprite tables and patterns
+CFGPAT	EQU >6000		* where is the color data
+CFGCOL	EQU >6C00		* where is the pattern data
+
+* register equates (all bits are active high)
+* the newly read bits from the joystick (set for one frame)
+JOYDAT EQU 4
+* the last read bits from the joystick (continuous)
+JOYOLD EQU 5
+* a mask of bits that should immediately exit the scene
+JOYMASK EQU 6
+
+* joystick bits:
+JOYUP EQU >1000
+JOYDOWN EQU >0800
+JOYLEFT EQU >0200
+JOYRIGHT EQU >0400
+JOYFIRE EQU >0100
+

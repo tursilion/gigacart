@@ -7,41 +7,10 @@
 
 CARTPAGE EQU >6004
 
-SOUND   EQU >8400
-VDPWA   EQU >8C02
-VDPWD   EQU >8C00
-VDPRD   EQU >8800
-VDPST	EQU >8802
-
     DEF MAIN
+
+	COPY "D:\work\ti\dragonslair\code\CommonCode.a99"
     
-* register equates (all bits are active high)
-* the newly read bits from the joystick (set for one frame)
-JOYDAT EQU 4
-* the last read bits from the joystick (continuous)
-JOYOLD EQU 5
-* a mask of bits that should immediately exit the scene
-JOYMASK EQU 6
-
-* joystick bits:
-JOYUP EQU >1000
-JOYDOWN EQU >0800
-JOYLEFT EQU >0200
-JOYRIGHT EQU >0400
-JOYFIRE EQU >0100
-
-* scratchpad which matters to us
-SAVE3 equ >83f6
-lives equ >83f8		* lives remaining
-scr1 equ >83f9		* 3 bytes of score in sort-of BCD - see above
-scr2 equ >83fa
-scr3 equ >83fb
-SAVE EQU >83FC
-SAVE2 EQU >83FE
-
-CFGPAT	EQU >6000		* where is the color data
-CFGCOL	EQU >6C00		* where is the pattern data
-
 * no cart header, don't need it. We have a GROM boot.
     AORG >6000
 
@@ -70,6 +39,8 @@ MAIN
 VMBWP
 	MOV R11,@SAVE2 		* frees R11
 	BL @VDPWTA	   		* set VDP address - frees R0
+* Add in offset
+	AI R3,VIDEOFFSET
 * copy the code into scratchpad
 	LI R11,VMBWPA  		* R11 is free to reuse
 	LI R0,>8320	   		* R0 is free to reuse
@@ -421,6 +392,12 @@ GAMESTART
 
 * We have a simple set of basic tests with a screen for each
 	BL @BLACKVID
+	
+* if the F18A is enabled, stop it
+	BL @RESTF18	
+* that may have corrupted VR0, so restore that
+	LI R0,>8002
+	BL @VDPWTA
 
 ***************************************************
 * diag 1 - RAM

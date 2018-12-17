@@ -1,0 +1,344 @@
+**************
+* Dragon's Lair for the TI-99/4A - by M.Brent aka Tursi
+* A big extension of my AV Playback code, as below
+* Licensed by Digital Leisure - holy crap!
+* A real licensed release of a major property in 2017... I mean 2018...
+* I mean 2019. Damn it. ;)
+**************
+* Common code used by all scenes (really, it's almost but the data)
+**************
+
+* This can't move in the main page - be careful!
+VIDEO EQU >601E	
+
+    AORG >6000
+    
+* Now that we don't have a cart header anymore, I've got 28 bytes that I can
+* use for a common trampoline function (to avoid needing to copy to scratchpad)
+* This will need to be copied into all code banks, but maybe a tool to copy it
+* into all banks period would be safest (then even video can return to it)
+* TRAMPRET is always at >6000, and returns to R1 on the page in R3, corrupting R0
+* You can use B or BL, R11 will be preserved through to the target.
+* can only jump to pages with a zero data write
+TRAMPRET
+	CLR *R3				* because we bank here, this code MUST always be the same!!
+	B *R1
+* Only 4 bytes...
+	
+	AORG >601C
+
+* MAIN must be at >601C - just making it into a sort of a standard
+MAIN
+	B @GAMESTART
+   
+* VSMW - VDP Single Byte Multiple Write
+* VDP - R0 (with >4000 set)
+* Byte- R1 MSB
+* Cnt - R2
+VSMW
+	MOV R11,@SAVE2
+	BL @VDPWTA	   		* set VDP address - frees R0
+VSMW1
+	MOVB R1,@VDPWD
+	DEC R2
+	JNE VSMW1
+	MOV @SAVE2,R11
+	B *R11
+	
+* Write address or register
+VDPWTA
+    SWPB R0
+    MOVB R0,@>8C02
+    SWPB R0
+    MOVB R0,@>8C02
+    B *R11  
+
+* set the color table for video to black
+BLACKVID
+	MOV R11,@SAVE3
+	
+	LI R0,>6000
+	CLR R1
+	LI R2,768
+	BL @VSMW
+	
+	LI R0,>6800
+	LI R2,1536
+	BL @VSMW
+	
+	LI R0,>7000
+	LI R2,768
+	BL @VSMW
+	
+	MOV @SAVE3,R11
+	B *R11
+
+showscore
+* show score (kind of BCD-ish, each byte is 0-99)
+* digits in segment 3 are characters 167 (A7) on top and add 32 for bottom
+* space is 177 (B1)
+* score starts at >1AA7
+* lives is at >1AB7
+	LI R0,>A75A
+	MOVB R0,@VDPWA
+	SWPB R0
+	MOVB R0,@VDPWA
+	CLR R1			* have to just once
+	
+	MOVB @scr1,@>8303	* R1 LSB
+	SLA R1,1		* multiply by 2
+	MOV @BCDLOOKUP(R1),R0
+	MOVB R0,@VDPWD
+	SWPB R0
+	MOVB R0,@VDPWD
+	
+	MOVB @scr2,@>8303	* R1 LSB
+	SLA R1,1		* multiply by 2
+	MOV @BCDLOOKUP(R1),R0
+	MOVB R0,@VDPWD
+	SWPB R0
+	MOVB R0,@VDPWD
+	
+	MOVB @scr3,@>8303	* R1 LSB
+	SLA R1,1		* multiply by 2
+	MOV @BCDLOOKUP(R1),R0
+	MOVB R0,@VDPWD
+	SWPB R0
+	MOVB R0,@VDPWD
+	
+	LI R0,>C75A			* second row
+	MOVB R0,@VDPWA
+	SWPB R0
+	MOVB R0,@VDPWA
+	
+	MOVB @scr1,@>8303	* R1 LSB
+	SLA R1,1		* multiply by 2
+	MOV @BCDLOOKUP(R1),R0
+	AI R0,>2020
+	MOVB R0,@VDPWD
+	SWPB R0
+	MOVB R0,@VDPWD
+	
+	MOVB @scr2,@>8303	* R1 LSB
+	SLA R1,1		* multiply by 2
+	MOV @BCDLOOKUP(R1),R0
+	AI R0,>2020
+	MOVB R0,@VDPWD
+	SWPB R0
+	MOVB R0,@VDPWD
+	
+	MOVB @scr3,@>8303	* R1 LSB
+	SLA R1,1		* multiply by 2
+	MOV @BCDLOOKUP(R1),R0
+	AI R0,>2020
+	MOVB R0,@VDPWD
+	SWPB R0
+	MOVB R0,@VDPWD
+
+	B *R11
+	
+showlives
+* show lives (0-5)
+	LI R0,>B75A
+	MOVB R0,@VDPWA
+	SWPB R0
+	MOVB R0,@VDPWA
+	
+	MOVB @lives,R1
+	AI R1,>A700
+	MOVB R1,@VDPWD
+	
+	LI R0,>D75A
+	MOVB R0,@VDPWA
+	SWPB R0
+	MOVB R0,@VDPWA
+	
+	AI R1,>2000
+	MOVB R1,@VDPWD
+
+	B *R11
+	
+* add the score value in R0 to score
+* Score is a 24 bit value, stored not in BCD, but 0-99 per byte
+* R0 is a 16-bit value stored in the same manner to make math easier
+* Uses R1
+ADDSCORE
+	LI R1,100*256		* 100 bytes
+	AB @>8301,@scr3		* R0 LSB
+	cb @scr3,r1			* check for rollover
+	jl adds1			* no rollover
+	sb r1,@scr3			* subtract 100
+	ab @BYTE01,r0		* deal with the carry
+adds1
+	ab r0,@scr2			* r0 msb
+	cb @scr2,r1			* check for rollover
+	jl adds2			* no rollover
+	sb r1,@scr2			* subtract 100
+	ab @BYTE01,@scr3	* increment the most significant score byte
+adds2
+	B *R11
+	
+* Since video playback is getting expensive, we'll just put a
+* wrapper function here.
+* Set JOYMASK, R7 (count), R8 (first frame), and we'll
+* set up the trampoline. Call with BL.
+CALLVIDEO
+	LI R0,CARTPAGE		* my page
+	MOV R0,@VIDEORET	* how to get back to me
+	LI R1,VIDEO			* needs to be an equate in other pages...
+	MOV @VIDEOPAGE,R3	* page of the video player
+	B @TRAMPRET
+
+*********************************************************
+* Actual game code starting up here (post-init)
+*********************************************************
+GAMESTART
+	MOV R11,@sceneret	* save return address
+	li r0,SCENEDATA		* init this page's scene data
+	mov r0,@scenebase
+	
+	MOVB @justdied,r0	* check for need to ressurrect
+	jeq notdied
+	
+* play ressurection sequence
+	CLR JOYMASK
+	MOV @scenebase,r1
+	mov *r1+,r8			* starting page
+	mov *r1,r7			* number of frames
+	BL @CALLVIDEO
+	
+* count down lives
+	sb @byte01,@lives
+	bl @showlives
+	
+* and clear the flag
+	movb @byte00,@justdied
+
+* continue here with the scene	
+notdied
+	bl @blackvid
+	
+* get the first scene
+	mov @scenebase,r0
+	ai r0,8
+	mov r0,@rowbase
+	
+* loop here until scenes are done, one way or another	
+scenelp
+
+* first, add any score that is granted for reaching this scene
+	mov @rowbase,r5
+	mov @14(r5),r0
+	bl @addscore
+	bl @showscore
+	
+* Now get the joystick mask. If we're in easy mode, we'll later replace this
+	clr JOYMASK
+	movb @4(r5),JOYMASK
+	
+* now check for easy mode
+	movb @cfghard,r1
+	jne scenehard
+	
+* overwrite mask with only the success bits	
+	movb @5(r5),JOYMASK
+scenehard
+
+* now check whether hints are on
+	movb @cfghints,r1
+	jeq scenenohints
+	
+* load up the appropriate table for the hints
+	mov @6(r5),r0
+	bl @vdpwta
+scenenohints
+
+* now finally load up the video parameters and go play it!
+	clr r7
+	movb @2(r5),r7
+	swpb r7
+	mov *r5,r8
+	BL @CALLVIDEO
+	
+* now we have returned
+	mov @rowbase,r5	* get the base again
+	
+* we need to determine how the video ended
+* (ie: by joystick or by frames)
+	mov r7,r7				* was 0 if the video played out
+	jne scenejoy
+	
+* scene timed out, so go to timed out scene
+	mov @12(r5),r0
+	jeq scenedone		* no next scene
+	mov r0,@rowbase
+	jmp scenelp			* go play this scene
+
+* scene ended due to joystick, so determine if it was life or death	
+scenejoy
+	clr JOYMASK
+	movb @5(r5),JOYMASK
+	INV JOYMASK
+	SZCB JOYMASK,JOYDAT
+	JEQ scenedied
+	
+* looks like a safe move! go to safe scene
+	mov @8(r5),r0
+	jeq scenedone		* no next scene
+	mov r0,@rowbase
+	jmp scenelp			* go play this scene
+
+* player entered a bad movement	
+scenedied
+	mov @10(r5),r0
+	jeq scenedone		* no next scene
+	mov r0,@rowbase
+	jmp scenelp			* go play this scene
+
+* no more scenes to play out!
+scenedone
+* check if this was a death scene
+	movb @3(r5),r0		* death flag
+	jeq nodeath
+	
+* yep, player died, so set flag and check for remaining lives...
+* (the ressurrection sequence does the subtraction)
+	movb @byte01,@justdied
+	MOV @scenebase,r1
+	mov @4(r1),R14		* game over start
+	mov @6(r1),r15		* game over length
+
+* now either way, we need to go back to the caller
+nodeath	
+	MOV @VIDEOPAGE,R3	* get the caller data back
+	MOV @sceneret,r1	* get their address
+	B @TRAMPRET
+
+* BCD lookup table for digits (top half only, bottom half add 32)
+* each value from 0-99 returns a word representing two digits
+BCDLOOKUP
+	DATA >A7A7,>A7A8,>A7A9,>A7AA,>A7AB,>A7AC
+	DATA >A7AD,>A7AE,>A7AF,>A7B0,>A8A7,>A8A8
+	DATA >A8A9,>A8AA,>A8AB,>A8AC,>A8AD,>A8AE
+	DATA >A8AF,>A8B0,>A9A7,>A9A8,>A9A9,>A9AA
+	DATA >A9AB,>A9AC,>A9AD,>A9AE,>A9AF,>A9B0
+	DATA >AAA7,>AAA8,>AAA9,>AAAA,>AAAB,>AAAC
+	DATA >AAAD,>AAAE,>AAAF,>AAB0,>ABA7,>ABA8
+	DATA >ABA9,>ABAA,>ABAB,>ABAC,>ABAD,>ABAE
+	DATA >ABAF,>ABB0,>ACA7,>ACA8,>ACA9,>ACAA
+	DATA >ACAB,>ACAC,>ACAD,>ACAE,>ACAF,>ACB0
+	DATA >ADA7,>ADA8,>ADA9,>ADAA,>ADAB,>ADAC
+	DATA >ADAD,>ADAE,>ADAF,>ADB0,>AEA7,>AEA8
+	DATA >AEA9,>AEAA,>AEAB,>AEAC,>AEAD,>AEAE
+	DATA >AEAF,>AEB0,>AFA7,>AFA8,>AFA9,>AFAA
+	DATA >AFAB,>AFAC,>AFAD,>AFAE,>AFAF,>AFB0
+	DATA >B0A7,>B0A8,>B0A9,>B0AA,>B0AB,>B0AC
+	DATA >B0AD,>B0AE,>B0AF,>B0B0
+	
+* these are just really handy...
+BYTE00
+	BYTE >00
+BYTE01
+	BYTE >01
+QUITK        
+    DATA >1100

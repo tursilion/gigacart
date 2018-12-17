@@ -1,0 +1,65 @@
+**************
+* Dragon's Lair for the TI-99/4A - by M.Brent aka Tursi
+* A big extension of my AV Playback code, as below
+* Licensed by Digital Leisure - holy crap!
+* A real licensed release of a major property in 2017... I mean 2018...
+* I mean 2019. Damn it. ;)
+**************
+* Scene A1 - Drawbridge. Technically not in the arcade...
+* Enter at >601C via BL to trampret, returns to videopage which should be right
+* On return, R14 has the game over video start, and R15 its length, if needed
+**************
+*
+* To make a new scene, update CARTPAGE for the new location.
+* Write the new SCENEDATA, add it to UpdateGfx.CMD (build and merge)
+* and update CommonCode.a99 (VIDEOFFSET)
+*
+
+** this is used by all code that needs to return to the code page
+CARTPAGE EQU >6006
+
+	COPY "D:\work\ti\dragonslair\code\CommonCode.a99"
+	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
+
+** First label MUST be called SCENEDATA. The rest are whatever you want.
+** First two words of a new scene are the ressurection start page and number of frames
+** Next two words are the game over crumbling skeleton scene and number of frames
+*
+** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
+** hint sprites, good scene, bad scene, timeout scene, score
+SCENEDATA
+	DATA >0176,21												* ressurection
+	DATA >026D,31												* game over
+	
+** scenes **
+	DATA >01C0,>2A00,>0000,HINTNONE,A01EA,A01EA,A01EA,49		* drawbridge through monsters approach
+A01EA
+	DATA >01EA,>0600,>0101,HINTFIRE,A01F0,A028C,A028C,0			* approaching, press sword
+A01F0
+	DATA >01F0,>0800,>0000,HINTNONE,A01F8,A01F8,A01F8,49		* swing sword
+A01F8
+	DATA >01F8,>0800,>1414,HINTUP,A0200,A028C,A028C,0			* move up/right needed
+A0200
+	DATA >0200,>1A00,>0000,HINTNONE,A021A,A021A,A021A,49		* climb up and run in
+A021A
+	DATA >021A,>1800,>0000,HINTNONE,A0232,A0232,A0232,0			* slamming doors
+A0232
+	DATA >0232,>1300,>0000,HINTNONE,A0245,A0245,A0245,49		* enter vestible
+A0245
+	DATA >0245,>0F00,>1E0C,HINTDOWN,A0255,A029A,A029A,0			* stumbling (need down/right)
+A0255
+	DATA >0255,>0600,>1604,HINTRIGHT,A025B,A029A,A02AC,251		* move right needed (up/left dies)
+A025B
+	DATA >025B,>1100,>0000,HINTNONE,0,0,0,251					* escaping (end scene)
+
+** deaths **
+
+A028C
+	DATA >028C,>0Eff,>0000,HINTNONE,0,0,0,0						* caught by drawbridge monster
+A029A
+	DATA >029A,>12ff,>0000,HINTNONE,0,0,0,0						* falling into pit
+A02AC
+	DATA >02AC,>1eff,>0000,HINTNONE,0,0,0,0						* crushed by rocks
+
+    END
+    

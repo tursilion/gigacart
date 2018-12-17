@@ -29,33 +29,7 @@
 ** this is used by all code that needs to return to the code page
 CARTPAGE EQU >6000
 
-SOUND   EQU >8400
-VDPWA   EQU >8C02
-VDPWD   EQU >8C00
-VDPRD   EQU >8800
-VDPST	EQU >8802
-
-**
-* Some graphic frame defines (hell with it... see ROM LAYOUT.txt)
-*
-CFGHEA	EQU >2a40		* first configuration screen page
-*CFGENH	EQU 1			* enhanced adds '1' over arcade
-*CFGHARD EQU 2			* hard adds '2' over easy
-*CFGNOHINT EQU 4		* no hints adds '4' over hints
-CFGPAT	EQU >6000		* where is the color data
-CFGCOL	EQU >6C00		* where is the pattern data
-CFGSIT 	EQU >7800		* where is the SIT (only care once, mind...)
-CFGBORD EQU >2A3F		* border graphics
-CFGF18	EQU >2a48		* F18A
-CFGSPRITES EQU >2A4B	* sprite tables and patterns
-
-* Hint sprite tables
-HINTNONE EQU >8536
-HINTUP EQU >8537
-HINTDOWN EQU >8538
-HINTLEFT EQU >8539
-HINTRIGHT EQU >853A
-HINTFIRE EQU >853B
+	COPY "D:\work\ti\dragonslair\code\CommonCode.a99"
 
     DEF MAIN
     
@@ -87,84 +61,70 @@ HINTFIRE EQU >853B
 * 16 bytes per entry (for easy shifting)... approx 754 scenes, so 12k
 * Each scene will get its own 8k page to play with, to avoid memory limitations
 * We have lots of pages. ;)
-    
-******
-* Scratchpad usage
-* WARNING: init code takes advantage of this packing
-******
-* 8300-831f	Registers
-* 8320-83d7	misc code (playback, paging, etc)
-* ...
-* 83EB		just died? (BYTE)
-* 83EC-83ED scenebase
-* 83EE-83EF rowbase
-* 83F0-83F1 beepvol
-* 83F2-83F3 save3 (WORD)
-* 83F4	 	arcade(BYTE)
-* 83F5		hard  (BYTE)
-* 83F6		hints (BYTE)
-* 83f7		f18a flag (true or 0) (BYTE)
-* 83F8      lives (BYTE)
-* 83f9-83fb	score (3 BYTES)
-* 83fc-83fd	save  (WORD)
-* 83fe-83ff	save2 (WORD)
-******
-
-justdied equ >83EB
-scenebase equ >83EC
-rowbase equ >83ee
-BEEPVOL equ >83F0	* used to make the joystick accept beep on channel 2
-SAVE3 equ >83F2
-cfgarcade equ >83f4	 * non-zero if arcade order instead of enhanced
-cfghard	equ >83f5	* non-zero if hard mode instead of easy
-cfghints equ >83f6	* non-zero if hints should be shown
-f18aflg equ >83f7	* non-zero if F18A detected (test with movb)
-lives equ >83f8		* lives remaining
-scr1 equ >83f9		* 3 bytes of score in sort-of BCD - see above
-scr2 equ >83fa
-scr3 equ >83fb
-SAVE EQU >83FC
-SAVE2 EQU >83FE
 	
 * number of lives
 liveasy equ 5
 livhard equ 3
 
-* register equates (all bits are active high)
-* the newly read bits from the joystick (set for one frame)
-JOYDAT EQU 4
-* the last read bits from the joystick (continuous)
-JOYOLD EQU 5
-* a mask of bits that should immediately exit the scene
-JOYMASK EQU 6
-
-* joystick bits:
-JOYUP EQU >1000
-JOYDOWN EQU >0800
-JOYLEFT EQU >0200
-JOYRIGHT EQU >0400
-JOYFIRE EQU >0100
-
     AORG >6000
-
-* cart header - >600A receives the bank to loop at
-* Note: for gigacart we use GROM startup instead... so '55' instead of 'aa' to mask it
-        DATA >5501,>0200,>0000,PROG1
-QUITK        
-        DATA >1100		* reusing this useless pointer for QUIT detection
-* subprogram pointer, invalid for ROM, unused now...
-        DATA >0174
-PROG1   DATA >0000,MAIN,>0A4D
-        TEXT 'OVIE TEST'
-        EVEN
+    
+* Now that we don't have a cart header anymore, I've got 28 bytes that I can
+* use for a common trampoline function (to avoid needing to copy to scratchpad)
+* This will need to be copied into all code banks, but maybe a tool to copy it
+* into all banks period would be safest (then even video can return to it)
+* TRAMPRET is always at >6000, and returns to R1 on the page in R3, corrupting R0
+* You can use B or BL, R11 will be preserved through to the target.
+* can only jump to pages with a zero data write
+TRAMPRET
+	CLR *R3				* because we bank here, this code MUST always be the same!!
+	B *R1
+* Only 4 bytes...
+	
+	AORG >601C
 
 * MAIN must be at >601C - if you change it, change the GPL too
 MAIN
-    CLR @CARTPAGE   * even though this bank doesn't need it, needs to be the same on all banks
+	JMP MAINSTART
+	
+***
+* Handle a single video clip until it returns (does F18A test)
+* This needs to be at a known address on all pages, so it's placed early
+** R6 - JOYMASK
+** R7 - number of frames in clip
+** R8 - page to start at
+** You must set VIDEORET with the page of your return code
+** You must call this on the VIDEOPAGE bank
+** The scratchpad code will handle the return
+VIDEO
+* save return address
+	MOV R11,@SAVE
+	
+* Update offset
+	AI R8,VIDEOFFSET
 
-* this should be at >6020 to make all banks line up 
+* check for F18A or not
+	MOVB @f18aflg,r0
+	jeq nof18vid
+	
+	bl @VIDYESF18
+	jmp donevid
+	
+nof18vid
+	bl @VIDNOF18
+    
+donevid
+ 	MOV @SAVE,R1		* return address
+ 	MOV @VIDEORET,R3	* return page
+	B @TRAMPRET			* trampoline
+    
+* remember where we are (picks up here)
+MAINSTART
     LIMI 0
     LWPI >8300
+
+* save our cartpage as the videopage (only place this is initted)    
+	LI R0,CARTPAGE
+	MOV R0,@VIDEOPAGE
     
 *   * set up sound chip
     LI R0,>9FBF     * mute all channels
@@ -874,6 +834,8 @@ BITMAP
 VMBWP
 	MOV R11,@SAVE2 		* frees R11
 	BL @VDPWTA	   		* set VDP address - frees R0
+* Add in offset
+	AI R3,VIDEOFFSET
 * copy the code into scratchpad
 	LI R11,VMBWPA  		* R11 is free to reuse
 	LI R0,>8320	   		* R0 is free to reuse
@@ -1173,29 +1135,6 @@ DELDONE
 	MOV @SAVE,R11
 	B *R11
 	
-***
-* Handle a single video clip until it returns (does F18A test)
-** R6 - JOYMASK
-** R7 - number of frames in clip
-** R8 - page to start at
-*
-VIDEO
-	MOV R11,@SAVE
-
-* check for F18A or not
-	MOVB @f18aflg,r0
-	jeq nof18vid
-	
-	bl @VIDYESF18
-	jmp donevid
-	
-nof18vid
-	bl @VIDNOF18
-	
-donevid
-	MOV @SAVE,R11
-	B *R11
-	
 showscore
 * show score (kind of BCD-ish, each byte is 0-99)
 * digits in segment 3 are characters 167 (A7) on top and add 32 for bottom
@@ -1300,6 +1239,17 @@ adds1
 	ab @BYTE01,@scr3	* increment the most significant score byte
 adds2
 	B *R11
+	
+* Since video playback is getting expensive, we'll just put a
+* wrapper function here.
+* Set JOYMASK, R7 (count), R8 (first frame), and we'll
+* set up the trampoline. Call with BL.
+CALLVIDEO
+	LI R0,CARTPAGE		* my page
+	MOV R0,@VIDEORET	* how to get back to me
+	LI R1,VIDEO			* needs to be an equate in other pages...
+	MOV @VIDEOPAGE,R3	* page of the video player
+	B @TRAMPRET
 
 *********************************************************
 * Actual game code starting up here (post-init)
@@ -1353,9 +1303,10 @@ ATTRACT
 * start video playback of the attract mode
 * (which is hardcoded and loops atm...)
 	LI JOYMASK,JOYFIRE
-	LI R7,>0172			* attract mode frames
-	LI R8,>0003			* attract mode starts at
-	BL @VIDEO
+	LI R7,>0175			* attract mode frames
+	LI R8,>0000			* attract mode starts at
+	BL @CALLVIDEO
+
 	ANDI JOYDAT,JOYFIRE
 	MOV JOYDAT,JOYDAT
 	JNE OPTIONS
@@ -1451,17 +1402,9 @@ NOKEYH
 	CI R13,>0800	* was it 5? (Diagnostics)
 	JNE NONEWKEY
 
-	LI R0,>8320
-	LI R1,GODIAG
-	MOV *R1+,*R0+	* copy the code to scratchpad
-	MOV *R1+,*R0+
-	MOV *R1+,*R0+
-	MOV *R1+,*R0+
-	B @>8320		* and run it
-
-GODIAG
-	CLR @>6004		* select diagnostics bank
-	B @>6000		* go run it
+	LI R3,>6004		* diagnostics banks
+	LI R1,>6000		* target address
+	B @TRAMPRET		* we aren't coming back
 
 NONEWKEY
 	MOV R13,R13		* any key pressed?
@@ -1494,139 +1437,76 @@ nlivhard
 	BL @showscore
 	BL @showlives
 	
-	MOVB @BYTE01,@justdied	* so we play ressurrection
+	MOVB @BYTE00,@justdied	* clear the flag, we manually play the first one
 	MOVB @BEEPVOL,@SOUND	* mute beep
 	
 * TODO: init scene selection logic	
 	
 * AND START THE GAME... 
 
-GAMELOOP
-* TODO: maybe move the game play logic into a separate bank with the
-*       scene data - even 1 page per scene. Then I wouldn't have to page
-*       or cache data in RAM, it'll all be available.
-* TODO: select the next scene and start it. Always drawbridge for now...
-
-	LI R0,A1DRAWBRIDGE
-	MOV R0,@scenebase
-	
-	MOVB @justdied,r0
-	jeq notdied
-	
-* play ressurection sequence
+* so the first thing we are going to do is play the castle overview as
+* a video. Then, if we are on arcade mode, we'll also play the slamming
+* doors directly. (If we're on enhanced or home, whatever we call it,
+* that will play as part of the drawbridge scene).
+* So, that's 2 (maybe 3) fixed clips: ressurrect,castle,doors
 	CLR JOYMASK
-	MOV @scenebase,r1
-	mov *r1+,r8			* starting page
-	mov *r1,r7			* number of frames
-	bl @video
+	LI R8,>0176			* resurrection start
+	LI R7,21			* resurrection length
+	BL @CALLVIDEO
 	
-* count down lives
+* We do ressurrection separate from castle so we can decrement the lives here
+* like the scene playback code does...
 	sb @byte01,@lives
 	bl @showlives
 	
-* and clear the flag
-	movb @byte00,@justdied
+* now play the castle intro
+	LI R8,>018B			* castle start
+	LI R7,53			* castle length
+	BL @CALLVIDEO
+	
+* Now check whether we are playing the drawbridge - if yes, get to it
+* if no, then play the slamming doors
+	MOVB @cfgarcade,r0
+	jeq starthome
+	
+* doing the arcade here, so just slam those doors and jump down to the
+* scene selector	
+	LI R8,>021a			* slamming start
+	LI R7,24			* length
+	BL @CALLVIDEO
+	JMP GAMELOOP		* let the GAMELOOP select a scene
+	
+* Here we are doing the home/enhanced sequence, which starts with the drawbridge
+STARTHOME
+	LI R0,A1DRAWBRIDGE
+	jmp ALREADYSCENE
 
-* continue here with the scene	
-notdied
-	bl @blackvid
-	
-* get the first scene
-	mov @scenebase,r0
-	ai r0,8
-	mov r0,@rowbase
-	
-* loop here until scenes are done, one way or another	
-scenelp
+GAMELOOP
+* TODO: select the next scene and start it. Always drawbridge for now...
+	LI R0,A1DRAWBRIDGE
 
-* first, add any score that is granted for reaching this scene
-	mov @rowbase,r5
-	mov @14(r5),r0
-	bl @addscore
-	bl @showscore
+ALREADYSCENE
+* scene page to play is in R0
+	MOV R0,R3			* move it to R3
+	LI R1,>601C			* all scenes start at >601C
+	BL @TRAMPRET		* go call it
 	
-* Now get the joystick mask. If we're in easy mode, we'll later replace this
-	clr JOYMASK
-	movb @4(r5),JOYMASK
-	
-* now check for easy mode
-	movb @cfghard,r1
-	jne scenehard
-	
-* overwrite mask with only the success bits	
-	movb @5(r5),JOYMASK
-scenehard
-
-* now check whether hints are on
-	movb @cfghints,r1
-	jeq scenenohints
-	
-* load up the appropriate table for the hints
-	mov @6(r5),r0
-	bl @vdpwta
-scenenohints
-
-* now finally load up the video parameters and go play it!
-	clr r7
-	movb @2(r5),r7
-	swpb r7
-	mov *r5,r8
-	bl @video
-	
-* now we have returned
-	mov @rowbase,r5	* get the base again
-	
-* we need to determine how the video ended
-* (ie: by joystick or by frames)
-	mov r7,r7				* was 0 if the video played out
-	jne scenejoy
-	
-* scene timed out, so go to timed out scene
-	mov @12(r5),r0
-	jeq scenedone		* no next scene
-	mov r0,@rowbase
-	jmp scenelp			* go play this scene
-
-* scene ended due to joystick, so determine if it was life or death	
-scenejoy
-	clr JOYMASK
-	movb @5(r5),JOYMASK
-	INV JOYMASK
-	SZCB JOYMASK,JOYDAT
-	JEQ scenedied
-	
-* looks like a safe move! go to safe scene
-	mov @8(r5),r0
-	jeq scenedone		* no next scene
-	mov r0,@rowbase
-	jmp scenelp			* go play this scene
-
-* player entered a bad movement	
-scenedied
-	mov @10(r5),r0
-	jeq scenedone		* no next scene
-	mov r0,@rowbase
-	jmp scenelp			* go play this scene
-
-* no more scenes to play out!
-scenedone
+* We're back!!
 * check if this was a death scene
-	movb @3(r5),r0		* death flag
+	movb @justdied,r0
 	jeq nodeath
 	
-* yep, player died, so set flag and check for remaining lives...
+* yep, player died, so check for remaining lives...
 * (the ressurrection sequence does the subtraction)
-	movb @byte01,@justdied
 	movb @lives,r0
 	jne nodeath2		* not game over yet!
 	
 * it /is/ game over, the player done bit the big one
-* play the game over scene...
+* play the game over scene... (scene helpfully gave us the data in R14/R15)
 	clr JOYMASK			* no input
-	mov @scenebase,r5
-	mov @4(r5),r8		* starting page of death scene
-	mov @6(r5),r7		* number of frames
-	bl @video
+	mov R14,r8			* starting page of death scene
+	mov R15,r7			* number of frames
+	BL @CALLVIDEO
 	
 * now show the gameover screen for a few seconds
 	li r0,>2a50
@@ -1644,16 +1524,6 @@ nodeath
 * we come here if we did die, but still have lives left
 nodeath2
 	b @GAMELOOP
-	
-
-	
-
-	
-	
-
-	
-
-	
 	
 	
 	
@@ -1686,53 +1556,10 @@ BYTE00
 	BYTE >00
 BYTE01
 	BYTE >01
+QUITK        
+    DATA >1100
 
-
-** TODO: The arcade startup should be the castle intro, the slamming doors,
-**       and then the first scene - confirmed via YouTube. No drawbridge. Which sucks.
-	
-* temporarily putting scene data here so we can develop the scene playback
-** First two words of a new scene are the ressurection start page and number of frames
-** Next two words are the game over crumbling skeleton scene and number of frames
-*
-** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
-A1DRAWBRIDGE
-	DATA >0176,21												* ressurection
-	DATA >026D,31												* game over
-	
-** scenes **
-	
-	DATA >018B,>3500,>0000,HINTNONE,A01C0,A01C0,A01C0,0			* Castle Intro
-A01C0
-	DATA >01C0,>2A00,>0000,HINTNONE,A01EA,A01EA,A01EA,49		* drawbridge through monsters approach
-A01EA
-	DATA >01EA,>0600,>0101,HINTFIRE,A01F0,A028C,A028C,0			* approaching, press sword
-A01F0
-	DATA >01F0,>0800,>0000,HINTNONE,A01F8,A01F8,A01F8,49		* swing sword
-A01F8
-	DATA >01F8,>0800,>1414,HINTUP,A0200,A028C,A028C,0			* move up/right needed
-A0200
-	DATA >0200,>1A00,>0000,HINTNONE,A021A,A021A,A021A,49		* climb up and run in
-A021A
-	DATA >021A,>1800,>0000,HINTNONE,A0232,A0232,A0232,0			* slamming doors
-A0232
-	DATA >0232,>1300,>0000,HINTNONE,A0245,A0245,A0245,49		* enter vestible
-A0245
-	DATA >0245,>0F00,>1E0C,HINTDOWN,A0255,A029A,A029A,0			* stumbling (need down/right)
-A0255
-	DATA >0255,>0600,>1604,HINTRIGHT,A025B,A029A,A02AC,251		* move right needed (up/left dies)
-A025B
-	DATA >025B,>1100,>0000,HINTNONE,0,0,0,251					* escaping (end scene)
-
-** deaths **
-
-A028C
-	DATA >028C,>0Eff,>0000,HINTNONE,0,0,0,0						* caught by drawbridge monster
-A029A
-	DATA >029A,>12ff,>0000,HINTNONE,0,0,0,0						* falling into pit
-A02AC
-	DATA >02AC,>1eff,>0000,HINTNONE,0,0,0,0						* crushed by rocks
-
+* eventually, a table of scenes here...
+A1DRAWBRIDGE EQU >6006
     END
     

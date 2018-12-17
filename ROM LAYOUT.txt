@@ -10,13 +10,23 @@ output.bin -> output_Cart8.bin
 -- The masking of address to data bits: 
 	12 bits of address and 2 bits of data: D A A A
 	Address * 2 + 0x6000
+	
+--- All the code pages need to have a data write of zero, so they are shoved in the front. All video
+--- pages are thus pushed downwards, but the page offset is added in by the video code rather than
+--- these notes becoming wrong every time I add a page...	
 
 0000	Base program (joystick)
 0001	Base program (keyboard)
 0002	Diagnostics
+0003	SceneA1 - Drawbridge
 
-0003	00Attract.bin (-3 frames!!! Editted by the script!)
-	0003-0175	Attract animation
+
+*** REMEMBER ALL THESE VALUES ARE OFFSET BY THE NUMBER OF CODE PAGES ABOVE!!       **
+*** They are the right values for the code - the VIDEO function adds in the offset **
+*** This goes for the still frames too - offset added in VMBWP					   **
+
+xxxx	00Attract.bin
+	0000-0175	Attract animation
 
 0176	a1drawbridge.bin
 	0176-018A	Ressurection
