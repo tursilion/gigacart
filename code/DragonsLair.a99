@@ -33,7 +33,16 @@ CARTPAGE EQU >6000
 
     DEF MAIN
     
-* TODO: watch mode?
+* TODO: init the VDP registers in a 9938 compatible way (see the slideshow program?)
+*    
+* TODO: write a filter that goes through the entire video file (whichever my build script uses) and
+*       processes it for flicker. All I want to do is keep the last frame's color bytes, and if the
+*       new frame tries to invert the colors (just that!), then keep the color and invert the pattern
+*       instead. It just seems way more flickery than it needs to be. If that's fact of life then
+*       so be it, but let's at least try. If it works I can release the tool to my other videos and
+*       as part of the video package.    
+    
+* TODO: easy mode doesn't award the initial 49 points (just to make the score different)
 
 * TODO: keyboard mode:
 *		-selected from GROM menu (done)
@@ -43,25 +52,6 @@ CARTPAGE EQU >6000
 * 		-Remember to check for and fix all the instruction screens that mention keyboard!
 *		-also remember to fix both playback codes which assume >6000 for the return bank (6002 for key, partially)
 
-* table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
-*
-* start frame - the page index of the first frame
-* frame count - the number of frames in the clip
-* death?      - if zero, survive after clip, else this is a death clip
-* valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
-* hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
-* score		  - score to add for this scene starting (stored the same 0-99 method as score is)
-*
-* 16 bytes per entry (for easy shifting)... approx 754 scenes, so 12k
-* Each scene will get its own 8k page to play with, to avoid memory limitations
-* We have lots of pages. ;)
-	
 * number of lives
 liveasy equ 5
 livhard equ 3
@@ -116,6 +106,24 @@ donevid
  	MOV @SAVE,R1		* return address
  	MOV @VIDEORET,R3	* return page
 	B @TRAMPRET			* trampoline
+	
+* clean up scratchpad so we can safely reboot
+* this is not allowed to move either - called from
+* the scene pages during practice mode
+REBOOT
+* reset F18A
+	BL @RESTF18
+	BL @LOCKF18
+* wipe scratchpad	
+	LI R0,>8304
+	LI R1,252
+RBLP1
+	CLR *R0+
+	DECT R1
+	JNE RBLP1
+* soft reset of console	
+	BLWP @>0000
+	
     
 * remember where we are (picks up here)
 MAINSTART
@@ -147,10 +155,11 @@ MAINSTART
 	MOV R0,@BEEPVOL
     
 * setup some persistent variables
-	CLR @cfgarcade		* also clears cfghard
+	CLR @cfgarcade		* also clears cfgeasy
 	clr @cfghints		* also clears f18aflg, but we check that below
 	clr @lives			* also clears scr1
 	clr @scr2			* also clears scr3
+	movb @BYTE01,@cfgeasy	* actually want to start with easy mode
     
 * test for F18A, and unlock. 
 * run 9918A version if it's not there.
@@ -275,7 +284,7 @@ LOOP4EVR
 * to make up for the JNE fallthrough being 2 cycles shorter.
 *
 * Although the smaller code needs fewer bytes to VDP, to keep the
-* code reasonably tight, we now need SIX copy loops.
+* code reasonably tight, we now need EIGHT copy loops.
 * 
 * The data pattern needs to be (P=PATTERN, C=COLOR, S=Sound):
 * 1     S
@@ -296,7 +305,8 @@ LOOP4EVR
 * 192   CCCCS
 *
 * Repeat - above sequence is first pattern data, then color data (color at >2000)
-* We are interleaving the pattern and color through each table
+* We are interleaving the pattern and color through each table. However, one frame per page
+* starting at >6020
 *
 *                                                  8Bit 16bit 
 
@@ -899,21 +909,6 @@ VDPWTA
     SWPB R0
     MOVB R0,@>8C02
     B *R11  
-
-* clean up scratchpad so we can safely reboot
-REBOOT
-* reset F18A
-	BL @RESTF18
-	BL @LOCKF18
-* wipe scratchpad	
-	LI R0,>8304
-	LI R1,252
-RBLP1
-	CLR *R0+
-	DECT R1
-	JNE RBLP1
-* soft reset of console	
-	BLWP @>0000
 	
 **
 * RESTF18 - Reset the GPU on the F18 (no harm if not F18, 
@@ -1339,6 +1334,7 @@ ATTRACT
 OPTIONS
 	BL @BLACKVID
 	MOVB @BEEPVOL,@SOUND	* mute beep
+	CLR R1
 	
 OPTDRAW	
 	LI R0,CFGHEA		* base config page
@@ -1346,14 +1342,20 @@ OPTDRAW
 	JNE OPT1
 	AI R0,1				* ENHANCED adds 1 frame to base
 OPT1
-	MOVB @cfghard,R1
-	JEQ OPT2
-	AI R0,2				* HARD adds 2 frames to base
-OPT2
 	MOVB @cfghints,R1
-	JNE OPT3
+	JNE OPT2
 	AI R0,4				* HINTS add 4 frames to base
+OPT2
+	MOVB @cfgeasy,R1	* do this last so we can check practice, too
+	JNE OPT3
+	AI R0,2				* HARD adds 2 frames to base
 OPT3
+* a little fixup cause 'practice' came late and messed things up - cfgeasy is '2'
+	CI R1,>0200			* is it practice?
+	JNE OPT4			* no
+	AI R0,29			* practice jumps ahead 29 frames
+
+OPT4
 	LI R1,1				* don't wait
 	BL @SHOWANDPAUSE2	* get it up
 
@@ -1384,9 +1386,10 @@ NOKEYS
 	CI R13,>0200	* was it D?
 	JNE NOKEYD
 * Handle D
-	MOVB @cfghard,r0
-	inv r0
-	movb r0,@cfghard
+	ab @BYTE01,@cfgeasy
+	cb @BYTE03,@cfgeasy
+	jne OPTDRAW
+	movb @BYTE00,@cfgeasy
 	jmp OPTDRAW
 	
 NOKEYD
@@ -1427,8 +1430,8 @@ NONEWKEY
 
 * set correct number of lives based on difficulty
 	li r0,liveasy
-	movb @cfghard,r0
-	jeq nlivhard
+	movb @cfgeasy,r0
+	jne nlivhard
 	li r0,livhard
 nlivhard
 	swpb r0
@@ -1556,6 +1559,10 @@ BYTE00
 	BYTE >00
 BYTE01
 	BYTE >01
+BYTE02
+	BYTE >02
+BYTE03
+	BYTE >03
 QUITK        
     DATA >1100
 

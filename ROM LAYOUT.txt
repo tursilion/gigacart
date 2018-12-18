@@ -1090,7 +1090,12 @@ xxxx	00Attract.bin
 2A5A	Diag9 - rom checksum failed (page on score)
 2A5B	Diag14 - 9900 test failed
 2A5C	AlphaLockUp
-
+2A5d	Config hints/practice/arcade
+2A5e	Config hints/practice/enhanced
+2a5f	(free)
+2a60	(free)
+2A61	Config No hints/practice/arcade (we skip to make it line up like the others)
+2A62	Config No hints/practice/enhanced
 
 
 VDP Usage:

@@ -34,7 +34,7 @@ HINTFIRE EQU >853B
 * 83F0-83F1 beepvol
 * 83F2-83F3 save3 (WORD)
 * 83F4	 	arcade(BYTE)
-* 83F5		hard  (BYTE)
+* 83F5		easy  (BYTE)
 * 83F6		hints (BYTE)
 * 83f7		f18a flag (true or 0) (BYTE)
 * 83F8      lives (BYTE)
@@ -53,7 +53,7 @@ rowbase equ >83ee
 BEEPVOL equ >83F0	* used to make the joystick accept beep on channel 2
 SAVE3 equ >83F2
 cfgarcade equ >83f4	 * non-zero if arcade order instead of enhanced
-cfghard	equ >83f5	* non-zero if hard mode instead of easy
+cfgeasy	equ >83f5	* non-zero if hard mode instead of easy
 cfghints equ >83f6	* non-zero if hints should be shown
 f18aflg equ >83f7	* non-zero if F18A detected (test with movb)
 lives equ >83f8		* lives remaining
@@ -67,9 +67,6 @@ SAVE2 EQU >83FE
 * Some graphic frame defines (hell with it... see ROM LAYOUT.txt)
 *
 CFGHEA	EQU >2a40		* first configuration screen page
-*CFGENH	EQU 1			* enhanced adds '1' over arcade
-*CFGHARD EQU 2			* hard adds '2' over easy
-*CFGNOHINT EQU 4		* no hints adds '4' over hints
 CFGSIT 	EQU >7800		* where is the SIT (only care once, mind...)
 CFGBORD EQU >2A3F		* border graphics
 CFGF18	EQU >2a48		* F18A
