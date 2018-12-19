@@ -261,6 +261,17 @@ GAMESTART
 notdied
 	bl @blackvid
 	
+* if we're on easy, subtract 49 points from the score
+* so they don't get the initial 49 points. We don't need
+* to worry about wraparound since the first scene will
+* always add 49 points (unless we screw up). This little
+* violation is just so easy and hard have different max
+* scores.
+	cb @byte01,@cfgeasy
+	jne noteasysc
+	ab @BYTECF,@scr3		* -49
+noteasysc
+	
 * get the first scene
 	mov @scenebase,r0
 	ai r0,8
@@ -268,12 +279,18 @@ notdied
 	
 * loop here until scenes are done, one way or another	
 scenelp
-
-* first, add any score that is granted for reaching this scene
+* make sure we have rowbase in r5
 	mov @rowbase,r5
+
+* if we are playing in practice mode, award NO score
+	cb @byte02,@cfgeasy
+	jeq noscore
+
+* otherwise, add any score that is granted for reaching this scene
 	mov @framescore(r5),r0
 	bl @addscore
 	bl @showscore
+noscore
 	
 * Now get the joystick mask. If we're in easy mode, we'll later replace this
 	clr JOYMASK
@@ -413,5 +430,9 @@ BYTE02
 	BYTE >02
 BYTE03
 	BYTE >03
+BYTECF
+	BYTE >CF
+	
+	EVEN
 QUITK        
     DATA >1100

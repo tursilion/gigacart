@@ -21,7 +21,7 @@
 * Each frame has 6144 bytes of video, and 1544 bytes of audio.
 * approximate output is: 
 * 8.6458 fps and 13372 Hz (but audio is best calculated
-* as (frames * 6144) = samples / duration = rate)
+* as (frames * 1544) = samples / duration = rate)
 *
 **************
 
@@ -33,17 +33,6 @@ CARTPAGE EQU >6000
 
     DEF MAIN
     
-* TODO: init the VDP registers in a 9938 compatible way (see the slideshow program?)
-*    
-* TODO: write a filter that goes through the entire video file (whichever my build script uses) and
-*       processes it for flicker. All I want to do is keep the last frame's color bytes, and if the
-*       new frame tries to invert the colors (just that!), then keep the color and invert the pattern
-*       instead. It just seems way more flickery than it needs to be. If that's fact of life then
-*       so be it, but let's at least try. If it works I can release the tool to my other videos and
-*       as part of the video package.    
-    
-* TODO: easy mode doesn't award the initial 49 points (just to make the score different)
-
 * TODO: keyboard mode:
 *		-selected from GROM menu (done)
 *		-lives on a different cartridge page (so we just return to that page instead (partially))
@@ -212,10 +201,9 @@ TSTLP
     B @F18YES
 
 F18NO   
+	movb @byte00,@f18aflg
 *   * set up bitmap
     BL @BITMAP
-    CLR R0
-    MOVB R0,@f18aflg
     B @GAMESTART
 
 ** Video playback here. Pass in:
@@ -466,6 +454,7 @@ FINAL
 *************** 
 
 F18YES  
+	movb @byte01,@f18aflg
 * good, copy the GPU program in and start it
     LI R0,>7800
     BL @VDPWTA
@@ -483,8 +472,6 @@ GLDLP
     
 *   * set up bitmap
     BL @BITMAP
-    SETO R0
-    MOVB R0,@f18aflg
     B @GAMESTART
 
 ** Video playback here. Pass in:
@@ -769,11 +756,16 @@ GPUTEST
 
 * Setup for normal 0 mode
 * returns with video off - set VDP R1 to E2 to enable (>81E2)
+* at this point we know if we have an F18A or not
 BITMAP
     MOV R11,@SAVE
 
 * set display and disable sprites
-    LI R1,BMREGS
+    LI R1,REG9938		* regs for 9938 compatibility
+	MOVB @f18aflg,r0	* do we have an F18A?
+	JEQ BMNOF18
+	LI R1,BMREGS		* skip the 9938 regs if we do, they will conflict
+BMNOF18	
     BL @LOADRG
     
 * set up SIT - copy from first graphic frame
@@ -884,7 +876,11 @@ VMBWPE
 * SDT - >1800
 * CT  - >2000
 * SAL - >1B00
+REG9938 DATA >8808,>8900,>8A00,>8B00,>8C00,>8D00,>8E00,>8F00
 BMREGS DATA >81E3,>8002,>8206,>83ff,>8403,>8536,>8603,>8700,>5B00,>0000
+* REG9938 are the registers for 9938 compatibility - load these from 8-F before 
+* loading the 9918's 0-7, and you should be good to go. Only if no F18A. Unlocked
+* F18A will have all kinds of fun with these...
 
 * load regs list to VDP address, end on >0000 and write >D0 (for sprites)
 * address of table in R1 (destroyed)

@@ -6,17 +6,17 @@ d:
 cd \work\ti\dragonslair\dl_pics
 d:\work\ti\videobitmap2border\debug\videobitmap2border BORDER2 BorderOut.bin BORDER
 d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGHINTSEASYARCADE ConfigHintsEasyArcade.bin CONTENT COL 241
-d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGHINTSEASYENHANCED ConfigHintsEasyEnhanced.bin CONTENT COL 241
+d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGHINTSEASYHOME ConfigHintsEasyHome.bin CONTENT COL 241
 d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGHINTSHARDARCADE ConfigHintsHardArcade.bin CONTENT COL 241
-d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGHINTSHARDENHANCED ConfigHintsHardEnhanced.bin CONTENT COL 241
+d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGHINTSHARDHOME ConfigHintsHardHome.bin CONTENT COL 241
 d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGNOHINTSEASYARCADE ConfigNoHintsEasyArcade.bin CONTENT COL 241
-d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGNOHINTSEASYENHANCED ConfigNoHintsEasyEnhanced.bin CONTENT COL 241
+d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGNOHINTSEASYHOME ConfigNoHintsEasyHome.bin CONTENT COL 241
 d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGNOHINTSHARDARCADE ConfigNoHintsHardArcade.bin CONTENT COL 241
-d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGNOHINTSHARDENHANCED ConfigNoHintsHardEnhanced.bin CONTENT COL 241
+d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGNOHINTSHARDHOME ConfigNoHintsHardHome.bin CONTENT COL 241
 d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGHINTSPRACTICEARCADE ConfigHintsPracticeArcade.bin CONTENT COL 241
-d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGHINTSPRACTICEENHANCED ConfigHintsPracticeEnhanced.bin CONTENT COL 241
+d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGHINTSPRACTICEHOME ConfigHintsPracticeHome.bin CONTENT COL 241
 d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGNOHINTSPRACTICEARCADE ConfigNoHintsPracticeArcade.bin CONTENT COL 241
-d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGNOHINTSPRACTICEENHANCED ConfigNoHintsPracticeEnhanced.bin CONTENT COL 241
+d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGNOHINTSPRACTICEHOME ConfigNoHintsPracticeHome.bin CONTENT COL 241
 d:\work\ti\videobitmap2border\debug\videobitmap2border F18A F18A.bin CONTENT COL 241
 d:\work\ti\videobitmap2border\debug\videobitmap2border HLSPLASH HLSplash.bin CONTENT COL 241
 d:\work\ti\videobitmap2border\debug\videobitmap2border HLTITLE HLTitle.bin CONTENT COL 241
@@ -81,7 +81,7 @@ d:\work\setbinsize\release\setbinsize SceneA1.bin 8192
 @rem note we are assuming that the still frames are each exactly 8k and not padding individually
 @rem how long can a copy line be? (8192 chars, apparently)
 cd ..\dl_pics
-copy /y /b ..\output_Cart8.bin + /b BorderOut.bin + /b ConfigHintsEasyArcade.bin + /b ConfigHintsEasyEnhanced.bin + /b ConfigHintsHardArcade.bin + /b ConfigHintsHardEnhanced.bin + /b ConfigNoHintsEasyArcade.bin + /b ConfigNoHintsEasyEnhanced.bin + /b ConfigNoHintsHardArcade.bin + /b ConfigNoHintsHardEnhanced.bin + /B F18A.bin + /b HLSplash.bin + /b HLTitle.bin + /b ..\code\spritesC.bin + /b Instruction1Joy.bin + /b Instruction1Key.bin + /b Instruction2Joy.bin + /b Instruction2Key.bin + /b GameOver.bin + /b ColorBars.bin + /b Diag1.bin + /b Diag2.bin + /b Diag3.bin + /b Diag4.bin + /b Diag5.bin + /b Diag6.bin + /b Diag7.bin + /b Diag8.bin + /b Diag9.bin + /b Diag14.bin + /b AlphaLockUp.bin + /b ConfigHintsPracticeArcade.bin + /b ConfigHintsPracticeEnhanced.bin + /b ConfigHintsPracticeEnhanced.bin + /b ConfigHintsPracticeEnhanced.bin + /b ConfigNoHintsPracticeArcade.bin + /b ConfigNoHintsPracticeEnhanced.bin /b CartROMData.bin
+copy /y /b ..\output_Cart8.bin + /b BorderOut.bin + /b ConfigHintsEasyArcade.bin + /b ConfigHintsEasyHome.bin + /b ConfigHintsHardArcade.bin + /b ConfigHintsHardHome.bin + /b ConfigNoHintsEasyArcade.bin + /b ConfigNoHintsEasyHome.bin + /b ConfigNoHintsHardArcade.bin + /b ConfigNoHintsHardHome.bin + /B F18A.bin + /b HLSplash.bin + /b HLTitle.bin + /b ..\code\spritesC.bin + /b Instruction1Joy.bin + /b Instruction1Key.bin + /b Instruction2Joy.bin + /b Instruction2Key.bin + /b GameOver.bin + /b ColorBars.bin + /b Diag1.bin + /b Diag2.bin + /b Diag3.bin + /b Diag4.bin + /b Diag5.bin + /b Diag6.bin + /b Diag7.bin + /b Diag8.bin + /b Diag9.bin + /b Diag14.bin + /b AlphaLockUp.bin + /b ConfigHintsPracticeArcade.bin + /b ConfigHintsPracticeHome.bin + /b ConfigHintsPracticeHome.bin + /b ConfigHintsPracticeHome.bin + /b ConfigNoHintsPracticeArcade.bin + /b ConfigNoHintsPracticeHome.bin /b CartROMData.bin
 
 @rem pad up the GPL part and put the code into the cart
 cd ..\code

@@ -43,21 +43,21 @@ HINTFIRE EQU >853B
 * 83fe-83ff	save2 (WORD)
 ******
 
-sceneret equ >83e4
+sceneret equ >83e4		* tracks what address to return to a scene player
 VIDEORET EQU >83E6		* tracks which page video should return to (Actual cartridge address, not index!)
 VIDEOPAGE EQU >83E8		* tracks which page (6000 or 6002) video is on
-** 83ea FREE
-justdied equ >83EB
-scenebase equ >83EC
-rowbase equ >83ee
-BEEPVOL equ >83F0	* used to make the joystick accept beep on channel 2
+** 83ea FREE (byte)
+justdied equ >83EB		* flag for playing ressurection (byte)
+scenebase equ >83EC		* base address for a current scene
+rowbase equ >83ee		* current row address in a scene
+BEEPVOL equ >83F0		* used to make the joystick accept beep on channel 2 (both bytes!)
 SAVE3 equ >83F2
-cfgarcade equ >83f4	 * non-zero if arcade order instead of enhanced
-cfgeasy	equ >83f5	* non-zero if hard mode instead of easy
-cfghints equ >83f6	* non-zero if hints should be shown
-f18aflg equ >83f7	* non-zero if F18A detected (test with movb)
-lives equ >83f8		* lives remaining
-scr1 equ >83f9		* 3 bytes of score in sort-of BCD - see above
+cfgarcade equ >83f4	 	* non-zero if arcade order instead of enhanced (byte)
+cfgeasy	equ >83f5		* non-zero if hard mode instead of easy (2 if practice mode! byte)
+cfghints equ >83f6		* non-zero if hints should be shown (byte)
+f18aflg equ >83f7		* non-zero if F18A detected (byte)
+lives equ >83f8			* lives remaining (byte)
+scr1 equ >83f9			* 3 bytes of score in sort-of BCD - see above
 scr2 equ >83fa
 scr3 equ >83fb
 SAVE EQU >83FC
@@ -74,7 +74,7 @@ CFGSPRITES EQU >2A4B	* sprite tables and patterns
 CFGPAT	EQU >6000		* where is the color data
 CFGCOL	EQU >6C00		* where is the pattern data
 
-* register equates (all bits are active high)
+* /register/ equates (all bits are active high)
 * the newly read bits from the joystick (set for one frame)
 JOYDAT EQU 4
 * the last read bits from the joystick (continuous)
