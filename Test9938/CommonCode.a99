@@ -7,7 +7,7 @@ VDPRD   EQU >8800
 VDPST	EQU >8802
 
 * how many frames of code are before the video/data starts
-VIDEOFFSET EQU >002A
+VIDEOFFSET EQU 4
 
 * Hint sprite tables
 HINTNONE EQU >8536
@@ -63,16 +63,11 @@ scr3 equ >83fb
 SAVE EQU >83FC
 SAVE2 EQU >83FE
 
-**
-* Some graphic frame defines (hell with it... see ROM LAYOUT.txt)
-*
-CFGHEA	EQU >2a40		* first configuration screen page
-CFGSIT 	EQU >7800		* where is the SIT (only care once, mind...)
-CFGBORD EQU >2A3F		* border graphics
-CFGF18	EQU >2a48		* F18A
-CFGSPRITES EQU >2A4B	* sprite tables and patterns
 CFGPAT	EQU >6000		* where is the color data
 CFGCOL	EQU >6C00		* where is the pattern data
+CFGSIT 	EQU >7800		* where is the SIT (only care once, mind...)
+
+
 
 * /register/ equates (all bits are active high)
 * the newly read bits from the joystick (set for one frame)

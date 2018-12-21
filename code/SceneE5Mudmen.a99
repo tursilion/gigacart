@@ -1,0 +1,122 @@
+**************
+* Dragon's Lair for the TI-99/4A - by M.Brent aka Tursi
+* A big extension of my AV Playback code, as below
+* Licensed by Digital Leisure - holy crap!
+* A real licensed release of a major property in 2017... I mean 2018...
+* I mean 2019. Damn it. ;)
+**************
+* Scene ?
+* Enter at >601C via BL to trampret, returns to videopage which should be right
+* On return, R14 has the game over video start, and R15 its length, if needed
+**************
+*
+* To make a new scene, update CARTPAGE for the new location.
+* Write the new SCENEDATA, add it to UpdateGfx.CMD (build and merge)
+* and update CommonCode.a99 (VIDEOFFSET)
+*
+
+** this is used by all code that needs to return to the code page
+CARTPAGE EQU >604A
+
+	COPY "D:\work\ti\dragonslair\code\CommonCode.a99"
+	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
+	
+* table layout...
+* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
+* hint sprites, good scene, bad scene, timeout scene, score
+*
+* start frame - the page index of the first frame
+* frame count - the number of frames in the clip
+* death?      - if zero, survive after clip, else this is a death clip
+* valid joyst - the mask of joystick bits to test for
+* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
+* good scene  - the next scene to play on success (if 0, end of sequence)
+* bad scene   - the next scene to play on failure
+* timeout sc  - the next scene to play after timeout
+* score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
+* 				Make sure the first scene is always 49 points
+*
+
+** First label MUST be called SCENEDATA. The rest are whatever you want.
+** First two words of a new scene are the ressurection start page and number of frames
+** Next two words are the game over crumbling skeleton scene and number of frames
+*
+* joystick bits:
+*   JOYUP    EQU >1000
+*   JOYDOWN  EQU >0800
+*   JOYLEFT  EQU >0200
+*   JOYRIGHT EQU >0400
+*   JOYFIRE  EQU >0100
+*
+** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
+** hint sprites, good scene, bad scene, timeout scene, score
+
+**** double check the moves in this one...
+
+SCENEDATA
+	DATA >1FBF,20										* ressurection
+	DATA >20D8,31										* game over
+
+** scenes **
+A1FD3
+	DATA >1FD3,>1E00,>VG,HINT?,Agood,Abad,Atime,49		* Intro (49)
+A1FF1
+	DATA >1FF1,>1600,>VG,HINT?,Agood,Abad,Atime,0		* Mudmen, fire and geyser threaten (S, UDLR dies)
+A2007
+	DATA >2007,>1800,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk tries to sword to no avail (1326)
+A201F
+	DATA >201F,>0900,>VG,HINT?,Agood,Abad,Atime,0		* Mudmen advance
+A2028
+	DATA >2028,>0D00,>VG,HINT?,Agood,Abad,Atime,0		* Mudmen back Dirk towards the geyser (UN, DLRS dies)
+A2035
+	DATA >2035,>0900,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk jumps the geyser up (1326)
+A203E
+	DATA >203E,>0800,>VG,HINT?,Agood,Abad,Atime,0		* Mudmen advance (chance to fall into non-geyser pools) (U, DLRS dies)
+A2046
+	DATA >2046,>0700,>VG,HINT?,Agood,Abad,Atime,2191		* Dirk escapes up (2191)
+A204D
+	DATA >204D,>0700,>VG,HINT?,Agood,Abad,Atime,0		* New Mudmen threaten with flames (UR, DLS dies)
+A2054
+	DATA >2054,>0700,>VG,HINT?,Agood,Abad,Atime,2675		* Dirk escapes left (2675)
+A205B
+	DATA >205B,>0700,>VG,HINT?,Agood,Abad,Atime,0		* Mudmen back Dirk towards geyser (U, DLRS dies)
+A2062
+	DATA >2062,>1200,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk jumps the geyser up (1326)
+A2074
+	DATA >2074,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Dirk approaches a gap (river of mud) (U, DLR dies)
+A207A
+	DATA >207A,>0C00,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk jumps to the left (1326)
+A2086
+	DATA >2086,>0C00,>VG,HINT?,Agood,Abad,Atime,0		* Mudmen back Dirk to a geyser again (U, DLRS dies)
+A2092
+	DATA >2092,>2200,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk jumps the geyser up (1326)
+A20B4
+	DATA >20B4,>0700,>VG,HINT?,Agood,Abad,Atime,0		* Mudmen and fire threaten (UR, DLS dies)
+A20BB
+	DATA >20BB,>0F00,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk escapes up	(1326)
+A20CA
+	DATA >20CA,>0E00,>VG,HINT?,Agood,Abad,Atime,0		* Fanfare and Dirk escapes
+
+** deaths **
+
+A20F7
+	DATA >20F7,>09FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk is caught in a geyser and carried up
+
+A2100
+	DATA >2100,>09FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk is caught in a different geyser, more static?
+
+A2109
+	DATA >2109,>12FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk falls into the mud
+
+A211B
+	DATA >211B,>27FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk falls into a flowing river of mud (gap)
+
+A2142
+	DATA >2142,>16FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Mudmen push Dirk into a geyser then dive in with him
+
+A2158
+	DATA >2158,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk steps onto fire (repeat of earlier animation)
+
+
+	END

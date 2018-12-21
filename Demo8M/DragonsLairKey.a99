@@ -1,3 +1,7 @@
+*** Keyboard version (but not in the game part itself yet...)
+** Not the final version and not kept up
+** to date, this is just here to test the keyboard build script
+
 **************
 * Dragon's Lair for the TI-99/4A - by M.Brent aka Tursi
 * A big extension of my AV Playback code, as below
@@ -12,7 +16,6 @@
 * Updated 11/4/2018 - now has more correct timing
 * and reads QUIT and the Joystick
 * F18A side also updated
-* joystick support for fast forward/reverse
 *
 * Final Version:	
 * Fixed for: sound chip timing
@@ -21,111 +24,158 @@
 * Each frame has 6144 bytes of video, and 1544 bytes of audio.
 * approximate output is: 
 * 8.6458 fps and 13372 Hz (but audio is best calculated
-* as (frames * 1544) = samples / duration = rate)
+* as (frames * 6144) = samples / duration = rate)
 *
 **************
 
-** Cartridge page - >6000 for joystick and >6002 for keyboard
-** this is used by all code that needs to return to the code page
-CARTPAGE EQU >6000
+SOUND   EQU >8400
+VDPWA   EQU >8C02
+VDPWD   EQU >8C00
+VDPRD   EQU >8800
+VDPST	EQU >8802
 
-	COPY "D:\work\ti\dragonslair\code\CommonCode.a99"
+**
+* Some graphic frame defines (hell with it... see ROM LAYOUT.txt)
+*
+CFGHEA	EQU >2a40		* first configuration screen page
+*CFGENH	EQU 1			* enhanced adds '1' over arcade
+*CFGHARD EQU 2			* hard adds '2' over easy
+*CFGNOHINT EQU 4		* no hints adds '4' over hints
+CFGPAT	EQU >6000		* where is the color data
+CFGCOL	EQU >6C00		* where is the pattern data
+CFGSIT 	EQU >7800		* where is the SIT (only care once, mind...)
+CFGBORD EQU >2A3F		* border graphics
+CFGF18	EQU >2a48		* F18A
+CFGSPRITES EQU >2A4B	* sprite tables and patterns
 
     DEF MAIN
     
-* TODO: scene sequencing a-la DLE seems to be approved :)    
-    
-* TODO: add a thanks screen including "Thanks to Dave Hallock D-L-P.com"    
-    
+* TODO: HINT ARROWS (sprites are in)
+* TODO: game itself of course... ;)
+
 * TODO: keyboard mode:
-*		-selected from GROM menu (done)
-*		-lives on a different cartridge page (so we just return to that page instead (partially))
-*		-columns 1 AND 2 are needed (ESDX, period for sword)
+*		-selected from GROM menu
+*		-lives on a different cartridge page (so we just return to that page instead)
+*		-columns 1 AND 2 are neede (ESDX, period for sword)
 *		-No way to keep timing, I think, maybe just live with it?
-* 		-Remember to check for and fix all the instruction screens that mention keyboard!
-*		-also remember to fix both playback codes which assume >6000 for the return bank (6002 for key, partially)
+* Remember to check for and fix all the instruction screens that mention keyboard!
+
+* TODO: diagnostics (can be one way to new cartridge page, reboot when finished)
+
+* TODO: screen for "release alpha lock" in joystick mode, and sit on it if needed
+
+* TODO: help screen for sprite icons (one each for keyboard and joystick)
+
+* TODO: can we make some of the arcade screens?
+*		Specifically, I'd like to remake the "Use the joystick to control the movements..." screen
+*		then follow it with the help screen
+
+* TODO: add game over screen (player one only)
+
+* TODO: score increment. There are only 13 increment values:
+* 49,251,379,495,915,1326,2191,2675,3255,3551,4026,4750,5000
+* That isn't a concern right now.
+* Each byte stores a valid from 0-99, but it's not stored as
+* BCD to simplify the math. Values greater than 99, we just
+* wrap them around and do the carry. Then we just use a lookup table
+* to convert each value from 0-99 into two digits for display (200 bytes)
+
+* TODO: table layout...
+* I am probably NOT going to be able to store everything in the 8k program space,
+* so, copying one row from banked memory into scratchpad or VDP may be needed.
+* start frame, frame count, timeout ok?, valid joystick (byte), good joystick (byte), hint sprites, good scene, bad scene, timeout scene
+*
+* start frame - the page index of the first frame
+* frame count - the number of frames in the clip
+* timeout ok? - if zero, timeout means death, else it's life
+* valid joyst - the mask of joystick bits to test for
+* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
+* good scene  - the next scene to play on success
+* bad scene   - the next scene to play on failure
+* timeout sc  - the next scene to play after timeout
+*
+* 16 bytes per entry (for easy shifting)... approx 754 scenes, so 12k
+* we'll allocate 2 pages for it (16K) and 16 bytes in scratchpad for the current one
+    
+******
+* Scratchpad usage
+* WARNING: init code takes advantage of this packing
+******
+* 8300-831f	Registers
+* 8320-83d7	misc code (playback, paging, etc)
+* ...
+* 83DA		playrow (byte)
+* 83DB-83DF 5 bytes of 'played scene' data (1 bit per scene, used to deal with selection)
+* 83E0-83EF current row of table data (16 bytes)
+* 83F0-83F1 beepvol
+* 83F2-83F3 save3 (WORD)
+* 83F4	 	arcade(BYTE)
+* 83F5		hard  (BYTE)
+* 83F6		hints (BYTE)
+* 83f7		f18a flag (true or 0) (BYTE)
+* 83F8      lives (BYTE)
+* 83f9-83fb	score (3 BYTES)
+* 83fc-83fd	save  (WORD)
+* 83fe-83ff	save2 (WORD)
+******
+
+PLAYROW equ >83da	* current row in the play table
+PLAYED equ >83db	* bit-table (5 bytes) of completed scenes, used for sequence
+TABLEDAT equ >83e0	* copy of 16 bytes of table data for current video
+BEEPVOL equ >83F0	* used to make the joystick accept beep on channel 2
+SAVE3 equ >83F2
+cfgarcade equ >83f4	 * non-zero if arcade order instead of enhanced
+cfghard	equ >83f5	* non-zero if hard mode instead of easy
+cfghints equ >83f6	* non-zero if hints should be shown
+f18aflg equ >83f7	* non-zero if F18A detected (test with movb)
+lives equ >83f8		* lives remaining
+scr1 equ >83f9		* 3 bytes of score in sort-of BCD - see above
+scr2 equ >83fa
+scr3 equ >83fb
+SAVE EQU >83FC
+SAVE2 EQU >83FE
+FRAMES EQU >600A
 
 * number of lives
 liveasy equ 5
 livhard equ 3
 
+* register equates (all bits are active high)
+* the newly read bits from the joystick (set for one frame)
+JOYDAT EQU 4
+* the last read bits from the joystick (continuous)
+JOYOLD EQU 5
+* a mask of bits that should immediately exit the scene
+JOYMASK EQU 6
+
+* joystick bits:
+JOYUP EQU >1000
+JOYDOWN EQU >0800
+JOYLEFT EQU >0200
+JOYRIGHT EQU >0400
+JOYFIRE EQU >0100
+
     AORG >6000
-    
-* Now that we don't have a cart header anymore, I've got 28 bytes that I can
-* use for a common trampoline function (to avoid needing to copy to scratchpad)
-* This will need to be copied into all code banks, but maybe a tool to copy it
-* into all banks period would be safest (then even video can return to it)
-* TRAMPRET is always at >6000, and returns to R1 on the page in R3, corrupting R0
-* You can use B or BL, R11 will be preserved through to the target.
-* can only jump to pages with a zero data write
-TRAMPRET
-	CLR *R3				* because we bank here, this code MUST always be the same!!
-	B *R1
-* Only 4 bytes...
-	
-	AORG >601C
+
+* cart header - >600A receives the bank to loop at
+* Note: for gigacart we use GROM startup instead... so '55' instead of 'aa' to mask it
+        DATA >5501,>0200,>0000,PROG1
+QUITK        
+        DATA >1100		* reusing this useless pointer for QUIT detection
+* subprogram pointer, invalid for ROM, unused now...
+        DATA >0174
+PROG1   DATA >0000,MAIN,>0A4D
+        TEXT 'OVIE TEST'
+        EVEN
 
 * MAIN must be at >601C - if you change it, change the GPL too
 MAIN
-	JMP MAINSTART
-	
-***
-* Handle a single video clip until it returns (does F18A test)
-* This needs to be at a known address on all pages, so it's placed early
-** R6 - JOYMASK
-** R7 - number of frames in clip
-** R8 - page to start at
-** You must set VIDEORET with the page of your return code
-** You must call this on the VIDEOPAGE bank
-** The scratchpad code will handle the return
-VIDEO
-* save return address
-	MOV R11,@SAVE
-	
-* Update offset
-	AI R8,VIDEOFFSET
+    CLR @>6002   * even though this bank doesn't need it, needs to be the same on all banks
 
-* check for F18A or not
-	MOVB @f18aflg,r0
-	jeq nof18vid
-	
-	bl @VIDYESF18
-	jmp donevid
-	
-nof18vid
-	bl @VIDNOF18
-    
-donevid
- 	MOV @SAVE,R1		* return address
- 	MOV @VIDEORET,R3	* return page
-	B @TRAMPRET			* trampoline
-	
-* clean up scratchpad so we can safely reboot
-* this is not allowed to move either - called from
-* the scene pages during practice mode
-REBOOT
-* reset F18A
-	BL @RESTF18
-	BL @LOCKF18
-* wipe scratchpad	
-	LI R0,>8304
-	LI R1,252
-RBLP1
-	CLR *R0+
-	DECT R1
-	JNE RBLP1
-* soft reset of console	
-	BLWP @>0000
-	
-    
-* remember where we are (picks up here)
-MAINSTART
+* this should be at >6020 to make all banks line up 
     LIMI 0
     LWPI >8300
-
-* save our cartpage as the videopage (only place this is initted)    
-	LI R0,CARTPAGE
-	MOV R0,@VIDEOPAGE
     
 *   * set up sound chip
     LI R0,>9FBF     * mute all channels
@@ -148,11 +198,10 @@ MAINSTART
 	MOV R0,@BEEPVOL
     
 * setup some persistent variables
-	CLR @cfgarcade		* also clears cfgeasy
+	CLR @cfgarcade		* also clears cfghard
 	clr @cfghints		* also clears f18aflg, but we check that below
 	clr @lives			* also clears scr1
 	clr @scr2			* also clears scr3
-	movb @BYTE01,@cfgeasy	* actually want to start with easy mode
     
 * test for F18A, and unlock. 
 * run 9918A version if it's not there.
@@ -205,9 +254,10 @@ TSTLP
     B @F18YES
 
 F18NO   
-	movb @byte00,@f18aflg
 *   * set up bitmap
     BL @BITMAP
+    CLR R0
+    MOVB R0,@f18aflg
     B @GAMESTART
 
 ** Video playback here. Pass in:
@@ -276,7 +326,7 @@ LOOP4EVR
 * to make up for the JNE fallthrough being 2 cycles shorter.
 *
 * Although the smaller code needs fewer bytes to VDP, to keep the
-* code reasonably tight, we now need EIGHT copy loops.
+* code reasonably tight, we now need SIX copy loops.
 * 
 * The data pattern needs to be (P=PATTERN, C=COLOR, S=Sound):
 * 1     S
@@ -297,8 +347,7 @@ LOOP4EVR
 * 192   CCCCS
 *
 * Repeat - above sequence is first pattern data, then color data (color at >2000)
-* We are interleaving the pattern and color through each table. However, one frame per page
-* starting at >6020
+* We are interleaving the pattern and color through each table
 *
 *                                                  8Bit 16bit 
 
@@ -360,7 +409,7 @@ NOTLP
 * check for end of video
 	DEC R7											10
 	JOC NOTYET										10
-	CLR @CARTPAGE                                   ...26 (reset cartridge bank for code jump)
+	CLR @>6002                                      ...26 (reset cartridge bank for code jump)
 	B @ABSRET										...16-2 for branch, but we are looping
 NOTYET
 * read the FCTN and EQUALS keys
@@ -368,7 +417,7 @@ NOTYET
 	JEQ KEYOK										10
 	TB 4											...12 (fctn)
 	JEQ KEYOK										...10
-	CLR @CARTPAGE                                   ......26 (reset cartridge bank for code jump)
+	CLR @>6002                                      ......26 (reset cartridge bank for code jump)
 	B @REBOOT										......16-2 (but who cares, we're rebooting)
 KEYOK
 *	         										  - 42 cycles (2 cycles over)
@@ -417,7 +466,7 @@ KEYOK
 	mov r2,JOYOLD	                                14
 	czc JOYMASK,JOYDAT                              14
 	jeq JOYOK		                                10 - normal case, we do not exit!
-	CLR @CARTPAGE                                   ...26 (reset cartridge bank for code jump)
+	CLR @>6002                                      ...26 (reset cartridge bank for code jump)
 	B @ABSRET                                       ...16 (joystick told us to exit)
 JOYOK
 *                                                      - 38 cycles (2 short)
@@ -458,9 +507,8 @@ FINAL
 *************** 
 
 F18YES  
-	movb @byte01,@f18aflg
 * good, copy the GPU program in and start it
-    LI R0,>7800
+    LI R0,>5B80
     BL @VDPWTA
     LI R1,GPUGO
 GLDLP
@@ -469,13 +517,15 @@ GLDLP
     JNE GLDLP
     
 * start running (it will move itself into high memory)
-    LI R0,>B638             * MSB
+    LI R0,>B61B             * MSB
     BL @VDPWTA
-    LI R0,>B700             * LSB and start
+    LI R0,>B780             * LSB and start
     BL @VDPWTA
     
 *   * set up bitmap
     BL @BITMAP
+    SETO R0
+    MOVB R0,@f18aflg
     B @GAMESTART
 
 ** Video playback here. Pass in:
@@ -529,8 +579,8 @@ CPLP118
 * loop repeat point for F18A
 LOOP418
 
-* So, the 9900 always writes starting at >3800,
-* it then writes one extra byte to >3B00, containg a GPU
+* So, the 9900 always writes starting at >1B80,
+* it then writes one extra byte to >1E80, containg a GPU
 * command:
 * 0x80  -   copy to second buffer
 * 0x20  -   copy first blocks
@@ -542,7 +592,7 @@ LOOP418
 *	R1 is reserved for scratch
 *	R2 is used for joystick calculations
 *   R3 is used (on F18A side only) to hold the VDP address
-	LI R3,>0078		* address of VDP buffer (>3800)
+	LI R3,>805B		* address of VDP buffer (>1B80)
     CLR R4			* R4 is reserved for JOYDAT
     CLR R5			* R5 is reserved for JOYOLD
 *   LI R6,>0700		* R6 is reserved for JOYMASK (left,right,fire)
@@ -593,7 +643,7 @@ NOTLP18
 * check for end of video
 	DEC R7											10
 	JOC NOTYET18   									10
-	CLR @CARTPAGE                                   ...26 (reset cartridge bank for code jump)
+	CLR @>6002                                      ...26 (reset cartridge bank for code jump)
 	B @ABSRET										...16-2 for branch, but we are looping (shared return)
 NOTYET18
 * read the FCTN and EQUALS keys
@@ -601,7 +651,7 @@ NOTYET18
 	JEQ KEYOK18										10
 	TB 4											...12 (fctn)
 	JEQ KEYOK18										...10
-	CLR @CARTPAGE                                   ......26 (reset cartridge bank for code jump)
+	CLR @>6002                                      ......26 (reset cartridge bank for code jump)
 	B @REBOOT										......16-2 (but who cares, we're rebooting)
 KEYOK18
 *	         										  - 42 cycles (2 cycles over)
@@ -650,7 +700,7 @@ KEYOK18
 	mov r2,JOYOLD	                                14
 	czc JOYMASK,JOYDAT                              14
 	jeq JOYOK18		                                10 - normal case, we do not exit!
-	CLR @CARTPAGE                                   ...26 (reset cartridge bank for code jump)
+	CLR @>6002                                      ...26 (reset cartridge bank for code jump)
 	B @ABSRET                                       ...16 (joystick told us to exit)
 JOYOK18
 *                                                      - 38 cycles (2 short)
@@ -693,15 +743,15 @@ FINAL18
 LOOP1   EQU LOOP1X-OUTLOOP+>8320
 LOOP18  EQU LOOP18X-OUTLOOP18+>8320
 
-* GPU code (loads at >3800 in VDP, copies itself to >4000)
+* GPU code (loads at >1B80 in VDP, copies itself to >4000)
 * to make life easy, position independent code! (VDP
 * addresses are hard coded though, that's fine)
 GPUGO
-    li r0,>3800+GPURUN-GPUGO
+    li r0,>1B80+GPURUN-GPUGO
     li r1,>4300
 GCPLP
     MOV *r0+,*r1+
-    ci r0,>3800+GPUEND-GPUGO
+    ci r0,>1b80+GPUEND-GPUGO
     jne GCPLP
 
 * now jump to it!   
@@ -709,19 +759,19 @@ GCPLP
     
 * this code running at >4300
 GPURUN
-    clr @>3B00      * zero command
+    clr @>1E80      * zero command
     CLR R0
 GPUWAIT
-    MOVB @>3B00,R0  * get it
+    MOVB @>1E80,R0  * get it
     JEQ GPUWAIT     * nothing yet
-    CLR @>3B00      * clear it
+    CLR @>1E80      * clear it
     JLT BUFCPY      * copying to second buffer
     
-* main buffer copy - copy >4000 to pattern, and >3800 to color
+* main buffer copy - copy >4000 to pattern, and >1B80 to color
 * R0 contains the color table target address
     MOV R0,R1       * for pattern table
     ANDI R1,>1FFF
-    LI R2,>3800     * R2->R0 for the color table
+    LI R2,>1B80     * R2->R0 for the color table
     LI R3,>4000     * R3->R1 for the pattern table
     LI R4,96        * we can move words instead of bytes
 GPUVLP  
@@ -738,7 +788,7 @@ GPUVLP
     JMP GPURUN      * go wait again
 
 BUFCPY
-    LI R0,>3800     * 9900 write buffer
+    LI R0,>1B80     * 9900 write buffer
     LI R1,>4000     * second buffer target when >80
     LI R2,96        * we can move words instead of bytes
 GPUBLP
@@ -760,16 +810,11 @@ GPUTEST
 
 * Setup for normal 0 mode
 * returns with video off - set VDP R1 to E2 to enable (>81E2)
-* at this point we know if we have an F18A or not
 BITMAP
     MOV R11,@SAVE
 
 * set display and disable sprites
-    LI R1,REG9938		* regs for 9938 compatibility
-	MOVB @f18aflg,r0	* do we have an F18A?
-	JEQ BMNOF18
-	LI R1,BMREGS		* skip the 9938 regs if we do, they will conflict
-BMNOF18	
+    LI R1,BMREGS
     BL @LOADRG
     
 * set up SIT - copy from first graphic frame
@@ -840,8 +885,6 @@ BMNOF18
 VMBWP
 	MOV R11,@SAVE2 		* frees R11
 	BL @VDPWTA	   		* set VDP address - frees R0
-* Add in offset
-	AI R3,VIDEOFFSET
 * copy the code into scratchpad
 	LI R11,VMBWPA  		* R11 is free to reuse
 	LI R0,>8320	   		* R0 is free to reuse
@@ -869,7 +912,7 @@ LPA2
 	MOVB *R1+,@>8C00
 	DEC R2
 	JNE LPA2
-	CLR @CARTPAGE
+	CLR @>6002
 	B *R11
 VMBWPE
 
@@ -880,11 +923,7 @@ VMBWPE
 * SDT - >1800
 * CT  - >2000
 * SAL - >1B00
-REG9938 DATA >8808,>8900,>8A00,>8B00,>8C00,>8D00,>8E00,>8F00
 BMREGS DATA >81E3,>8002,>8206,>83ff,>8403,>8536,>8603,>8700,>5B00,>0000
-* REG9938 are the registers for 9938 compatibility - load these from 8-F before 
-* loading the 9918's 0-7, and you should be good to go. Only if no F18A. Unlocked
-* F18A will have all kinds of fun with these...
 
 * load regs list to VDP address, end on >0000 and write >D0 (for sprites)
 * address of table in R1 (destroyed)
@@ -909,6 +948,21 @@ VDPWTA
     SWPB R0
     MOVB R0,@>8C02
     B *R11  
+
+* clean up scratchpad so we can safely reboot
+REBOOT
+* reset F18A
+	BL @RESTF18
+	BL @LOCKF18
+* wipe scratchpad	
+	LI R0,>8304
+	LI R1,252
+RBLP1
+	CLR *R0+
+	DECT R1
+	JNE RBLP1
+* soft reset of console	
+	BLWP @>0000
 	
 **
 * RESTF18 - Reset the GPU on the F18 (no harm if not F18, 
@@ -946,11 +1000,10 @@ LOCKF18
 **********************
 * More subroutines! so unorganized!
 **********************
-* Corrupts R12,R13 - only checks for S,D,H or 5
+* Corrupts R12,R13 - only checks for S,D or H
 * S	row 1, address >10 - return 1
 * D	row 2, address >10 - return 2
 * H	row 4, address >08 - return 4
-* 5 row 4, address >0E - return 8
 KSCAN
 		LI R13,>0100
 		LI R12,>0024		* column select
@@ -982,11 +1035,6 @@ KEYND
 		LI R13,>0400
 		B *R11
 KEYNH
-		TB 3
-		JEQ KEYN5
-		LI R13,>0800
-		B *R11
-KEYN5
 		CLR R13
 		B *R11
 
@@ -1130,6 +1178,26 @@ DELDONE
 	MOV @SAVE,R11
 	B *R11
 	
+***
+* Handle a single video clip until it returns
+*
+VIDEO
+	MOV R11,@SAVE
+
+* check for F18A or not
+	MOVB @f18aflg,r0
+	jeq nof18vid
+	
+	bl @VIDYESF18
+	jmp donevid
+	
+nof18vid
+	bl @VIDNOF18
+	
+donevid
+	MOV @SAVE,R11
+	B *R11
+	
 showscore
 * show score (kind of BCD-ish, each byte is 0-99)
 * digits in segment 3 are characters 167 (A7) on top and add 32 for bottom
@@ -1214,37 +1282,6 @@ showlives
 	MOVB R1,@VDPWD
 
 	B *R11
-	
-* add the score value in R0 to score
-* Score is a 24 bit value, stored not in BCD, but 0-99 per byte
-* R0 is a 16-bit value stored in the same manner to make math easier
-* Uses R1
-ADDSCORE
-	LI R1,100*256		* 100 bytes
-	AB @>8301,@scr3		* R0 LSB
-	cb @scr3,r1			* check for rollover
-	jl adds1			* no rollover
-	sb r1,@scr3			* subtract 100
-	ab @BYTE01,r0		* deal with the carry
-adds1
-	ab r0,@scr2			* r0 msb
-	cb @scr2,r1			* check for rollover
-	jl adds2			* no rollover
-	sb r1,@scr2			* subtract 100
-	ab @BYTE01,@scr3	* increment the most significant score byte
-adds2
-	B *R11
-	
-* Since video playback is getting expensive, we'll just put a
-* wrapper function here.
-* Set JOYMASK, R7 (count), R8 (first frame), and we'll
-* set up the trampoline. Call with BL.
-CALLVIDEO
-	LI R0,CARTPAGE		* my page
-	MOV R0,@VIDEORET	* how to get back to me
-	LI R1,VIDEO			* needs to be an equate in other pages...
-	MOV @VIDEOPAGE,R3	* page of the video player
-	B @TRAMPRET
 
 *********************************************************
 * Actual game code starting up here (post-init)
@@ -1261,31 +1298,7 @@ GAMESTART
 	BL @SHOWANDPAUSE
 nof18splash
 
-* JOYSTICK ONLY - if Alpha lock is DOWN, then wait for release
-	clr r12
-	sbz >0015
-	nop
-	tb 7
-	jeq AlphaUp
-* Load warning screen
-	LI R0,>2a5c
-	LI R1,240
-	BL @SHOWANDPAUSE
-	MOV JOYDAT,JOYDAT
-	JNE OPTIONS
-* wait for up or quit
-AlphaDown
-	SBO >0015
-	BL @JOYFAST		* don't care what it reads, just using for QUIT
-	CLR R12			* restore R12
-	sbz >0015
-	nop
-	TB 7
-	JNE AlphaDown
-AlphaUp
-	SBO >0015
-** End alpha lock up for joystick routine
-
+ATTRACT
 * harmlesslion presents
 	LI R0,>2a4a
 	LI R1,180
@@ -1293,28 +1306,25 @@ AlphaUp
 	MOV JOYDAT,JOYDAT
 	JNE OPTIONS
 	
-ATTRACT
-
 * start video playback of the attract mode
 * (which is hardcoded and loops atm...)
 	LI JOYMASK,JOYFIRE
-	LI R7,>0175			* attract mode frames
-	LI R8,>0000			* attract mode starts at
-	BL @CALLVIDEO
-
+	LI R7,>0174			* attract mode frames
+	LI R8,>0002			* attract mode starts at
+	BL @VIDEO
 	ANDI JOYDAT,JOYFIRE
 	MOV JOYDAT,JOYDAT
 	JNE OPTIONS
 	
-* instructions 1 (joystick)
-	LI R0,>2a4c
+* instructions 1 (keyboard)
+	LI R0,>2a4d
 	LI R1,600
 	BL @SHOWANDPAUSE
 	MOV JOYDAT,JOYDAT
 	JNE OPTIONS
 
-* instructions 2 (joystick)
-	LI R0,>2a4e
+* instructions 2 (keyboard)
+	LI R0,>2a4f
 	LI R1,240
 	BL @SHOWANDPAUSE
 	MOV JOYDAT,JOYDAT
@@ -1334,7 +1344,6 @@ ATTRACT
 OPTIONS
 	BL @BLACKVID
 	MOVB @BEEPVOL,@SOUND	* mute beep
-	CLR R1
 	
 OPTDRAW	
 	LI R0,CFGHEA		* base config page
@@ -1342,20 +1351,14 @@ OPTDRAW
 	JNE OPT1
 	AI R0,1				* ENHANCED adds 1 frame to base
 OPT1
-	MOVB @cfghints,R1
-	JNE OPT2
-	AI R0,4				* HINTS add 4 frames to base
-OPT2
-	MOVB @cfgeasy,R1	* do this last so we can check practice, too
-	JNE OPT3
+	MOVB @cfghard,R1
+	JEQ OPT2
 	AI R0,2				* HARD adds 2 frames to base
+OPT2
+	MOVB @cfghints,R1
+	JNE OPT3
+	AI R0,4				* HINTS add 4 frames to base
 OPT3
-* a little fixup cause 'practice' came late and messed things up - cfgeasy is '2'
-	CI R1,>0200			* is it practice?
-	JNE OPT4			* no
-	AI R0,29			* practice jumps ahead 29 frames
-
-OPT4
 	LI R1,1				* don't wait
 	BL @SHOWANDPAUSE2	* get it up
 
@@ -1386,28 +1389,19 @@ NOKEYS
 	CI R13,>0200	* was it D?
 	JNE NOKEYD
 * Handle D
-	ab @BYTE01,@cfgeasy
-	cb @BYTE03,@cfgeasy
-	jne OPTDRAW
-	movb @BYTE00,@cfgeasy
+	MOVB @cfghard,r0
+	inv r0
+	movb r0,@cfghard
 	jmp OPTDRAW
 	
 NOKEYD
 	CI R13,>0400	* was it H?
-	JNE NOKEYH	    * whatever
+	JNE NONEWKEY	* whatever
 * handle H
 	MOVB @cfghints,r0
 	inv r0
 	movb r0,@cfghints
 	jmp OPTDRAW
-
-NOKEYH
-	CI R13,>0800	* was it 5? (Diagnostics)
-	JNE NONEWKEY
-
-	LI R3,>6004		* diagnostics banks
-	LI R1,>6000		* target address
-	B @TRAMPRET		* we aren't coming back
 
 NONEWKEY
 	MOV R13,R13		* any key pressed?
@@ -1430,8 +1424,8 @@ NONEWKEY
 
 * set correct number of lives based on difficulty
 	li r0,liveasy
-	movb @cfgeasy,r0
-	jne nlivhard
+	movb @cfghard,r0
+	jeq nlivhard
 	li r0,livhard
 nlivhard
 	swpb r0
@@ -1439,94 +1433,12 @@ nlivhard
 	
 	BL @showscore
 	BL @showlives
-	
-	MOVB @BYTE00,@justdied	* clear the flag, we manually play the first one
+
 	MOVB @BEEPVOL,@SOUND	* mute beep
 	
-* TODO: init scene selection logic	
+* TODO AND START THE GAME... for now we loop
+	B @GAMESTART
 	
-* AND START THE GAME... 
-
-* so the first thing we are going to do is play the castle overview as
-* a video. Then, if we are on arcade mode, we'll also play the slamming
-* doors directly. (If we're on enhanced or home, whatever we call it,
-* that will play as part of the drawbridge scene).
-* So, that's 2 (maybe 3) fixed clips: ressurrect,castle,doors
-	CLR JOYMASK
-	LI R8,>0176			* resurrection start
-	LI R7,21			* resurrection length
-	BL @CALLVIDEO
-	
-* We do ressurrection separate from castle so we can decrement the lives here
-* like the scene playback code does...
-	sb @byte01,@lives
-	bl @showlives
-	
-* now play the castle intro
-	LI R8,>018B			* castle start
-	LI R7,53			* castle length
-	BL @CALLVIDEO
-	
-* Now check whether we are playing the drawbridge - if yes, get to it
-* if no, then play the slamming doors
-	MOVB @cfgarcade,r0
-	jeq starthome
-	
-* doing the arcade here, so just slam those doors and jump down to the
-* scene selector	
-	LI R8,>021a			* slamming start
-	LI R7,24			* length
-	BL @CALLVIDEO
-	JMP GAMELOOP		* let the GAMELOOP select a scene
-	
-* Here we are doing the home/enhanced sequence, which starts with the drawbridge
-STARTHOME
-	LI R0,A1DRAWBRIDGE
-	jmp ALREADYSCENE
-
-GAMELOOP
-* TODO: select the next scene and start it. Always drawbridge for now...
-	LI R0,A1DRAWBRIDGE
-
-ALREADYSCENE
-* scene page to play is in R0
-	MOV R0,R3			* move it to R3
-	LI R1,>601C			* all scenes start at >601C
-	BL @TRAMPRET		* go call it
-	
-* We're back!!
-* check if this was a death scene
-	movb @justdied,r0
-	jeq nodeath
-	
-* yep, player died, so check for remaining lives...
-* (the ressurrection sequence does the subtraction)
-	movb @lives,r0
-	jne nodeath2		* not game over yet!
-	
-* it /is/ game over, the player done bit the big one
-* play the game over scene... (scene helpfully gave us the data in R14/R15)
-	clr JOYMASK			* no input
-	mov R14,r8			* starting page of death scene
-	mov R15,r7			* number of frames
-	BL @CALLVIDEO
-	
-* now show the gameover screen for a few seconds
-	li r0,>2a50
-	li r1,240
-	bl @showandpause
-	
-* and loop back around to the attract mode
-	b @attract
-
-* game is still playing, we jump here to basically just jump
-* back to the scene selector
-nodeath
-* TODO: we need to mark a scene 'done' if we didn't die	
-
-* we come here if we did die, but still have lives left
-nodeath2
-	b @GAMELOOP
 	
 	
 	
@@ -1553,20 +1465,6 @@ BCDLOOKUP
 	DATA >AFAB,>AFAC,>AFAD,>AFAE,>AFAF,>AFB0
 	DATA >B0A7,>B0A8,>B0A9,>B0AA,>B0AB,>B0AC
 	DATA >B0AD,>B0AE,>B0AF,>B0B0
-	
-* these are just really handy...
-BYTE00
-	BYTE >00
-BYTE01
-	BYTE >01
-BYTE02
-	BYTE >02
-BYTE03
-	BYTE >03
-QUITK        
-    DATA >1100
 
-* eventually, a table of scenes here...
-A1DRAWBRIDGE EQU >6006
     END
     

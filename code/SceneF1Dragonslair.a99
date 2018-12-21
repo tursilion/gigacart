@@ -1,0 +1,188 @@
+**************
+* Dragon's Lair for the TI-99/4A - by M.Brent aka Tursi
+* A big extension of my AV Playback code, as below
+* Licensed by Digital Leisure - holy crap!
+* A real licensed release of a major property in 2017... I mean 2018...
+* I mean 2019. Damn it. ;)
+**************
+* Scene ?
+* Enter at >601C via BL to trampret, returns to videopage which should be right
+* On return, R14 has the game over video start, and R15 its length, if needed
+**************
+*
+* To make a new scene, update CARTPAGE for the new location.
+* Write the new SCENEDATA, add it to UpdateGfx.CMD (build and merge)
+* and update CommonCode.a99 (VIDEOFFSET)
+*
+
+** this is used by all code that needs to return to the code page
+CARTPAGE EQU >6052
+
+	COPY "D:\work\ti\dragonslair\code\CommonCode.a99"
+	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
+	
+* table layout...
+* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
+* hint sprites, good scene, bad scene, timeout scene, score
+*
+* start frame - the page index of the first frame
+* frame count - the number of frames in the clip
+* death?      - if zero, survive after clip, else this is a death clip
+* valid joyst - the mask of joystick bits to test for
+* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
+* good scene  - the next scene to play on success (if 0, end of sequence)
+* bad scene   - the next scene to play on failure
+* timeout sc  - the next scene to play after timeout
+* score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
+* 				Make sure the first scene is always 49 points
+*
+
+** First label MUST be called SCENEDATA. The rest are whatever you want.
+** First two words of a new scene are the ressurection start page and number of frames
+** Next two words are the game over crumbling skeleton scene and number of frames
+*
+* joystick bits:
+*   JOYUP    EQU >1000
+*   JOYDOWN  EQU >0800
+*   JOYLEFT  EQU >0200
+*   JOYRIGHT EQU >0400
+*   JOYFIRE  EQU >0100
+*
+** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
+** hint sprites, good scene, bad scene, timeout scene, score
+SCENEDATA
+od scene, bad scene, timeout scene, score
+SCENEDATA
+	DATA >2564,20										* ressurection
+	DATA >28A5,31										* game over
+
+** scenes **
+A2578
+	DATA >2578,>2600,>VG,HINT?,Agood,Abad,Atime,49		* Intro (49)
+A259E
+	DATA >259E,>0500,>VG,HINT?,Agood,Abad,Atime,0		* Treasure threatens (L)
+A25A3
+	DATA >25A3,>0900,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk rebalances to left (1326)
+A25AC
+	DATA >25AC,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Pan to Singe
+A25B2
+	DATA >25B2,>1300,>VG,HINT?,Agood,Abad,Atime,0		* Singe sleeps
+A25C5
+	DATA >25C5,>1900,>VG,HINT?,Agood,Abad,Atime,0		* Daphne wakes
+A25DE
+	DATA >25DE,>1600,>VG,HINT?,Agood,Abad,Atime,0		* Dirk jumps down
+A25F4
+	DATA >25F4,>1200,>VG,HINT?,Agood,Abad,Atime,0		* Singe wakes and breathes fire (L, URS dies)
+A2606
+	DATA >2606,>0E00,>VG,HINT?,Agood,Abad,Atime,1939		* Dirk takes cover to left (1939)
+A2614
+	DATA >2614,>1700,>VG,HINT?,Agood,Abad,Atime,0		* Singe looks around
+A262B
+	DATA >262B,>1500,>VG,HINT?,Agood,Abad,Atime,0		* Singe pretends to sleep
+A2640
+	DATA >2640,>0A00,>VG,HINT?,Agood,Abad,Atime,0		* Dirk waits
+A264A
+	DATA >264A,>0400,>VG,HINT?,Agood,Abad,Atime,0		* Treasure threatens (L)
+A264E
+	DATA >264E,>1100,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk catches to left (1326)
+A265F
+	DATA >265F,>2300,>VG,HINT?,Agood,Abad,Atime,0		* Dirk jumps to Daphne. "Save me!"
+A2682
+	DATA >2682,>5900,>VG,HINT?,Agood,Abad,Atime,0		* Daphne explains how to defeat Singe
+A26DB
+	DATA >26DB,>0E00,>VG,HINT?,Agood,Abad,Atime,0		* Shot of the magic sword
+A26E9
+	DATA >26E9,>1000,>VG,HINT?,Agood,Abad,Atime,0		* Singe incoming
+A26F9
+	DATA >26F9,>1000,>VG,HINT?,Agood,Abad,Atime,0		* Singe searching with claws
+A2709
+	DATA >2709,>0700,>VG,HINT?,Agood,Abad,Atime,0		* Dirk ducking
+A2710
+	DATA >2710,>0500,>VG,HINT?,Agood,Abad,Atime,0		* Singe threatens with claws (DL, S dies)
+A2715
+	DATA >2715,>0800,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk escapes left (1326)
+A271D
+	DATA >271D,>0C00,>VG,HINT?,Agood,Abad,Atime,0		* Daphne reacts. What a bimbo.
+A2729
+	DATA >2729,>0B00,>VG,HINT?,Agood,Abad,Atime,0		* The chase is on! (U)
+A2734
+	DATA >2734,>0C00,>VG,HINT?,Agood,Abad,Atime,2191		* Singe flames at Dirk (2191)
+A2740
+	DATA >2740,>0E00,>VG,HINT?,Agood,Abad,Atime,0		* To the pillar!
+A274E
+	DATA >274E,>0500,>VG,HINT?,Agood,Abad,Atime,0		* Singe threatens with tail (DL, URS dies)
+A2753
+	DATA >2753,>1700,>VG,HINT?,Agood,Abad,Atime,1939		* Dirk ducks and runs (1939)
+A276A
+	DATA >276A,>0B00,>VG,HINT?,Agood,Abad,Atime,0		* Daphne again
+A2775
+	DATA >2775,>0A00,>VG,HINT?,Agood,Abad,Atime,0		* Dirk running (U)
+A277F
+	DATA >277F,>0500,>VG,HINT?,Agood,Abad,Atime,2191		* Singe flames again (R, DL dies) (2191)
+A2784
+	DATA >2784,>0500,>VG,HINT?,Agood,Abad,Atime,3255		* Singe misses (3255)
+A2789
+	DATA >2789,>0800,>VG,HINT?,Agood,Abad,Atime,0		* Singe advances
+A2791
+	DATA >2791,>0A00,>VG,HINT?,Agood,Abad,Atime,0		* Dirk running
+A279B
+	DATA >279B,>0800,>VG,HINT?,Agood,Abad,Atime,0		* Dirk spies the sword (UR)
+A27A3
+	DATA >27A3,>0D00,>VG,HINT?,Agood,Abad,Atime,2191		* Face off at center ice (above the sword) (RS) (2191)
+A27B0
+	DATA >27B0,>0900,>VG,HINT?,Agood,Abad,Atime,3551		* Dirk goes for the sword (3551)
+A27B9
+	DATA >27B9,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Singe threatens
+A27BF
+	DATA >27BF,>0200,>VG,HINT?,Agood,Abad,Atime,0		* Singe attacks and misses
+A27C1
+	DATA >27C1,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Dirk has the sword
+A27C7
+	DATA >27C7,>0500,>VG,HINT?,Agood,Abad,Atime,0		* Singe flames again (S, UDLR dies)
+A27CC
+	DATA >27CC,>0E00,>VG,HINT?,Agood,Abad,Atime,4026		* Dirk blocks with the sword (4026)
+A27DA
+	DATA >27DA,>0800,>VG,HINT?,Agood,Abad,Atime,0		* Does anyone actually like Daphne? Beyond sex appeal, that is?
+A27E2
+	DATA >27E2,>0E00,>VG,HINT?,Agood,Abad,Atime,0		* Singe threatens with tail (UL, R dies)
+A27F0
+	DATA >27F0,>0800,>VG,HINT?,Agood,Abad,Atime,2191		* Dirk dodges left (2191)
+A27F8
+	DATA >27F8,>0300,>VG,HINT?,Agood,Abad,Atime,0		* Singe flames again (S)
+A27FB
+	DATA >27FB,>0200,>VG,HINT?,Agood,Abad,Atime,4750		* Dirk deflects (4750)
+A27FD
+	DATA >27FD,>0700,>VG,HINT?,Agood,Abad,Atime,0		* Dirk jumps forward (S)
+A2804
+	DATA >2804,>0C00,>VG,HINT?,Agood,Abad,Atime,5000		* Dirk hurls the sword and connects (5000)
+A2810
+	DATA >2810,>1400,>VG,HINT?,Agood,Abad,Atime,0		* Singe falls
+A2824
+	DATA >2824,>0700,>VG,HINT?,Agood,Abad,Atime,0		* Key bounces around Singe's neck
+A282B
+	DATA >282B,>0A00,>VG,HINT?,Agood,Abad,Atime,0		* Dirk takes the key
+A2835
+	DATA >2835,>7000,>VG,HINT?,Agood,Abad,Atime,0		* Dirk frees Daphne and gets his kiss.
+
+** deaths **
+
+A28C4
+	DATA >28C4,>12FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Singe flames Dirk
+
+A28D6
+	DATA >28D6,>16FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Singe's claw catches Dirk at pillar
+
+A28EC
+	DATA >28EC,>12FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk gets the magic sword but is flamed at the crystal
+
+A28FE
+	DATA >28FE,>12FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk raises sword (magic sword?) but is flamed
+
+A2910
+	DATA >2910,>16FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk tries to sword at second pillar and is tail whipped
+
+A2926
+	DATA >2926,>12FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk tries to magic sword and is tail whipped
+
+	END

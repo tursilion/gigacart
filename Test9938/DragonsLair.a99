@@ -1,0 +1,580 @@
+** This file is just a quick and dirty test to see if we can init a 9938 properly.
+** We'll just come up to a static screen.
+
+**************
+* Dragon's Lair for the TI-99/4A - by M.Brent aka Tursi
+* A big extension of my AV Playback code, as below
+* Licensed by Digital Leisure - holy crap!
+* A real licensed release of a major property in 2017... I mean 2018...
+* I mean 2019. Damn it. ;)
+**************
+* AV Playback code - by m.brent aka Tursi
+* F18A support added - will autodetect
+* and play the appropriate version.
+*
+* Updated 11/4/2018 - now has more correct timing
+* and reads QUIT and the Joystick
+* F18A side also updated
+* joystick support for fast forward/reverse
+*
+* Final Version:	
+* Fixed for: sound chip timing
+*            gigacart switching (16-bits worth - 512MB)
+*
+* Each frame has 6144 bytes of video, and 1544 bytes of audio.
+* approximate output is: 
+* 8.6458 fps and 13372 Hz (but audio is best calculated
+* as (frames * 6144) = samples / duration = rate)
+*
+**************
+
+** this one is meant to load via EA#5 (will change to cart if needed)
+	AORG >A000
+    
+	COPY "D:\work\ti\dragonslair\Test9938\CommonCode.a99"
+
+    DEF MAIN
+
+MAIN
+	JMP MAINSTART
+	
+* clean up scratchpad so we can safely reboot
+* this is not allowed to move either - called from
+* the scene pages during practice mode
+REBOOT
+* reset F18A
+	BL @RESTF18
+	BL @LOCKF18
+* wipe scratchpad	
+	LI R0,>8304
+	LI R1,252
+RBLP1
+	CLR *R0+
+	DECT R1
+	JNE RBLP1
+* soft reset of console	
+	BLWP @>0000
+	
+* remember where we are (picks up here)
+MAINSTART
+    LIMI 0
+    LWPI >8300
+
+*   * set up sound chip
+    LI R0,>9FBF     * mute all channels
+    MOVB R0,@SOUND
+    SWPB R0
+    MOVB R0,@SOUND
+    LI R0,>DFFF
+    MOVB R0,@SOUND
+    SWPB R0
+    MOVB R0,@SOUND
+    LI R0,>8100     * highest frequency
+    MOVB R0,@SOUND
+    SWPB R0
+    MOVB R0,@SOUND
+    LI R0,>C004		* beep frequency on ch 3 (no buzz?)
+    MOVB R0,@SOUND
+    SWPB R0
+    MOVB R0,@SOUND
+	LI R0,>DFD8		* beep volumes
+	MOV R0,@BEEPVOL
+    
+* setup some persistent variables
+	CLR @cfgarcade		* also clears cfgeasy
+	clr @cfghints		* also clears f18aflg, but we check that below
+	clr @lives			* also clears scr1
+	clr @scr2			* also clears scr3
+	movb @BYTE01,@cfgeasy	* actually want to start with easy mode
+    
+* test for F18A, and unlock. 
+* run 9918A version if it's not there.
+
+* if user is holding shift, then skip F18A test and run without
+	LI R12,>0024
+	CLR R1
+	LDCR R1,3
+	NOP
+	LI R12,>0010
+	TB 0			* is shift pressed?
+	JNE F18NO		* if so, skip the GPU test
+
+* We just check if the GPU is present by having it 
+* run a short program
+* F18A blind unlock code
+    LI R0,>B91C             * VR1/57, value 00011100
+    BL @VDPWTA              * write once (corrupts VDPR1)
+    BL @VDPWTA              * write again (unlocks enhanced mode)
+
+* If we are not on the F18A, then R1 is screwed up now, that's okay
+    LI R0,>5C00
+    BL @VDPWTA
+    LI R1,GPUTEST
+    LI R2,10
+TSTLP
+    MOVB *R1+,@VDPWD        * copy program
+    DEC R2
+    JNE TSTLP
+    
+    LI R0,>5C10             * test address
+    BL @VDPWTA
+    CLR @VDPWD              * clear it
+    CLR @VDPWD
+    
+* Start the GPU program, pause, then check the result
+    LI R0,>B61C             * MSB
+    BL @VDPWTA
+    LI R0,>B700             * LSB and start
+    BL @VDPWTA
+    NOP                     * give it a moment - it's WAY faster than we are
+    LI R0,>1C10
+    BL @VDPWTA
+    NOP
+    MOVB @VDPRD,R1          * read the data
+    SWPB R1
+    MOVB @VDPRD,R1
+    CI R1,>3412
+    JNE F18NO
+    B @F18YES
+
+F18NO   
+	movb @byte00,@f18aflg
+*   * set up bitmap
+    BL @BITMAP
+    B @GAMESTART
+
+F18YES  
+	movb @byte01,@f18aflg
+* good, copy the GPU program in and start it
+    LI R0,>7800
+    BL @VDPWTA
+    LI R1,GPUGO
+GLDLP
+    MOVB *R1+,@VDPWD
+    CI R1,GPUEND
+    JNE GLDLP
+    
+* start running (it will move itself into high memory)
+    LI R0,>B638             * MSB
+    BL @VDPWTA
+    LI R0,>B700             * LSB and start
+    BL @VDPWTA
+    
+*   * set up bitmap
+    BL @BITMAP
+    B @GAMESTART
+    
+* GPU code (loads at >3800 in VDP, copies itself to >4000)
+* to make life easy, position independent code! (VDP
+* addresses are hard coded though, that's fine)
+GPUGO
+    li r0,>3800+GPURUN-GPUGO
+    li r1,>4300
+GCPLP
+    MOV *r0+,*r1+
+    ci r0,>3800+GPUEND-GPUGO
+    jne GCPLP
+
+* now jump to it!   
+    B @>4300
+    
+* this code running at >4300
+GPURUN
+    clr @>3B00      * zero command
+    CLR R0
+GPUWAIT
+    MOVB @>3B00,R0  * get it
+    JEQ GPUWAIT     * nothing yet
+    CLR @>3B00      * clear it
+    JLT BUFCPY      * copying to second buffer
+    
+* main buffer copy - copy >4000 to pattern, and >3800 to color
+* R0 contains the color table target address
+    MOV R0,R1       * for pattern table
+    ANDI R1,>1FFF
+    LI R2,>3800     * R2->R0 for the color table
+    LI R3,>4000     * R3->R1 for the pattern table
+    LI R4,96        * we can move words instead of bytes
+GPUVLP  
+    MOV *R2+,*R0+
+    MOV *R3+,*R1+
+    MOV *R2+,*R0+
+    MOV *R3+,*R1+
+    MOV *R2+,*R0+
+    MOV *R3+,*R1+
+    MOV *R2+,*R0+
+    MOV *R3+,*R1+
+    DEC R4
+    JNE GPUVLP
+    JMP GPURUN      * go wait again
+
+BUFCPY
+    LI R0,>3800     * 9900 write buffer
+    LI R1,>4000     * second buffer target when >80
+    LI R2,96        * we can move words instead of bytes
+GPUBLP
+    MOV *R0+,*R1+
+    MOV *R0+,*R1+
+    MOV *R0+,*R1+
+    MOV *R0+,*R1+
+    DEC R2
+    JNE GPUBLP
+    JMP GPURUN      * go wait again
+
+GPUEND
+
+* GPU TEST must be 10 bytes... (copied and run on F18A GPU)
+GPUTEST
+    LI R0,>1234
+    MOV R0,@>1C10
+    IDLE
+    
+
+		COPY "D:\WORK\TI\DragonsLair\Test9938\Instruction1Joy.a99"
+		COPY "D:\WORK\TI\DragonsLair\Test9938\BorderOut.a99"
+   
+
+* Setup for normal 0 mode
+* returns with video off - set VDP R1 to E2 to enable (>81E2)
+* at this point we know if we have an F18A or not
+BITMAP
+    MOV R11,@SAVE
+
+* set display and disable sprites
+    LI R1,REG9938		* regs for 9938 compatibility
+	MOVB @f18aflg,r0	* do we have an F18A?
+	JEQ BMNOF18
+	LI R1,BMREGS		* skip the 9938 regs if we do, they will conflict
+BMNOF18	
+    BL @LOADRG
+    
+* set up SIT - copy from first graphic frame
+    LI R0,>5800
+    LI R1,CFGSIT
+    LI R2,768
+    LI R3,TESTSCRN	* frame to copy from
+    BL @VMBWP
+    
+* now it takes a few loops to copy in the
+* color and pattern data, they are spaced
+* Pattern is packed first (unlike the video stills)
+* set up PATTERN - (R1 already set)
+* chars 0x60-0xff
+    LI R0,>4300
+    LI R1,CFGPAT
+    LI R2,160*8
+    LI R3,CFGBORD
+    BL @VMBWP
+    
+* chars 0x1C0-0x1FF (R1 already set)
+	LI R0,>4E00
+	LI R2,64*8
+    LI R3,CFGBORD
+	BL @VMBWP
+	
+* chars 0x260-0x2FF (R1 already set)
+	LI R0,>5300
+	LI R2,160*8
+    LI R3,CFGBORD
+	BL @VMBWP
+
+* set up COLOR (R1 is already set)
+* chars 0x60-0xff
+    LI R0,>6300
+    LI R2,160*8
+    LI R3,CFGBORD
+    BL @VMBWP
+    
+* chars 0x1C0-0x1FF (R1 already set)
+	LI R0,>6E00
+	LI R2,64*8
+    LI R3,CFGBORD
+	BL @VMBWP
+	
+* chars 0x260-0x2FF (R1 already set)
+	LI R0,>7300
+	LI R2,160*8
+    LI R3,CFGBORD
+	BL @VMBWP
+	
+
+* back to caller    
+    MOV @SAVE,R11
+    B *R11
+	
+* VMBWP via a page - corrupts scratchpad at >8320
+* abused for this test...	
+* R0 - VDP address (with >4000 set)
+* R1 - src address (register saved but incremented)
+* R2 - count
+* R3 - video page to copy from (actually a memory address now...)
+VMBWP
+	MOV R11,@SAVE2 		* frees R11
+	BL @VDPWTA	   		* set VDP address - frees R0
+* copy the code into scratchpad
+	LI R11,VMBWPA  		* R11 is free to reuse
+	LI R0,>8320	   		* R0 is free to reuse
+VMBCP1	
+	MOV *R11+,*R0+
+	CI R11,VMBWPE
+	JNE VMBCP1
+* just fix up R1...
+	AI R1,->6000		* remove cartridge base
+	A R3,R1				* add passed in base...
+* Do the actual copy
+	BL @>8320
+* unfixup, cause we assume R1 can be reused
+	S R3,R1
+	AI R1,>6000
+* and back to caller	
+	MOV @SAVE2,R11
+	B *R11
+	
+VMBWPA
+* Entry here at >8320
+LPA2
+	MOVB *R1+,@>8C00
+	DEC R2
+	JNE LPA2
+	B *R11
+VMBWPE
+
+* registers for bitmap (and 5B00 is the write address of the sprite table)
+* background is transparent (the only color never redefined)
+* PDT - >0000
+* SIT - >1800
+* SDT - >1800
+* CT  - >2000
+* SAL - >1B00
+REG9938 DATA >8808,>8900,>8A00,>8B00,>8C00,>8D00,>8E00,>8F00
+BMREGS DATA >81E3,>8002,>8206,>83ff,>8403,>8536,>8603,>8700,>5B00,>0000
+* REG9938 are the registers for 9938 compatibility - load these from 8-F before 
+* loading the 9918's 0-7, and you should be good to go. Only if no F18A. Unlocked
+* F18A will have all kinds of fun with these...
+
+* load regs list to VDP address, end on >0000 and write >D0 (for sprites)
+* address of table in R1 (destroyed)
+LOADRG
+LOADLP
+    MOV *R1+,R0
+    JEQ LDRDN
+    SWPB R0
+    MOVB R0,@>8C02
+    SWPB R0
+    MOVB R0,@>8C02
+    JMP LOADLP
+LDRDN
+    LI R1,>D000
+    MOVB R1,@>8C00
+    B *R11
+
+* Write address or register
+VDPWTA
+    SWPB R0
+    MOVB R0,@>8C02
+    SWPB R0
+    MOVB R0,@>8C02
+    B *R11  
+	
+**
+* RESTF18 - Reset the GPU on the F18 (no harm if not F18, 
+* but expect registers to be messed up)	
+* We don't use palettes, so removed that code
+RESTF18
+	MOVB @f18aflg,R0		* do nothing if no F18A
+	JNE RESTG18
+	B *R11
+
+RESTG18	
+	MOV R11,@SAVE2
+	
+* stop the GPU and then Reset (no harm if it's not F18)
+	LI R0,>B800				* stop the GPU -- this does stop the GPU
+	BL @VDPWTA				* GPU will stop long before we're done
+
+	MOV @SAVE2,R11
+	B *R11
+	
+* lock F18 if it's still unlocked (pre 1.6)
+LOCKF18
+	MOV R11,@SAVE2
+
+* reset the F18A to defaults (except palette, requires 1.6)	
+	LI R0,>B280				* VR2/50, value 10000000
+	BL @VDPWTA				* reset and lock F18A, or corrupt R2
+	
+	LI R0,>B900       		* VR1/57, value 00000000
+	BL @VDPWTA          	* write once (corrupts VDPR1)
+	
+	MOV @SAVE2,R11
+	B *R11	
+
+* VSMW - VDP Single Byte Multiple Write
+* VDP - R0 (with >4000 set)
+* Byte- R1 MSB
+* Cnt - R2
+VSMW
+	MOV R11,@SAVE2
+	BL @VDPWTA	   		* set VDP address - frees R0
+VSMW1
+	MOVB R1,@VDPWD
+	DEC R2
+	JNE VSMW1
+	MOV @SAVE2,R11
+	B *R11
+
+* Fast joystick read with fire - kills R12 and R10, uses JOYDAT
+* blocking, too, there's a NOP
+* also checks for QUIT
+JOYFAST
+* check QUIT (same code as console ROM)
+	LI 12,>0024 		* Load CRU
+	LDCR @>0012,3
+	SRC 12,7			* delay
+	LI 12,>0006
+	STCR R10,8 			* Fetch CRU
+	CZC @QUITK,R10 		* QUIT key?
+	JNE MENUKY
+	B @REBOOT			* reboot if yes
+MENUKY
+* read joystick
+	li r12,>0024
+	li r10,>0600
+	ldcr r10,3
+	NOP
+	li r12,>0006
+	stcr JOYDAT,8
+	INV JOYDAT			* make sure '1' bits are active
+	B *R11
+	
+* set the color table for video to black
+BLACKVID
+	MOV R11,@SAVE3
+	
+	LI R0,>6000
+	CLR R1
+	LI R2,768
+	BL @VSMW
+	
+	LI R0,>6800
+	LI R2,1536
+	BL @VSMW
+	
+	LI R0,>7000
+	LI R2,768
+	BL @VSMW
+	
+	MOV @SAVE3,R11
+	B *R11
+
+* same as SHOWANDPAUSE below without the blackvid call, for the options screen
+SHOWANDPAUSE2
+	MOV R11,@SAVE
+	MOV R0,R9		* src page
+	MOV R1,R13
+	JMP SAPCONT
+	
+* shows a frame from R0 and waits for R1 frames
+* also kills R9,R10,R12,R13,JOYDAT....
+* must be possible to abort with fire button (but not HOLDING fire)
+SHOWANDPAUSE
+	MOV R11,@SAVE
+	MOV R0,R9		* src page
+	MOV R1,R13
+	
+* first black the color table to avoid corruption
+	BL @BLACKVID
+
+SAPCONT	
+* now load the new image
+	LI R0,>4000		* pattern
+	LI R1,CFGPAT
+	LI R2,768
+	MOV R9,R3
+	BL @VMBWP
+	
+	LI R0,>4800
+	LI R2,1536
+	MOV R9,R3
+	BL @VMBWP
+	
+	LI R0,>5000
+	LI R2,768
+	MOV R9,R3
+	BL @VMBWP
+	
+	LI R0,>6000		* color
+	LI R2,768
+	MOV R9,R3
+	BL @VMBWP
+	
+	LI R0,>6800
+	LI R2,1536
+	MOV R9,R3
+	BL @VMBWP
+	
+	LI R0,>7000
+	LI R2,768
+	MOV R9,R3
+	BL @VMBWP
+
+	MOV @SAVE,R11
+* fall into delay	
+	
+* delay for R13 frames, allow exit on fire	
+DELAY	
+	MOV R11,@SAVE
+	BL @JOYFAST
+	ANDI JOYDAT,JOYFIRE		* FIRE key (save current status)
+	MOV JOYDAT,JOYOLD
+	MOVB @VDPST,R11			* clear VDP status
+
+DELLP
+	BL @JOYFAST
+	ANDI JOYDAT,JOYFIRE		* only fire
+	C JOYDAT,JOYOLD			* check for change
+	JEQ DELSKIP				* no change
+	MOV JOYDAT,JOYOLD		* backup, and test for zero
+	JNE DELDONE				* if it's pressed
+
+DELSKIP	
+	CLR R12					* set CRU base (doesn't need to be in loop, but provides delay)
+	TB 2 					* check VDP interrupt input
+	JEQ DELLP				* if not set, keep waiting
+	MOVB @VDPST,R11	  		* reset status
+	DEC R13
+	JNE DELLP
+
+DELDONE	
+	MOV @SAVE,R11
+	B *R11
+	
+*********************************************************
+* Actual game code starting up here (post-init)
+*********************************************************
+GAMESTART
+
+* just pop up the instruction screen
+	LI R0,TESTSCRN
+	LI R1,180
+	BL @SHOWANDPAUSE
+GSLP
+	BL @JOYFAST
+	JMP GSLP
+	
+* these are just really handy...
+BYTE00
+	BYTE >00
+BYTE01
+	BYTE >01
+BYTE02
+	BYTE >02
+BYTE03
+	BYTE >03
+	
+	EVEN
+QUITK        
+    DATA >1100
+
+    END
+    

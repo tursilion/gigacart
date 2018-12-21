@@ -1,5 +1,5 @@
 output.bin -> output_Cart8.bin
--- first, run cartrepack on it
+0007	-- first, run cartrepack on it
 -- next, delete the first 8k program page
 -- second, truncate the file at 0x547DFFF (size + 1) - the rest will be unused space. (There are some wasted pages)
 -- run a quick script to delete the 0xAA byte at the beginning of each page - we are to start from GROM.
@@ -18,8 +18,45 @@ output.bin -> output_Cart8.bin
 0000	Base program (joystick)
 0001	Base program (keyboard)
 0002	Diagnostics
-0003	SceneA1 - Drawbridge
-
+0003	SceneA1 - Drawbridge (includes vestible)
+0004	SceneA1 - Vestible (only)
+0005	SceneB1 - Drink me
+0006	SceneB2Vines.bin 
+0007	SceneB2Wind.bin 
+0008	SceneB3Fire.bin 
+0009	SceneB3Pot.bin 
+000A	SceneB3Throne.bin 
+000B	SceneB4Goons.bin 
+000C	SceneB4Snakes.bin 
+000D	SceneB4Wall.bin 
+000E	SceneC5Lizardking.bin 
+000F	SceneC5Pit.bin 
+0010	SceneC5Ropes1.bin 
+0011	SceneC5Ropes2.bin 
+0012	SceneC6Horse1.bin 
+0013	SceneC6Horse2.bin 
+0014	SceneC6Smithy1.bin 
+0015	SceneC6Smithy2.bin 
+0016	SceneC6Wizard1.bin 
+0017	SceneC6Wizard2.bin 
+0018	SceneC7Crypt1.bin 
+0019	SceneC7Crypt2.bin 
+001A	SceneC7Knight1.bin 
+001B	SceneC7Knight2.bin 
+001C	SceneC7Pond1.bin 
+001D	SceneC7Pond2.bin 
+001E	SceneD1Platform.bin 
+001F	SceneD1Platform2.bin 
+0020	SceneD1Platshort.bin 
+0021	SceneE1Bats.bin 
+0022	SceneE2Blacknight.bin 
+0023	SceneE3Catwalk.bin 
+0024	SceneE4Electriccage.bin 
+0025	SceneE5Mudmen.bin 
+0026	SceneE6Poolballs.bin 
+0027	SceneE7River.bin 
+0028	SceneE8Vanishingfloor.bin 
+0029	SceneF1Dragonslair.bin 
 
 *** REMEMBER ALL THESE VALUES ARE OFFSET BY THE NUMBER OF CODE PAGES ABOVE!!       **
 *** They are the right values for the code - the VIDEO function adds in the offset **

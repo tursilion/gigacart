@@ -1,0 +1,96 @@
+**************
+* Dragon's Lair for the TI-99/4A - by M.Brent aka Tursi
+* A big extension of my AV Playback code, as below
+* Licensed by Digital Leisure - holy crap!
+* A real licensed release of a major property in 2017... I mean 2018...
+* I mean 2019. Damn it. ;)
+**************
+* Scene ?
+* Enter at >601C via BL to trampret, returns to videopage which should be right
+* On return, R14 has the game over video start, and R15 its length, if needed
+**************
+*
+* To make a new scene, update CARTPAGE for the new location.
+* Write the new SCENEDATA, add it to UpdateGfx.CMD (build and merge)
+* and update CommonCode.a99 (VIDEOFFSET)
+*
+
+** this is used by all code that needs to return to the code page
+CARTPAGE EQU >602E
+
+	COPY "D:\work\ti\dragonslair\code\CommonCode.a99"
+	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
+	
+* table layout...
+* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
+* hint sprites, good scene, bad scene, timeout scene, score
+*
+* start frame - the page index of the first frame
+* frame count - the number of frames in the clip
+* death?      - if zero, survive after clip, else this is a death clip
+* valid joyst - the mask of joystick bits to test for
+* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
+* good scene  - the next scene to play on success (if 0, end of sequence)
+* bad scene   - the next scene to play on failure
+* timeout sc  - the next scene to play after timeout
+* score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
+* 				Make sure the first scene is always 49 points
+*
+
+** First label MUST be called SCENEDATA. The rest are whatever you want.
+** First two words of a new scene are the ressurection start page and number of frames
+** Next two words are the game over crumbling skeleton scene and number of frames
+*
+* joystick bits:
+*   JOYUP    EQU >1000
+*   JOYDOWN  EQU >0800
+*   JOYLEFT  EQU >0200
+*   JOYRIGHT EQU >0400
+*   JOYFIRE  EQU >0100
+*
+** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
+** hint sprites, good scene, bad scene, timeout scene, score
+SCENEDATA
+od scene, bad scene, timeout scene, score
+SCENEDATA
+	DATA >1364,20										* ressurection
+	DATA >1431,31										* game over
+
+** scenes **
+A1378
+	DATA >1378,>4E00,>VG,HINT?,Agood,Abad,Atime,49		* Approaching (49)
+A13C6
+	DATA >13C6,>1200,>VG,HINT?,Agood,Abad,Atime,0		* Spinning (run at 13C7,13D0) (2 frames each) (U, LR dies)
+A13D8
+	DATA >13D8,>0B00,>VG,HINT?,Agood,Abad,Atime,4750		* Run past boppers (4750)
+A13E3
+	DATA >13E3,>0F00,>VG,HINT?,Agood,Abad,Atime,0		* Wizard threatens as Dirk jumps in
+A13F2
+	DATA >13F2,>0400,>VG,HINT?,Agood,Abad,Atime,0		* Vines appear as wizard flashes (S, UD dies)
+A13F6
+	DATA >13F6,>1400,>VG,HINT?,Agood,Abad,Atime,2191		* Dirk swords him (2191)
+A140A
+	DATA >140A,>0800,>VG,HINT?,Agood,Abad,Atime,0		* Vines threaten (D, ULR dies)
+A1412
+	DATA >1412,>0400,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk runs (1326)
+A1416
+	DATA >1416,>0900,>VG,HINT?,Agood,Abad,Atime,0		* Retreating...
+A141F
+	DATA >141F,>0C00,>VG,HINT?,Agood,Abad,Atime,0		* Door opens, vines threaten (U, DLR dies)
+A142B
+	DATA >142B,>0600,>VG,HINT?,Agood,Abad,Atime,915		* Dirk runs for it (915)
+
+** deaths **
+
+A1450
+	DATA >1450,>14FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Mistimed the boppers
+
+A1464
+	DATA >1464,>1FFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Too slow against wizard
+
+A1483
+	DATA >1483,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Caught by vines
+
+
+	END
