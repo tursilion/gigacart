@@ -1,3 +1,12 @@
+** remember to debug with 'break on illegal opcode' so we can find bad tables
+** remember to debug with 'break on illegal opcode' so we can find bad tables
+
+* TODO: write an audit tool that reads the source files for the scenes.
+* It should check the joystick bits:
+* - make sure good bits are entirely part of valid bits
+* - make sure that all valid bits have a registered scene
+* - make sure the hint is one of the good bits
+
 **************
 * Dragon's Lair for the TI-99/4A - by M.Brent aka Tursi
 * A big extension of my AV Playback code, as below
@@ -1453,12 +1462,8 @@ nlivhard
 * that will play as part of the drawbridge scene).
 * So, that's 2 (maybe 3) fixed clips: ressurrect,castle,doors
 	CLR JOYMASK
-	LI R8,>0176			* resurrection start
-	LI R7,21			* resurrection length
-	BL @CALLVIDEO
 	
-* We do ressurrection separate from castle so we can decrement the lives here
-* like the scene playback code does...
+* there's no ressurection at startup, just decrement the lives
 	sb @byte01,@lives
 	bl @showlives
 	

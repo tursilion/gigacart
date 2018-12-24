@@ -22,18 +22,19 @@ CARTPAGE EQU >6022
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,55 +44,53 @@ CARTPAGE EQU >6022
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
 * joystick bits:
-*   JOYUP    EQU >1000
-*   JOYDOWN  EQU >0800
-*   JOYLEFT  EQU >0200
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYLEFT EQU  >0200
 *   JOYRIGHT EQU >0400
-*   JOYFIRE  EQU >0100
+*   JOYFIRE EQU  >0100
 *
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-od scene, bad scene, timeout scene, score
-SCENEDATA
 	DATA >0CAC,20										* ressurection
 	DATA >0D2E,31										* game over
 
 ** scenes **
 A0CC0
-	DATA >0CC0,>0F00,>VG,HINT?,Agood,Abad,Atime,49		* Intro (with fanfare) (49)
+	DATA >0CC0,>0F00,>JJGG,HINT,up,down,left,right,fire,time,49		* Intro (with fanfare) (49)
 A0CCF
-	DATA >0CCF,>0500,>VG,HINT?,Agood,Abad,Atime,0		* Safe to jump Left (L, UD dies) (skip to 0CF0)
+	DATA >0CCF,>0500,>JJGG,HINT,up,down,left,right,fire,time,0		* Safe to jump Left (L, UD dies) (skip to 0CF0)
 A0CD4
-	DATA >0CD4,>0500,>VG,HINT?,Agood,Abad,Atime,0		* Platform starts to move
+	DATA >0CD4,>0500,>JJGG,HINT,up,down,left,right,fire,time,0		* Platform starts to move
 A0CD9
-	DATA >0CD9,>0B00,>VG,HINT?,Agood,Abad,Atime,0		* "uh oh"
+	DATA >0CD9,>0B00,>JJGG,HINT,up,down,left,right,fire,time,0		* "uh oh"
 A0CE4
-	DATA >0CE4,>0500,>VG,HINT?,Agood,Abad,Atime,0		* Balancing act as platform vanishes (LUD dies)
+	DATA >0CE4,>0500,>JJGG,HINT,up,down,left,right,fire,time,0		* Balancing act as platform vanishes (LUD dies)
 A0CE9
-	DATA >0CE9,>0700,>VG,HINT?,Agood,Abad,Atime,0		* Safe to jump left (L, UD dies)
+	DATA >0CE9,>0700,>JJGG,HINT,up,down,left,right,fire,time,0		* Safe to jump left (L, UD dies)
 A0CF0
-	DATA >0CF0,>0A00,>VG,HINT?,Agood,Abad,Atime,379		* First swing (RUDL dies) (379)
+	DATA >0CF0,>0A00,>JJGG,HINT,up,down,left,right,fire,time,379		* First swing (RUDL dies) (379)
 A0CFA
-	DATA >0CFA,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Ready to hand off (L, RUD dies)
+	DATA >0CFA,>0600,>JJGG,HINT,up,down,left,right,fire,time,0		* Ready to hand off (L, RUD dies)
 A0D00
-	DATA >0D00,>0B00,>VG,HINT?,Agood,Abad,Atime,495		* Second swing (RUDL dies) (495)
+	DATA >0D00,>0B00,>JJGG,HINT,up,down,left,right,fire,time,495		* Second swing (RUDL dies) (495)
 A0D0B
-	DATA >0D0B,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Ready to hand off (L, RUD dies)
+	DATA >0D0B,>0600,>JJGG,HINT,up,down,left,right,fire,time,0		* Ready to hand off (L, RUD dies)
 A0D11
-	DATA >0D11,>0900,>VG,HINT?,Agood,Abad,Atime,0		* Third swing (RUDL dies) (0)
+	DATA >0D11,>0900,>JJGG,HINT,up,down,left,right,fire,time,0		* Third swing (RUDL dies) (0)
 A0D1A
-	DATA >0D1A,>0300,>VG,HINT?,Agood,Abad,Atime,0		* Ready to jump (L, RUD dies)
+	DATA >0D1A,>0300,>JJGG,HINT,up,down,left,right,fire,time,0		* Ready to jump (L, RUD dies)
 A0D1D
-	DATA >0D1D,>1100,>VG,HINT?,Agood,Abad,Atime,0		* Jump to platform and run off (0)
+	DATA >0D1D,>1100,>JJGG,HINT,up,down,left,right,fire,time,0		* Jump to platform and run off (0)
 
 ** deaths **
 
 A0D4D
-	DATA >0D4D,>16FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Didn't stick the platform landing
+	DATA >0D4D,>16FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Didn't stick the platform landing
 
 A0D63
-	DATA >0D63,>1BFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Didn't let go of rope
+	DATA >0D63,>1BFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Didn't let go of rope
 
 
 	END

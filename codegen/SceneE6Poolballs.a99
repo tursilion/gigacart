@@ -22,18 +22,19 @@ CARTPAGE EQU >604C
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,75 +44,73 @@ CARTPAGE EQU >604C
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
 * joystick bits:
-*   JOYUP    EQU >1000
-*   JOYDOWN  EQU >0800
-*   JOYLEFT  EQU >0200
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYLEFT EQU  >0200
 *   JOYRIGHT EQU >0400
-*   JOYFIRE  EQU >0100
+*   JOYFIRE EQU  >0100
 *
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-od scene, bad scene, timeout scene, score
-SCENEDATA
 	DATA >2166,21										* ressurection
 	DATA >2228,31										* game over
 
 ** scenes **
 A217B
-	DATA >217B,>1000,>VG,HINT?,Agood,Abad,Atime,49		* Intro (49)
+	DATA >217B,>1000,>JJGG,HINT,up,down,left,right,fire,time,49		* Intro (49)
 A218B
-	DATA >218B,>1400,>VG,HINT?,Agood,Abad,Atime,0		* Dirk watches
+	DATA >218B,>1400,>JJGG,HINT,up,down,left,right,fire,time,0		* Dirk watches
 A219F
-	DATA >219F,>0500,>VG,HINT?,Agood,Abad,Atime,0		* 8 ball approaches
+	DATA >219F,>0500,>JJGG,HINT,up,down,left,right,fire,time,0		* 8 ball approaches
 A21A4
-	DATA >21A4,>0400,>VG,HINT?,Agood,Abad,Atime,0		* Too early (DU dies)
+	DATA >21A4,>0400,>JJGG,HINT,up,down,left,right,fire,time,0		* Too early (DU dies)
 A21A8
-	DATA >21A8,>0600,>VG,HINT?,Agood,Abad,Atime,0		* 8 ball threatens (D, U dies)
+	DATA >21A8,>0600,>JJGG,HINT,up,down,left,right,fire,time,0		* 8 ball threatens (D, U dies)
 A21AE
-	DATA >21AE,>0800,>VG,HINT?,Agood,Abad,Atime,251		* Running down (251)
+	DATA >21AE,>0800,>JJGG,HINT,up,down,left,right,fire,time,251		* Running down (251)
 A21B6
-	DATA >21B6,>0300,>VG,HINT?,Agood,Abad,Atime,0		* Too early (DU dies)
+	DATA >21B6,>0300,>JJGG,HINT,up,down,left,right,fire,time,0		* Too early (DU dies)
 A21B9
-	DATA >21B9,>0700,>VG,HINT?,Agood,Abad,Atime,0		* 8 ball threatens (D, U dies)
+	DATA >21B9,>0700,>JJGG,HINT,up,down,left,right,fire,time,0		* 8 ball threatens (D, U dies)
 A21C0
-	DATA >21C0,>0700,>VG,HINT?,Agood,Abad,Atime,379		* Running down (379)
+	DATA >21C0,>0700,>JJGG,HINT,up,down,left,right,fire,time,379		* Running down (379)
 A21C7
-	DATA >21C7,>0400,>VG,HINT?,Agood,Abad,Atime,0		* Too early (DU dies)
+	DATA >21C7,>0400,>JJGG,HINT,up,down,left,right,fire,time,0		* Too early (DU dies)
 A21CB
-	DATA >21CB,>0600,>VG,HINT?,Agood,Abad,Atime,0		* 8 ball threatens (D, U dies)
+	DATA >21CB,>0600,>JJGG,HINT,up,down,left,right,fire,time,0		* 8 ball threatens (D, U dies)
 A21D1
-	DATA >21D1,>0800,>VG,HINT?,Agood,Abad,Atime,379		* Running down (379)
+	DATA >21D1,>0800,>JJGG,HINT,up,down,left,right,fire,time,379		* Running down (379)
 A21D9
-	DATA >21D9,>0300,>VG,HINT?,Agood,Abad,Atime,0		* Too early (DU dies)
+	DATA >21D9,>0300,>JJGG,HINT,up,down,left,right,fire,time,0		* Too early (DU dies)
 A21DC
-	DATA >21DC,>0600,>VG,HINT?,Agood,Abad,Atime,0		* 8 ball threatens (D, U dies)
+	DATA >21DC,>0600,>JJGG,HINT,up,down,left,right,fire,time,0		* 8 ball threatens (D, U dies)
 A21E2
-	DATA >21E2,>0800,>VG,HINT?,Agood,Abad,Atime,379		* Running down (379)
+	DATA >21E2,>0800,>JJGG,HINT,up,down,left,right,fire,time,379		* Running down (379)
 A21EA
-	DATA >21EA,>0300,>VG,HINT?,Agood,Abad,Atime,0		* Too early (DU dies)
+	DATA >21EA,>0300,>JJGG,HINT,up,down,left,right,fire,time,0		* Too early (DU dies)
 A21ED
-	DATA >21ED,>0700,>VG,HINT?,Agood,Abad,Atime,0		* 8 ball threatens (D, U dies)
+	DATA >21ED,>0700,>JJGG,HINT,up,down,left,right,fire,time,0		* 8 ball threatens (D, U dies)
 A21F4
-	DATA >21F4,>0700,>VG,HINT?,Agood,Abad,Atime,379		* Running down (379)
+	DATA >21F4,>0700,>JJGG,HINT,up,down,left,right,fire,time,379		* Running down (379)
 A21FB
-	DATA >21FB,>0300,>VG,HINT?,Agood,Abad,Atime,0		* too early (DU dies)
+	DATA >21FB,>0300,>JJGG,HINT,up,down,left,right,fire,time,0		* too early (DU dies)
 A21FE
-	DATA >21FE,>0700,>VG,HINT?,Agood,Abad,Atime,0		* 8 ball threatens (D, U dies)
+	DATA >21FE,>0700,>JJGG,HINT,up,down,left,right,fire,time,0		* 8 ball threatens (D, U dies)
 A2205
-	DATA >2205,>0700,>VG,HINT?,Agood,Abad,Atime,379		* Running down (379)
+	DATA >2205,>0700,>JJGG,HINT,up,down,left,right,fire,time,379		* Running down (379)
 A220C
-	DATA >220C,>0400,>VG,HINT?,Agood,Abad,Atime,0		* Preparing to jump pit (U)
+	DATA >220C,>0400,>JJGG,HINT,up,down,left,right,fire,time,0		* Preparing to jump pit (U)
 A2210
-	DATA >2210,>1800,>VG,HINT?,Agood,Abad,Atime,379		* Jump and run clear (379)
+	DATA >2210,>1800,>JJGG,HINT,up,down,left,right,fire,time,379		* Jump and run clear (379)
 
 ** deaths **
 
 A2247
-	DATA >2247,>0DFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Indecision - 8 ball gets Dirk
+	DATA >2247,>0DFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Indecision - 8 ball gets Dirk
 
 A2254
-	DATA >2254,>09FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Other ball gets Dirk
+	DATA >2254,>09FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Other ball gets Dirk
 
 
 	END

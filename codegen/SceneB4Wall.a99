@@ -22,18 +22,19 @@ CARTPAGE EQU >601A
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,39 +44,37 @@ CARTPAGE EQU >601A
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
 * joystick bits:
-*   JOYUP    EQU >1000
-*   JOYDOWN  EQU >0800
-*   JOYLEFT  EQU >0200
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYLEFT EQU  >0200
 *   JOYRIGHT EQU >0400
-*   JOYFIRE  EQU >0100
+*   JOYFIRE EQU  >0100
 *
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-od scene, bad scene, timeout scene, score
-SCENEDATA
 	DATA >08F7,20										* ressurection
 	DATA >093B,31										* game over
 
 ** scenes **
 A090B
-	DATA >090B,>1500,>VG,HINT?,Agood,Abad,Atime,922		* Enter, wall closing, Dirk reacts (U, N dies) (49) (jump to 922)
+	DATA >090B,>1500,>JJGG,HINT,up,down,left,right,fire,time,922		* Enter, wall closing, Dirk reacts (U, N dies) (49) (jump to 922)
 A0920
-	DATA >0920,>0200,>VG,HINT?,Agood,Abad,Atime,0		* Too late (NU dies) (just a chance to get the 'too late' death)
+	DATA >0920,>0200,>JJGG,HINT,up,down,left,right,fire,time,0		* Too late (NU dies) (just a chance to get the 'too late' death)
 A0922
-	DATA >0922,>0300,>VG,HINT?,Agood,Abad,Atime,379		* Dirk runs for it (379)
+	DATA >0922,>0300,>JJGG,HINT,up,down,left,right,fire,time,379		* Dirk runs for it (379)
 A0925
-	DATA >0925,>0900,>VG,HINT?,Agood,Abad,Atime,0		* Jumps through
+	DATA >0925,>0900,>JJGG,HINT,up,down,left,right,fire,time,0		* Jumps through
 A092E
-	DATA >092E,>0D00,>VG,HINT?,Agood,Abad,Atime,0		* And moves on
+	DATA >092E,>0D00,>JJGG,HINT,up,down,left,right,fire,time,0		* And moves on
 
 ** deaths **
 
 A095A
-	DATA >095A,>12FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Climb through too late
+	DATA >095A,>12FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Climb through too late
 
 A096C
-	DATA >096C,>16FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Stayed in room, gassed
+	DATA >096C,>16FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Stayed in room, gassed
 
 
 	END

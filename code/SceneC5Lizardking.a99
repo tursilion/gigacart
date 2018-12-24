@@ -22,18 +22,19 @@ CARTPAGE EQU >601C
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,91 +44,91 @@ CARTPAGE EQU >601C
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
 * joystick bits:
-*   JOYUP    EQU >1000
-*   JOYDOWN  EQU >0800
-*   JOYLEFT  EQU >0200
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYLEFT EQU  >0200
 *   JOYRIGHT EQU >0400
-*   JOYFIRE  EQU >0100
+*   JOYFIRE EQU  >0100
 *
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-od scene, bad scene, timeout scene, score
-SCENEDATA
-	DATA >0000,21										* ressurection
+	DATA >0982,20										* ressurection
 	DATA >0AAD,31										* game over
 
 ** scenes **
-A0982
-	DATA >0982,>1400,>VG,HINT?,Agood,Abad,Atime,0		* Ressurrection
 A0996
-	DATA >0996,>1300,>VG,HINT?,Agood,Abad,Atime,49		* Pot steals sword, king advances (UL, DR dies) (49)
+	DATA >0996,>0C00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A09A2,49		* Pot steals sword, king advances (49)
+A09A2
+	DATA >09A2,>0700,>1E12,HINTLEFT,A09A9,A0ACC,A09A9,A0AD5,0,A0ACC,0			* King threatens (UL, DR dies)
 A09A9
-	DATA >09A9,>0400,>VG,HINT?,Agood,Abad,Atime,1939		* Dirk escapes left (1939)
+	DATA >09A9,>0400,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A09AD,1939	* Dirk escapes left (1939)
 A09AD
-	DATA >09AD,>1300,>VG,HINT?,Agood,Abad,Atime,0		* Dirk chases pot, King chases Dirk
+	DATA >09AD,>1300,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A09C0,0		* Dirk chases pot, King chases Dirk
 A09C0
-	DATA >09C0,>0D00,>VG,HINT?,Agood,Abad,Atime,0		* Junction, pot races by (one frame!) (R, DL dies)
+	DATA >09C0,>0D00,>0E04,HINTRIGHT,0,A0ACC,A0AD5,A09CD,0,A0ACC,0				* Junction, pot races by (one frame!) (R, DL dies)
 A09CD
-	DATA >09CD,>0600,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk escapes right (1326)
+	DATA >09CD,>0600,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A09D3,1326	* Dirk escapes right (1326)
 A09D3
-	DATA >09D3,>1000,>VG,HINT?,Agood,Abad,Atime,0		* Another chase
+	DATA >09D3,>1000,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A09E3,0		* Another chase
 A09E3
-	DATA >09E3,>0900,>VG,HINT?,Agood,Abad,Atime,0		* Dirk waits while pot flies by (R, DL dies)
+	DATA >09E3,>0900,>0E04,HINTRIGHT,0,A0ACC,A0AD5,A09EC,0,A0ACC,0				* Dirk waits while pot flies by (R, DL dies)
 A09EC
-	DATA >09EC,>0600,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk escapes right (1326)
+	DATA >09EC,>0600,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A09F2,1326	* Dirk escapes right (1326)
 A09F2
-	DATA >09F2,>0A00,>VG,HINT?,Agood,Abad,Atime,0		* Another chase
+	DATA >09F2,>0A00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A09FC,0		* Another chase
 A09FC
-	DATA >09FC,>0300,>VG,HINT?,Agood,Abad,Atime,0		* Pot flies by (R, DL dies)
+	DATA >09FC,>0300,>0E04,HINTRIGHT,0,A0ACC,A0AD5,A09EC,0,A0ACC,0				* Pot flies by (R, DL dies)
 A09FF
-	DATA >09FF,>0500,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk escapes right (1326)
+	DATA >09FF,>0500,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0A04,1326	* Dirk escapes right (1326)
 A0A04
-	DATA >0A04,>0A00,>VG,HINT?,Agood,Abad,Atime,0		* shot of pot flying
+	DATA >0A04,>0A00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0A0E,0		* shot of pot flying
 A0A0E
-	DATA >0A0E,>1200,>VG,HINT?,Agood,Abad,Atime,0		* Another chase
+	DATA >0A0E,>1200,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0A20,0		* Another chase
 A0A20
-	DATA >0A20,>0800,>VG,HINT?,Agood,Abad,Atime,0		* Dirk waits while pot flies by (R, DL dies)
+	DATA >0A20,>0800,>0E04,HINTRIGHT,0,A0ACC,A0AD5,A09EC,0,A0ACC,0				* Dirk waits while pot flies by (R, DL dies)
 A0A28
-	DATA >0A28,>0600,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk escapes right (1326)
+	DATA >0A28,>0600,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0A2E,1326	* Dirk escapes right (1326)
 A0A2E
-	DATA >0A2E,>0900,>VG,HINT?,Agood,Abad,Atime,0		* Another chase
+	DATA >0A2E,>0900,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0A37,0		* Another chase
 A0A37
-	DATA >0A37,>0300,>VG,HINT?,Agood,Abad,Atime,0		* Dirk waits while pot flies by (barely visible) (R, DL dies)
+	DATA >0A37,>0300,>0E04,HINTRIGHT,0,A0ACC,A0AD5,A09EC,0,A0ACC,0				* Dirk waits while pot flies by (barely visible) (R, DL dies)
 A0A3A
-	DATA >0A3A,>0700,>VG,HINT?,Agood,Abad,Atime,2191		* Dirk escapes right (2191)
+	DATA >0A3A,>0700,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0A41,2191	* Dirk escapes right (2191)
 A0A41
-	DATA >0A41,>0F00,>VG,HINT?,Agood,Abad,Atime,0		* Dirk watches trapped pot ahead (US, DLR dies)
+	DATA >0A41,>0F00,>1F11,HINTUP,A0A50,A0ACC,A0ACC,A0ACC,A0A50,A0ACC,0			* Dirk watches trapped pot ahead (US, DLR dies)
 A0A50
-	DATA >0A50,>0900,>VG,HINT?,Agood,Abad,Atime,3255		* Dirk retrieves sword (S, D dies) (3255)
+	DATA >0A50,>0900,>0901,HINTSWORD,0,A0ACC,0,0,A0A59,A0ACC,3255				* Dirk retrieves sword (S, D dies) (3255)
 A0A59
-	DATA >0A59,>0D00,>VG,HINT?,Agood,Abad,Atime,0		* First strike, pot has sword back (S, L dies)
+	DATA >0A59,>0300,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0A5C,0		* First strike, pot has sword back
+A0A5C
+	DATA >0A59,>0A00,>0301,HINTSWORD,0,0,A0ACC,0,A0A66,A0ACC,0					* First strike, pot has sword back (S, L dies)
 A0A66
-	DATA >0A66,>0500,>VG,HINT?,Agood,Abad,Atime,0		* Dirk darts across and gets sword 
+	DATA >0A66,>0500,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0A6B,0		* Dirk darts across and gets sword 
 A0A6B
-	DATA >0A6B,>0400,>VG,HINT?,Agood,Abad,Atime,0		* Dirk prepares sword (S, R dies)
+	DATA >0A6B,>0400,>0501,HINTSWORD,0,0,0,A0ACC,A0A6F,A0ACC,0					* Dirk prepares sword (S, R dies)
 A0A6F
-	DATA >0A6F,>0500,>VG,HINT?,Agood,Abad,Atime,0		* Dirk attacks and misses, sword stuck (DSN)
+	DATA >0A6F,>0500,>0900,HINTNONE,0,A0A74,0,0,A0A74,A0A74,0					* Dirk attacks and misses, sword stuck (DSN)
 A0A74
-	DATA >0A74,>0400,>VG,HINT?,Agood,Abad,Atime,0		* King attacks (DS)
+	DATA >0A74,>0400,>0909,HINTDOWN,0,A0A78,0,0,A0A78,A0ACC,0					* King attacks (DS)
 A0A78
-	DATA >0A78,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Dirk ducks and regains sword
+	DATA >0A78,>0600,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0A7E,0		* Dirk ducks and regains sword
 A0A7E
-	DATA >0A7E,>0200,>VG,HINT?,Agood,Abad,Atime,0		* Dirk prepares sword (S, R dies)
+	DATA >0A7E,>0200,>0501,HINTSWORD,0,0,0,A0ACC,A0A80,A0ACC,0					* Dirk prepares sword (S, R dies)
 A0A80
-	DATA >0A80,>0800,>VG,HINT?,Agood,Abad,Atime,0		* Dirk attacks and defeats Lizard King
+	DATA >0A80,>0800,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0A88,0		* Dirk attacks and defeats Lizard King
 A0A88
-	DATA >0A88,>1900,>VG,HINT?,Agood,Abad,Atime,0		* Dirk collects some gold
+	DATA >0A88,>1900,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0AA1,0		* Dirk collects some gold
 A0AA1
-	DATA >0AA1,>0C00,>VG,HINT?,Agood,Abad,Atime,0		* Dirk exits the stage
+	DATA >0AA1,>0C00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,0,0			* Dirk exits the stage
 
 ** deaths **
 
 A0ACC
-	DATA >0ACC,>09FF,>0000,HINTNONE,>0000,>0000,>0000,0		* King conks out Dirk
+	DATA >0ACC,>09FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* King conks out Dirk
 
 A0AD5
-	DATA >0AD5,>1EFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk runs the wrong way, is clocked and carried off
+	DATA >0AD5,>1EFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Dirk runs the wrong way, is clocked and carried off
 
 
 	END

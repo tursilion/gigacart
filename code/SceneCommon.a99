@@ -9,16 +9,18 @@
 **************
 
 * names for the table columns
-framestart	equ 0
-framelength	equ 2
-framedeath	equ 3
+framestart	 equ 0
+framelength	 equ 2
+framedeath	 equ 3
 framejoymask equ 4
 framejoygood equ 5
-framehint	equ 6
-framegoodsc	equ 8
-framebadsc	equ 10
-frametimeout equ 12
-framescore equ 14
+framehint	 equ 6
+frameupsc	 equ 8
+framedownsc  equ 10
+frameleftsc  equ 12
+framerightsc equ 14
+frametimeout equ 16
+framescore   equ 18
 
 * This can't move in the main page - be careful!
 VIDEO EQU >601E	
@@ -353,6 +355,11 @@ practiceloop
 * and go process it
 	jmp scenejoy
 	
+* this is just here to occupy an address so I have a chance of catching it...
+* it's a deliberate bad opcode which shouldn't hurt a TI but will let Classic99 breakpoint
+scenetimeoutbug	
+	DATA >0000
+	
 * scene timed out, so go to timed out scene
 scenetimeout
 	mov @frametimeout(r5),r0
@@ -360,26 +367,59 @@ scenetimeout
 	mov r0,@rowbase
 	jmp scenelp			* go play this scene
 
-* scene ended due to joystick, so determine if it was life or death	
+* scene ended due to joystick, so determine which one
+* because we're nice, we mask against good moves first,
+* so if there is a diagonal tie, the good move always wins
 scenejoy
 	clr JOYMASK
-	movb @framejoygood(r5),JOYMASK	 * success bitmask
-	INV JOYMASK
-	SZCB JOYMASK,JOYDAT
-	JEQ scenedied
+	movb @framejoygood(r5),JOYMASK	 * success bitmask - see if we can apply it
+	INV JOYMASK						* flip bits for SZCB
+	MOV JOYDAT,R0					* worker register
+	SZCB JOYMASK,R0					* apply the mask
+	JEQ NOTLOOKGOOD					* if no good bits are set, can't help the player
+	MOV R0,JOYDAT					* not only the good bits are left
+NOTLOOKGOOD
 	
-* looks like a safe move! go to safe scene
-	mov @framegoodsc(r5),r0
-	jeq scenedone		* no next scene
+* work out which scene it was. If, by some bug, any scene
+* has a zero loaded, go to the timeout handler instead
+	COC @JOYUP,JOYDAT
+	JNE NOTUP
+	MOV @frameupsc(r5),r0
+	jeq scenetimeoutbug		* there was no registered scene
 	mov r0,@rowbase
-	jmp scenelp			* go play this scene
+	jmp scenelp
 
-* player entered a bad movement	
-scenedied
-	mov @framebadsc(r5),r0
-	jeq scenedone		* no next scene
+NOTUP
+	COC @JOYDOWN,JOYDAT
+	JNE NOTDOWN
+	MOV @framedownsc(r5),r0
+	jeq scenetimeoutbug		* there was no registered scene
 	mov r0,@rowbase
-	jmp scenelp			* go play this scene
+	jmp scenelp
+
+NOTDOWN
+	COC @JOYLEFT,JOYDAT
+	JNE NOTLEFT
+	MOV @frameleftsc(r5),r0
+	jeq scenetimeoutbug		* there was no registered scene
+	mov r0,@rowbase
+	jmp scenelp
+
+NOTLEFT
+	COC @JOYRIGHT,JOYDAT
+	JNE NOTRIGHT
+	MOV @framerightsc(r5),r0
+	jeq scenetimeoutbug		* there was no registered scene
+	mov r0,@rowbase
+	jmp scenelp
+
+NOTRIGHT
+	COC @JOYFIRE,JOYDAT
+	JNE scenetimeoutbug		* there was no matching move at all, somehow?
+	MOV @framefiresc(r5),r0
+	jeq scenetimeoutbug		* there was no registered scene
+	mov r0,@rowbase
+	jmp scenelp
 
 * no more scenes to play out!
 scenedone
@@ -436,3 +476,14 @@ BYTECF
 	EVEN
 QUITK        
     DATA >1100
+MASKUP
+	DATA JOYUP
+MASKDOWN
+	DATA JOYDOWN
+MASKLEFT
+	DATA JOYLEFT
+MASKRIGHT
+	DATA JOYRIGHT
+MASKFIRE
+	DATA JOYFIRE
+	

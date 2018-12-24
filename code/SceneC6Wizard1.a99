@@ -22,18 +22,19 @@ CARTPAGE EQU >602C
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,54 +44,62 @@ CARTPAGE EQU >602C
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
 * joystick bits:
-*   JOYUP    EQU >1000
-*   JOYDOWN  EQU >0800
-*   JOYLEFT  EQU >0200
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYLEFT EQU  >0200
 *   JOYRIGHT EQU >0400
-*   JOYFIRE  EQU >0100
+*   JOYFIRE EQU  >0100
 *
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-od scene, bad scene, timeout scene, score
-SCENEDATA
 	DATA >1237,20										* ressurection
 	DATA >1304,31										* game over
 
 ** scenes **
 A124C
-	DATA >124C,>3100,>VG,HINT?,Agood,Abad,Atime,49		* Approaching (49)
+	DATA >124C,>3100,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A127D,49		* Approaching (49)
 A127D
-	DATA >127D,>2E00,>VG,HINT?,Agood,Abad,Atime,0		* Spinning (run at 1287,1290,129D,12A1,12AA) (2 frames each, EXCEPT 12AA) (U, LR dies)
+	DATA >127D,>0A00,>1600,HINTNONE,A1323,>0000,A1356,A1356,>0000,A1287,0		* Spinning (run at 1287,1290,129D) (2 frames each) (U, LR dies)
+A1287
+	DATA >1287,>0200,>1610,HINTUP,A12AB,0,A1356,A1356,0,A1289,0					* Spinning (run at 1287,1290,129D) (2 frames each) (U, LR dies)
+A1289
+	DATA >1289,>0700,>1600,HINTNONE,A1323,>0000,A1356,A1356,>0000,A1290,0		* Spinning (run at 1287,1290,129D) (2 frames each) (U, LR dies)
+A1290
+	DATA >1290,>0200,>1610,HINTUP,A12AB,0,A1356,A1356,0,A1292,0					* Spinning (run at 1287,1290,129D) (2 frames each) (U, LR dies)
+A1292
+	DATA >1292,>0B00,>A1323,>0000,A1356,A1356,>0000,A129D,0						* Spinning (run at 1287,1290,129D) (2 frames each) (U, LR dies)
+A129D
+	DATA >129D,>0200,>1610,HINTUP,A12AB,0,A1356,A1356,0,A1323,0					* Spinning (run at 1287,1290,129D) (2 frames each) (U, LR dies)
 A12AB
-	DATA >12AB,>0C00,>VG,HINT?,Agood,Abad,Atime,4026		* Run past boppers (4026)
+	DATA >12AB,>0C00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A12B7,4026	* Run past boppers (4026)
 A12B7
-	DATA >12B7,>0E00,>VG,HINT?,Agood,Abad,Atime,0		* Wizard threatens as Dirk jumps in
+	DATA >12B7,>0E00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A12C5,0		* Wizard threatens as Dirk jumps in
 A12C5
-	DATA >12C5,>0400,>VG,HINT?,Agood,Abad,Atime,0		* Vines appear as wizard flashes (S, DLR dies)
+	DATA >12C5,>0400,>0F01,HINTSWORD,0,A1356,A1356,A1356,A12C9,A1337,0			* Vines appear as wizard flashes (S, DLR dies)
 A12C9
-	DATA >12C9,>1400,>VG,HINT?,Agood,Abad,Atime,2191		* Dirk swords him (2191)
+	DATA >12C9,>1400,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A12DD,2191	* Dirk swords him (2191)
 A12DD
-	DATA >12DD,>0800,>VG,HINT?,Agood,Abad,Atime,0		* Vines threaten (D, ULR dies)
+	DATA >12DD,>0800,>1E08,HINTDOWN,A1356,A12E5,A1356,A1356,0,A1356,0			* Vines threaten (D, ULR dies)
 A12E5
-	DATA >12E5,>0400,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk runs (1326)
+	DATA >12E5,>0400,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A12E9,1326	* Dirk runs (1326)
 A12E9
-	DATA >12E9,>0900,>VG,HINT?,Agood,Abad,Atime,0		* Retreating...
+	DATA >12E9,>0900,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A12F2,0		* Retreating...
 A12F2
-	DATA >12F2,>0B00,>VG,HINT?,Agood,Abad,Atime,0		* Door opens, vines threaten (U, DLR dies)
+	DATA >12F2,>0B00,>1E10,HINTUP,A12FD,A1356,A1356,A1356,0,A1356,0				* Door opens, vines threaten (U, DLR dies)
 A12FD
-	DATA >12FD,>0700,>VG,HINT?,Agood,Abad,Atime,915		* Dirk runs for it (915)
+	DATA >12FD,>0700,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,0,915			* Dirk runs for it (915)
 
 ** deaths **
 
 A1323
-	DATA >1323,>14FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Mistimed the boppers
+	DATA >1323,>14FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Mistimed the boppers
 
 A1337
-	DATA >1337,>1FFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Too slow against wizard
+	DATA >1337,>1FFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Too slow against wizard
 
 A1356
-	DATA >1356,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Caught by vines
+	DATA >1356,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Caught by vines
 
 
 

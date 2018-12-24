@@ -23,18 +23,19 @@ CARTPAGE EQU >6006
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,41 +44,49 @@ CARTPAGE EQU >6006
 ** First two words of a new scene are the ressurection start page and number of frames
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
+* joystick bits:
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYRIGHT EQU >0400
+*   JOYLEFT EQU  >0200
+*   JOYFIRE EQU  >0100
+*
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
+
 SCENEDATA
-	DATA >0176,21												* ressurection
-	DATA >026D,31												* game over
+	DATA >0176,21														* ressurection
+	DATA >026D,31														* game over
 	
 ** scenes **
-	DATA >01C0,>2A00,>0000,HINTNONE,A01EA,A01EA,A01EA,49		* drawbridge through monsters approach
+	DATA >01C0,>2A00,>0000,HINTNONE,0,0,0,0,0,A01EA,49					* drawbridge through monsters approach
 A01EA
-	DATA >01EA,>0600,>0101,HINTFIRE,A01F0,A028C,A028C,0			* approaching, press sword
+	DATA >01EA,>0600,>0101,HINTFIRE,0,0,0,0,A01F0,A028C,0				* approaching, press sword
 A01F0
-	DATA >01F0,>0800,>0000,HINTNONE,A01F8,A01F8,A01F8,49		* swing sword
+	DATA >01F0,>0800,>0000,HINTNONE,0,0,0,0,0,A01F8,49					* swing sword
 A01F8
-	DATA >01F8,>0800,>1414,HINTUP,A0200,A028C,A028C,0			* move up/right needed
+	DATA >01F8,>0800,>1414,HINTUP,A0200,0,0,A0200,0,A028C,0				* move up/right needed
 A0200
-	DATA >0200,>1A00,>0000,HINTNONE,A021A,A021A,A021A,49		* climb up and run in
+	DATA >0200,>1A00,>0000,HINTNONE,0,0,0,0,0,A021A,49					* climb up and run in
 A021A
-	DATA >021A,>1800,>0000,HINTNONE,A0232,A0232,A0232,0			* slamming doors
+	DATA >021A,>1800,>0000,HINTNONE,0,0,0,0,0,A0232,0					* slamming doors
 A0232
-	DATA >0232,>1300,>0000,HINTNONE,A0245,A0245,A0245,49		* enter vestible
+	DATA >0232,>1300,>0000,HINTNONE,0,0,0,0,0,A0245,49					* enter vestible
 A0245
-	DATA >0245,>0F00,>1E0C,HINTDOWN,A0255,A029A,A029A,0			* stumbling (need down/right)
+	DATA >0245,>0F00,>1E0C,HINTDOWN,A029A,A0255,A029A,A0255,0,A029A,0	* stumbling (need down/right)
 A0255
-	DATA >0255,>0600,>1604,HINTRIGHT,A025B,A029A,A02AC,251		* move right needed (up/left dies)
+	DATA >0255,>0600,>1604,HINTRIGHT,A029A,0,A029A,A025B,0,A02AC,251	* move right needed (up/left dies)
 A025B
-	DATA >025B,>1100,>0000,HINTNONE,0,0,0,251					* escaping (end scene)
+	DATA >025B,>1100,>0000,HINTNONE,0,0,0,0,0,0,251						* escaping (end scene)
 
 ** deaths **
 
 A028C
-	DATA >028C,>0Eff,>0000,HINTNONE,0,0,0,0						* caught by drawbridge monster
+	DATA >028C,>0Eff,>0000,HINTNONE,0,0,0,0,0,0,0						* caught by drawbridge monster
 A029A
-	DATA >029A,>12ff,>0000,HINTNONE,0,0,0,0						* falling into pit
+	DATA >029A,>12ff,>0000,HINTNONE,0,0,0,0,0,0,0						* falling into pit
 A02AC
-	DATA >02AC,>1eff,>0000,HINTNONE,0,0,0,0						* crushed by rocks
+	DATA >02AC,>1eff,>0000,HINTNONE,0,0,0,0,0,0,0						* crushed by rocks
 
     END
     

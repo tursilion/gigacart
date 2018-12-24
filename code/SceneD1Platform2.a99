@@ -22,18 +22,19 @@ CARTPAGE EQU >603E
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,43 +44,83 @@ CARTPAGE EQU >603E
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
 * joystick bits:
-*   JOYUP    EQU >1000
-*   JOYDOWN  EQU >0800
-*   JOYLEFT  EQU >0200
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYLEFT EQU  >0200
 *   JOYRIGHT EQU >0400
-*   JOYFIRE  EQU >0100
+*   JOYFIRE EQU  >0100
 *
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-od scene, bad scene, timeout scene, score
-SCENEDATA
 	DATA >1B83,21										* ressurection
 	DATA >1C3E,31										* game over
 
 ** scenes **
 A1B98
-	DATA >1B98,>2800,>VG,HINT?,Agood,Abad,Atime,0		* Intro (49) (note frame order is shuffled!)
+	DATA >1B98,>2800,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1BE5,0		* Intro (49) (note frame order is shuffled!)
+
 A1BE5
-	DATA >1BE5,>1600,>VG,HINT?,Agood,Abad,Atime,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+	DATA >1BE5,>0300,>1C00,HINTNONE,A1C5D,A1C5D,0,A1C5D,0,A1BE8,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+A1BE8
+	DATA >1BE8,>0300,>1C04,HINTRIGHT,A1C5D,A1C5D,0,A1C73,0,A1BEB,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+A1BEB
+	DATA >1BEB,>0300,>1C00,HINTNONE,A1C5D,A1C5D,0,A1C5D,0,A1BEE,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+A1BEE
+	DATA >1BEE,>0300,>1C04,HINTRIGHT,A1C5D,A1C5D,0,A1C73,0,A1BF1,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+A1BF1
+	DATA >1BF1,>0200,>1C00,HINTNONE,A1C5D,A1C5D,0,A1C5D,0,A1BF3,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+A1BF3
+	DATA >1BF3,>0300,>1C04,HINTRIGHT,A1C5D,A1C5D,0,A1C73,0,A1BF6,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+A1BF6
+	DATA >1BF6,>0500,>1C00,HINTNONE,A1C5D,A1C5D,0,A1C5D,0,A1BD6,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+
 A1BD6
-	DATA >1BD6,>0F00,>VG,HINT?,Agood,Abad,Atime,124		* In-between (124)
+	DATA >1BD6,>0F00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1BC0,124		* In-between (124)
+	
 A1BC0
-	DATA >1BC0,>1600,>VG,HINT?,Agood,Abad,Atime,0		* falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
+	DATA >1BC0,>0300,>1A00,HINTNONE,A1C5D,A1C5D,A1C5D,0,0,A1BC3,0		* falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
+A1BC3
+	DATA >1BC3,>0300,>1A02,HINTLEFT,A1C5D,A1C5D,A1C73,0,0,A1BC6,0		* falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
+A1BC6
+	DATA >1BC6,>0300,>1A00,HINTNONE,A1C5D,A1C5D,A1C5D,0,0,A1BC9,0		* falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
+A1BC9
+	DATA >1BC9,>0300,>1A02,HINTLEFT,A1C5D,A1C5D,A1C73,0,0,A1BCC,0		* falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
+A1BCC
+	DATA >1BCC,>0300,>1A00,HINTNONE,A1C5D,A1C5D,A1C5D,0,0,A1BCF,0		* falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
+A1BCF
+	DATA >1BCF,>0300,>1A02,HINTLEFT,A1C5D,A1C5D,A1C73,0,0,A1BD2,0		* falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
+A1BD2
+	DATA >1BD2,>0400,>1A00,HINTNONE,A1C5D,A1C5D,A1C5D,0,0,A1BFB,0		* falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
+
 A1BFB
-	DATA >1BFB,>1000,>VG,HINT?,Agood,Abad,Atime,2191		* In-between (2191)
-A1BE5
-	DATA >1BE5,>1600,>VG,HINT?,Agood,Abad,Atime,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
-A1C20
-	DATA >1C20,>1E00,>VG,HINT?,Agood,Abad,Atime,0		* platform lands on ground (death)
+	DATA >1BFB,>1000,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1BE5b,2191		* In-between (2191)
+
+A1BE5b
+	DATA >1BE5,>0300,>1C00,HINTNONE,A1C5D,A1C5D,0,A1C5D,0,A1BE8b,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+A1BE8b
+	DATA >1BE8,>0300,>1C04,HINTRIGHT,A1C5D,A1C5D,0,A1C73,0,A1BEBb,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+A1BEBb
+	DATA >1BEB,>0300,>1C00,HINTNONE,A1C5D,A1C5D,0,A1C5D,0,A1BEEb,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+A1BEEb
+	DATA >1BEE,>0300,>1C04,HINTRIGHT,A1C5D,A1C5D,0,A1C73,0,A1BF1b,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+A1BF1b
+	DATA >1BF1,>0200,>1C00,HINTNONE,A1C5D,A1C5D,0,A1C5D,0,A1BF3b,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+A1BF3b
+	DATA >1BF3,>0300,>1C04,HINTRIGHT,A1C5D,A1C5D,0,A1C73,0,A1BF6b,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+A1BF6b
+	DATA >1BF6,>0500,>1C00,HINTNONE,A1C5D,A1C5D,0,A1C5D,0,A1C20,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+
+A1C73
+	DATA >1C73,>2C00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Successful jump (3255)
 
 ** deaths **
 
 A1C5D
-	DATA >1C5D,>16FF,>0000,HINTNONE,>0000,>0000,>0000,0		* mistimed jump
+	DATA >1C5D,>16FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* mistimed jump
 
-A1C73
-	DATA >1C73,>2CFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Successful jump (3255)
+A1C20
+	DATA >1C20,>1EFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* platform lands on ground (death)
 
 
 	END

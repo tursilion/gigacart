@@ -22,18 +22,19 @@ CARTPAGE EQU >6014
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,58 +44,56 @@ CARTPAGE EQU >6014
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
 * joystick bits:
-*   JOYUP    EQU >1000
-*   JOYDOWN  EQU >0800
-*   JOYLEFT  EQU >0200
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYLEFT EQU  >0200
 *   JOYRIGHT EQU >0400
-*   JOYFIRE  EQU >0100
+*   JOYFIRE EQU  >0100
 *
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-od scene, bad scene, timeout scene, score
-SCENEDATA
 	DATA >0697,21										* ressurection
 	DATA >0708,31										* game over
 
 ** scenes **
 A06AC
-	DATA >06AC,>0800,>VG,HINT?,Agood,Abad,Atime,49		* Approach (49)
+	DATA >06AC,>0800,>JJGG,HINT,up,down,left,right,fire,time,49		* Approach (49)
 A06B4
-	DATA >06B4,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Orb takes hat and sword
+	DATA >06B4,>0600,>JJGG,HINT,up,down,left,right,fire,time,0		* Orb takes hat and sword
 A06BA
-	DATA >06BA,>0300,>VG,HINT?,Agood,Abad,Atime,0		* Lightning starts
+	DATA >06BA,>0300,>JJGG,HINT,up,down,left,right,fire,time,0		* Lightning starts
 A06BD
-	DATA >06BD,>0300,>VG,HINT?,Agood,Abad,Atime,0		* Top view, lighting eating disc (R, UDL dies)
+	DATA >06BD,>0300,>JJGG,HINT,up,down,left,right,fire,time,0		* Top view, lighting eating disc (R, UDL dies)
 A06C0
-	DATA >06C0,>0300,>VG,HINT?,Agood,Abad,Atime,0		* clear to jump (R, UDL dies (same))
+	DATA >06C0,>0300,>JJGG,HINT,up,down,left,right,fire,time,0		* clear to jump (R, UDL dies (same))
 A06C3
-	DATA >06C3,>0500,>VG,HINT?,Agood,Abad,Atime,0		* First jump (UR, DL dies)
+	DATA >06C3,>0500,>JJGG,HINT,up,down,left,right,fire,time,0		* First jump (UR, DL dies)
 A06C8
-	DATA >06C8,>0500,>VG,HINT?,Agood,Abad,Atime,1326		* Second jump (note no pause) (1326)
+	DATA >06C8,>0500,>JJGG,HINT,up,down,left,right,fire,time,1326		* Second jump (note no pause) (1326)
 A06CD
-	DATA >06CD,>0500,>VG,HINT?,Agood,Abad,Atime,3255		* Eating last of disc (R, UDL dies) (3255)
+	DATA >06CD,>0500,>JJGG,HINT,up,down,left,right,fire,time,3255		* Eating last of disc (R, UDL dies) (3255)
 A06D2
-	DATA >06D2,>0E00,>VG,HINT?,Agood,Abad,Atime,2675		* Jump to throne, get helmet and sword back (2675)
+	DATA >06D2,>0E00,>JJGG,HINT,up,down,left,right,fire,time,2675		* Jump to throne, get helmet and sword back (2675)
 A06E0
-	DATA >06E0,>1000,>VG,HINT?,Agood,Abad,Atime,0		* Throne rotates
+	DATA >06E0,>1000,>JJGG,HINT,up,down,left,right,fire,time,0		* Throne rotates
 A06F0
-	DATA >06F0,>0800,>VG,HINT?,Agood,Abad,Atime,0		* Lightning threatens (R, DL dies)
+	DATA >06F0,>0800,>JJGG,HINT,up,down,left,right,fire,time,0		* Lightning threatens (R, DL dies)
 A06F8
-	DATA >06F8,>0500,>VG,HINT?,Agood,Abad,Atime,1939		* Dirk runs for it (1939)
+	DATA >06F8,>0500,>JJGG,HINT,up,down,left,right,fire,time,1939		* Dirk runs for it (1939)
 A06FD
-	DATA >06FD,>0B00,>VG,HINT?,Agood,Abad,Atime,0		* Dirk exits the door
+	DATA >06FD,>0B00,>JJGG,HINT,up,down,left,right,fire,time,0		* Dirk exits the door
 
 ** deaths **
 
 A0727
-	DATA >0727,>1BFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Collect orb and is electrocuted
+	DATA >0727,>1BFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Collect orb and is electrocuted
 
 A0742
-	DATA >0742,>0BFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Electrocuted on disc
+	DATA >0742,>0BFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Electrocuted on disc
 
 A074D
-	DATA >074D,>10FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Throne electrocutes
+	DATA >074D,>10FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Throne electrocutes
 
 
 	END

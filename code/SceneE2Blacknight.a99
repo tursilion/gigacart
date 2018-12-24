@@ -22,18 +22,19 @@ CARTPAGE EQU >6044
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,55 +44,60 @@ CARTPAGE EQU >6044
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
 * joystick bits:
-*   JOYUP    EQU >1000
-*   JOYDOWN  EQU >0800
-*   JOYLEFT  EQU >0200
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYLEFT EQU  >0200
 *   JOYRIGHT EQU >0400
-*   JOYFIRE  EQU >0100
+*   JOYFIRE EQU  >0100
 *
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-od scene, bad scene, timeout scene, score
-SCENEDATA
 	DATA >1D6D,20										* ressurection
 	DATA >1DF3,31										* game over
 
 ** scenes **
 A1D81
-	DATA >1D81,>1800,>VG,HINT?,Agood,Abad,Atime,49		* Intro (UR) (49)
+	DATA >1D81,>1800,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1D99,49			* Intro (UR) (49)
 A1D99
-	DATA >1D99,>0800,>VG,HINT?,Agood,Abad,Atime,379		* Threaten (L, UR dies) (379)
+	DATA >1D99,>0800,>1602,HINTLEFT,A1E20,0,A1DA1,A1E15,0,A1E20,379					* Threaten (L, UR dies) (379)
 A1DA1
-	DATA >1DA1,>0700,>VG,HINT?,Agood,Abad,Atime,1939		* Dodge left (1939)
+	DATA >1DA1,>0700,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1DA8,1939		* Dodge left (1939)
 A1DA8
-	DATA >1DA8,>1300,>VG,HINT?,Agood,Abad,Atime,0		* Interval
+	DATA >1DA8,>1300,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1DBB,0			* Interval
 A1DBB
-	DATA >1DBB,>0900,>VG,HINT?,Agood,Abad,Atime,0		* Threaten (L, UR dies)
+	DATA >1DBB,>0900,>1602,HINTLEFT,A1E20,0,A1DA1,A1E15,0,A1E20,0					* Threaten (L, UR dies)
 A1DC4
-	DATA >1DC4,>0800,>VG,HINT?,Agood,Abad,Atime,1939		* Dodge left (1939)
-A1DCC
-	DATA >1DCC,>0800,>VG,HINT?,Agood,Abad,Atime,0		* odd panic shot (I've always thought was a glitch, skip this)
+	DATA >1DC4,>0800,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1DD4,1939		* Dodge left (1939)
 A1DD4
-	DATA >1DD4,>0500,>VG,HINT?,Agood,Abad,Atime,0		* running back
+	DATA >1DD4,>0500,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1DD9,0			* running back
 A1DD9
-	DATA >1DD9,>0700,>VG,HINT?,Agood,Abad,Atime,0		* threaten (R, UDL dies)
+	DATA >1DD9,>0700,>1E04,HINTRIGHT,A1E20,A1E15,A1E15,A1DE0,0,A1E20,0				* threaten (R, UDL dies)
 A1DE0
-	DATA >1DE0,>0400,>VG,HINT?,Agood,Abad,Atime,2675		* Dodge right and roll to cave (2675)
+	DATA >1DE0,>0400,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1DE4,2675		* Dodge right and roll to cave (2675)
 A1DE4
-	DATA >1DE4,>0600,>VG,HINT?,Agood,Abad,Atime,0		* knight throws sword
+	DATA >1DE4,>0600,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1DEA,0			* knight throws sword
 A1DEA
-	DATA >1DEA,>0200,>VG,HINT?,Agood,Abad,Atime,0		* Dirk waits for move
+	DATA >1DEA,>0200,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1DEC,0			* Dirk waits for move
 A1DEC
-	DATA >1DEC,>0700,>VG,HINT?,Agood,Abad,Atime,0		* JUmp into cave and safe
+	DATA >1DEC,>0700,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,0,0				* JUmp into cave and safe
 
 ** deaths **
 
-A1E12
-	DATA >1E12,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Caught by vines (00a9-00ab look like he's sleeping, though)
+A1E15
+	DATA >1E15,>0BFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Caught by vines (1e12-1e14 look like he's sleeping, though)
 
 A1E20
-	DATA >1E20,>1BFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Caught by knight
+	DATA >1E20,>1BFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Caught by knight
+
+
+** Unused **
+
+A1DCC
+	DATA >1DCC,>0800,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* run and odd panic shot (I've always thought was a glitch, skip this)
+
+A1E12
+	DATA >1E12,>03FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Prelude to caught by vines - looks like sleeping! Skipped.
 
 
 	END

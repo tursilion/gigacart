@@ -22,18 +22,19 @@ CARTPAGE EQU >6030
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,67 +44,65 @@ CARTPAGE EQU >6030
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
 * joystick bits:
-*   JOYUP    EQU >1000
-*   JOYDOWN  EQU >0800
-*   JOYLEFT  EQU >0200
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYLEFT EQU  >0200
 *   JOYRIGHT EQU >0400
-*   JOYFIRE  EQU >0100
+*   JOYFIRE EQU  >0100
 *
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-od scene, bad scene, timeout scene, score
-SCENEDATA
 	DATA >1491,20										* ressurection
 	DATA >1533,31										* game over
 
 ** scenes **
 A14A5
-	DATA >14A5,>0A00,>VG,HINT?,Agood,Abad,Atime,49		* "Save me!" (49)
+	DATA >14A5,>0A00,>JJGG,HINT,up,down,left,right,fire,time,49		* "Save me!" (49)
 A14AF
-	DATA >14AF,>0900,>VG,HINT?,Agood,Abad,Atime,0		* Advancing
+	DATA >14AF,>0900,>JJGG,HINT,up,down,left,right,fire,time,0		* Advancing
 A14B8
-	DATA >14B8,>0B00,>VG,HINT?,Agood,Abad,Atime,0		* Skulls attack (U, DLRS dies)
+	DATA >14B8,>0B00,>JJGG,HINT,up,down,left,right,fire,time,0		* Skulls attack (U, DLRS dies)
 A14C3
-	DATA >14C3,>0500,>VG,HINT?,Agood,Abad,Atime,495		* Dirk jumps back (495)
+	DATA >14C3,>0500,>JJGG,HINT,up,down,left,right,fire,time,495		* Dirk jumps back (495)
 A14C8
-	DATA >14C8,>0400,>VG,HINT?,Agood,Abad,Atime,0		* Hand threatens (S, UDL dies)
+	DATA >14C8,>0400,>JJGG,HINT,up,down,left,right,fire,time,0		* Hand threatens (S, UDL dies)
 A14CC
-	DATA >14CC,>0B00,>VG,HINT?,Agood,Abad,Atime,915		* Dirk swords it (915)
+	DATA >14CC,>0B00,>JJGG,HINT,up,down,left,right,fire,time,915		* Dirk swords it (915)
 A14D7
-	DATA >14D7,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Slime threatens (U, DLR dies)
+	DATA >14D7,>0600,>JJGG,HINT,up,down,left,right,fire,time,0		* Slime threatens (U, DLR dies)
 A14DD
-	DATA >14DD,>0900,>VG,HINT?,Agood,Abad,Atime,495		* Dirk jumps back (495)
+	DATA >14DD,>0900,>JJGG,HINT,up,down,left,right,fire,time,495		* Dirk jumps back (495)
 A14E6
-	DATA >14E6,>0400,>VG,HINT?,Agood,Abad,Atime,0		* Hand threatens (S, UDR dies)
+	DATA >14E6,>0400,>JJGG,HINT,up,down,left,right,fire,time,0		* Hand threatens (S, UDR dies)
 A14EA
-	DATA >14EA,>0C00,>VG,HINT?,Agood,Abad,Atime,915		* Dirk swords it (915)
+	DATA >14EA,>0C00,>JJGG,HINT,up,down,left,right,fire,time,915		* Dirk swords it (915)
 A14F6
-	DATA >14F6,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Slime threatens (L, DR dies)
+	DATA >14F6,>0600,>JJGG,HINT,up,down,left,right,fire,time,0		* Slime threatens (L, DR dies)
 A14FC
-	DATA >14FC,>0400,>VG,HINT?,Agood,Abad,Atime,495		* Dirk runs left (495)
+	DATA >14FC,>0400,>JJGG,HINT,up,down,left,right,fire,time,495		* Dirk runs left (495)
 A1500
-	DATA >1500,>0500,>VG,HINT?,Agood,Abad,Atime,0		* Ghosts threaten 
+	DATA >1500,>0500,>JJGG,HINT,up,down,left,right,fire,time,0		* Ghosts threaten 
 A1505
-	DATA >1505,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Ghosts attack (S, UDLR dies)
+	DATA >1505,>0600,>JJGG,HINT,up,down,left,right,fire,time,0		* Ghosts attack (S, UDLR dies)
 A150B
-	DATA >150B,>1600,>VG,HINT?,Agood,Abad,Atime,495		* Dirk swords them (495)
+	DATA >150B,>1600,>JJGG,HINT,up,down,left,right,fire,time,495		* Dirk swords them (495)
 A1521
-	DATA >1521,>1200,>VG,HINT?,Agood,Abad,Atime,0		* Dirk exits stage
+	DATA >1521,>1200,>JJGG,HINT,up,down,left,right,fire,time,0		* Dirk exits stage
 
 ** deaths **
 
 A1552
-	DATA >1552,>0DFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Skulls get Dirk
+	DATA >1552,>0DFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Skulls get Dirk
 
 A155F
-	DATA >155F,>09FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Hand gets Dirk
+	DATA >155F,>09FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Hand gets Dirk
 
 A1568
-	DATA >1568,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Slime gets Dirk
+	DATA >1568,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Slime gets Dirk
 
 A1576
-	DATA >1576,>1BFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Ghosts get Dirk
+	DATA >1576,>1BFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Ghosts get Dirk
 
 
 	END

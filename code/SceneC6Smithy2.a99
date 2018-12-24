@@ -22,18 +22,19 @@ CARTPAGE EQU >602A
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,73 +44,71 @@ CARTPAGE EQU >602A
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
 * joystick bits:
-*   JOYUP    EQU >1000
-*   JOYDOWN  EQU >0800
-*   JOYLEFT  EQU >0200
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYLEFT EQU  >0200
 *   JOYRIGHT EQU >0400
-*   JOYFIRE  EQU >0100
+*   JOYFIRE EQU  >0100
 *
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-od scene, bad scene, timeout scene, score
-SCENEDATA
 	DATA >10E7,20										* ressurection
 	DATA >11B8,31										* game over
 
 ** scenes **
 A10FB
-	DATA >10FB,>1E00,>VG,HINT?,Agood,Abad,Atime,49		* Sword threatens (49)
+	DATA >10FB,>1E00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1119,49		* Sword threatens (49)
 A1119
-	DATA >1119,>0700,>VG,HINT?,Agood,Abad,Atime,0		* Sword attacks (S, UDLR dies)
+	DATA >1119,>0700,>1F01,HINT,A11D7,A11E5,A11D7,A11D7,A1120,A11D7,0			* Sword attacks (S, UDLR dies)
 A1120
-	DATA >1120,>0700,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk defends (1326)
+	DATA >1120,>0700,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1127,1326	* Dirk defends (1326)
 A1127
-	DATA >1127,>0B00,>VG,HINT?,Agood,Abad,Atime,0		* Mace threatens
+	DATA >1127,>0B00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1132,0		* Mace threatens
 A1132
-	DATA >1132,>0400,>VG,HINT?,Agood,Abad,Atime,0		* Mace attacks (S, ULR dies)
+	DATA >1132,>0400,>1701,HINTSWORD,A11D7,0,A11D7,A11D7,A1136,A11EE,0			* Mace attacks (S, ULR dies)
 A1136
-	DATA >1136,>0900,>VG,HINT?,Agood,Abad,Atime,2191		* Dirk defends, anvil warns (2191)
+	DATA >1136,>0900,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A113F,2191	* Dirk defends, anvil warns (2191)
 A113F
-	DATA >113F,>0C00,>VG,HINT?,Agood,Abad,Atime,0		* Anvil threatens (R, DL dies)
+	DATA >113F,>0C00,>0E04,HINTRIGHT,0,A11D7,A11D7,A114B,0,A1200,0				* Anvil threatens (R, DL dies)
 A114B
-	DATA >114B,>0500,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk dodges right (1326)
+	DATA >114B,>0500,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1150,1326	* Dirk dodges right (1326)
 A1150
-	DATA >1150,>0F00,>VG,HINT?,Agood,Abad,Atime,0		* Spear threatens (S, UDLR dies)
+	DATA >1150,>0F00,>1F01,HINTSWORD,A1213,A1213,A1213,A1213,A115F,A1213,0		* Spear threatens (S, UDLR dies)
 A115F
-	DATA >115F,>0D00,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk defends (1326)
+	DATA >115F,>0D00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A116C,1326	* Dirk defends (1326)
 A116C
-	DATA >116C,>0500,>VG,HINT?,Agood,Abad,Atime,0		* Spear ends in wall
+	DATA >116C,>0500,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1171,0		* Spear ends in wall
 A1171
-	DATA >1171,>0D00,>VG,HINT?,Agood,Abad,Atime,0		* Dirk climbs up
+	DATA >1171,>0D00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A117E,0		* Dirk climbs up
 A117E
-	DATA >117E,>0D00,>VG,HINT?,Agood,Abad,Atime,0		* Dirk hardens sword
+	DATA >117E,>0D00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A118B,0		* Dirk hardens sword
 A118B
-	DATA >118B,>1200,>VG,HINT?,Agood,Abad,Atime,0		* Smithy threatens (S, LR dies)
+	DATA >118B,>1200,>0701,HINTSWORD,0,0,A121C,A121C,A119D,A121C,0				* Smithy threatens (S, LR dies)
 A119D
-	DATA >119D,>0B00,>VG,HINT?,Agood,Abad,Atime,915		* Dirk defends (915)
+	DATA >119D,>0B00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A11A8,915		* Dirk defends (915)
 A11A8
-	DATA >11A8,>1000,>VG,HINT?,Agood,Abad,Atime,0		* Dirk moves on
+	DATA >11A8,>1000,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,0,0			* Dirk moves on
 
 ** deaths **
 
 A11D7
-	DATA >11D7,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk steps in fire
+	DATA >11D7,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Dirk steps in fire
 
 A11E5
-	DATA >11E5,>09FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk gets sworded
+	DATA >11E5,>09FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Dirk gets sworded
 
 A11EE
-	DATA >11EE,>12FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk gets maced
+	DATA >11EE,>12FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Dirk gets maced
 
 A1200
-	DATA >1200,>13FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk gets anviled
+	DATA >1200,>13FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Dirk gets anviled
 
 A1213
-	DATA >1213,>09FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk gets speared
+	DATA >1213,>09FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Dirk gets speared
 
 A121C
-	DATA >121C,>1BFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk gets Smithed
+	DATA >121C,>1BFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Dirk gets Smithed
 
 
 

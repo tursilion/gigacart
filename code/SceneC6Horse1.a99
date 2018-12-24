@@ -22,18 +22,19 @@ CARTPAGE EQU >6024
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,72 +44,70 @@ CARTPAGE EQU >6024
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
 * joystick bits:
-*   JOYUP    EQU >1000
-*   JOYDOWN  EQU >0800
-*   JOYLEFT  EQU >0200
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYLEFT EQU  >0200
 *   JOYRIGHT EQU >0400
-*   JOYFIRE  EQU >0100
+*   JOYFIRE EQU  >0100
 *
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-od scene, bad scene, timeout scene, score
-SCENEDATA
 	DATA >0D7E,20										* ressurection
 	DATA >0E2E,31										* game over
 
 ** scenes **
 A0D92
-	DATA >0D92,>1E00,>VG,HINT?,Agood,Abad,Atime,49		* Intro (49)
+	DATA >0D92,>1E00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0DB0,49		* Intro (49)
 A0DB0
-	DATA >0DB0,>0300,>VG,HINT?,Agood,Abad,Atime,0		* Riding
+	DATA >0DB0,>0300,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0DB3,0		* Riding
 A0DB3
-	DATA >0DB3,>0500,>VG,HINT?,Agood,Abad,Atime,0		* Flames on left (U, UL dies)
+	DATA >0DB3,>0500,>1604,HINTRIGHT,A0E4D,0,A0E77,A0DB8,0,A0E4D,0				* Flames on left (R, UL dies)
 A0DB8
-	DATA >0DB8,>0500,>VG,HINT?,Agood,Abad,Atime,495		* steering clear (495)
+	DATA >0DB8,>0500,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0DBD,495		* steering clear (495)
 A0DBD
-	DATA >0DBD,>0300,>VG,HINT?,Agood,Abad,Atime,0		* Riding
+	DATA >0DBD,>0300,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0DC0,0		* Riding
 A0DC0
-	DATA >0DC0,>0500,>VG,HINT?,Agood,Abad,Atime,0		* Flames on right (L, UR dies)
+	DATA >0DC0,>0500,>1602,HINTLEFT,A0E4D,0,A0DC5,A0E77,0,A0E4D,0				* Flames on right (L, UR dies)
 A0DC5
-	DATA >0DC5,>0800,>VG,HINT?,Agood,Abad,Atime,495		* Steering clear (495)
+	DATA >0DC5,>0800,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0DCD,495		* Steering clear (495)
 A0DCD
-	DATA >0DCD,>0300,>VG,HINT?,Agood,Abad,Atime,0		* Riding towards pillar
+	DATA >0DCD,>0300,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0DD0,0		* Riding towards pillar
 A0DD0
-	DATA >0DD0,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Flames on left (R, UL dies)
+	DATA >0DD0,>0600,>1604,HINTRIGHT,A0E4D,0,A0E77,A0DD6,0,A0E4D,0				* Flames on left (R, UL dies)
 A0DD6
-	DATA >0DD6,>0900,>VG,HINT?,Agood,Abad,Atime,495		* Steering clear (495)
+	DATA >0DD6,>0900,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0DDF,495		* Steering clear (495)
 A0DDF
-	DATA >0DDF,>0200,>VG,HINT?,Agood,Abad,Atime,0		* Riding towards pillar
+	DATA >0DDF,>0200,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0DE1,0		* Riding towards pillar
 A0DE1
-	DATA >0DE1,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Flames on right (L, UR dies)
+	DATA >0DE1,>0600,>1602,HINTLEFT,A0E4D,0,A0DE7,A0E77,0,A0E4D,0				* Flames on right (L, UR dies)
 A0DE7
-	DATA >0DE7,>0900,>VG,HINT?,Agood,Abad,Atime,495		* Steering clear (495)
+	DATA >0DE7,>0900,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0DF0,495		* Steering clear (495)
 A0DF0
-	DATA >0DF0,>0800,>VG,HINT?,Agood,Abad,Atime,0		* Riding towards wall (L, UR dies)
+	DATA >0DF0,>0800,>1602,HINTLEFT,A0E5F,0,A0DF8,A0E5F,0,A0E5F,0				* Riding towards wall (L, UR dies)
 A0DF8
-	DATA >0DF8,>0300,>VG,HINT?,Agood,Abad,Atime,1326		* Steering clear (1326)
+	DATA >0DF8,>0300,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0DFB,1326	* Steering clear (1326)
 A0DFB
-	DATA >0DFB,>0300,>VG,HINT?,Agood,Abad,Atime,0		* Riding towards pillar
+	DATA >0DFB,>0300,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0DFE,0		* Riding towards pillar
 A0DFE
-	DATA >0DFE,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Flames on right (L, UR dies)
+	DATA >0DFE,>0600,>1602,HINTLEFT,A0E4D,0,A0E04,A0E77,0,A0E4D,0				* Flames on right (L, UR dies)
 A0E04
-	DATA >0E04,>0600,>VG,HINT?,Agood,Abad,Atime,495		* Steering clear (495)
+	DATA >0E04,>0600,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0E0A,495		* Steering clear (495)
 A0E0A
-	DATA >0E0A,>0E00,>VG,HINT?,Agood,Abad,Atime,0		* Crash landing
+	DATA >0E0A,>0E00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0E18,0		* Crash landing
 A0E18
-	DATA >0E18,>1600,>VG,HINT?,Agood,Abad,Atime,0		* Moving on
+	DATA >0E18,>1600,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,0,0			* Moving on
 
 ** deaths **
 
 A0E4D
-	DATA >0E4D,>12FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Ride into pillar
+	DATA >0E4D,>12FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Ride into pillar
 
 A0E5F
-	DATA >0E5F,>18FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Ride into wall
+	DATA >0E5F,>18FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Ride into wall
 
 A0E77
-	DATA >0E77,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Ride into fire
+	DATA >0E77,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Ride into fire
 
 
 	END

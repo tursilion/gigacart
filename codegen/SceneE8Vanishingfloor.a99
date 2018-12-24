@@ -22,18 +22,19 @@ CARTPAGE EQU >6050
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,48 +44,46 @@ CARTPAGE EQU >6050
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
 * joystick bits:
-*   JOYUP    EQU >1000
-*   JOYDOWN  EQU >0800
-*   JOYLEFT  EQU >0200
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYLEFT EQU  >0200
 *   JOYRIGHT EQU >0400
-*   JOYFIRE  EQU >0100
+*   JOYFIRE EQU  >0100
 *
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-od scene, bad scene, timeout scene, score
-SCENEDATA
 	DATA >24B1,20										* ressurection
 	DATA >250D,31										* game over
 
 ** scenes **
 A24C5
-	DATA >24C5,>2100,>VG,HINT?,Agood,Abad,Atime,49		* Intro (49)
+	DATA >24C5,>2100,>JJGG,HINT,up,down,left,right,fire,time,49		* Intro (49)
 A24E6
-	DATA >24E6,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Fire and floor threatens (D, LR dies)
+	DATA >24E6,>0600,>JJGG,HINT,up,down,left,right,fire,time,0		* Fire and floor threatens (D, LR dies)
 A24EC
-	DATA >24EC,>0400,>VG,HINT?,Agood,Abad,Atime,1939		* Dirk jumps back (1939)
+	DATA >24EC,>0400,>JJGG,HINT,up,down,left,right,fire,time,1939		* Dirk jumps back (1939)
 A24F0
-	DATA >24F0,>0400,>VG,HINT?,Agood,Abad,Atime,0		* Fire and floor threatens (U, DL dies)
+	DATA >24F0,>0400,>JJGG,HINT,up,down,left,right,fire,time,0		* Fire and floor threatens (U, DL dies)
 A24F4
-	DATA >24F4,>0400,>VG,HINT?,Agood,Abad,Atime,2675		* Dirk jumps... right? Up? (2675)
+	DATA >24F4,>0400,>JJGG,HINT,up,down,left,right,fire,time,2675		* Dirk jumps... right? Up? (2675)
 A24F8
-	DATA >24F8,>0500,>VG,HINT?,Agood,Abad,Atime,0		* Confusing posturing with floor (jump up)
+	DATA >24F8,>0500,>JJGG,HINT,up,down,left,right,fire,time,0		* Confusing posturing with floor (jump up)
 A24FD
-	DATA >24FD,>0700,>VG,HINT?,Agood,Abad,Atime,0		* Doors open as floor vanishes (L, UDR dies)
+	DATA >24FD,>0700,>JJGG,HINT,up,down,left,right,fire,time,0		* Doors open as floor vanishes (L, UDR dies)
 A2504
-	DATA >2504,>0900,>VG,HINT?,Agood,Abad,Atime,1939		* Dirk chooses LEFT door and exits (1939)
+	DATA >2504,>0900,>JJGG,HINT,up,down,left,right,fire,time,1939		* Dirk chooses LEFT door and exits (1939)
 
 ** deaths **
 
 A252C
-	DATA >252C,>18FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk jumps to UP door and is trapped in cage
+	DATA >252C,>18FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Dirk jumps to UP door and is trapped in cage
 
 A2544
-	DATA >2544,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk is caught by fire
+	DATA >2544,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Dirk is caught by fire
 
 A2552
-	DATA >2552,>12FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk falls to his doom
+	DATA >2552,>12FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Dirk falls to his doom
 
 
 	END

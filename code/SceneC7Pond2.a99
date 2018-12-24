@@ -22,18 +22,19 @@ CARTPAGE EQU >603A
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,82 +44,80 @@ CARTPAGE EQU >603A
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
 * joystick bits:
-*   JOYUP    EQU >1000
-*   JOYDOWN  EQU >0800
-*   JOYLEFT  EQU >0200
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYLEFT EQU  >0200
 *   JOYRIGHT EQU >0400
-*   JOYFIRE  EQU >0100
+*   JOYFIRE EQU  >0100
 *
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-od scene, bad scene, timeout scene, score
-SCENEDATA
 	DATA >1A1B,20										* ressurection
 	DATA >1AE4,31										* game over
 
 ** scenes **
 A1A2F
-	DATA >1A2F,>0E00,>VG,HINT?,Agood,Abad,Atime,49		* Approach (49)
+	DATA >1A2F,>0E00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1A3D,49			* Approach (49)
 A1A3D
-	DATA >1A3D,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Threaten pit and ceiling (R, UL dies)
+	DATA >1A3D,>0600,>1604,HINTRIGHT,A1B0C,0,A1B0C,A1A43,0,A1B0C,0					* Threaten pit and ceiling (R, UL dies)
 A1A43
-	DATA >1A43,>0B00,>VG,HINT?,Agood,Abad,Atime,1939		* Run right (1939)
+	DATA >1A43,>0B00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1A4E,1939		* Run right (1939)
 A1A4E
-	DATA >1A4E,>0400,>VG,HINT?,Agood,Abad,Atime,0		* Threaten pit and knives (U, L dies)
+	DATA >1A4E,>0400,>1210,HINTUP,A1A52,0,A1B0C,0,0,A1B03,0							* Threaten pit and knives (U, L dies)
 A1A52
-	DATA >1A52,>0900,>VG,HINT?,Agood,Abad,Atime,2191		* Roll up (2191)
+	DATA >1A52,>0900,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1A5B,2191		* Roll up (2191)
 A1A5B
-	DATA >1A5B,>0D00,>VG,HINT?,Agood,Abad,Atime,0		* Threaten pit (L, UDR dies)
+	DATA >1A5B,>0D00,>1E02,HINTLEFT,A1B1E,A1B0C,A1A68,A1B0C,0,A1B1E,0				* Threaten pit (L, UDR dies)
 A1A68
-	DATA >1A68,>0800,>VG,HINT?,Agood,Abad,Atime,2675		* Jump to left (2675)
+	DATA >1A68,>0800,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1A70,2675		* Jump to left (2675)
 A1A70
-	DATA >1A70,>0700,>VG,HINT?,Agood,Abad,Atime,0		* Threaten pit (U, DLR dies)
+	DATA >1A70,>0700,>1E10,HINTUP,A1A77,A1B0C,A1B0C,A1B0C,0,A1B0C,0					* Threaten pit (U, DLR dies)
 A1A77
-	DATA >1A77,>0B00,>VG,HINT?,Agood,Abad,Atime,3255		* Jump up into pond (3255)
+	DATA >1A77,>0B00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1A82,3255		* Jump up into pond (3255)
 A1A82
-	DATA >1A82,>0800,>VG,HINT?,Agood,Abad,Atime,0		* Threaten snakes (R, UDLS dies)
+	DATA >1A82,>0800,>1F04,HINTRIGHT,A1B30,A1B30,A1B30,A1A8A,0,A1B30,0				* Threaten snakes (R, UDLS dies)
 A1A8A
-	DATA >1A8A,>0D00,>VG,HINT?,Agood,Abad,Atime,3551		* Step out onto switch right (3551)
+	DATA >1A8A,>0D00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1A97,3551		* Step out onto switch right (3551)
 A1A97
-	DATA >1A97,>0500,>VG,HINT?,Agood,Abad,Atime,0		* Threaten ceiling (U, DLR dies)
+	DATA >1A97,>0500,>1E10,HINTUP,A1A9C,A1B0C,A1B0C,A1B4D,0,A1B4D,0					* Threaten ceiling (U, DLR dies)
 A1A9C
-	DATA >1A9C,>1600,>VG,HINT?,Agood,Abad,Atime,4026		* Roll free up (4026)
+	DATA >1A9C,>1600,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1AB2,4026		* Roll free up (4026)
 A1AB2
-	DATA >1AB2,>0400,>VG,HINT?,Agood,Abad,Atime,0		* Threaten spider (S, DR dies)
+	DATA >1AB2,>0400,>0D01,HINTSWORD,0,A1B0C,0,A1B0C,A1AB6,A1B5B,0					* Threaten spider (S, DR dies)
 A1AB6
-	DATA >1AB6,>0900,>VG,HINT?,Agood,Abad,Atime,4026		* Sword spider (4026)
+	DATA >1AB6,>0900,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1ABF,4026		* Sword spider (4026)
 A1ABF
-	DATA >1ABF,>0300,>VG,HINT?,Agood,Abad,Atime,0		* Threaten pit (L, DR dies)
+	DATA >1ABF,>0300,>0E02,HINTLEFT,0,A1B0C,A1AC2,A1B0C,0,A1B0C,0					* Threaten pit (L, DR dies)
 A1AC2
-	DATA >1AC2,>0500,>VG,HINT?,Agood,Abad,Atime,5000		* jump left (5000)
+	DATA >1AC2,>0500,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A1AC7,5000		* jump left (5000)
 A1AC7
-	DATA >1AC7,>0F00,>VG,HINT?,Agood,Abad,Atime,0		* threaten squash (U, DLR dies)
+	DATA >1AC7,>0F00,>1E10,HINTUP,A1AD6,A1B6D,A1B6D,A1B6D,0,A1B6D,0					* threaten squash (U, DLR dies)
 A1AD6
-	DATA >1AD6,>0E00,>VG,HINT?,Agood,Abad,Atime,4750		* Escape left (4750)
+	DATA >1AD6,>0E00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,0,4750			* Escape left (4750)
 
 ** deaths **
 
 A1B03
-	DATA >1B03,>09FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Knifed
+	DATA >1B03,>09FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Knifed
 
 A1B0C
-	DATA >1B0C,>12FF,>0000,HINTNONE,>0000,>0000,>0000,0		* jump into pit (movement)
+	DATA >1B0C,>12FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* fall into pit (general)
 
 A1B1E
-	DATA >1B1E,>12FF,>0000,HINTNONE,>0000,>0000,>0000,0		* fall into pit (inaction)
+	DATA >1B1E,>12FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* fall into pit (near wall)
 
 A1B30
-	DATA >1B30,>1DFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Got by snakes
+	DATA >1B30,>1DFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Got by snakes
 
 A1B4D
-	DATA >1B4D,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,0		* crushed by ceiling (after pond)
+	DATA >1B4D,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* crushed by ceiling (after pond)
 
 A1B5B
-	DATA >1B5B,>12FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Got by spider
+	DATA >1B5B,>12FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Got by spider
 
 A1B6D
-	DATA >1B6D,>16FF,>0000,HINTNONE,>0000,>0000,>0000,0		* squished by bricks
+	DATA >1B6D,>16FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* squished by bricks
 
 
 	END

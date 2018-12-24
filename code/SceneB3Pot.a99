@@ -22,18 +22,19 @@ CARTPAGE EQU >6012
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,60 +44,58 @@ CARTPAGE EQU >6012
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
 * joystick bits:
-*   JOYUP    EQU >1000
-*   JOYDOWN  EQU >0800
-*   JOYLEFT  EQU >0200
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYLEFT EQU  >0200
 *   JOYRIGHT EQU >0400
-*   JOYFIRE  EQU >0100
+*   JOYFIRE EQU  >0100
 *
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-od scene, bad scene, timeout scene, score
-SCENEDATA
 	DATA >05C9,20										* ressurection
 	DATA >064A,31										* game over
 
 ** scenes **
 A05DD
-	DATA >05DD,>1100,>VG,HINT?,Agood,Abad,Atime,49		* Approach (49)
+	DATA >05DD,>1100,>0000,HINTNONE,0,0,0,0,0,A05EE,49		* Approach (49)
 A05EE
-	DATA >05EE,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Slime appears (U, DLR dies)
+	DATA >05EE,>0600,>1E10,HINTUP,A05F4,A0677,A0677,A0677,0,A0677,0		* Slime appears (U, DLR dies)
 A05F4
-	DATA >05F4,>0500,>VG,HINT?,Agood,Abad,Atime,2191		* Dirk jumps away (2191)
+	DATA >05F4,>0500,>0000,HINTNONE,0,0,0,0,0,A05F9,2191		* Dirk jumps away (2191)
 A05F9
-	DATA >05F9,>0900,>VG,HINT?,Agood,Abad,Atime,0		* looks at bottle
+	DATA >05F9,>0900,>0000,HINTNONE,0,0,0,0,0,A0602,0		* looks at bottle
 A0602
-	DATA >0602,>0200,>VG,HINT?,Agood,Abad,Atime,0		* Tongue appears
+	DATA >0602,>0200,>0000,HINTNONE,0,0,0,0,0,A0604,0		* Tongue appears
 A0604
-	DATA >0604,>0700,>VG,HINT?,Agood,Abad,Atime,0		* Slime monster threatens (S, UDLR dies)
+	DATA >0604,>0700,>1F01,HINTSWORD,A0669,A0669,A0669,A0669,A060B,A0669,0		* Slime monster threatens (S, UDLR dies)
 A060B
-	DATA >060B,>0900,>VG,HINT?,Agood,Abad,Atime,3255		* Dirk swords it (3255)
+	DATA >060B,>0900,>0000,HINTNONE,0,0,0,0,0,A0614,3255		* Dirk swords it (3255)
 A0614
-	DATA >0614,>0400,>VG,HINT?,Agood,Abad,Atime,0		* Slime drips off wall towards Dirk (D, ULR dies)
+	DATA >0614,>0400,>1E08,HINTDOWN,A0677,A0618,A0677,A0677,A0677,A0677,0		* Slime drips off wall towards Dirk (D, ULR dies)
 A0618
-	DATA >0618,>0500,>VG,HINT?,Agood,Abad,Atime,3255		* Dirk jumps clear (3255)
+	DATA >0618,>0500,>0000,HINTNONE,0,0,0,0,0,A061D,3255		* Dirk jumps clear (3255)
 A061D
-	DATA >061D,>0900,>VG,HINT?,Agood,Abad,Atime,0		* Pot monster appears (S, UL dies)
+	DATA >061D,>0900,>1301,HINTSWORD,A0685,0,A0685,0,A0626,A0685,0		* Pot monster appears (S, UL dies)
 A0626
-	DATA >0626,>1200,>VG,HINT?,Agood,Abad,Atime,2191		* Dirk swords it (2191)
+	DATA >0626,>1200,>0000,HINTNONE,0,0,0,0,0,A0638,2191		* Dirk swords it (2191)
 A0638
-	DATA >0638,>0300,>VG,HINT?,Agood,Abad,Atime,0		* Slime grows
+	DATA >0638,>0300,>0000,HINTNONE,0,0,0,0,0,A063B,0		* Slime grows
 A063B
-	DATA >063B,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Dirk hops as slime grows (R, UL dies)
+	DATA >063B,>0600,>1604,HINTRIGHT,A0677,0,A0677,A0641,0,A0677,0		* Dirk hops as slime grows (R, UL dies)
 A0641
-	DATA >0641,>0900,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk runs for it to fanfare (1326)
+	DATA >0641,>0900,>0000,HINTNONE,0,0,0,0,0,0,1326		* Dirk runs for it to fanfare (1326)
 
 ** deaths **
 
 A0669
-	DATA >0669,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Slime monster eats Dirk
+	DATA >0669,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Slime monster eats Dirk
 
 A0677
-	DATA >0677,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Slime gets Dirk
+	DATA >0677,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Slime gets Dirk
 
 A0685
-	DATA >0685,>12FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Pot monster gets Dirk
+	DATA >0685,>12FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Pot monster gets Dirk
 
 
 	END

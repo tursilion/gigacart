@@ -22,18 +22,19 @@ CARTPAGE EQU >6016
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,50 +44,48 @@ CARTPAGE EQU >6016
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
 * joystick bits:
-*   JOYUP    EQU >1000
-*   JOYDOWN  EQU >0800
-*   JOYLEFT  EQU >0200
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYLEFT EQU  >0200
 *   JOYRIGHT EQU >0400
-*   JOYFIRE  EQU >0100
+*   JOYFIRE EQU  >0100
 *
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-od scene, bad scene, timeout scene, score
-SCENEDATA
 	DATA >075D,20										* ressurection
 	DATA >07D1,31										* game over
 
 ** scenes **
 A0771
-	DATA >0771,>1500,>VG,HINT?,Agood,Abad,Atime,49		* Climb up, door appears (49)
+	DATA >0771,>1500,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0786,49		* Climb up, door appears (49)
 A0786
-	DATA >0786,>0500,>VG,HINT?,Agood,Abad,Atime,0		* Goon 1 appears (S, ULR dies)
+	DATA >0786,>0500,>1701,HINTSWORD,A0825,0,A0825,A0812,A078B,A0825,0			* Goon 1 appears (S, ULR dies)
 A078B
-	DATA >078B,>0C00,>VG,HINT?,Agood,Abad,Atime,379		* Dirk swords him (379)
+	DATA >078B,>0C00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0797,379		* Dirk swords him (379)
 A0797
-	DATA >0797,>0500,>VG,HINT?,Agood,Abad,Atime,0		* Two more appear (R, ULS dies)
+	DATA >0797,>0500,>1704,HINTRIGHT,A0825,0,A0825,A079C,A07F0,A0825,0			* Two more appear (R, ULS dies)
 A079C
-	DATA >079C,>0E00,>VG,HINT?,Agood,Abad,Atime,0		* Dirk climbs (U, DL dies) (1326) (optional, if you press up, you skip to the top, no score)
+	DATA >079C,>0E00,>1c00,HINTNONE,A07BE,A0825,A0825,0,0,A07AA,1326			* Dirk climbs (U, DL dies) (1326) (optional, if you press up, you skip to the top, no score)
 A07AA
-	DATA >07AA,>0400,>VG,HINT?,Agood,Abad,Atime,0		* More appear in front (S, DL dies) (timeout on above)
+	DATA >07AA,>0400,>0D01,HINTSWORD,0,A0825,A0825,0,A07AE,A0812,0				* More appear in front (S, DL dies) (timeout on above)
 A07AE
-	DATA >07AE,>1000,>VG,HINT?,Agood,Abad,Atime,3255		* Dirk swords them (3255)
+	DATA >07AE,>1000,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A07BE,3255	* Dirk swords them (3255)
 A07BE
-	DATA >07BE,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Dirk reaches top of stairs (ULN, DS dies) (no action needed, but you can die!)
+	DATA >07BE,>0600,>1B00,HINTNONE,A07C4,A0812,A07C4,0,A07F0,A07C4,0			* Dirk reaches top of stairs (ULN, DS dies) (no action needed, but you can die!)
 A07C4
-	DATA >07C4,>0D00,>VG,HINT?,Agood,Abad,Atime,0		* Dirk jumps to safety (no score)
+	DATA >07C4,>0D00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,0,0			* Dirk jumps to safety (no score)
 
 ** deaths **
 
 A07F0
-	DATA >07F0,>22FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk swords goon below but is overpowered
+	DATA >07F0,>22FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Dirk swords goon below but is overpowered
 
 A0812
-	DATA >0812,>13FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Goon below swords Dirk in back
+	DATA >0812,>13FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Goon below swords Dirk in back
 
 A0825
-	DATA >0825,>28FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk confronts Goons on ground and is backed into pit
+	DATA >0825,>28FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Dirk confronts Goons on ground and is backed into pit
 
 
 	END

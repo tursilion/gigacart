@@ -22,18 +22,19 @@ CARTPAGE EQU >604E
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,106 +44,112 @@ CARTPAGE EQU >604E
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
 * joystick bits:
-*   JOYUP    EQU >1000
-*   JOYDOWN  EQU >0800
-*   JOYLEFT  EQU >0200
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYLEFT EQU  >0200
 *   JOYRIGHT EQU >0400
-*   JOYFIRE  EQU >0100
+*   JOYFIRE EQU  >0100
 *
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-od scene, bad scene, timeout scene, score
-SCENEDATA
 	DATA >225D,21										* ressurection
 	DATA >2423,31										* game over
 
 ** scenes **
 A2272
-	DATA >2272,>4700,>VG,HINT?,Agood,Abad,Atime,49		* Intro Ye Boulders (49)
+	DATA >2272,>4700,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A22B9,49		* Intro Ye Boulders (49)
 A22B9
-	DATA >22B9,>0900,>VG,HINT?,Agood,Abad,Atime,0		* Boulder 1 Threatens (L, UR dies)
+	DATA >22B9,>0900,>1602,HINTLEFT,A2442,0,A22C2,A2442,0,A2442,0				* Boulder 1 Threatens (L, UR dies)
 A22C2
-	DATA >22C2,>0800,>VG,HINT?,Agood,Abad,Atime,379		* Move left (379)
+	DATA >22C2,>0800,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A22CA,379		* Move left (379)
 A22CA
-	DATA >22CA,>0900,>VG,HINT?,Agood,Abad,Atime,0		* Boulder 2 Threatens (R, UL dies)
+	DATA >22CA,>0900,>1604,HINTRIGHT,A244B,0,A244B,A22D3,0,A244B,0				* Boulder 2 Threatens (R, UL dies)
 A22D3
-	DATA >22D3,>0800,>VG,HINT?,Agood,Abad,Atime,379		* Move right (379)
+	DATA >22D3,>0800,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A22DB,379		* Move right (379)
 A22DB
-	DATA >22DB,>0900,>VG,HINT?,Agood,Abad,Atime,0		* Bridge Threatens (L, UR dies)
+	DATA >22DB,>0900,>1602,HINTLEFT,A2454,0,A22E4,A2454,0,A2454,0				* Bridge Threatens (L, UR dies)
 A22E4
-	DATA >22E4,>0900,>VG,HINT?,Agood,Abad,Atime,379		* Move left (379)
+	DATA >22E4,>0900,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A22ED,379		* Move left (379)
 A22ED
-	DATA >22ED,>0800,>VG,HINT?,Agood,Abad,Atime,0		* Wall Threatens (R, UL dies)
+	DATA >22ED,>0800,>1604,HINTRIGHT,A245D,0,A245D,A22F5,0,A245D,0				* Wall Threatens (R, UL dies)
 A22F5
-	DATA >22F5,>0900,>VG,HINT?,Agood,Abad,Atime,379		* Move right (379)
+	DATA >22F5,>0900,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A22FE,379		* Move right (379)
 A22FE
-	DATA >22FE,>1800,>VG,HINT?,Agood,Abad,Atime,0		* Intro Ye Rapids
-A2316
-	DATA >2316,>0D00,>VG,HINT?,Agood,Abad,Atime,0		* Drifting right (UR, L dies)
+	DATA >22FE,>1800,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A2316,0		* Intro Ye Rapids
+A2316		
+	DATA >2316,>0800,>0604,HINTRIGHT,0,0,A2466,A2323,0,A231E,0					* Drifting right (R, L dies)
+A231E
+	DATA >231E,>0500,>1210,HINTUP,A2323,0,A2466,0,0,A2466,0						* Drifting right (U, L dies)
 A2323
-	DATA >2323,>0800,>VG,HINT?,Agood,Abad,Atime,495		* Corrected (495)
+	DATA >2323,>0800,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A232B,495		* Corrected (495)
 A232B
-	DATA >232B,>0D00,>VG,HINT?,Agood,Abad,Atime,0		* Drifting left (UL, R dies)
+	DATA >232B,>0800,>0602,HINTLEFT,0,0,A2338,A2466,0,A2333,0					* Drifting left (L, R dies)
+A2333
+	DATA >2333,>0500,>1410,HINTUP,A2338,0,0,A2466,0,A2466,0						* Drifting left (U, R dies)
 A2338
-	DATA >2338,>0900,>VG,HINT?,Agood,Abad,Atime,495		* Corrected (495)
+	DATA >2338,>0900,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A2341,495		* Corrected (495)
 A2341
-	DATA >2341,>0D00,>VG,HINT?,Agood,Abad,Atime,0		* drifing right (UR, L dies)
+	DATA >2341,>0800,>0604,HINTRIGHT,0,0,A2466,A234E,0,A2349,0					* drifing right (R, L dies)
+A2349
+	DATA >2349,>0500,>1210,HINTUP,A234E,0,A2466,0,0,A2466,0						* drifing right (U, L dies)
 A234E
-	DATA >234E,>0C00,>VG,HINT?,Agood,Abad,Atime,495		* Corrected (495)
+	DATA >234E,>0C00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A235A,495		* Corrected (495)
 A235A
-	DATA >235A,>0C00,>VG,HINT?,Agood,Abad,Atime,0		* Drifing left (UL, R dies)
+	DATA >235A,>0700,>0602,HINTLEFT,0,0,A2366,A2466,0,A2361,0					* Drifing left (L, R dies)
+A2361
+	DATA >2361,>0500,>1410,HINTUP,A2366,0,0,A2466,0,A2466,0						* Drifing left (U, R dies)
 A2366
-	DATA >2366,>0D00,>VG,HINT?,Agood,Abad,Atime,495		* Corrected (495)
+	DATA >2366,>0D00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A2373,495		* Corrected (495)
 A2373
-	DATA >2373,>1500,>VG,HINT?,Agood,Abad,Atime,0		* Intro Ye Whirlpools
+	DATA >2373,>1500,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A2388,0		* Intro Ye Whirlpools
 A2388
-	DATA >2388,>0E00,>VG,HINT?,Agood,Abad,Atime,0		* Threatens (R, UL dies)
+	DATA >2388,>0E00,>1604,HINTRIGHT,A247C,0,A247C,A2396,0,A247C,0				* Threatens (R, UL dies)
 A2396
-	DATA >2396,>0C00,>VG,HINT?,Agood,Abad,Atime,251		* Escape right (251)
+	DATA >2396,>0C00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A23A2,251		* Escape right (251)
 A23A2
-	DATA >23A2,>0C00,>VG,HINT?,Agood,Abad,Atime,0		* Threatens (L, UR dies)
+	DATA >23A2,>0C00,>1602,HINTLEFT,A247C,0,A23AE,A247C,0,A247C,0				* Threatens (L, UR dies)
 A23AE
-	DATA >23AE,>0C00,>VG,HINT?,Agood,Abad,Atime,251		* Escape left (251)
+	DATA >23AE,>0C00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A23BA,251		* Escape left (251)
 A23BA
-	DATA >23BA,>0A00,>VG,HINT?,Agood,Abad,Atime,0		* Threatens (R, UL dies)
+	DATA >23BA,>0A00,>1604,HINTRIGHT,A247C,0,A247C,A23C4,0,A247C,0				* Threatens (R, UL dies)
 A23C4
-	DATA >23C4,>0C00,>VG,HINT?,Agood,Abad,Atime,251		* Escape right (251)
+	DATA >23C4,>0C00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A23D0,251		* Escape right (251)
 A23D0
-	DATA >23D0,>0C00,>VG,HINT?,Agood,Abad,Atime,0		* Threatens (L, UR dies)
+	DATA >23D0,>0C00,>1602,HINTLEFT,A247C,0,A23DC,A247C,0,A247C,0				* Threatens (L, UR dies)
 A23DC
-	DATA >23DC,>0B00,>VG,HINT?,Agood,Abad,Atime,251		* Escape left (251)
+	DATA >23DC,>0B00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A23E7,251		* Escape left (251)
 A23E7
-	DATA >23E7,>1500,>VG,HINT?,Agood,Abad,Atime,0		* Shipwrecked!
+	DATA >23E7,>1500,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A23FC,0		* Shipwrecked!
 A23FC
-	DATA >23FC,>0C00,>VG,HINT?,Agood,Abad,Atime,0		* Flying near chain (UR, DL dies)
+	DATA >23FC,>0C00,>1E14,HINTRIGHT,A2408,A2494,A2494,A2408,0,A2494,0			* Flying near chain (UR, DL dies)
 A2408
-	DATA >2408,>0C00,>VG,HINT?,Agood,Abad,Atime,495		* Grab and swing (495)
+	DATA >2408,>0C00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A2414,495		* Grab and swing (495)
 A2414
-	DATA >2414,>0F00,>VG,HINT?,Agood,Abad,Atime,0		* Dirk exits stage
+	DATA >2414,>0F00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,0,0			* Dirk exits stage
 
 ** deaths **
 
 A2442
-	DATA >2442,>09FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Into boulder 1
+	DATA >2442,>09FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Into boulder 1
 
 A244B
-	DATA >244B,>09FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Into boulder 2
+	DATA >244B,>09FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Into boulder 2
 
 A2454
-	DATA >2454,>09FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Into bridge
+	DATA >2454,>09FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Into bridge
 
 A245D
-	DATA >245D,>09FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Into wall
+	DATA >245D,>09FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Into wall
 
 A2466
-	DATA >2466,>16FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Capsized by Rapids
+	DATA >2466,>16FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Capsized by Rapids
 
 A247C
-	DATA >247C,>18FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Caught in whirlpool
+	DATA >247C,>18FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Caught in whirlpool
 
 A2494
-	DATA >2494,>1DFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Didn't grab chain
+	DATA >2494,>1DFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Didn't grab chain
 
 
 	END

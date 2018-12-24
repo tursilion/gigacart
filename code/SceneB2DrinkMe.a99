@@ -22,18 +22,18 @@ CARTPAGE EQU >600A
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -49,26 +49,26 @@ CARTPAGE EQU >600A
 *   JOYRIGHT EQU >0400
 *   JOYFIRE EQU  >0100
 *
-** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** start frame, frame count (byte), death? (byte), valid joystick (byte), >00 (byte), 
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-	DATA >02CA,20												* ressurection
-	DATA >0301,31												* game over
+	DATA >02CA,20														* ressurection
+	DATA >0301,31														* game over
 	
 ** scenes **
-	DATA >02de,>0C00,>1404,HINTRIGHT,A02ef,A0320,A02ea,49		* Approaching (RN, UDL die 0320) (49)
+	DATA >02de,>0C00,>1404,HINTRIGHT,A0320,0,0,a02ef,0,A02ea,49			* Approaching (RN, U die 0320) (49)
 A02ea
-	DATA >02ea,>0500,>1E04,HINTRIGHT,A02ef,A0348,A0320,0		* Flame spout (must move right, UDL die)
+	DATA >02ea,>0500,>1E04,HINTRIGHT,A0320,A0348,A0348,A02ef,0,A0320,0	* Flame spout (must move right, UDL die)
 a02ef
-	DATA >02ef,>1200,>0000,HINTNONE,0,0,0,379					* Leaving (379)
+	DATA >02ef,>1200,>0000,HINTNONE,0,0,0,0,0,0,379						* Leaving (379)
 
 ** deaths **
 
 A0320
-	DATA >0320,>28ff,>0000,HINTNONE,0,0,0,0						* Drink potion and die
+	DATA >0320,>28ff,>0000,HINTNONE,0,0,0,0,0,0,0						* Drink potion and die
 
 A0348
-	DATA >0348,>0eff,>0000,HINTNONE,0,0,0,0						* Step into fire and die
+	DATA >0348,>0eff,>0000,HINTNONE,0,0,0,0,0,0,0						* Step into fire and die
 
     END
     

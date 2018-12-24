@@ -22,18 +22,19 @@ CARTPAGE EQU >6036
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,75 +44,73 @@ CARTPAGE EQU >6036
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
 * joystick bits:
-*   JOYUP    EQU >1000
-*   JOYDOWN  EQU >0800
-*   JOYLEFT  EQU >0200
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYLEFT EQU  >0200
 *   JOYRIGHT EQU >0400
-*   JOYFIRE  EQU >0100
+*   JOYFIRE EQU  >0100
 *
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-od scene, bad scene, timeout scene, score
-SCENEDATA
 	DATA >17A2,20										* ressurection
 	DATA >1875,31										* game over
 
 ** scenes **
 A17B6
-	DATA >17B6,>0A00,>VG,HINT?,Agood,Abad,Atime,49		* "Save me!" (49)
+	DATA >17B6,>0A00,>JJGG,HINT,up,down,left,right,fire,time,49		* "Save me!" (49)
 A17C0
-	DATA >17C0,>0C00,>VG,HINT?,Agood,Abad,Atime,0		* Knight appears
+	DATA >17C0,>0C00,>JJGG,HINT,up,down,left,right,fire,time,0		* Knight appears
 A17CC
-	DATA >17CC,>0A00,>VG,HINT?,Agood,Abad,Atime,0		* Attack starts
+	DATA >17CC,>0A00,>JJGG,HINT,up,down,left,right,fire,time,0		* Attack starts
 A17D6
-	DATA >17D6,>0700,>VG,HINT?,Agood,Abad,Atime,0		* threaten (L, UDR dies)
+	DATA >17D6,>0700,>JJGG,HINT,up,down,left,right,fire,time,0		* threaten (L, UDR dies)
 A17DD
-	DATA >17DD,>0500,>VG,HINT?,Agood,Abad,Atime,2191		* Dirk jumps left (2191)
+	DATA >17DD,>0500,>JJGG,HINT,up,down,left,right,fire,time,2191		* Dirk jumps left (2191)
 A17E2
-	DATA >17E2,>0800,>VG,HINT?,Agood,Abad,Atime,0		* threaten (R, UDL dies)
+	DATA >17E2,>0800,>JJGG,HINT,up,down,left,right,fire,time,0		* threaten (R, UDL dies)
 A17EA
-	DATA >17EA,>0800,>VG,HINT?,Agood,Abad,Atime,2191		* Dirk jumps right (2191)
+	DATA >17EA,>0800,>JJGG,HINT,up,down,left,right,fire,time,2191		* Dirk jumps right (2191)
 A17F2
-	DATA >17F2,>0400,>VG,HINT?,Agood,Abad,Atime,0		* threaten (U, DLR dies)
+	DATA >17F2,>0400,>JJGG,HINT,up,down,left,right,fire,time,0		* threaten (U, DLR dies)
 A17F6
-	DATA >17F6,>0B00,>VG,HINT?,Agood,Abad,Atime,2675		* Dirk jumps up (2675)
+	DATA >17F6,>0B00,>JJGG,HINT,up,down,left,right,fire,time,2675		* Dirk jumps up (2675)
 A1801
-	DATA >1801,>0A00,>VG,HINT?,Agood,Abad,Atime,0		* threaten (R, UDL dies)
+	DATA >1801,>0A00,>JJGG,HINT,up,down,left,right,fire,time,0		* threaten (R, UDL dies)
 A180B
-	DATA >180B,>0800,>VG,HINT?,Agood,Abad,Atime,2191		* Dirk jumps right (2191)
+	DATA >180B,>0800,>JJGG,HINT,up,down,left,right,fire,time,2191		* Dirk jumps right (2191)
 A1813
-	DATA >1813,>0800,>VG,HINT?,Agood,Abad,Atime,0		* threaten (L, UDR dies)
+	DATA >1813,>0800,>JJGG,HINT,up,down,left,right,fire,time,0		* threaten (L, UDR dies)
 A181B
-	DATA >181B,>0400,>VG,HINT?,Agood,Abad,Atime,2191		* Dirk jumps left (2191)
+	DATA >181B,>0400,>JJGG,HINT,up,down,left,right,fire,time,2191		* Dirk jumps left (2191)
 A181F
-	DATA >181F,>0600,>VG,HINT?,Agood,Abad,Atime,0		* threaten (R, UDL dies)
+	DATA >181F,>0600,>JJGG,HINT,up,down,left,right,fire,time,0		* threaten (R, UDL dies)
 A1825
-	DATA >1825,>0200,>VG,HINT?,Agood,Abad,Atime,2191		* Dirk jumps right (2191)
+	DATA >1825,>0200,>JJGG,HINT,up,down,left,right,fire,time,2191		* Dirk jumps right (2191)
 A1827
-	DATA >1827,>0400,>VG,HINT?,Agood,Abad,Atime,0		* threaten (L, UDR dies)
+	DATA >1827,>0400,>JJGG,HINT,up,down,left,right,fire,time,0		* threaten (L, UDR dies)
 A182B
-	DATA >182B,>0700,>VG,HINT?,Agood,Abad,Atime,4750		* Dirk jumps left (4750)
+	DATA >182B,>0700,>JJGG,HINT,up,down,left,right,fire,time,4750		* Dirk jumps left (4750)
 A1832
-	DATA >1832,>0900,>VG,HINT?,Agood,Abad,Atime,0		* Dirk confronts knight
+	DATA >1832,>0900,>JJGG,HINT,up,down,left,right,fire,time,0		* Dirk confronts knight
 A183B
-	DATA >183B,>0A00,>VG,HINT?,Agood,Abad,Atime,0		* Knight threatens (S, U dies)
+	DATA >183B,>0A00,>JJGG,HINT,up,down,left,right,fire,time,0		* Knight threatens (S, U dies)
 A1845
-	DATA >1845,>1300,>VG,HINT?,Agood,Abad,Atime,2675		* Dirk swords him (2675)
+	DATA >1845,>1300,>JJGG,HINT,up,down,left,right,fire,time,2675		* Dirk swords him (2675)
 A1858
-	DATA >1858,>0C00,>VG,HINT?,Agood,Abad,Atime,0		* Dirk exits
+	DATA >1858,>0C00,>JJGG,HINT,up,down,left,right,fire,time,0		* Dirk exits
 A1864
-	DATA >1864,>0800,>VG,HINT?,Agood,Abad,Atime,0		* Dirk prepares to jump gap right
+	DATA >1864,>0800,>JJGG,HINT,up,down,left,right,fire,time,0		* Dirk prepares to jump gap right
 A186C
-	DATA >186C,>0900,>VG,HINT?,Agood,Abad,Atime,0		* Dirk makes the jump
+	DATA >186C,>0900,>JJGG,HINT,up,down,left,right,fire,time,0		* Dirk makes the jump
 
 ** deaths **
 
 A1894
-	DATA >1894,>12FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Electrocuted by floor
+	DATA >1894,>12FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Electrocuted by floor
 
 A18A6
-	DATA >18A6,>0CFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Knight swords Dirk
+	DATA >18A6,>0CFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Knight swords Dirk
 
 
 	END

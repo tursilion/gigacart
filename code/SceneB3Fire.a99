@@ -22,18 +22,19 @@ CARTPAGE EQU >6010
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,51 +44,49 @@ CARTPAGE EQU >6010
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
 * joystick bits:
-*   JOYUP    EQU >1000
-*   JOYDOWN  EQU >0800
-*   JOYLEFT  EQU >0200
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYLEFT EQU  >0200
 *   JOYRIGHT EQU >0400
-*   JOYFIRE  EQU >0100
+*   JOYFIRE EQU  >0100
 *
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-od scene, bad scene, timeout scene, score
-SCENEDATA
-	DATA >0508,21										* ressurection
-	DATA >0586,31										* game over
+	DATA >0508,21														* ressurection
+	DATA >0586,31														* game over
 
 ** scenes **
 A051D
-	DATA >051D,>0800,>VG,HINT?,Agood,Abad,Atime,49		* Entry (49)
+	DATA >051D,>0800,>0000,HINTNONE,0,0,0,0,0,A0525,49					* Entry (49)
 A0525
-	DATA >0525,>1000,>VG,HINT?,Agood,Abad,Atime,0		* Table drops
+	DATA >0525,>1000,>0000,HINTNONE,0,0,0,0,0,A0535,0					* Table drops
 A0535
-	DATA >0535,>0300,>VG,HINT?,Agood,Abad,Atime,0		* Lightning starts fire
+	DATA >0535,>0300,>0000,HINTNONE,0,0,0,0,0,A0538,0					* Lightning starts fire
 A0538
-	DATA >0538,>0300,>VG,HINT?,Agood,Abad,Atime,0		* Fire spreads towards Dirk (R, L dies)
+	DATA >0538,>0300,>0604,HINTRIGHT,0,0,A05BB,A053B,0,A05BB,0			* Fire spreads towards Dirk (R, L dies)
 A053B
-	DATA >053B,>0A00,>VG,HINT?,Agood,Abad,Atime,915		* Dirk jumps back, fire dies (915)
+	DATA >053B,>0A00,>0000,HINTNONE,0,0,0,0,0,A0545,915					* Dirk jumps back, fire dies (915)
 A0545
-	DATA >0545,>0700,>VG,HINT?,Agood,Abad,Atime,0		* New lightning starts new fire behind Dirk (UL, DR dies)
+	DATA >0545,>0700,>1E12,HINTUP,A054C,A05BB,A054C,A05BB,0,A05BB,0		* New lightning starts new fire behind Dirk (UL, DR dies)
 A054C
-	DATA >054C,>0600,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk jumps away (1326)
+	DATA >054C,>0600,>0000,HINTNONE,0,0,0,0,0,A0552,1326					* Dirk jumps away (1326)
 A0552
-	DATA >0552,>0B00,>VG,HINT?,Agood,Abad,Atime,0		* New lightning starts even more fire (DL, UR dies)
+	DATA >0552,>0B00,>1E0A,HINTDOWN,A05A5,A055D,A055D,A05BB,0,A05BB,0	* New lightning starts even more fire (DL, UR dies)
 A055D
-	DATA >055D,>0600,>VG,HINT?,Agood,Abad,Atime,915		* Dirk jumps away (915)
+	DATA >055D,>0600,>0000,HINTNONE,0,0,0,0,0,A0563,915					* Dirk jumps away (915)
 A0563
-	DATA >0563,>0B00,>VG,HINT?,Agood,Abad,Atime,0		* Table flashes (L, UDR dies)
+	DATA >0563,>0B00,>1E02,HINTLEFT,A05A5,A05BB,A056E,A05BB,0,A05BB,0	* Table flashes (L, UDR dies)
 A056E
-	DATA >056E,>1800,>VG,HINT?,Agood,Abad,Atime,1326		* Dirk Escapes (1326)
+	DATA >056E,>1800,>0000,HINTNONE,0,0,0,0,0,0,1326					* Dirk Escapes (1326)
 
 ** deaths **
 
 A05A5
-	DATA >05A5,>16FF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk jumps for the flaming door and dies
+	DATA >05A5,>16FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Dirk jumps for the flaming door and dies
 
 A05BB
-	DATA >05BB,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Dirk is caught by the flames
+	DATA >05BB,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Dirk is caught by the flames
 
 
 	END

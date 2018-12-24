@@ -90,7 +90,7 @@
 	06AC-06B3 (08)	Approach (49)
 	06B4-06B9 (06)	Orb takes hat and sword
 	06BA-06BC (03)	Lightning starts
-	06BD-06BF (03)	Top view, lighting eating disc (R, UDL dies)
+	06BD-06BF (03)	Top view, lighting eating disc (N, RUDL dies)
 	06C0-06C2 (03)	clear to jump (R, UDL dies (same))
 	06C3-06C7 (05)	First jump (UR, DL dies)
 	06C8-06CC (05)	Second jump (note no pause) (1326)
@@ -135,7 +135,8 @@
 	0872-0876 (05)	Snake appears (S, L dies)
 	0877-0883 (0D)	Dirk swords it, another appears (495)
 	0884-0888 (05)	Threatens (S, R dies) 
-	088A-0894 (0B)	Dirk swords it, another appears (SN, L dies) (2675)
+	088A-088F (06)	Dirk swords it (2675)
+	0890-0894 (05)	Another appears (S, L dies)
 	0895-0898 (04)	Dirk swings as skull rope drops (49)
 	089A-089E (05)	Rope flashes as snake hides (UR)
 	089F-08BC (1E)	Dirk pulls the rope and climbs to safety (1939)
@@ -146,7 +147,7 @@
 
 0936	b4wall.bin
 	08F7-090A (14)	Ressurection
-	090B-091F (15)	Enter, wall closing, Dirk reacts (U, N dies) (49) (jump to 922)
+	090B-091F (15)	Enter, wall closing, Dirk reacts (U) (jump to 922) (49)
 	0920-0921 (02)	Too late (NU dies) (just a chance to get the 'too late' death)
 	0922-0924 (03)	Dirk runs for it (379)
 	0925-092D (09)	Jumps through
@@ -159,8 +160,9 @@
 	096C-0981 (16)	Stayed in room, gassed
 
 09c6	c5lizardking.bin
-	0982-0995 (14)	Ressurrection
-	0996-09A8 (13)	Pot steals sword, king advances (UL, DR dies) (49)
+	0982-0995 (14)	Ressurection
+	0996-09A1 (0C)	Pot steals sword, king advances (49)
+	09A2-09A8 (07)	king Threatens (UL, DR dies)
 	09A9-09AC (04)	Dirk escapes left (1939)
 	09AD-09BF (13)	Dirk chases pot, King chases Dirk
 	09C0-09CC (0D)	Junction, pot races by (one frame!) (R, DL dies)
@@ -180,7 +182,8 @@
 	0A3A-0A40 (07)	Dirk escapes right (2191)
 	0A41-0A4F (0F)	Dirk watches trapped pot ahead (US, DLR dies)
 	0A50-0A58 (09)	Dirk retrieves sword (S, D dies) (3255)
-	0A59-0A65 (0D)	First strike, pot has sword back (S, L dies)
+	0A59-0A5B (03)	First strike, pot has sword back
+	0A5C-0A65 (0A)	First strike, pot has sword back (S, L dies)
 	0A66-0A6A (05)	Dirk darts across and gets sword 
 	0A6B-0A6E (04)	Dirk prepares sword (S, R dies)
 	0A6F-0A73 (05)	Dirk attacks and misses, sword stuck (DSN)
@@ -206,7 +209,7 @@
 	0B2A-0B38 (0F)	Walking down stairs (495)
 	0B39-0B3E (06)	Monster threatens (S)
 	0B3F-0B46 (08)	Dirk swords, monster evades (1939)
-	0B47-0B4C (06)	Monster re-threatens (LN, DR dies)
+	0B47-0B4C (06)	Monster re-threatens (L, DRS dies)
 	0B4D-0B58 (0C)	Dirk walks away, like a BOSS (915)
 	0B59-0B5E (06)	Top of stairs
 	0B5F-0B64 (06)	Portal opens, stairs flatten, chain flashes (evil) (L, UR dies)
@@ -242,6 +245,8 @@
 
 	0C91-0CAB (1B)	Didn't let go of rope
 
+	0C9F-0CAB (0D)	Falling into flames (part of above)
+
 0d08	c5ropes2.bin
 	0CAC-0CBF (14)	Ressurection
 	0CC0-0CCE (0F)	Intro (with fanfare) (49)
@@ -263,12 +268,14 @@
 	0D4D-0D62 (16)	Didn't stick the platform landing
 
 	0D63-0D7D (1B)	Didn't let go of rope
+	
+	0D71-0D7D (0D)	Fall into flames (part of above)
 
 0de1	c6horse1.bin
 	0D7E-0D91 (14)	Ressurection
 	0D92-0DAF (1E)	Intro (49)
 	0DB0-0DB2 (03)	Riding
-	0DB3-0DB7 (05)	Flames on left (U, UL dies)
+	0DB3-0DB7 (05)	Flames on left (R, UL dies)
 	0DB8-0DBC (05)	steering clear (495)
 	0DBD-0DBF (03)	Riding
 	0DC0-0DC4 (05)	Flames on right (L, UR dies)

@@ -22,18 +22,19 @@ CARTPAGE EQU >600C
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...
-* start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-* hint sprites, good scene, bad scene, timeout scene, score
 *
 * start frame - the page index of the first frame
 * frame count - the number of frames in the clip
 * death?      - if zero, survive after clip, else this is a death clip
 * valid joyst - the mask of joystick bits to test for
-* good joyst  - submask of valid joystick bits that indicate success (if not in here, then death)
+* good joyst  - the mask of good joystick bits (just used as preference in case of diagonals)
 * hint sprite - the address of the sprite table (ready to write to VDP) if hints are on
-* good scene  - the next scene to play on success (if 0, end of sequence)
-* bad scene   - the next scene to play on failure
-* timeout sc  - the next scene to play after timeout
+* up scene    - scene to play for up	(any valid '0' link plays timeout instead)
+* down scene  - scene to play for down  (this is to avoid coding errors causing too big a glitch)
+* left scene  - scene to play for left
+* right scene - scene to play for right
+* fire scene  - scene to play for fire
+* timeout sc  - the next scene to play after timeout (0 means end the scene)
 * score		  - score to add for this scene starting (stored the same 0-99 method as score is) 
 * 				Make sure the first scene is always 49 points
 *
@@ -43,67 +44,65 @@ CARTPAGE EQU >600C
 ** Next two words are the game over crumbling skeleton scene and number of frames
 *
 * joystick bits:
-*   JOYUP    EQU >1000
-*   JOYDOWN  EQU >0800
-*   JOYLEFT  EQU >0200
+*   JOYUP EQU    >1000
+*   JOYDOWN EQU  >0800
+*   JOYLEFT EQU  >0200
 *   JOYRIGHT EQU >0400
-*   JOYFIRE  EQU >0100
+*   JOYFIRE EQU  >0100
 *
 ** start frame, frame count (byte), death? (byte), valid joystick (byte), good joystick (byte), 
-** hint sprites, good scene, bad scene, timeout scene, score
+** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
-od scene, bad scene, timeout scene, score
-SCENEDATA
 	DATA >0356,20										* ressurection
 	DATA >03F2,31										* game over
 
 ** scenes **
 A036A
-	DATA >036A,>1800,>VG,HINT?,Agood,Abad,Atime,49		* Approach (49)
+	DATA >036A,>1800,>JJGG,HINT,up,down,left,right,fire,time,49		* Approach (49)
 A0382
-	DATA >0382,>0600,>VG,HINT?,Agood,Abad,Atime,0		* Vine approaches
+	DATA >0382,>0600,>JJGG,HINT,up,down,left,right,fire,time,0		* Vine approaches
 A0388
-	DATA >0388,>1500,>VG,HINT?,Agood,Abad,Atime,49		* slash with sword - new vines, weapons flash (UDLR die) (49)
+	DATA >0388,>1500,>JJGG,HINT,up,down,left,right,fire,time,49		* slash with sword - new vines, weapons flash (UDLR die) (49)
 A039D
-	DATA >039D,>0300,>VG,HINT?,Agood,Abad,Atime,379		* weapons flash again (U, DLRS die) (379)
+	DATA >039D,>0300,>JJGG,HINT,up,down,left,right,fire,time,379		* weapons flash again (U, DLRS die) (379)
 A03A0
-	DATA >03A0,>0B00,>VG,HINT?,Agood,Abad,Atime,0		* jump to weapons
+	DATA >03A0,>0B00,>JJGG,HINT,up,down,left,right,fire,time,0		* jump to weapons
 A03AB
-	DATA >03AB,>0600,>VG,HINT?,Agood,Abad,Atime,0		* door opens, new enemy to left (R, DLS die)
+	DATA >03AB,>0600,>JJGG,HINT,up,down,left,right,fire,time,0		* door opens, new enemy to left (R, DLS die)
 A03B1
-	DATA >03B1,>0E00,>VG,HINT?,Agood,Abad,Atime,495		* jump to door, vines block, stairs flash (DR, ULS die) (495)
+	DATA >03B1,>0E00,>JJGG,HINT,up,down,left,right,fire,time,495		* jump to door, vines block, stairs flash (DR, ULS die) (495)
 A03BF
-	DATA >03BF,>0600,>VG,HINT?,Agood,Abad,Atime,915		* jump back (915)
+	DATA >03BF,>0600,>JJGG,HINT,up,down,left,right,fire,time,915		* jump back (915)
 A03C5
-	DATA >03C5,>0E00,>VG,HINT?,Agood,Abad,Atime,0		* start stairs, vines appear
+	DATA >03C5,>0E00,>JJGG,HINT,up,down,left,right,fire,time,0		* start stairs, vines appear
 A03D3
-	DATA >03D3,>0500,>VG,HINT?,Agood,Abad,Atime,0		* table flashes (L, UDS die)
+	DATA >03D3,>0500,>JJGG,HINT,up,down,left,right,fire,time,0		* table flashes (L, UDS die)
 A03D8
-	DATA >03D8,>0500,>VG,HINT?,Agood,Abad,Atime,1326		* jump to table, door opens (1326)
+	DATA >03D8,>0500,>JJGG,HINT,up,down,left,right,fire,time,1326		* jump to table, door opens (1326)
 A03DD
-	DATA >03DD,>0400,>VG,HINT?,Agood,Abad,Atime,0		* on table, door closes (UR anytime, does not have to match door, DLS die)
+	DATA >03DD,>0400,>JJGG,HINT,up,down,left,right,fire,time,0		* on table, door closes (UR anytime, does not have to match door, DLS die)
 A03E1
-	DATA >03E1,>0200,>VG,HINT?,Agood,Abad,Atime,0		* door opens (UR, DLS die)
+	DATA >03E1,>0200,>JJGG,HINT,up,down,left,right,fire,time,0		* door opens (UR, DLS die)
 A03E3
-	DATA >03E3,>0500,>VG,HINT?,Agood,Abad,Atime,0		* vines raise while door closes (UR, DLS die)
+	DATA >03E3,>0500,>JJGG,HINT,up,down,left,right,fire,time,0		* vines raise while door closes (UR, DLS die)
 A03E8
-	DATA >03E8,>0300,>VG,HINT?,Agood,Abad,Atime,0		* door opens (UR, DLS die)
+	DATA >03E8,>0300,>JJGG,HINT,up,down,left,right,fire,time,0		* door opens (UR, DLS die)
 A03EB
-	DATA >03EB,>0700,>VG,HINT?,Agood,Abad,Atime,1939		* Dirk jumps out (1939)
+	DATA >03EB,>0700,>JJGG,HINT,up,down,left,right,fire,time,1939		* Dirk jumps out (1939)
 
 ** deaths **
 
 A0411
-	DATA >0411,>1BFF,>0000,HINTNONE,>0000,>0000,>0000,0		* First vine gets you
+	DATA >0411,>1BFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* First vine gets you
 
 A042C
-	DATA >042C,>12FF,>0000,HINTNONE,>0000,>0000,>0000,0		* draw sword, vines choke
+	DATA >042C,>12FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* draw sword, vines choke
 
 A043E
-	DATA >043E,>1BFF,>0000,HINTNONE,>0000,>0000,>0000,0		* draw sword on stairs, get hauled away
+	DATA >043E,>1BFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* draw sword on stairs, get hauled away
 
 A0459
-	DATA >0459,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,0		* Jump to closed door, get wrapped up
+	DATA >0459,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Jump to closed door, get wrapped up
 
 
 	END
