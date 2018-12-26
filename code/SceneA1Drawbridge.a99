@@ -69,24 +69,12 @@ A01F8
 A0200
 	DATA >0200,>1A00,>0000,HINTNONE,0,0,0,0,0,A021A,49					* climb up and run in
 A021A
-	DATA >021A,>1800,>0000,HINTNONE,0,0,0,0,0,A0232,0					* slamming doors
-A0232
-	DATA >0232,>1300,>0000,HINTNONE,0,0,0,0,0,A0245,49					* enter vestible
-A0245
-	DATA >0245,>0F00,>1E0C,HINTDOWN,A029A,A0255,A029A,A0255,0,A029A,0	* stumbling (need down/right)
-A0255
-	DATA >0255,>0600,>1604,HINTRIGHT,A029A,0,A029A,A025B,0,A02AC,251	* move right needed (up/left dies)
-A025B
-	DATA >025B,>1100,>0000,HINTNONE,0,0,0,0,0,0,251						* escaping (end scene)
+	DATA >021A,>1800,>0000,HINTNONE,0,0,0,0,0,0,0						* slamming doors
 
 ** deaths **
 
 A028C
 	DATA >028C,>0Eff,>0000,HINTNONE,0,0,0,0,0,0,0						* caught by drawbridge monster
-A029A
-	DATA >029A,>12ff,>0000,HINTNONE,0,0,0,0,0,0,0						* falling into pit
-A02AC
-	DATA >02AC,>1eff,>0000,HINTNONE,0,0,0,0,0,0,0						* crushed by rocks
 
     END
     

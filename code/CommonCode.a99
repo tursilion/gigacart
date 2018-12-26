@@ -17,6 +17,36 @@ HINTLEFT EQU >8539
 HINTRIGHT EQU >853A
 HINTFIRE EQU >853B
 
+VDP Usage:
+* 0000-17ff		PDT
+* 1800-1Aff		SIT (SDT starts here)
+* 1B00-1B1F		SAL (blank)
+* 1B20-1B7F		SDT - chars 100-111 (100-103 = up)
+* 1B80-1B9F		SAL (Up)
+* 1BA0-1BFF		SDT - chars 116-127 (116-119 = right)
+* 1C00-1C1F		SAL (Down)
+* 1C20-1C7F		SDT - chars 132-143 (132-135 = down)
+* 1C80-1C9F		SAL (Left)
+* 1CA0-1CFF		SDT - chars 148-159 (148-151 = left)
+* 1D00-1D1F		SAL (Right)
+* 1D20-1D7F		SDT - chars 164-175 (164-167 = fire)
+* 1D80-1D9F		SAL (Fire)
+* 1DA0-1FFF		SDT - chars 180-255
+* 2000-37FF		CT
+* 3800-3B01		Used by F18A as an offscreen buffer and command
+* 3B02-3B0F		Free
+* 3B10-3B1F		Scene queue 1
+* 3B20-3B2F		Scene queue 2
+* 3B30-3B3F		Scene queue 3
+* 3B40-3B4F		Scene queue 4
+* 3B50-3FFF		Free
+
+* scene queues (assumed to be 16 bytes each, running together)
+VDPQ1	equ >3b10
+VDPQ2	equ >3b20
+VDPQ3	equ >3b30
+VDPQ4	equ >3b40
+
 ******
 * Scratchpad usage
 * WARNING: init code takes advantage of this packing
@@ -24,6 +54,11 @@ HINTFIRE EQU >853B
 * 8300-831f	Registers
 * 8320-83d7	misc code (playback, paging, etc)
 * ...
+* 83DA		queuesave
+* 83DC		save4
+* 83DE		REPLAYQ (current VDP address of replay queue next entry)
+* 83E0		QUEUEVDP (current VDP address of scene queue entry)
+* 83E2		RNDSED (random number seed, must never be zero)
 * 83E4		sceneret (address to return to after a scene)
 * 83E6		Video return (holds the page to return after video)
 * 83E8		Video Page (holds 6000 or 6002 for joystick or keyboard video)
@@ -43,6 +78,11 @@ HINTFIRE EQU >853B
 * 83fe-83ff	save2 (WORD)
 ******
 
+queuesave >83DA			* used to back up the replay queue to avoid populating it
+save4 equ >83DC			* fourth return address save
+REPLAYQ EQU >83DE		* pointer to track replay queue
+QUEUEVDP EQU >83E0		* current queue address in VDP
+RNDSED  equ >83e2		* our own random number seed location
 sceneret equ >83e4		* tracks what address to return to a scene player
 VIDEORET EQU >83E6		* tracks which page video should return to (Actual cartridge address, not index!)
 VIDEOPAGE EQU >83E8		* tracks which page (6000 or 6002) video is on
@@ -51,7 +91,7 @@ justdied equ >83EB		* flag for playing ressurection (byte)
 scenebase equ >83EC		* base address for a current scene
 rowbase equ >83ee		* current row address in a scene
 BEEPVOL equ >83F0		* used to make the joystick accept beep on channel 2 (both bytes!)
-SAVE3 equ >83F2
+SAVE3 equ >83F2			* third return address save
 cfgarcade equ >83f4	 	* non-zero if arcade order instead of enhanced (byte)
 cfgeasy	equ >83f5		* non-zero if hard mode instead of easy (2 if practice mode! byte)
 cfghints equ >83f6		* non-zero if hints should be shown (byte)
@@ -60,8 +100,8 @@ lives equ >83f8			* lives remaining (byte)
 scr1 equ >83f9			* 3 bytes of score in sort-of BCD - see above
 scr2 equ >83fa
 scr3 equ >83fb
-SAVE EQU >83FC
-SAVE2 EQU >83FE
+SAVE EQU >83FC			* first return address save
+SAVE2 EQU >83FE			* second return address save
 
 **
 * Some graphic frame defines (hell with it... see ROM LAYOUT.txt)
