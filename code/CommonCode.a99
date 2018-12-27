@@ -16,8 +16,9 @@ HINTDOWN EQU >8538
 HINTLEFT EQU >8539
 HINTRIGHT EQU >853A
 HINTFIRE EQU >853B
+HINTSWORD EQU >853B
 
-VDP Usage:
+* VDP Usage:
 * 0000-17ff		PDT
 * 1800-1Aff		SIT (SDT starts here)
 * 1B00-1B1F		SAL (blank)
@@ -35,17 +36,17 @@ VDP Usage:
 * 2000-37FF		CT
 * 3800-3B01		Used by F18A as an offscreen buffer and command
 * 3B02-3B0F		Free
-* 3B10-3B1F		Scene queue 1
-* 3B20-3B2F		Scene queue 2
-* 3B30-3B3F		Scene queue 3
-* 3B40-3B4F		Scene queue 4
-* 3B50-3FFF		Free
+* 3B10-3B2F		Scene queue 1
+* 3B30-3B4F		Scene queue 2
+* 3B50-3B6F		Scene queue 3
+* 3B70-3B8F		Scene queue 4
+* 3B90-3FFF		Free
 
-* scene queues (assumed to be 16 bytes each, running together)
+* scene queues (assumed to be 32 bytes each, running together)
 VDPQ1	equ >3b10
-VDPQ2	equ >3b20
-VDPQ3	equ >3b30
-VDPQ4	equ >3b40
+VDPQ2	equ >3b30
+VDPQ3	equ >3b50
+VDPQ4	equ >3b70
 
 ******
 * Scratchpad usage
@@ -78,7 +79,7 @@ VDPQ4	equ >3b40
 * 83fe-83ff	save2 (WORD)
 ******
 
-queuesave >83DA			* used to back up the replay queue to avoid populating it
+queuesave equ >83DA		* used to back up the replay queue to avoid populating it
 save4 equ >83DC			* fourth return address save
 REPLAYQ EQU >83DE		* pointer to track replay queue
 QUEUEVDP EQU >83E0		* current queue address in VDP

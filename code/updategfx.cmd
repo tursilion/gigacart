@@ -88,182 +88,182 @@ python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneB2
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneB2DrinkMe.obj SceneB2DrinkMe.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneB2DrinkMe.bin 8192
 @rem Scene B2 - Vines
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneB2Vines.a99 -L B2Vines.lst -o D:\classic99\dsk1\B2Vines.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneB2Vines.a99 -L SceneB2Vines.lst -o D:\classic99\dsk1\SceneB2Vines.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneB2Vines.obj SceneB2Vines.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneB2Vines.bin 8192
 @rem Scene B2 - Wind
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneB2Wind.a99 -L B2Wind.lst -o D:\classic99\dsk1\B2Wind.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneB2Wind.a99 -L SceneB2Wind.lst -o D:\classic99\dsk1\SceneB2Wind.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneB2Wind.obj SceneB2Wind.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneB2Wind.bin 8192
 @rem Scene B3 - Fire
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneB3Fire.a99 -L B3Fire.lst -o D:\classic99\dsk1\B3Fire.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneB3Fire.a99 -L SceneB3Fire.lst -o D:\classic99\dsk1\SceneB3Fire.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneB3Fire.obj SceneB3Fire.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneB3Fire.bin 8192
 @rem Scene B3 - Pot
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneB3Pot.a99 -L B3Pot.lst -o D:\classic99\dsk1\B3Pot.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneB3Pot.a99 -L SceneB3Pot.lst -o D:\classic99\dsk1\SceneB3Pot.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneB3Pot.obj SceneB3Pot.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneB3Pot.bin 8192
 @rem Scene B3 - Throne
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneB3Throne.a99 -L B3Throne.lst -o D:\classic99\dsk1\B3Throne.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneB3Throne.a99 -L SceneB3Throne.lst -o D:\classic99\dsk1\SceneB3Throne.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneB3Throne.obj SceneB3Throne.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneB3Throne.bin 8192
 @rem Scene B4 - Goons
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneB4Goons.a99 -L B4Goons.lst -o D:\classic99\dsk1\B4Goons.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneB4Goons.a99 -L SceneB4Goons.lst -o D:\classic99\dsk1\SceneB4Goons.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneB4Goons.obj SceneB4Goons.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneB4Goons.bin 8192
 @rem Scene B4 - Snakes
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneB4Snakes.a99 -L B4Snakes.lst -o D:\classic99\dsk1\B4Snakes.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneB4Snakes.a99 -L SceneB4Snakes.lst -o D:\classic99\dsk1\SceneB4Snakes.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneB4Snakes.obj SceneB4Snakes.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneB4Snakes.bin 8192
 @rem Scene B4 - Wall
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneB4Wall.a99 -L B4Wall.lst -o D:\classic99\dsk1\B4Wall.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneB4Wall.a99 -L SceneB4Wall.lst -o D:\classic99\dsk1\SceneB4Wall.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneB4Wall.obj SceneB4Wall.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneB4Wall.bin 8192
 @rem Scene C5 - Lizardking
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC5Lizardking.a99 -L C5Lizardking.lst -o D:\classic99\dsk1\C5Lizardking.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC5Lizardking.a99 -L SceneC5Lizardking.lst -o D:\classic99\dsk1\SceneC5Lizardking.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneC5Lizardking.obj SceneC5Lizardking.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneC5Lizardking.bin 8192
 @rem Scene C5 - Pit
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC5Pit.a99 -L C5Pit.lst -o D:\classic99\dsk1\C5Pit.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC5Pit.a99 -L SceneC5Pit.lst -o D:\classic99\dsk1\SceneC5Pit.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneC5Pit.obj SceneC5Pit.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneC5Pit.bin 8192
 @rem Scene C5 - Ropes1
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC5Ropes1.a99 -L C5Ropes1.lst -o D:\classic99\dsk1\C5Ropes1.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC5Ropes1.a99 -L SceneC5Ropes1.lst -o D:\classic99\dsk1\SceneC5Ropes1.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneC5Ropes1.obj SceneC5Ropes1.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneC5Ropes1.bin 8192
 @rem Scene C5 - Ropes2
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC5Ropes2.a99 -L C5Ropes2.lst -o D:\classic99\dsk1\C5Ropes2.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC5Ropes2.a99 -L SceneC5Ropes2.lst -o D:\classic99\dsk1\SceneC5Ropes2.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneC5Ropes2.obj SceneC5Ropes2.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneC5Ropes2.bin 8192
 @rem Scene C6 - Horse1
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC6Horse1.a99 -L C6Horse1.lst -o D:\classic99\dsk1\C6Horse1.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC6Horse1.a99 -L SceneC6Horse1.lst -o D:\classic99\dsk1\SceneC6Horse1.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneC6Horse1.obj SceneC6Horse1.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneC6Horse1.bin 8192
 @rem Scene C6 - Horse2
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC6Horse2.a99 -L C6Horse2.lst -o D:\classic99\dsk1\C6Horse2.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC6Horse2.a99 -L SceneC6Horse2.lst -o D:\classic99\dsk1\SceneC6Horse2.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneC6Horse2.obj SceneC6Horse2.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneC6Horse2.bin 8192
 @rem Scene C6 - Smithy1
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC6Smithy1.a99 -L C6Smithy1.lst -o D:\classic99\dsk1\C6Smithy1.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC6Smithy1.a99 -L SceneC6Smithy1.lst -o D:\classic99\dsk1\SceneC6Smithy1.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneC6Smithy1.obj SceneC6Smithy1.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneC6Smithy1.bin 8192
 @rem Scene C6 - Smithy2
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC6Smithy2.a99 -L C6Smithy2.lst -o D:\classic99\dsk1\C6Smithy2.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC6Smithy2.a99 -L SceneC6Smithy2.lst -o D:\classic99\dsk1\SceneC6Smithy2.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneC6Smithy2.obj SceneC6Smithy2.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneC6Smithy2.bin 8192
 @rem Scene C6 - Wizard1
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC6Wizard1.a99 -L C6Wizard1.lst -o D:\classic99\dsk1\C6Wizard1.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC6Wizard1.a99 -L SceneC6Wizard1.lst -o D:\classic99\dsk1\SceneC6Wizard1.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneC6Wizard1.obj SceneC6Wizard1.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneC6Wizard1.bin 8192
 @rem Scene C6 - Wizard2
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC6Wizard2.a99 -L C6Wizard2.lst -o D:\classic99\dsk1\C6Wizard2.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC6Wizard2.a99 -L SceneC6Wizard2.lst -o D:\classic99\dsk1\SceneC6Wizard2.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneC6Wizard2.obj SceneC6Wizard2.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneC6Wizard2.bin 8192
 @rem Scene C7 - Crypt1
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC7Crypt1.a99 -L C7Crypt1.lst -o D:\classic99\dsk1\C7Crypt1.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC7Crypt1.a99 -L SceneC7Crypt1.lst -o D:\classic99\dsk1\SceneC7Crypt1.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneC7Crypt1.obj SceneC7Crypt1.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneC7Crypt1.bin 8192
 @rem Scene C7 - Crypt2
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC7Crypt2.a99 -L C7Crypt2.lst -o D:\classic99\dsk1\C7Crypt2.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC7Crypt2.a99 -L SceneC7Crypt2.lst -o D:\classic99\dsk1\SceneC7Crypt2.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneC7Crypt2.obj SceneC7Crypt2.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneC7Crypt2.bin 8192
 @rem Scene C7 - Knight1
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC7Knight1.a99 -L C7Knight1.lst -o D:\classic99\dsk1\C7Knight1.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC7Knight1.a99 -L SceneC7Knight1.lst -o D:\classic99\dsk1\SceneC7Knight1.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneC7Knight1.obj SceneC7Knight1.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneC7Knight1.bin 8192
 @rem Scene C7 - Knight2
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC7Knight2.a99 -L C7Knight2.lst -o D:\classic99\dsk1\C7Knight2.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC7Knight2.a99 -L SceneC7Knight2.lst -o D:\classic99\dsk1\SceneC7Knight2.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneC7Knight2.obj SceneC7Knight2.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneC7Knight2.bin 8192
 @rem Scene C7 - Pond1
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC7Pond1.a99 -L C7Pond1.lst -o D:\classic99\dsk1\C7Pond1.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC7Pond1.a99 -L SceneC7Pond1.lst -o D:\classic99\dsk1\SceneC7Pond1.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneC7Pond1.obj SceneC7Pond1.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneC7Pond1.bin 8192
 @rem Scene C7 - Pond2
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC7Pond2.a99 -L C7Pond2.lst -o D:\classic99\dsk1\C7Pond2.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneC7Pond2.a99 -L SceneC7Pond2.lst -o D:\classic99\dsk1\SceneC7Pond2.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneC7Pond2.obj SceneC7Pond2.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneC7Pond2.bin 8192
 @rem Scene D1 - Platform
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneD1Platform.a99 -L D1Platform.lst -o D:\classic99\dsk1\D1Platform.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneD1Platform.a99 -L SceneD1Platform.lst -o D:\classic99\dsk1\SceneD1Platform.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneD1Platform.obj SceneD1Platform.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneD1Platform.bin 8192
 @rem Scene D1 - Platform2
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneD1Platform2.a99 -L D1Platform2.lst -o D:\classic99\dsk1\D1Platform2.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneD1Platform2.a99 -L SceneD1Platform2.lst -o D:\classic99\dsk1\SceneD1Platform2.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneD1Platform2.obj SceneD1Platform2.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneD1Platform2.bin 8192
 @rem Scene D1 - Platshort
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneD1Platshort.a99 -L D1Platshort.lst -o D:\classic99\dsk1\D1Platshort.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneD1Platshort.a99 -L SceneD1Platshort.lst -o D:\classic99\dsk1\SceneD1Platshort.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneD1Platshort.obj SceneD1Platshort.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneD1Platshort.bin 8192
 @rem Scene E1 - Bats
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneE1Bats.a99 -L E1Bats.lst -o D:\classic99\dsk1\E1Bats.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneE1Bats.a99 -L SceneE1Bats.lst -o D:\classic99\dsk1\SceneE1Bats.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneE1Bats.obj SceneE1Bats.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneE1Bats.bin 8192
 @rem Scene E2 - Blacknight
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneE2Blacknight.a99 -L E2Blacknight.lst -o D:\classic99\dsk1\E2Blacknight.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneE2Blacknight.a99 -L SceneE2Blacknight.lst -o D:\classic99\dsk1\SceneE2Blacknight.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneE2Blacknight.obj SceneE2Blacknight.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneE2Blacknight.bin 8192
 @rem Scene E3 - Catwalk
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneE3Catwalk.a99 -L E3Catwalk.lst -o D:\classic99\dsk1\E3Catwalk.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneE3Catwalk.a99 -L SceneE3Catwalk.lst -o D:\classic99\dsk1\SceneE3Catwalk.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneE3Catwalk.obj SceneE3Catwalk.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneE3Catwalk.bin 8192
 @rem Scene E4 - Electriccage
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneE4Electriccage.a99 -L E4Electriccage.lst -o D:\classic99\dsk1\E4Electriccage.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneE4Electriccage.a99 -L SceneE4Electriccage.lst -o D:\classic99\dsk1\SceneE4Electriccage.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneE4Electriccage.obj SceneE4Electriccage.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneE4Electriccage.bin 8192
 @rem Scene E5 - Mudmen
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneE5Mudmen.a99 -L E5Mudmen.lst -o D:\classic99\dsk1\E5Mudmen.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneE5Mudmen.a99 -L SceneE5Mudmen.lst -o D:\classic99\dsk1\SceneE5Mudmen.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneE5Mudmen.obj SceneE5Mudmen.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneE5Mudmen.bin 8192
 @rem Scene E6 - Poolballs
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneE6Poolballs.a99 -L E6Poolballs.lst -o D:\classic99\dsk1\E6Poolballs.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneE6Poolballs.a99 -L SceneE6Poolballs.lst -o D:\classic99\dsk1\SceneE6Poolballs.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneE6Poolballs.obj SceneE6Poolballs.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneE6Poolballs.bin 8192
 @rem Scene E7 - River
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneE7River.a99 -L E7River.lst -o D:\classic99\dsk1\E7River.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneE7River.a99 -L SceneE7River.lst -o D:\classic99\dsk1\SceneE7River.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneE7River.obj SceneE7River.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneE7River.bin 8192
 @rem Scene E8 - Vanishingfloor
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneE8Vanishingfloor.a99 -L E8Vanishingfloor.lst -o D:\classic99\dsk1\E8Vanishingfloor.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneE8Vanishingfloor.a99 -L SceneE8Vanishingfloor.lst -o D:\classic99\dsk1\SceneE8Vanishingfloor.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneE8Vanishingfloor.obj SceneE8Vanishingfloor.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneE8Vanishingfloor.bin 8192
 @rem Scene F1 - Dragonslair
-python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneF1Dragonslair.a99 -L F1Dragonslair.lst -o D:\classic99\dsk1\F1Dragonslair.obj
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneF1Dragonslair.a99 -L SceneF1Dragonslair.lst -o D:\classic99\dsk1\SceneF1Dragonslair.obj
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneF1Dragonslair.obj SceneF1Dragonslair.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneF1Dragonslair.bin 8192

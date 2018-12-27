@@ -19,8 +19,9 @@ frameupsc	 equ 8
 framedownsc  equ 10
 frameleftsc  equ 12
 framerightsc equ 14
-frametimeout equ 16
-framescore   equ 18
+framefiresc  equ 16
+frametimeout equ 18
+framescore   equ 20
 
 * This can't move in the main page - be careful!
 VIDEO EQU >601E	

@@ -33,6 +33,8 @@ CARTPAGE EQU >6000
 
     DEF MAIN
     
+* TODO: diagnostics crash with F18A enabled (probably just a bad register set)
+    
 * TODO: win screen?    
     
 * TODO: scene sequencing a-la DLE seems to be approved :)    
@@ -50,6 +52,47 @@ CARTPAGE EQU >6000
 * number of lives
 liveasy equ 5
 livhard equ 3
+
+* a list of scenes here...
+SceneA1Drawbridge	equ >6006
+SceneA1Vestible		equ >6008
+SceneB1DrinkMe		equ >600A
+SceneB2Vines 		equ >600C
+SceneB2Wind 		equ >600E
+SceneB3Fire 		equ >6010
+SceneB3Pot 			equ >6012
+SceneB3Throne 		equ >6014
+SceneB4Goons 		equ >6016
+SceneB4Snakes 		equ >6018
+SceneB4Wall 		equ >601A
+SceneC5Lizardking 	equ >601C
+SceneC5Pit 			equ >601E
+SceneC5Ropes1 		equ >6020
+SceneC5Ropes2 		equ >6022
+SceneC6Horse1 		equ >6024
+SceneC6Horse2 		equ >6026
+SceneC6Smithy1 		equ >6028
+SceneC6Smithy2 		equ >602A
+SceneC6Wizard1 		equ >602C
+SceneC6Wizard2 		equ >602E
+SceneC7Crypt1 		equ >6030
+SceneC7Crypt2 		equ >6032
+SceneC7Knight1 		equ >6034
+SceneC7Knight2 		equ >6036
+SceneC7Pond1 		equ >6038
+SceneC7Pond2 		equ >603A
+SceneD1Platform 	equ >603C
+SceneD1Platform2 	equ >603E
+SceneD1Platshort 	equ >6040
+SceneE1Bats 		equ >6042
+SceneE2Blacknight 	equ >6044
+SceneE3Catwalk 		equ >6046
+SceneE4Electriccage equ >6048
+SceneE5Mudmen 		equ >604A
+SceneE6Poolballs 	equ >604C
+SceneE7River 		equ >604E
+SceneE8Vanishingfloor equ >6050
+SceneF1Dragonslair 	equ >6052
 
     AORG >6000
     
@@ -1247,6 +1290,7 @@ adds2
 * Set JOYMASK, R7 (count), R8 (first frame), and we'll
 * set up the trampoline. Call with BL.
 CALLVIDEO
+	CLR @JOYDAT			* we reuse it sometimes...
 	LI R0,CARTPAGE		* my page
 	MOV R0,@VIDEORET	* how to get back to me
 	LI R1,VIDEO			* needs to be an equate in other pages...
@@ -1505,7 +1549,7 @@ nlivhard
 * zero out the VDP queues
 	LI R0,VDPQ1+>4000
 	CLR R1
-	LI R2,64
+	LI R2,128
 	BL @VSMW
 	
 * each mode has separate custom sequence code, so just jump to the right one
@@ -1542,112 +1586,11 @@ doarcade
 	LI R2,ARCADETABLE	* start of the table
 	LI R3,12			* do this 12 times
 filllp
-	bl @rnd				* random value in R0, just choose an order
-	srl r0,3			* lsb is usually not very random ;)
-	andi r0,7			* there are 6 possibilities (slight bias by the extra one)
-	sla r0,1			* make an index
-	ai r0,filltable		* table lookup
-	mov *r0,r0			* get the index
-	b *r0				* go to the handler for the selected order
-	
-fillnext
+	bl @setrow			* randomly load this row in queues 1-3
 	INCT R4				* next row in the queues
 	AI R2,6				* next row in the table
 	DEC R3				* count down
 	jne filllp			* keep going
-	b @startarcade		* go play it
-
-fillo0
-fillo1
-	mov r4,r0			* first queue
-	mov *r2,r1			* first element
-	bl @VDPW16
-	
-	ai r0,16			* second queue
-	mov @2(R2),r1		* second element
-	bl @VDPW16
-	
-	ai r0,16			* third queue
-	mov @4(R2),r1		* third element
-	bl @VDPW16
-	
-	jmp fillnext
-	
-fillo2
-	mov r4,r0			* first queue
-	mov *r2,r1			* first element
-	bl @VDPW16
-	
-	ai r0,16			* second queue
-	mov @4(R2),r1		* third element
-	bl @VDPW16
-	
-	ai r0,16			* third queue
-	mov @2(R2),r1		* second element
-	bl @VDPW16
-	
-	jmp fillnext
-
-fillo3
-	mov r4,r0			* first queue
-	mov @2(R2),r1		* second element
-	bl @VDPW16
-	
-	ai r0,16			* second queue
-	mov *r2,r1			* first element
-	bl @VDPW16
-	
-	ai r0,16			* third queue
-	mov @4(R2),r1		* third element
-	bl @VDPW16
-	
-	jmp fillnext
-
-fillo4
-	mov r4,r0			* first queue
-	mov @2(R2),r1		* second element
-	bl @VDPW16
-	
-	ai r0,16			* second queue
-	mov @4(R2),r1		* third element
-	bl @VDPW16
-	
-	ai r0,16			* third queue
-	mov *r2,r1			* first element
-	bl @VDPW16
-	
-	jmp fillnext
-
-fillo5
-	mov r4,r0			* first queue
-	mov @4(R2),r1		* third element
-	bl @VDPW16
-	
-	ai r0,16			* second queue
-	mov @2(R2),r1		* second element
-	bl @VDPW16
-	
-	ai r0,16			* third queue
-	mov *r2,r1			* first element
-	bl @VDPW16
-	
-	jmp fillnext
-	
-fillo6
-fillo7
-	mov r4,r0			* first queue
-	mov @4(R2),r1		* third element
-	bl @VDPW16
-	
-	ai r0,16			* second queue
-	mov *r2,r1			* first element
-	bl @VDPW16
-	
-	ai r0,16			* third queue
-	mov @2(R2),r1		* second element
-	bl @VDPW16
-	
-	jmp fillnext
 
 * we have our queues all set up, so we can start the game!
 * just get a scene into R1 and then call ALREADYSCENE.
@@ -1706,7 +1649,7 @@ arcadec2
 arcadec2lp
 	MOV @queuesave,@REPLAYQ		* restore the pointer in case we died
 
-	LI R1,SceneD2Platform		* play the scene
+	LI R1,SceneD1Platform2		* play the scene
 	BL @ALREADYSCENE
 	
 * if we died, we have to loop it	
@@ -1730,7 +1673,8 @@ arcadeq3lp
 	
 * cycle 3 complete, so we now play through queue 4, but with no queuing
 * to make it easy, we add the dragon's lair to queue 4 now, and then we
-* just need the single loop.
+* just need the single loop. Home code also jumps here for the final scene.
+arcadelair
 arcadec3
 	MOV @REPLAYQ,R0				* get the pointer
 	LI R1,SceneF1Dragonslair	* and the data
@@ -1771,27 +1715,201 @@ arcadec4
 * but otherwise, we're done. Back to the attract mode
 	B @attract
 	
-* used in the randomization code above
-filltable
-	data fillo0,fillo1,fillo2,fillo3
-	data fillo4,fillo5,fillo6,fillo7
+* used in the randomization code below
+* 64 entries, 6 possible outcomes
+* arcade table is roughly random
+filltablearc
+	data fillo1,fillo2,fillo3,fillo4,fillo5,fillo6
+	data fillo1,fillo2,fillo3,fillo4,fillo5,fillo6
+	data fillo1,fillo2,fillo3,fillo4,fillo5,fillo6
+	data fillo1,fillo2,fillo3,fillo4,fillo5,fillo6
+	data fillo1,fillo2,fillo3,fillo4,fillo5,fillo6
+	data fillo1,fillo2,fillo3,fillo4,fillo5,fillo6
+	data fillo1,fillo2,fillo3,fillo4,fillo5,fillo6
+	data fillo1,fillo2,fillo3,fillo4,fillo5,fillo6
+	data fillo1,fillo2,fillo3,fillo4,fillo5,fillo6
+	data fillo1,fillo2,fillo3,fillo4,fillo5,fillo6
+	data fillo2,fillo3,fillo4,fillo5
+	
+* home table is specifically weighted 50%/37%/12% (ish)
+filltablehome
+	data fillo1,fillo2,fillo1,fillo2,fillo1,fillo2		* 16 each of these two
+	data fillo1,fillo2,fillo1,fillo2,fillo1,fillo2
+	data fillo1,fillo2,fillo1,fillo2,fillo1,fillo2
+	data fillo1,fillo2,fillo1,fillo2,fillo1,fillo2
+	data fillo1,fillo2,fillo1,fillo2,fillo1,fillo2
+	data fillo1,fillo2
+	data fillo3,fillo4,fillo3,fillo4,fillo3,fillo4		* 12 each of these two
+	data fillo3,fillo4,fillo3,fillo4,fillo3,fillo4
+	data fillo3,fillo4,fillo3,fillo4,fillo3,fillo4
+	data fillo3,fillo4,fillo3,fillo4,fillo3,fillo4
+	data fillo5,fillo6,fillo5,fillo6,fillo5,fillo6		* 4 each of these two
+	data fillo5,fillo6		
 
 * each 'row' is three entries long, and this is just the arcade table
 * there are 12 rows. Three scenes are not listed here:
 * SceneD1Platform, SceneD1Platform2, and SceneF1Dragonslair
+* the rows are duplicated to allow for the separate reverse check
+* used in home mode, since we have space. But it's never different here.
 ARCADETABLE
 	data SceneC5Ropes1,SceneC5Ropes2,SceneB4Wall
+	data SceneC5Ropes1,SceneC5Ropes2,SceneB4Wall
+	data SceneC6Horse1,SceneC6Horse2,SceneB1DrinkMe
 	data SceneC6Horse1,SceneC6Horse2,SceneB1DrinkMe
 	data SceneC7Crypt1,SceneC7Crypt2,SceneE7River
+	data SceneC7Crypt1,SceneC7Crypt2,SceneE7River
+	data SceneD1PlatShort,SceneD1PlatShort,SceneA1Vestible			* SceneD1PlatShort duplicated on purpose
 	data SceneD1PlatShort,SceneD1PlatShort,SceneA1Vestible			* SceneD1PlatShort duplicated on purpose
 	data SceneE6Poolballs,SceneE4Electriccage,SceneE2Blacknight
+	data SceneE6Poolballs,SceneE4Electriccage,SceneE2Blacknight
+	data SceneC6Wizard1,SceneC6Wizard2,SceneC5LizardKing
 	data SceneC6Wizard1,SceneC6Wizard2,SceneC5LizardKing
 	data SceneC6Smithy1,SceneC6Smithy2,SceneB2Wind
+	data SceneC6Smithy1,SceneC6Smithy2,SceneB2Wind
+	data SceneB2Vines,SceneB4Snakes,SceneB3Pot
 	data SceneB2Vines,SceneB4Snakes,SceneB3Pot
 	data SceneC5Pit,SceneB4Goons,SceneB3Fire
-	data SceneC7Pond1,SceneC7Pond2,SceneE1Catwalk
+	data SceneC5Pit,SceneB4Goons,SceneB3Fire
+	data SceneC7Pond1,SceneC7Pond2,SceneE3Catwalk
+	data SceneC7Pond1,SceneC7Pond2,SceneE3Catwalk
+	data SceneC7Knight1,SceneC7Knight2,SceneE1Bats
 	data SceneC7Knight1,SceneC7Knight2,SceneE1Bats
 	data SceneB3Throne,SceneE8VanishingFloor,SceneE5Mudmen
+	data SceneB3Throne,SceneE8VanishingFloor,SceneE5Mudmen
+
+*****
+* copy the three scenes at r2 (CPU) into the queues at r4 (VDP)
+* in a random order
+setrow
+	mov r11,@save3
+	
+	bl @rnd				* random value to use for reverses
+	mov r0,r7			* hold onto this!
+	SLA r7,2			* just to get into the word
+	bl @rnd				* random value in R0, just choose an order
+	srl r0,3			* lsb is usually not very random ;)
+	andi r0,>7E			* there are 64 possibilities (slight bias), and we need to multiply by 2, so just take those bits
+	movb @cfgarcade,r1	* is it arcade mode?
+	jeq rowhome			* no
+	ai r0,filltablearc	* table lookup arcade (even distribution)
+	mov *r0,r0			* get the index
+	b *r0				* call the handler for the selected order (it will return to caller)
+	
+rowhome
+	ai r0,filltablehome	 * home table (weighted distribution)
+	mov *r0,r0			* get the index
+	b *r0				* call the handler for the selected order (it will return to caller)
+	
+* wraps the call to VDPW16 and makes the extra determination for flipped or not
+* a bit wasteful to always check this since we only care in one small part of
+* home mode, but it makes life easier to always do it anyway, and we have the room
+* (I keep saying that, I hope it's still true ;) )	
+* we must not corrupt r0,r1,r2,r4, and we own r7
+* pass queue address to write in R0, and ADDRESS of data in R1 (we may change it before we fetch)
+add2q
+	SLA R7,1			* get a random bit
+	JNC add2q2			* was zero
+	AI R1,6				* next row has the inverted entries
+add2q2
+	mov *r1,r1			* get the word
+	B @VDPW16			* write it (will return to caller)
+
+** each of these subs is a different order of copy ;)
+fillo1
+	mov r4,r0			* first queue
+	mov *r2,r1			* first element
+	bl @add2q
+	
+	ai r0,32			* second queue
+	mov @2(R2),r1		* second element
+	bl @add2q
+	
+	ai r0,32			* third queue
+	mov @4(R2),r1		* third element
+	bl @add2q
+	
+	mov @save3,r11
+	b *r11
+	
+fillo2
+	mov r4,r0			* first queue
+	mov *r2,r1			* first element
+	bl @add2q
+	
+	ai r0,32			* second queue
+	mov @4(R2),r1		* third element
+	bl @add2q
+	
+	ai r0,32			* third queue
+	mov @2(R2),r1		* second element
+	bl @add2q
+	
+	mov @save3,r11
+	b *r11
+
+fillo3
+	mov r4,r0			* first queue
+	mov @2(R2),r1		* second element
+	bl @add2q
+	
+	ai r0,32			* second queue
+	mov *r2,r1			* first element
+	bl @add2q
+	
+	ai r0,32			* third queue
+	mov @4(R2),r1		* third element
+	bl @add2q
+	
+	mov @save3,r11
+	b *r11
+
+fillo4
+	mov r4,r0			* first queue
+	mov @2(R2),r1		* second element
+	bl @add2q
+	
+	ai r0,32			* second queue
+	mov @4(R2),r1		* third element
+	bl @add2q
+	
+	ai r0,32			* third queue
+	mov *r2,r1			* first element
+	bl @add2q
+	
+	mov @save3,r11
+	b *r11
+
+fillo5
+	mov r4,r0			* first queue
+	mov @4(R2),r1		* third element
+	bl @add2q
+	
+	ai r0,32			* second queue
+	mov @2(R2),r1		* second element
+	bl @add2q
+	
+	ai r0,32			* third queue
+	mov *r2,r1			* first element
+	bl @add2q
+	
+	mov @save3,r11
+	b *r11
+	
+fillo6
+	mov r4,r0			* first queue
+	mov @4(R2),r1		* third element
+	bl @add2q
+	
+	ai r0,32			* second queue
+	mov *r2,r1			* first element
+	bl @add2q
+	
+	ai r0,32			* third queue
+	mov @2(R2),r1		* second element
+	bl @add2q
+	
+	mov @save3,r11
+	b *r11
 
 **************************************************************
 * Here we are doing the home/enhanced sequence, which starts with the drawbridge
@@ -1799,25 +1917,23 @@ ARCADETABLE
 * 
 * There are four main parts.
 * 
-* First, the drawbridge and vestible always appears. Dying twice on the Drawbridge advances to the Vestible. Neither are queued for 
-* replay. I'm not sure if I'll do the 'twice' part, maybe with a specific block of code (so I don't need a variable?) This means I 
-* probably don't need the combined scene that I saved...
+* First, the drawbridge and vestible always appears. Dying twice on the Drawbridge advances to the Vestible. 
+* Neither are queued for replay. 
 * 
-* Castle Section 1 randomly generates a list of 9 scenes from 3 blocks of 3, with preferences given. I could cue up all nine and 
-* use the cueing system.
+* Castle Section 1 randomly generates a list of 9 scenes from 3 blocks of 3, with preferences given.
 * 
 * After all 9, scenes you died on are replayed. However, if you die again, they are skipped.
 * 
-* Castle section 2 does the same for 9 different scenes, but there is an additional 50:50 chance to decide whether scenes are 
-* reversed (if available). You don't have to play both flips of a reversed scene.
+* Castle section 2 does the same for 9 different scenes, but there is an additional 50:50 chance to decide 
+* whether scenes are reversed (if available). You don't have to play both flips of a reversed scene.
 * 
 * Again, after all 9, scenes you died on are replayed, but you aren't forced to keep playing if you die again.
 * 
-* Next, the elevator with 9 drops are played. Depending on which of the three groups you jump off at, you get a different adventure 
-* in the next group.
+* Next, the elevator with 9 drops are played. Depending on which of the three groups you jump off at, you get 
+* a different adventure in the next sequence.
 * 
-* There are three adventures, each a different sequence of 8 more scenes. They are not selected randomly, but by where you jumped 
-* off the elevator. (Hopefully we can preserve a register to work that out).
+* There are three adventures, each a different sequence of 8 more scenes. They are not selected randomly, 
+* but by where you jumped off the elevator. (Hopefully we can preserve a register to work that out).
 * 
 * Finally, another single repeat of any scenes you died on.
 * 
@@ -1834,34 +1950,291 @@ STARTHOME
 	
 * if we didn't die, skip ahead
 	C @REPLAYQ,@queuesave
-	JEQ homec1
+	JEQ homevest
 	
 * second try on drawbridge
-	MOV @REPLAYQ,@queuesave		* save the queue for easy death detect
 	LI R1,SceneA1Drawbridge
 	BL @ALREADYSCENE
 
-* if we didn't die, skip ahead
-	C @REPLAYQ,@queuesave
-	JEQ homec1
-
-* if we did, just try the vestible itself, only once
+* live or die, we slip into the vestible for one try
+homevest
 	LI R1,SceneA1Vestible
 	BL @ALREADYSCENE
 	
-* live or die, we carry on. Start by clearing the replace queue again, now we're serious
-homec1
+* live or die, we carry on to castle section 1
+
+* prefill the three queues with castle section 1
+* since there's no intermediary scenes, we could have used
+* just one queue, but this permitted better code reuse with arcade
 	LI R0,VDPQ4+>4000	* going to clear out the replay queue
 	MOV R0,@REPLAYQ
-	
----------------------------------------------- here	
 
+	li r0,VDPQ1			* and start with the first queue
+	MOV R0,@QUEUEVDP	* setting this early so we can loop
 
+	LI R2,hometable1	* start of the table
+	LI R4,VDPQ1+>4000	* address to start writing at
+	LI R3,3				* do this 3 times
+filllph1
+	bl @setrow			* randomly load this row in queues 1-3
+	INCT R4				* next row in the queues
+	AI R2,6				* next row in the table
+	DEC R3				* count down
+	jne filllph1		* keep going
 	
-	
-	
+* running the queues, we kind of cheat and loop here for queues 1-3
+homeq1lp
+	MOV @QUEUEVDP,R1	* get the pointer into R1
+	BL @VDPR16			* get the scene index into R0
+	MOV R0,R0			* test the result
+	JEQ homec1			* cycle complete
+	INCT R1				* next scene
+	MOV R1,@QUEUEVDP	* save the pointer
+	MOV R0,R1			* get the data into the right register
+	BL @ALREADYSCENE	* play the scene!
+	jmp homeq1lp		* next scene!
 
+* check if we're done all three queues, loop if not	
+* we make a lot of assumptions here, like that the queue is
+* only 3 entries long...
+homec1
+	mov @queuevdp,r1	* get the pointer
+	ci r1,VDPQ3			* did it reach queue 3 yet?
+	jh homepart2		* yeah, that was queue 3
+	ai r1,26			* 32 bytes minus the 6 we already moved, in theory
+	mov r1,@queuevdp	* save it
+	jmp homeq1lp		* keep going!
+
+* done three queues, now replay any scenes we died on, but only once
+* so for that, we keep the replay pointer static
+homepart2
+	MOV @REPLAYQ,@queuesave		* remember the pointer in case we die (all scenes replay now)
+	LI R0,VDPQ4					* prepare to run queue 4
+	MOV R0,@QUEUEVDP
 	
+homeq4lp
+	MOV @queuesave,@REPLAYQ		* restore the pointer in case we died
+	C @QUEUEVDP,@REPLAYQ		* check if we're done
+	JEQ homec4					* cycle 4 complete (can't use NULL check here)
+	MOV @QUEUEVDP,R1			* get the pointer into R1
+	BL @VDPR16					* get the scene index into R0
+	C R0,R0						* test the result (should never be NULL)
+	JEQ homec4bug				* finished, but also flag a bug...
+	MOV R0,R1					* get the data into the right register
+	BL @ALREADYSCENE			* play the scene!
+	
+* if we died, we ignore that
+* either way, check for more scenes	
+	MOV @QUEUEVDP,R1	* get the pointer
+	INCT R1				* next scene
+	MOV R1,@QUEUEVDP	* save the pointer
+	jmp homeq4lp
+	
+homec4bug
+	DATA >0000			* deliberate bad opcode so I can detect it
+
+* now we repeat all of the above, but for section 2...	
+homec4
+* prefill the three queues with castle section 2. Same size, so no need to zero queues.
+* since there's no intermediary scenes, we could have used
+* just one queue, but this permitted better code reuse with arcade
+	LI R0,VDPQ4+>4000	* going to clear out the replay queue
+	MOV R0,@REPLAYQ
+
+	li r0,VDPQ1			* and start with the first queue
+	MOV R0,@QUEUEVDP	* setting this early so we can loop
+
+	LI R2,hometable2	* start of the table
+	LI R4,VDPQ1+>4000	* address to start writing at
+	LI R3,3				* do this 3 times
+filllph2
+	bl @setrow			* randomly load this row in queues 1-3
+	INCT R4				* next row in the queues
+	AI R2,6				* next row in the table
+	DEC R3				* count down
+	jne filllph2		* keep going
+	
+* running the queues, we kind of cheat and loop here for queues 1-3
+homeq2lp
+	MOV @QUEUEVDP,R1	* get the pointer into R1
+	BL @VDPR16			* get the scene index into R0
+	MOV R0,R0			* test the result
+	JEQ homec2			* cycle complete
+	INCT R1				* next scene
+	MOV R1,@QUEUEVDP	* save the pointer
+	MOV R0,R1			* get the data into the right register
+	BL @ALREADYSCENE	* play the scene!
+	jmp homeq2lp		* next scene!
+
+* check if we're done all three queues, loop if not	
+* we make a lot of assumptions here, like that the queue is
+* only 3 entries long...
+homec2
+	mov @queuevdp,r1	* get the pointer
+	ci r1,VDPQ3			* did it reach queue 3 yet?
+	jh homepart3		* yeah, that was queue 3
+	ai r1,26			* 32 bytes minus the 6 we already moved, in theory
+	mov r1,@queuevdp	* save it
+	jmp homeq2lp		* keep going!
+
+* done three queues, now replay any scenes we died on, but only once
+* so for that, we keep the replay pointer static
+homepart3
+	MOV @REPLAYQ,@queuesave		* remember the pointer in case we die (all scenes replay now)
+	LI R0,VDPQ4					* prepare to run queue 4
+	MOV R0,@QUEUEVDP
+	
+homeq4lp2
+	MOV @queuesave,@REPLAYQ		* restore the pointer in case we died
+	C @QUEUEVDP,@REPLAYQ		* check if we're done
+	JEQ homec42					* cycle 4 complete (can't use NULL check here)
+	MOV @QUEUEVDP,R1			* get the pointer into R1
+	BL @VDPR16					* get the scene index into R0
+	C R0,R0						* test the result (should never be NULL)
+	JEQ homec42bug				* finished, but also flag a bug...
+	MOV R0,R1					* get the data into the right register
+	BL @ALREADYSCENE			* play the scene!
+	
+* if we died, we ignore that
+* either way, check for more scenes	
+	MOV @QUEUEVDP,R1	* get the pointer
+	INCT R1				* next scene
+	MOV R1,@QUEUEVDP	* save the pointer
+	jmp homeq4lp2
+	
+homec42bug
+	DATA >0000			* deliberate bad opcode so I can detect it
+
+* finished the second castle section... now we finally do the elevator
+* TODO: we're going to need some trickery to see when the player jumped off...	
+homec42
+	LI R0,VDPQ4+>4000	* going to clear out the replay queue
+	MOV R0,@REPLAYQ		* we're going to do this again too...
+	MOV @REPLAYQ,@queuesave		* save the queue for easy death detect
+
+* You get two tries, no queuing...
+	LI R1,SceneD1Platform
+	BL @ALREADYSCENE
+	
+* if we didn't die, skip ahead
+	C @REPLAYQ,@queuesave
+	JEQ homeelev
+	
+* second try on platform
+	mov @queuesave,@REPLAYQ
+	LI R1,SceneD1Platform
+	BL @ALREADYSCENE
+	
+* if we didn't die, skip ahead
+	C @REPLAYQ,@queuesave
+	JEQ homeelev
+
+* died again? just select cavern adventure 3 into r0
+* and then jump ahead to gotcavern
+	li r0,2
+	jmp gotcavern
+
+homeelev
+* todo: figure out which cavern adventure to run
+* by where the player jumped off the elevator
+* maybe we can have different end blocks and remember
+* which was the last animation played?
+	bl @RND
+	andi r0,>03
+	
+gotcavern
+	sla r0,4			* 16 bytes in each table
+	ai r0,homecave1		* first table - now we have an address
+	mov r0,@queuesave	* save it, going to abuse queuesave here
+
+	LI R0,VDPQ4+>4000	* going to clear out the replay queue
+	MOV R0,@REPLAYQ		* we're going to do this again too...
+	
+* now just run through queue - this queue is in queuesave in ROM...
+cavernq
+	mov @queuesave,r0	* get the current pointer
+	mov *r0+,r1			* fetch the scene into r1
+	mov r0,@queuesave	* save the result
+	BL @ALREADYSCENE	* go play it! Right now, we don't care if we died...
+
+	mov @queuesave,r0	* going to check if done...
+	ai r0,-homecave1	* subtract the offset (might not be aligned in ROM)
+	andi r0,>0f			* mask down to 0-15 (16 bytes or 8 entries each)
+	jne cavernq			* not done yet, so keep playing
+	
+* now we need to play the replay queue again, one try each
+	MOV @REPLAYQ,@queuesave		* remember the pointer in case we die (all scenes replay now)
+	LI R0,VDPQ4					* prepare to run queue 4
+	MOV R0,@QUEUEVDP
+	
+homeq4lp3
+	MOV @queuesave,@REPLAYQ		* restore the pointer in case we died
+	C @QUEUEVDP,@REPLAYQ		* check if we're done
+	JEQ homec43					* cycle 4 complete (can't use NULL check here)
+	MOV @QUEUEVDP,R1			* get the pointer into R1
+	BL @VDPR16					* get the scene index into R0
+	C R0,R0						* test the result (should never be NULL)
+	JEQ homec43bug				* finished, but also flag a bug...
+	MOV R0,R1					* get the data into the right register
+	BL @ALREADYSCENE			* play the scene!
+	
+* if we died, we ignore that
+* either way, check for more scenes	
+	MOV @QUEUEVDP,R1	* get the pointer
+	INCT R1				* next scene
+	MOV R1,@QUEUEVDP	* save the pointer
+	jmp homeq4lp3
+	
+homec43bug
+	DATA >0000			* deliberate bad opcode so I can detect it
+
+* finished the cavern adventure - all that is left is the lair
+* go make the arcade code queue and play it.
+homec43
+	LI R0,VDPQ4+>4000	* going to clear out the replay queue
+	MOV R0,@REPLAYQ		* last time!
+	b @arcadelair
+
+* table of entries in castle 1 - there are only three rows
+* order matters because of the weighting!
+* duplicated for the reverse check, though it doesn't apply here
+hometable1
+	data SceneB2Wind,SceneB2Vines,SceneB1DrinkMe
+	data SceneB2Wind,SceneB2Vines,SceneB1DrinkMe
+	data SceneB3Pot,SceneB3Throne,SceneB3Fire
+	data SceneB3Pot,SceneB3Throne,SceneB3Fire
+	data SceneB4Snakes,SceneB4Wall,SceneB4Goons
+	data SceneB4Snakes,SceneB4Wall,SceneB4Goons
+	
+* table in castle 2 - 3 rows again
+* order matters because of the weighting!
+* these scenes are all reversible EXCEPT for Pit and Lizard King
+* So, the rows are listed twice, once normal and once reversed
+* this time it matters! :)
+hometable2
+	data SceneC5Pit,SceneC5Ropes1,SceneC5Lizardking
+	data SceneC5Pit,SceneC5Ropes2,SceneC5Lizardking
+	data SceneC6Wizard1,SceneC6Smithy1,SceneC6Horse1
+	data SceneC6Wizard2,SceneC6Smithy2,SceneC6Horse2
+	data SceneC7Crypt1,SceneC7Pond1,SceneC7Knight1
+	data SceneC7Crypt2,SceneC7Pond2,SceneC7Knight2
+	
+* There are three cavern adventures, depending on when
+* you jump off the elevator. These scenes are NOT random,
+* so they can be queued up directly. There are 8 scenes each.
+* since they aren't random, the data isn't duplicated.
+homecave1
+	data SceneE8Vanishingfloor,SceneE6Poolballs,SceneE7River,SceneE2Blacknight
+	data SceneE1Bats,SceneE3Catwalk,SceneE4Electriccage,SceneE5Mudmen
+	
+homecave2
+	data SceneE4Electriccage,SceneE5Mudmen,SceneE2Blacknight,SceneE1Bats
+	data SceneE3Catwalk,SceneE8Vanishingfloor,SceneE6Poolballs,SceneE7River
+	
+homecave3
+	data SceneE1Bats,SceneE3Catwalk,SceneE8Vanishingfloor,SceneE4Electriccage
+	data SceneE5Mudmen,SceneE6Poolballs,SceneE7River,SceneE2Blacknight
+
 
 * this plays a single scene in R1. If it's game over, then it
 * does not return, otherwise it returns when the scene is over
@@ -1910,7 +2283,7 @@ DONEDIED
 	inct @REPLAYQ
 
 * and back to caller
-DONEALREDY
+DONEALREADY
 	mov @save4,r11
 	B *R11
 
@@ -1946,47 +2319,6 @@ BYTE03
 	BYTE >03
 QUITK        
     DATA >1100
-
-* a table of scenes here...
-SceneA1Drawbridge	equ >6006
-SceneA1Vestible		equ >6008
-SceneB1DrinkMe		equ >600A
-SceneB2Vines 		equ >600C
-SceneB2Wind 		equ >600E
-SceneB3Fire 		equ >6010
-SceneB3Pot 			equ >6012
-SceneB3Throne 		equ >6014
-SceneB4Goons 		equ >6016
-SceneB4Snakes 		equ >6018
-SceneB4Wall 		equ >601A
-SceneC5Lizardking 	equ >601C
-SceneC5Pit 			equ >601E
-SceneC5Ropes1 		equ >6020
-SceneC5Ropes2 		equ >6022
-SceneC6Horse1 		equ >6024
-SceneC6Horse2 		equ >6026
-SceneC6Smithy1 		equ >6028
-SceneC6Smithy2 		equ >602A
-SceneC6Wizard1 		equ >602C
-SceneC6Wizard2 		equ >602E
-SceneC7Crypt1 		equ >6030
-SceneC7Crypt2 		equ >6032
-SceneC7Knight1 		equ >6034
-SceneC7Knight2 		equ >6036
-SceneC7Pond1 		equ >6038
-SceneC7Pond2 		equ >603A
-SceneD1Platform 	equ >603C
-SceneD1Platform2 	equ >603E
-SceneD1Platshort 	equ >6040
-SceneE1Bats 		equ >6042
-SceneE2Blacknight 	equ >6044
-SceneE3Catwalk 		equ >6046
-SceneE4Electriccage equ >6048
-SceneE5Mudmen 		equ >604A
-SceneE6Poolballs 	equ >604C
-SceneE7River 		equ >604E
-SceneE8Vanishingfloor equ >6050
-SceneF1Dragonslair 	equ >6052
 
     END
     
