@@ -64,13 +64,13 @@ A0786
 A078B
 	DATA >078B,>0C00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0797,379		* Dirk swords him (379)
 A0797
-	DATA >0797,>0500,>1704,HINTRIGHT,A0825,0,A0825,A079C,A07F0,A0825,0			* Two more appear (R, ULS dies)
+	DATA >0797,>0400,>1704,HINTRIGHT,A0825,0,A0825,A079C,A07F0,A0825,0			* Two more appear (R, ULS dies)
 A079C
-	DATA >079C,>0E00,>1c00,HINTNONE,A07BE,A0825,A0825,0,0,A07AA,1326			* Dirk climbs (U, DL dies) (1326) (optional, if you press up, you skip to the top, no score)
+	DATA >079B,>0E00,>1c00,HINTNONE,A07BE,A0825,A0825,0,0,A07AA,1326			* Dirk climbs (U, DL dies) (1326) (optional, if you press up, you skip to the top, no score)
 A07AA
-	DATA >07AA,>0400,>0D01,HINTSWORD,0,A0825,A0825,0,A07AE,A0812,0				* More appear in front (S, DL dies) (timeout on above)
+	DATA >07A9,>0400,>0D01,HINTSWORD,0,A0825,A0825,0,A07AE,A0812,0				* More appear in front (S, DL dies) (timeout on above)
 A07AE
-	DATA >07AE,>1000,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A07BE,3255	* Dirk swords them (3255)
+	DATA >07AD,>1100,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A07BE,3255	* Dirk swords them (3255)
 A07BE
 	DATA >07BE,>0600,>1B00,HINTNONE,A07C4,A0812,A07C4,0,A07F0,A07C4,0			* Dirk reaches top of stairs (ULN, DS dies) (no action needed, but you can die!)
 A07C4

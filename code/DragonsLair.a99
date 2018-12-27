@@ -33,11 +33,32 @@ CARTPAGE EQU >6000
 
     DEF MAIN
     
-* TODO: diagnostics crash with F18A enabled (probably just a bad register set)
+* TODO: vines scene is really broken    
+* TODO: soccer boppers are really broken
+* TODO: knight2 exits without playing
+* TODO: occasional scene weirdness... knight2 and pond2, but have also seen them work
+* TODO: lizard king has a loop
+* TODO: black knight has a loop
+* TODO: pool balls exit right away...
+* TODO: throne - consider merging first two rights, they are pretty tight together
+
+* TODO: practice should halt on the hint frame being set rather than the valid bits being set
+
+* TODO: playback code might be 1 frame too long - but test in practice mode to tweak end timing
+
+* TODO: arcade got confused in one scene and started playing video from attract mode, was followed by black knight
+
+* TODO: home mode needs to know which level we exitted the elevator on
+    
+* todo: joystick edge detection is lost between scenes... ie: right, right can be held down    
+    
+* todo: score corruption (add not working?)    
+    
+* todo: default to arcade sequence, not home
+    
+* TODO: diagnostics crash with F18A enabled (probably just a bad register set - only if you hit it before video plays??)
     
 * TODO: win screen?    
-    
-* TODO: scene sequencing a-la DLE seems to be approved :)    
     
 * TODO: add a thanks screen including "Thanks to Dave Hallock D-L-P.com"    
     
@@ -1559,8 +1580,8 @@ nlivhard
 	
 * doing the arcade here, so first slam those doors and then start the scene selector
 doarcade
-	LI R8,>021a			* slamming start
-	LI R7,24			* length
+	LI R8,>021c			* slamming start (plus 2 frames to avoid sound cross-over)
+	LI R7,22			* length
 	BL @CALLVIDEO
 
 ********************************************************
@@ -1588,7 +1609,7 @@ doarcade
 filllp
 	bl @setrow			* randomly load this row in queues 1-3
 	INCT R4				* next row in the queues
-	AI R2,6				* next row in the table
+	AI R2,12			* next row in the table (doubled)
 	DEC R3				* count down
 	jne filllp			* keep going
 
@@ -1605,13 +1626,12 @@ arcadeq1
 	MOV R0,@QUEUEVDP
 	
 arcadeq1lp
-	MOV @QUEUEVDP,R1	* get the pointer into R1
-	BL @VDPR16			* get the scene index into R0
-	MOV R0,R0			* test the result
+	MOV @QUEUEVDP,R0	* get the pointer into R0
+	BL @VDPR16			* get the scene index into R1
+	MOV R1,R1			* test the result
 	JEQ arcadec1		* cycle 1 complete
-	INCT R1				* next scene
-	MOV R1,@QUEUEVDP	* save the pointer
-	MOV R0,R1			* get the data into the right register
+	INCT R0				* next scene
+	MOV R0,@QUEUEVDP	* save the pointer
 	BL @ALREADYSCENE	* play the scene!
 	jmp arcadeq1lp		* next scene!
 	
@@ -1633,13 +1653,12 @@ arcadec1lp
 	MOV R0,@QUEUEVDP
 	
 arcadeq2lp
-	MOV @QUEUEVDP,R1	* get the pointer into R1
-	BL @VDPR16			* get the scene index into R0
-	MOV R0,R0			* test the result
+	MOV @QUEUEVDP,R0	* get the pointer into R0
+	BL @VDPR16			* get the scene index into R1
+	MOV R1,R1			* test the result
 	JEQ arcadec2		* cycle 2 complete
-	INCT R1				* next scene
-	MOV R1,@QUEUEVDP	* save the pointer
-	MOV R0,R1			* get the data into the right register
+	INCT R0				* next scene
+	MOV R0,@QUEUEVDP	* save the pointer
 	BL @ALREADYSCENE	* play the scene!
 	jmp arcadeq2lp		* next scene!
 	
@@ -1661,13 +1680,12 @@ arcadec2lp
 	MOV R0,@QUEUEVDP
 	
 arcadeq3lp
-	MOV @QUEUEVDP,R1	* get the pointer into R1
-	BL @VDPR16			* get the scene index into R0
-	MOV R0,R0			* test the result
+	MOV @QUEUEVDP,R0	* get the pointer into R0
+	BL @VDPR16			* get the scene index into R1
+	MOV R1,R1			* test the result
 	JEQ arcadec3		* cycle 3 complete
-	INCT R1				* next scene
-	MOV R1,@QUEUEVDP	* save the pointer
-	MOV R0,R1			* get the data into the right register
+	INCT R0				* next scene
+	MOV R0,@QUEUEVDP	* save the pointer
 	BL @ALREADYSCENE	* play the scene!
 	jmp arcadeq3lp		* next scene!
 	
@@ -1687,14 +1705,15 @@ arcadec3
 	
 arcadeq4lp
 	MOV @queuesave,@REPLAYQ		* restore the pointer in case we died
-	C @QUEUEVDP,@REPLAYQ		* check if we're done
+	MOV @REPLAYQ,R0				* need to mask off the write bit
+	ANDI R0,>3FFF
+	C R0,@QUEUEVDP				* check if we're done
 	JEQ arcadec4				* cycle 4 complete (game complete, can't use NULL check here)
-	MOV @QUEUEVDP,R1	* get the pointer into R1
-	BL @VDPR16			* get the scene index into R0
-	C R0,R0				* test the result (should never be NULL)
-	JEQ arcadec4bug		* finished, but also flag a bug...
-	MOV R0,R1			* get the data into the right register
-	BL @ALREADYSCENE	* play the scene!
+	MOV @QUEUEVDP,R0			* get the pointer into R0
+	BL @VDPR16					* get the scene index into R1
+	MOV R1,R1					* test the result (should never be NULL)
+	JEQ arcadec4bug				* finished, but also flag a bug...
+	BL @ALREADYSCENE			* play the scene!
 	
 * if we died, we have to loop it	
 	c @queuesave,@replayq		* did it change?
@@ -1817,15 +1836,17 @@ add2q2
 ** each of these subs is a different order of copy ;)
 fillo1
 	mov r4,r0			* first queue
-	mov *r2,r1			* first element
+	mov r2,r1			* first element
 	bl @add2q
 	
 	ai r0,32			* second queue
-	mov @2(R2),r1		* second element
+	mov R2,r1
+	inct r1				* second element
 	bl @add2q
 	
 	ai r0,32			* third queue
-	mov @4(R2),r1		* third element
+	mov r2,r1
+	ai r1,4				* third element
 	bl @add2q
 	
 	mov @save3,r11
@@ -1833,15 +1854,17 @@ fillo1
 	
 fillo2
 	mov r4,r0			* first queue
-	mov *r2,r1			* first element
+	mov r2,r1			* first element
 	bl @add2q
 	
 	ai r0,32			* second queue
-	mov @4(R2),r1		* third element
+	mov r2,r1
+	ai r1,4				* third element
 	bl @add2q
 	
 	ai r0,32			* third queue
-	mov @2(R2),r1		* second element
+	mov R2,r1
+	inct r1				* second element
 	bl @add2q
 	
 	mov @save3,r11
@@ -1849,15 +1872,17 @@ fillo2
 
 fillo3
 	mov r4,r0			* first queue
-	mov @2(R2),r1		* second element
+	mov R2,r1
+	inct r1				* second element
 	bl @add2q
 	
 	ai r0,32			* second queue
-	mov *r2,r1			* first element
+	mov r2,r1			* first element
 	bl @add2q
 	
 	ai r0,32			* third queue
-	mov @4(R2),r1		* third element
+	mov r2,r1
+	ai r1,4				* third element
 	bl @add2q
 	
 	mov @save3,r11
@@ -1865,15 +1890,17 @@ fillo3
 
 fillo4
 	mov r4,r0			* first queue
-	mov @2(R2),r1		* second element
+	mov R2,r1
+	inct r1				* second element
 	bl @add2q
 	
 	ai r0,32			* second queue
-	mov @4(R2),r1		* third element
+	mov r2,r1
+	ai r1,4				* third element
 	bl @add2q
 	
 	ai r0,32			* third queue
-	mov *r2,r1			* first element
+	mov r2,r1			* first element
 	bl @add2q
 	
 	mov @save3,r11
@@ -1881,15 +1908,17 @@ fillo4
 
 fillo5
 	mov r4,r0			* first queue
-	mov @4(R2),r1		* third element
+	mov r2,r1
+	ai r1,4				* third element
 	bl @add2q
 	
 	ai r0,32			* second queue
-	mov @2(R2),r1		* second element
+	mov R2,r1
+	inct r1				* second element
 	bl @add2q
 	
 	ai r0,32			* third queue
-	mov *r2,r1			* first element
+	mov r2,r1			* first element
 	bl @add2q
 	
 	mov @save3,r11
@@ -1897,15 +1926,17 @@ fillo5
 	
 fillo6
 	mov r4,r0			* first queue
-	mov @4(R2),r1		* third element
+	mov r2,r1
+	ai r1,4				* third element
 	bl @add2q
 	
 	ai r0,32			* second queue
-	mov *r2,r1			* first element
+	mov r2,r1			* first element
 	bl @add2q
 	
 	ai r0,32			* third queue
-	mov @2(R2),r1		* second element
+	mov R2,r1
+	inct r1				* second element
 	bl @add2q
 	
 	mov @save3,r11
@@ -1978,19 +2009,18 @@ homevest
 filllph1
 	bl @setrow			* randomly load this row in queues 1-3
 	INCT R4				* next row in the queues
-	AI R2,6				* next row in the table
+	AI R2,12			* next row in the table (doubled)
 	DEC R3				* count down
 	jne filllph1		* keep going
 	
 * running the queues, we kind of cheat and loop here for queues 1-3
 homeq1lp
-	MOV @QUEUEVDP,R1	* get the pointer into R1
-	BL @VDPR16			* get the scene index into R0
-	MOV R0,R0			* test the result
+	MOV @QUEUEVDP,R0	* get the pointer into R0
+	BL @VDPR16			* get the scene index into R1
+	MOV R1,R1			* test the result
 	JEQ homec1			* cycle complete
-	INCT R1				* next scene
-	MOV R1,@QUEUEVDP	* save the pointer
-	MOV R0,R1			* get the data into the right register
+	INCT R0				* next scene
+	MOV R0,@QUEUEVDP	* save the pointer
 	BL @ALREADYSCENE	* play the scene!
 	jmp homeq1lp		* next scene!
 
@@ -2014,13 +2044,14 @@ homepart2
 	
 homeq4lp
 	MOV @queuesave,@REPLAYQ		* restore the pointer in case we died
-	C @QUEUEVDP,@REPLAYQ		* check if we're done
+	MOV @REPLAYQ,R0				* need to mask off the write bit
+	ANDI R0,>3FFF
+	C R0,@QUEUEVDP				* check if we're done
 	JEQ homec4					* cycle 4 complete (can't use NULL check here)
-	MOV @QUEUEVDP,R1			* get the pointer into R1
-	BL @VDPR16					* get the scene index into R0
-	C R0,R0						* test the result (should never be NULL)
+	MOV @QUEUEVDP,R0			* get the pointer into R0
+	BL @VDPR16					* get the scene index into R1
+	MOV R1,R1					* test the result (should never be NULL)
 	JEQ homec4bug				* finished, but also flag a bug...
-	MOV R0,R1					* get the data into the right register
 	BL @ALREADYSCENE			* play the scene!
 	
 * if we died, we ignore that
@@ -2050,19 +2081,18 @@ homec4
 filllph2
 	bl @setrow			* randomly load this row in queues 1-3
 	INCT R4				* next row in the queues
-	AI R2,6				* next row in the table
+	AI R2,12			* next row in the table (doubled)
 	DEC R3				* count down
 	jne filllph2		* keep going
 	
 * running the queues, we kind of cheat and loop here for queues 1-3
 homeq2lp
-	MOV @QUEUEVDP,R1	* get the pointer into R1
-	BL @VDPR16			* get the scene index into R0
-	MOV R0,R0			* test the result
+	MOV @QUEUEVDP,R0	* get the pointer into R0
+	BL @VDPR16			* get the scene index into R1
+	MOV R1,R1			* test the result
 	JEQ homec2			* cycle complete
-	INCT R1				* next scene
-	MOV R1,@QUEUEVDP	* save the pointer
-	MOV R0,R1			* get the data into the right register
+	INCT R0				* next scene
+	MOV R0,@QUEUEVDP	* save the pointer
 	BL @ALREADYSCENE	* play the scene!
 	jmp homeq2lp		* next scene!
 
@@ -2086,13 +2116,14 @@ homepart3
 	
 homeq4lp2
 	MOV @queuesave,@REPLAYQ		* restore the pointer in case we died
-	C @QUEUEVDP,@REPLAYQ		* check if we're done
+	MOV @REPLAYQ,R0				* need to mask off the write bit
+	ANDI R0,>3FFF
+	C R0,@QUEUEVDP				* check if we're done
 	JEQ homec42					* cycle 4 complete (can't use NULL check here)
-	MOV @QUEUEVDP,R1			* get the pointer into R1
-	BL @VDPR16					* get the scene index into R0
-	C R0,R0						* test the result (should never be NULL)
+	MOV @QUEUEVDP,R0			* get the pointer into R0
+	BL @VDPR16					* get the scene index into R1
+	MOV R1,R1					* test the result (should never be NULL)
 	JEQ homec42bug				* finished, but also flag a bug...
-	MOV R0,R1					* get the data into the right register
 	BL @ALREADYSCENE			* play the scene!
 	
 * if we died, we ignore that
@@ -2163,19 +2194,20 @@ cavernq
 	jne cavernq			* not done yet, so keep playing
 	
 * now we need to play the replay queue again, one try each
-	MOV @REPLAYQ,@queuesave		* remember the pointer in case we die (all scenes replay now)
+	MOV @REPLAYQ,@queuesave		* remember the pointer in case we die (scenes never replay)
 	LI R0,VDPQ4					* prepare to run queue 4
 	MOV R0,@QUEUEVDP
 	
 homeq4lp3
 	MOV @queuesave,@REPLAYQ		* restore the pointer in case we died
-	C @QUEUEVDP,@REPLAYQ		* check if we're done
+	MOV @REPLAYQ,R0				* need to mask off the write bit
+	ANDI R0,>3FFF
+	C R0,@QUEUEVDP				* check if we're done
 	JEQ homec43					* cycle 4 complete (can't use NULL check here)
-	MOV @QUEUEVDP,R1			* get the pointer into R1
-	BL @VDPR16					* get the scene index into R0
-	C R0,R0						* test the result (should never be NULL)
+	MOV @QUEUEVDP,R0			* get the pointer into R0
+	BL @VDPR16					* get the scene index into R1
+	MOV R1,R1					* test the result (should never be NULL)
 	JEQ homec43bug				* finished, but also flag a bug...
-	MOV R0,R1					* get the data into the right register
 	BL @ALREADYSCENE			* play the scene!
 	
 * if we died, we ignore that

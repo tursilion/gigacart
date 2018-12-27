@@ -64,7 +64,7 @@ A0495
 A04A7
 	DATA >04A7,>0800,>0000,HINTNONE,0,0,0,0,0,A04AF,0		* Blowing in
 A04AF
-	DATA >04AF,>0C00,>1404,HINTRIGHT,A04E9,0,0,A04C1,0,A04BB,0		* Dirk pauses to look at object (R, U dies)
+	DATA >04AF,>0C00,>1404,HINTNONE,A04E9,0,0,A04C1,0,A04BB,0		* Dirk pauses to look at object (R, U dies)
 A04BB
 	DATA >04BB,>0600,>1404,HINTRIGHT,A04E9,0,0,A04C1,0,A04E9,0		* Door flashes and opens (R, U dies, same)
 A04C1

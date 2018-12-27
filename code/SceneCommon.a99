@@ -383,7 +383,7 @@ NOTLOOKGOOD
 	
 * work out which scene it was. If, by some bug, any scene
 * has a zero loaded, go to the timeout handler instead
-	COC @JOYUP,JOYDAT
+	COC @MASKUP,JOYDAT
 	JNE NOTUP
 	MOV @frameupsc(r5),r0
 	jeq scenetimeoutbug		* there was no registered scene
@@ -391,7 +391,7 @@ NOTLOOKGOOD
 	jmp scenelp
 
 NOTUP
-	COC @JOYDOWN,JOYDAT
+	COC @MASKDOWN,JOYDAT
 	JNE NOTDOWN
 	MOV @framedownsc(r5),r0
 	jeq scenetimeoutbug		* there was no registered scene
@@ -399,7 +399,7 @@ NOTUP
 	jmp scenelp
 
 NOTDOWN
-	COC @JOYLEFT,JOYDAT
+	COC @MASKLEFT,JOYDAT
 	JNE NOTLEFT
 	MOV @frameleftsc(r5),r0
 	jeq scenetimeoutbug		* there was no registered scene
@@ -407,7 +407,7 @@ NOTDOWN
 	jmp scenelp
 
 NOTLEFT
-	COC @JOYRIGHT,JOYDAT
+	COC @MASKRIGHT,JOYDAT
 	JNE NOTRIGHT
 	MOV @framerightsc(r5),r0
 	jeq scenetimeoutbug		* there was no registered scene
@@ -415,7 +415,7 @@ NOTLEFT
 	jmp scenelp
 
 NOTRIGHT
-	COC @JOYFIRE,JOYDAT
+	COC @MASKFIRE,JOYDAT
 	JNE scenetimeoutbug		* there was no matching move at all, somehow?
 	MOV @framefiresc(r5),r0
 	jeq scenetimeoutbug		* there was no registered scene
