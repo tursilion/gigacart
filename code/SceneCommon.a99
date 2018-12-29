@@ -324,7 +324,7 @@ scenenohints
 	BL @CALLVIDEO
 	
 * now we have returned
-	mov @rowbase,r5	* get the base again
+	mov @rowbase,r5			* get the base again
 	
 * we need to determine how the video ended
 * (ie: by joystick or by frames)
@@ -333,15 +333,17 @@ scenenohints
 	
 * if the scene times out in practice mode, just hold
 * the last frame until they move... we also turn on the hint in case it's off
-* (but not if there WAS no joystick move)
-	mov JOYMASK,JOYMASK		* is there anything? (this is okay, in easy mode JOYMASK is only good moves!)
+* (but not if there WAS no joystick hint)
+	mov @framehint(r5),r0	* read the hint arrow
+	ci r0,HINTNONE
 	jeq scenetimeout		* was supposed to time out
 
 	cb @BYTE02,@cfgeasy		* in practice mode?
 	jne scenetimeout		* no, handle normally
 
 * wait for the user to do the instructed move	
-	mov @framehint(r5),r0	* hint arrow, in case it's off
+* (We still have r0 from above, so we just use it)
+**	mov @framehint(r5),r0	* hint arrow, in case it's off
 	bl @vdpwta
 	
 practiceloop

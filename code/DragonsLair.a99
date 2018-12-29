@@ -1,13 +1,6 @@
 ** remember to debug with 'break on illegal opcode' so we can find bad tables
 ** remember to debug with 'break on illegal opcode' so we can find bad tables
 
-* TODO: write an audit tool that reads the source files for the scenes.
-* It should check the joystick bits:
-* - make sure good bits are entirely part of valid bits
-* - make sure that all valid bits have a registered scene
-* - make sure the hint is one of the good bits
-* - make sure all defined scenes are in valid bits and non-valid bits have zero scenes
-
 **************
 * Dragon's Lair for the TI-99/4A - by M.Brent aka Tursi
 * A big extension of my AV Playback code, as below
@@ -33,30 +26,15 @@ CARTPAGE EQU >6000
 
     DEF MAIN
     
-* TODO: vines scene is really broken    
-* TODO: soccer boppers are really broken
-* TODO: knight2 exits without playing
-* TODO: occasional scene weirdness... knight2 and pond2, but have also seen them work
-* TODO: lizard king has a loop
-* TODO: black knight has a loop
+* TODO: vines scene is really broken
 * TODO: pool balls exit right away...
 * TODO: throne - consider merging first two rights, they are pretty tight together
 
-* TODO: practice should halt on the hint frame being set rather than the valid bits being set
-
-* TODO: playback code might be 1 frame too long - but test in practice mode to tweak end timing
-
-* TODO: arcade got confused in one scene and started playing video from attract mode, was followed by black knight
+* TODO: 'S' key not working on options screen anymore
 
 * TODO: home mode needs to know which level we exitted the elevator on
     
 * todo: joystick edge detection is lost between scenes... ie: right, right can be held down    
-    
-* todo: score corruption (add not working?)    
-    
-* todo: default to arcade sequence, not home
-    
-* TODO: diagnostics crash with F18A enabled (probably just a bad register set - only if you hit it before video plays??)
     
 * TODO: win screen?    
     
@@ -219,11 +197,11 @@ RNDAOK
 	MOV R0,@BEEPVOL
     
 * setup some persistent variables
-	CLR @cfgarcade		* also clears cfgeasy
 	clr @cfghints		* also clears f18aflg, but we check that below
 	clr @lives			* also clears scr1
 	clr @scr2			* also clears scr3
-	movb @BYTE01,@cfgeasy	* actually want to start with easy mode
+	movb @BYTE01,@cfgarcade	 * start in arcade mode
+	movb @BYTE01,@cfgeasy	 * also want to start with easy mode
     
 * test for F18A, and unlock. 
 * run 9918A version if it's not there.
@@ -1287,7 +1265,7 @@ showlives
 	B *R11
 	
 * add the score value in R0 to score
-* Score is a 24 bit value, stored not in BCD, but 0-99 per byte
+* Score is a 16 bit value, stored as normal
 * R0 is a 16-bit value stored in the same manner to make math easier
 * Uses R1
 ADDSCORE
@@ -1298,8 +1276,13 @@ ADDSCORE
 	sb r1,@scr3			* subtract 100
 	ab @BYTE01,r0		* deal with the carry
 adds1
+	cb @scr3,r1			* check for second rollover
+	jl adds1b			* no rollover
+	sb r1,@scr3			* subtract 100
+	ab @BYTE01,r0		* deal with the carry
+adds1b
 	ab r0,@scr2			* r0 msb
-	cb @scr2,r1			* check for rollover
+	cb @scr2,r1			* check for rollover (there are no values big enough for two rolls)
 	jl adds2			* no rollover
 	sb r1,@scr2			* subtract 100
 	ab @BYTE01,@scr3	* increment the most significant score byte
@@ -1546,8 +1529,6 @@ nlivhard
 	
 	MOVB @BYTE00,@justdied	* clear the flag, we manually play the first one
 	MOVB @BEEPVOL,@SOUND	* mute beep
-	
-* TODO: init scene selection logic	
 	
 * AND START THE GAME... 
 

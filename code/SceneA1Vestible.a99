@@ -60,9 +60,9 @@ A025B
 ** deaths **
 
 A029A
-	DATA >029A,>12ff,>0000,HINTNONE,0,0,0,0								* falling into pit
+	DATA >029A,>12ff,>0000,HINTNONE,0,0,0,0,0,0,0						* falling into pit
 A02AC
-	DATA >02AC,>1eff,>0000,HINTNONE,0,0,0,0								* crushed by rocks
+	DATA >02AC,>1eff,>0000,HINTNONE,0,0,0,0,0,0,0						* crushed by rocks
 
     END
     

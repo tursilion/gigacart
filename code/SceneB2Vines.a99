@@ -67,7 +67,7 @@ A039D
 A03A0
 	DATA >03A0,>0B00,>0000,HINTNONE,0,0,0,0,0,A03AB,0						* jump to weapons
 A03AB
-	DATA >03AB,>0600,>0f04,HINTRIGHT,A0411,A0411,A0411,A042C,A042C,0		* door opens, new enemy to left (R, DLS die)
+	DATA >03AB,>0600,>0f04,HINTRIGHT,0,A0411,A0411,A0411,A042C,A042C,0		* door opens, new enemy to left (R, DLS die)
 A03B1
 	DATA >03B1,>0E00,>1f0c,HINTDOWN,A042C,A03BF,A0411,A03BF,A042C,A042C,495	 * jump to door, vines block, stairs flash (DR, ULS die) (495)
 A03BF
@@ -75,7 +75,7 @@ A03BF
 A03C5
 	DATA >03C5,>0E00,>0000,HINTNONE,0,0,0,0,0,A03D3,0						* start stairs, vines appear
 A03D3
-	DATA >03D3,>0500,>1d02,HINTLEFT,A0459,A043E,A03D8,0,A043E,A043E,0		* table flashes (L, UDS die)
+	DATA >03D3,>0500,>1b02,HINTLEFT,A0459,A043E,A03D8,0,A043E,A043E,0		* table flashes (L, UDS die)
 A03D8
 	DATA >03D8,>0500,>0000,HINTNONE,0,0,0,0,0,A03DD,1326					* jump to table, door opens (1326)
 A03DD

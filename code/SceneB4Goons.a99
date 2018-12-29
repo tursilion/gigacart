@@ -66,9 +66,9 @@ A078B
 A0797
 	DATA >0797,>0400,>1704,HINTRIGHT,A0825,0,A0825,A079C,A07F0,A0825,0			* Two more appear (R, ULS dies)
 A079C
-	DATA >079B,>0E00,>1c00,HINTNONE,A07BE,A0825,A0825,0,0,A07AA,1326			* Dirk climbs (U, DL dies) (1326) (optional, if you press up, you skip to the top, no score)
+	DATA >079B,>0E00,>1a00,HINTNONE,A07BE,A0825,A0825,0,0,A07AA,1326			* Dirk climbs (U, DL dies) (1326) (optional, if you press up, you skip to the top, no score)
 A07AA
-	DATA >07A9,>0400,>0D01,HINTSWORD,0,A0825,A0825,0,A07AE,A0812,0				* More appear in front (S, DL dies) (timeout on above)
+	DATA >07A9,>0400,>0B01,HINTSWORD,0,A0825,A0825,0,A07AE,A0812,0				* More appear in front (S, DL dies) (timeout on above)
 A07AE
 	DATA >07AD,>1100,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A07BE,3255	* Dirk swords them (3255)
 A07BE

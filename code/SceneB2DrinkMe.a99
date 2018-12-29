@@ -56,11 +56,11 @@ SCENEDATA
 	DATA >0301,31														* game over
 	
 ** scenes **
-	DATA >02de,>0C00,>1404,HINTNONE,A0320,0,0,a02ef,0,A02ea,49			* Approaching (RN, U die 0320) (49)
+	DATA >02de,>0b00,>1404,HINTNONE,A0320,0,0,a02ef,0,A02ea,49			* Approaching (RN, U die 0320) (49)
 A02ea
-	DATA >02ea,>0500,>1E04,HINTRIGHT,A0320,A0348,A0348,A02ef,0,A0320,0	* Flame spout (must move right, UDL die)
+	DATA >02e9,>0500,>1E04,HINTRIGHT,A0320,A0348,A0348,A02ef,0,A0320,0	* Flame spout (must move right, UDL die)
 a02ef
-	DATA >02ef,>1200,>0000,HINTNONE,0,0,0,0,0,0,379						* Leaving (379)
+	DATA >02ee,>1300,>0000,HINTNONE,0,0,0,0,0,0,379						* Leaving (379)
 
 ** deaths **
 

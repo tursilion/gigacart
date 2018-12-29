@@ -80,7 +80,7 @@ A1D01
 A1D0A
 	DATA >1D0A,>0400,>0602,HINTLEFT,0,0,A1D0E,A1D62,0,A1D62,0						* Floor threatens (L, R dies)
 A1D0E
-	DATA >1D0E,>0E00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,0,49				* Dirk runs left (49)
+	DATA >1D0E,>0d00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,0,49				* Dirk runs left (49)
 
 ** deaths **
 
