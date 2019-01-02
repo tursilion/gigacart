@@ -68,11 +68,11 @@ A24F0
 A24F4
 	DATA >24F4,>0400,>1A10,HINTUP,A24F8,A2552,A2552,0,0,A2552,0						* Dirk needs to jump up (U, DL dies)
 A24F8
-	DATA >24F8,>0500,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A24FD,2675		* Confusing posturing with floor (2675)
+	DATA >24F8,>0400,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A24FD,2675		* Confusing posturing with floor (2675)
 A24FD
-	DATA >24FD,>0700,>1E02,HINTLEFT,A252C,A2552,A2504,A2552,0,A2552,0				* Doors open as floor vanishes (L, UDR dies)
+	DATA >24Fc,>0700,>1E02,HINTLEFT,A252C,A2552,A2504,A2552,0,A2552,0				* Doors open as floor vanishes (L, UDR dies)
 A2504
-	DATA >2504,>0900,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,0,1939			* Dirk chooses LEFT door and exits (1939)
+	DATA >2503,>0a00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,0,1939			* Dirk chooses LEFT door and exits (1939)
 
 ** deaths **
 

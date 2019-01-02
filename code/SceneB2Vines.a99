@@ -59,17 +59,17 @@ SCENEDATA
 A036A
 	DATA >036A,>1800,>0000,HINTNONE,0,0,0,0,0,A0382,49						* Approach (49)
 A0382
-	DATA >0382,>0600,>0000,HINTNONE,0,0,0,0,0,A0388,0						* Vine approaches
+	DATA >0382,>0A00,>0f01,HINTFIRE,0,A0411,A0411,A0411,A0388,A0411,0		* Vine approaches (S, DLR die)
 A0388
-	DATA >0388,>1500,>1f01,HINTFIRE,A0411,A0411,A0411,A0411,A039D,A0411,49	* slash with sword - new vines, weapons flash (UDLR die) (49)
+	DATA >0388,>1400,>1010,HINTNONE,A03A0,0,0,0,0,A039D,49					* slash with sword - new vines, weapons flash (U optional) (49)
 A039D
-	DATA >039D,>0300,>1f10,HINTUP,A03A0,A0411,A0411,A0411,A0411,A0411,379	* weapons flash again (U, DLRS die) (379)
+	DATA >039c,>0300,>1f10,HINTUP,A03A0,A0411,A0411,A0411,A0411,A0411,0		* weapons flash again (U, DLRS die) (379)
 A03A0
-	DATA >03A0,>0B00,>0000,HINTNONE,0,0,0,0,0,A03AB,0						* jump to weapons
+	DATA >039f,>0B00,>0000,HINTNONE,0,0,0,0,0,A03AB,379						* jump to weapons
 A03AB
-	DATA >03AB,>0600,>0f04,HINTRIGHT,0,A0411,A0411,A0411,A042C,A042C,0		* door opens, new enemy to left (R, DLS die)
+	DATA >03AA,>0600,>0f04,HINTRIGHT,0,A0411,A0411,A03B1,A0411,A042C,0		* door opens, new enemy to left (R, DLS die)
 A03B1
-	DATA >03B1,>0E00,>1f0c,HINTDOWN,A042C,A03BF,A0411,A03BF,A042C,A042C,495	 * jump to door, vines block, stairs flash (DR, ULS die) (495)
+	DATA >03B0,>0F00,>1b08,HINTDOWN,A042C,A03BF,A0411,0,A042C,A042C,495		* jump to door, vines block, stairs flash (DR, ULS die) (495) (R removed)
 A03BF
 	DATA >03BF,>0600,>0000,HINTNONE,0,0,0,0,0,A03C5,915						* jump back (915)
 A03C5
@@ -79,13 +79,13 @@ A03D3
 A03D8
 	DATA >03D8,>0500,>0000,HINTNONE,0,0,0,0,0,A03DD,1326					* jump to table, door opens (1326)
 A03DD
-	DATA >03DD,>0400,>1F14,HINTUP,A03EB,A0411,A0411,A03EB,A042C,A0459,0		* on table, door closes (UR anytime, does not have to match door, DLS die)
+	DATA >03DD,>0400,>1F14,HINTNONE,A03EB,A0411,A0411,A03EB,A042C,A03E1,0	* on table, door closes (UR anytime, does not have to match door, DLS die)
 A03E1
-	DATA >03E1,>0200,>1F14,HINTUP,A03EB,A0411,A0411,A03EB,A042C,A042C,0		* door opens (UR, DLS die)
+	DATA >03E1,>0200,>1F14,HINTNONE,A03EB,A0411,A0411,A03EB,A042C,A03E3,0	* door opens (UR, DLS die)
 A03E3
-	DATA >03E3,>0500,>1F14,HINTUP,A03EB,A0411,A0411,A03EB,A042C,A042C,0		* vines raise while door closes (UR, DLS die)
+	DATA >03E3,>0500,>1F14,HINTNONE,A03EB,A0411,A0411,A03EB,A042C,A03E8,0	* vines raise while door closes (UR, DLS die)
 A03E8
-	DATA >03E8,>0300,>1F14,HINTUP,A03EB,A0411,A0411,A03EB,A042C,A0459,0		* door opens (UR, DLS die)
+	DATA >03E8,>0300,>1F14,HINTUP,A03EB,A0411,A0411,A03EB,A042C,A042C,0		* door opens (UR, DLS die)
 A03EB
 	DATA >03EB,>0700,>0000,HINTNONE,0,0,0,0,0,0,1939						* Dirk jumps out (1939)
 

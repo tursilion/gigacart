@@ -57,20 +57,23 @@ SCENEDATA
 	DATA >1304,31										* game over
 
 ** scenes **
+* wider run timing, based on the boppers being in sync. It's only 4 frames per rotation, a bit tight *
+* so, look for both being down at the same time, then you have until they pass around again *
+* This allows 5 frames for each *
 A124C
 	DATA >124C,>3100,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A127D,49		* Approaching (49)
 A127D
-	DATA >127D,>0A00,>1600,HINTNONE,A1323,>0000,A1356,A1356,>0000,A1287,0		* Spinning (run at 1287,1290,129D) (2 frames each) (U, LR dies)
+	DATA >127D,>0700,>1600,HINTNONE,A1323,>0000,A1356,A1356,>0000,A1287,0		* Spinning (run at 1287,1290,129D) (2 frames each) (U, LR dies)
 A1287
-	DATA >1287,>0200,>1610,HINTUP,A12AB,0,A1356,A1356,0,A1289,0					* Spinning (run at 1287,1290,129D) (2 frames each) (U, LR dies)
+	DATA >1284,>0500,>1610,HINTUP,A12AB,0,A1356,A1356,0,A1289,0					* Spinning (run at 1287,1290,129D) (2 frames each) (U, LR dies)
 A1289
-	DATA >1289,>0700,>1600,HINTNONE,A1323,>0000,A1356,A1356,>0000,A1290,0		* Spinning (run at 1287,1290,129D) (2 frames each) (U, LR dies)
+	DATA >1289,>0800,>1600,HINTNONE,A1323,>0000,A1356,A1356,>0000,A1290,0		* Spinning (run at 1287,1290,129D) (2 frames each) (U, LR dies)
 A1290
-	DATA >1290,>0200,>1610,HINTUP,A12AB,0,A1356,A1356,0,A1292,0					* Spinning (run at 1287,1290,129D) (2 frames each) (U, LR dies)
+	DATA >1291,>0500,>1610,HINTUP,A12AB,0,A1356,A1356,0,A1292,0					* Spinning (run at 1287,1290,129D) (2 frames each) (U, LR dies)
 A1292
-	DATA >1292,>0B00,>1600,HINTNONE,A1323,>0000,A1356,A1356,>0000,A129D,0		* Spinning (run at 1287,1290,129D) (2 frames each) (U, LR dies)
+	DATA >1296,>0800,>1600,HINTNONE,A1323,>0000,A1356,A1356,>0000,A129D,0		* Spinning (run at 1287,1290,129D) (2 frames each) (U, LR dies)
 A129D
-	DATA >129D,>0200,>1610,HINTUP,A12AB,0,A1356,A1356,0,A1323,0					* Spinning (run at 1287,1290,129D) (2 frames each) (U, LR dies)
+	DATA >129E,>0500,>1610,HINTUP,A12AB,0,A1356,A1356,0,A1323,0					* Spinning (run at 1287,1290,129D) (2 frames each) (U, LR dies)
 A12AB
 	DATA >12AB,>0C00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A12B7,4026	* Run past boppers (4026)
 A12B7

@@ -68,9 +68,9 @@ A201F
 A2028
 	DATA >2027,>0D00,>1F10,HINTUP,A2035,A2142,A211B,A2142,A2142,A2142,0				* Mudmen back Dirk towards the geyser (U, DLRS dies)
 A2035
-	DATA >2034,>0B00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A203E,1326		* Dirk jumps the geyser up (1326)
+	DATA >2034,>0A00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A203E,1326		* Dirk jumps the geyser up (1326)
 A203E
-	DATA >203D,>0800,>1F10,HINTUP,A2046,A2142,A2158,A2142,A2142,A2142,0				* Mudmen advance (chance to fall into non-geyser pools) (U, DLRS dies)
+	DATA >203e,>0800,>1F10,HINTUP,A2046,A2142,A2158,A2142,A2142,A2142,0				* Mudmen advance (chance to fall into non-geyser pools) (U, DLRS dies)
 A2046
 	DATA >2045,>0700,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A204D,2191		* Dirk escapes up (2191)
 A204D

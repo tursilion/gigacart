@@ -57,16 +57,21 @@ SCENEDATA
 	DATA >1431,31										* game over
 
 ** scenes **
+* wider run timing, based on the boppers being in sync. It's only 4 frames per rotation, a bit tight *
+* so, look for both being down at the same time, then you have until they pass around again *
+* This allows 5 frames for each *
 A1378
-	DATA >1378,>4F00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A13C7,49		* Approaching (49)
+	DATA >1378,>3F00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A13B7,49		* Approaching (49)
+A13B7
+	DATA >13B7,>0500,>1610,HINTUP,A13D8,0,A1483,A1483,0,A13BC,0					* Spinning (manually added) (2 frames each) (U, LR dies)
+A13BC
+	DATA >13BC,>0B00,>1600,HINTNONE,A1450,0,A1483,A1483,0,A13C7,0				* Spinning (run at 13C7,13D0) (2 frames each) (U, LR dies)
 A13C7
-	DATA >13C6,>0200,>1610,HINTUP,A13D8,0,A1483,A1483,0,A13C9,0					* Spinning (run at 13C7,13D0) (2 frames each) (U, LR dies)
+	DATA >13C5,>0500,>1610,HINTUP,A13D8,0,A1483,A1483,0,A13C9,0					* Spinning (run at 13C7,13D0) (2 frames each) (U, LR dies)
 A13C9
-	DATA >13C9,>1200,>1600,HINTNONE,A1450,0,A1483,A1483,0,A13D0,0				* Spinning (run at 13C7,13D0) (2 frames each) (U, LR dies)
+	DATA >13CA,>0700,>1600,HINTNONE,A1450,0,A1483,A1483,0,A13D0,0				* Spinning (run at 13C7,13D0) (2 frames each) (U, LR dies)
 A13D0
-	DATA >13D0,>0200,>1610,HINTUP,A13D8,0,A1483,A1483,0,A13D2,0					* Spinning (run at 13C7,13D0) (2 frames each) (U, LR dies)
-A13D2
-	DATA >13D2,>0600,>1600,HINTNONE,A1450,0,A1483,A1483,0,A1450,0				* Spinning (run at 13C7,13D0) (2 frames each) (U, LR dies)
+	DATA >13D1,>0600,>1610,HINTUP,A13D8,0,A1483,A1483,0,A1450,0					* Spinning (run at 13C7,13D0) (2 frames each) (U, LR dies)
 A13D8
 	DATA >13D8,>0B00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A13E3,4750	* Run past boppers (4750)
 A13E3
@@ -97,5 +102,8 @@ A1464
 A1483
 	DATA >1483,>0EFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Caught by vines
 
+** not used **
+A13D2
+	DATA >13D2,>0600,>1600,HINTNONE,A1450,0,A1483,A1483,0,A1450,0				* Spinning (run at 13C7,13D0) (2 frames each) (U, LR dies)
 
 	END

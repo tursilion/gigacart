@@ -211,16 +211,26 @@ showlives
 ADDSCORE
 	LI R1,100*256		* 100 bytes
 	AB @>8301,@scr3		* R0 LSB
-	cb @scr3,r1			* check for rollover
+	cb @scr3,r1			* check for rollover (99+255=354 - max rollover)
 	jl adds1			* no rollover
 	sb r1,@scr3			* subtract 100
 	ab @BYTE01,r0		* deal with the carry
 adds1
+	cb @scr3,r1			* check for second rollover
+	jl adds1b			* no rollover
+	sb r1,@scr3			* subtract 100
+	ab @BYTE01,r0		* deal with the carry
+adds1b
+	cb @scr3,r1			* check for third rollover
+	jl adds1c			* no rollover
+	sb r1,@scr3			* subtract 100
+	ab @BYTE01,r0		* deal with the carry
+adds1c
 	ab r0,@scr2			* r0 msb
-	cb @scr2,r1			* check for rollover
+	cb @scr2,r1			* check for rollover (there are no values big enough for two rolls - 5000 MSB = >13, + 3 = >16)
 	jl adds2			* no rollover
 	sb r1,@scr2			* subtract 100
-	ab @BYTE01,@scr3	* increment the most significant score byte
+	ab @BYTE01,@scr1	* increment the most significant score byte
 adds2
 	B *R11
 	

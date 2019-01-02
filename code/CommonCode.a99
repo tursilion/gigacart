@@ -32,7 +32,9 @@ HINTSWORD EQU >853B
 * 1D00-1D1F		SAL (Right)
 * 1D20-1D7F		SDT - chars 164-175 (164-167 = fire)
 * 1D80-1D9F		SAL (Fire)
-* 1DA0-1FFF		SDT - chars 180-255
+* 1DA0-1DFF		SDT - chars 180-191
+* 1E00-1E2F		SAL (ALL - for instruction screen) (note bigger than others)
+* 1E30-1FFF		SDT - chars 198-255
 * 2000-37FF		CT
 * 3800-3B01		Used by F18A as an offscreen buffer and command
 * 3B02-3B0F		Free
@@ -53,7 +55,7 @@ VDPQ4	equ >3b70
 * WARNING: init code takes advantage of this packing
 ******
 * 8300-831f	Registers
-* 8320-83d7	misc code (playback, paging, etc)
+* 8320-83d9	misc code (playback, paging, etc)
 * ...
 * 83DA		queuesave
 * 83DC		save4

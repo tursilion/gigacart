@@ -1129,8 +1129,8 @@ xxxx	00Attract.bin
 2A5C	AlphaLockUp
 2A5d	Config hints/practice/arcade
 2A5e	Config hints/practice/enhanced
-2a5f	(free)
-2a60	(free)
+2a5f	Win Screen
+2a60	Thanks screen (these two are in the middle so the spacing matches the above set)
 2A61	Config No hints/practice/arcade (we skip to make it line up like the others)
 2A62	Config No hints/practice/enhanced
 

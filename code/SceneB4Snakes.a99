@@ -58,11 +58,11 @@ SCENEDATA
 
 ** scenes **
 A0861
-	DATA >0861,>1100,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0872,49		* Trapped! (49)
+	DATA >0861,>1000,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0872,49		* Trapped! (49)
 A0872
-	DATA >0872,>0500,>0301,HINTSWORD,0,0,A08DC,0,A0877,A08DC,0					* Snake appears (S, L dies)
+	DATA >0871,>0500,>0301,HINTSWORD,0,0,A08DC,0,A0877,A08DC,0					* Snake appears (S, L dies)
 A0877
-	DATA >0877,>0D00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0884,495		* Dirk swords it, another appears (495)
+	DATA >0876,>0C00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A0884,495		* Dirk swords it, another appears (495)
 A0884
 	DATA >0884,>0500,>0501,HINTSWORD,0,0,0,A08DC,A088A,A08DC,0					* Threatens (S, R dies) 
 A088A
@@ -74,7 +74,7 @@ A0895
 A089A
 	DATA >089A,>0500,>1414,HINTRIGHT,A089F,0,0,A089F,0,A08DC,0					* Rope flashes as snake hides (UR)
 A089F
-	DATA >089F,>1E00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,0,1939		* Dirk pulls the rope and climbs to safety (1939)
+	DATA >089F,>1D00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,0,1939		* Dirk pulls the rope and climbs to safety (1939)
 
 ** deaths **
 

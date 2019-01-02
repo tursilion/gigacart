@@ -17,7 +17,12 @@
 * as (frames * 1544) = samples / duration = rate)
 *
 **************
+* Known: joystick edge detection is lost between scenes... ie: right, right can be held down
+* Given the low frame rate, I think I'm going to accept this. As long as you don't do
+* incorrect motions, I won't penalize for holding the right one early.
+**************
 
+*
 ** Cartridge page - >6000 for joystick and >6002 for keyboard
 ** this is used by all code that needs to return to the code page
 CARTPAGE EQU >6000
@@ -26,19 +31,9 @@ CARTPAGE EQU >6000
 
     DEF MAIN
     
-* TODO: vines scene is really broken
-* TODO: pool balls exit right away...
-* TODO: throne - consider merging first two rights, they are pretty tight together
-
-* TODO: 'S' key not working on options screen anymore
+* TODO: for the home mode elevator, give each group of 3 a different running off scene, so we can check which was played
 
 * TODO: home mode needs to know which level we exitted the elevator on
-    
-* todo: joystick edge detection is lost between scenes... ie: right, right can be held down    
-    
-* TODO: win screen?    
-    
-* TODO: add a thanks screen including "Thanks to Dave Hallock D-L-P.com"    
     
 * TODO: keyboard mode:
 *		-selected from GROM menu (done)
@@ -200,7 +195,7 @@ RNDAOK
 	clr @cfghints		* also clears f18aflg, but we check that below
 	clr @lives			* also clears scr1
 	clr @scr2			* also clears scr3
-	movb @BYTE01,@cfgarcade	 * start in arcade mode
+	movb @BYTEFF,@cfgarcade	 * start in arcade mode
 	movb @BYTE01,@cfgeasy	 * also want to start with easy mode
     
 * test for F18A, and unlock. 
@@ -873,7 +868,7 @@ BMNOF18
 * set up sprite tables (will overwrite existing byte)
 	LI R0,>5B00		* SAL (blank), all data will follow (see sprites.a99)
 	LI R1,>6000
-	LI R2,>0290
+	LI R2,>0330
 	LI R3,CFGSPRITES
 	BL @VMBWP
 
@@ -1264,31 +1259,6 @@ showlives
 
 	B *R11
 	
-* add the score value in R0 to score
-* Score is a 16 bit value, stored as normal
-* R0 is a 16-bit value stored in the same manner to make math easier
-* Uses R1
-ADDSCORE
-	LI R1,100*256		* 100 bytes
-	AB @>8301,@scr3		* R0 LSB
-	cb @scr3,r1			* check for rollover
-	jl adds1			* no rollover
-	sb r1,@scr3			* subtract 100
-	ab @BYTE01,r0		* deal with the carry
-adds1
-	cb @scr3,r1			* check for second rollover
-	jl adds1b			* no rollover
-	sb r1,@scr3			* subtract 100
-	ab @BYTE01,r0		* deal with the carry
-adds1b
-	ab r0,@scr2			* r0 msb
-	cb @scr2,r1			* check for rollover (there are no values big enough for two rolls)
-	jl adds2			* no rollover
-	sb r1,@scr2			* subtract 100
-	ab @BYTE01,@scr3	* increment the most significant score byte
-adds2
-	B *R11
-	
 * Since video playback is getting expensive to call, we'll just put a
 * wrapper function here.
 * Set JOYMASK, R7 (count), R8 (first frame), and we'll
@@ -1355,10 +1325,8 @@ nof18splash
 	jeq AlphaUp
 * Load warning screen
 	LI R0,>2a5c
-	LI R1,240
+	LI R1,1			* don't delay
 	BL @SHOWANDPAUSE
-	MOV JOYDAT,JOYDAT
-	JNE OPTIONS
 * wait for up or quit
 AlphaDown
 	SBO >0015
@@ -1400,14 +1368,29 @@ ATTRACT
 	JNE OPTIONS
 
 * instructions 2 (joystick)
+* need to display sprites first
+	li r0,>853c
+	bl @VDPWTA
+* now the screen
 	LI R0,>2a4e
-	LI R1,240
+	LI R1,600
 	BL @SHOWANDPAUSE
+* now turn off the sprites	
+	li r0,>8536
+	bl @VDPWTA
+* now check joydat...	
 	MOV JOYDAT,JOYDAT
 	JNE OPTIONS
 	
 * the license screen
 	LI R0,>2a49
+	LI R1,480
+	BL @SHOWANDPAUSE
+	MOV JOYDAT,JOYDAT
+	JNE OPTIONS
+
+* the thanks screen
+	LI R0,>2a60
 	LI R1,480
 	BL @SHOWANDPAUSE
 	MOV JOYDAT,JOYDAT
@@ -1711,8 +1694,12 @@ arcadec4bug
 	
 * game won! we're done!	
 arcadec4
-* TODO: I have no idea what to do here - win screen, I guess?
-* but otherwise, we're done. Back to the attract mode
+* display the win screen. Give it a long timeout, but do timeout.
+	LI R0,>2a4a
+	LI R1,18000			* about 5 minutes
+	BL @SHOWANDPAUSE
+
+* we're done. Back to the attract mode
 	B @attract
 	
 * used in the randomization code below
@@ -2330,6 +2317,10 @@ BYTE02
 	BYTE >02
 BYTE03
 	BYTE >03
+BYTEFF
+	BYTE >FF
+	
+	EVEN
 QUITK        
     DATA >1100
 
