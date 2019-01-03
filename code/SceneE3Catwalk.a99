@@ -87,7 +87,7 @@ A1EAF
 ** deaths **
 
 A1ED7
-	DATA >1ED7,>16FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Dirk falls into water below
+	DATA >1ED7,>15FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Dirk falls into water below
 
 A1EED
 	DATA >1EED,>12FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Bats get Dirk (again, same as earlier scene)

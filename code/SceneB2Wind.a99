@@ -73,7 +73,7 @@ A04C1
 ** deaths **
 
 A04E9
-	DATA >04E9,>1FFF,>0000,HINTNONE,0,0,0,0,0,>0000,0		* Dirk goes for the item and falls in
+	DATA >04E9,>1EFF,>0000,HINTNONE,0,0,0,0,0,>0000,0		* Dirk goes for the item and falls in
 
 
 	END

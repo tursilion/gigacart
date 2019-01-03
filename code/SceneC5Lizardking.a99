@@ -54,7 +54,7 @@ CARTPAGE EQU >601C
 ** hint sprites, up scene, down scene, left scene, right scene, fire scene, timeout scene, score
 SCENEDATA
 	DATA >0982,20										* ressurection
-	DATA >0AAD,31										* game over
+	DATA >0AAD,30										* game over
 
 ** scenes **
 A0996

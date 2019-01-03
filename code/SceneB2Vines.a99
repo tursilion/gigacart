@@ -87,7 +87,7 @@ A03E3
 A03E8
 	DATA >03E8,>0300,>1F14,HINTUP,A03EB,A0411,A0411,A03EB,A042C,A042C,0		* door opens (UR, DLS die)
 A03EB
-	DATA >03EB,>0700,>0000,HINTNONE,0,0,0,0,0,0,1939						* Dirk jumps out (1939)
+	DATA >03EB,>0600,>0000,HINTNONE,0,0,0,0,0,0,1939						* Dirk jumps out (1939)
 
 ** deaths **
 

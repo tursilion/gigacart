@@ -113,6 +113,6 @@ A2254
 	DATA >2254,>09FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Other ball gets Dirk
 
 A1D62
-	DATA >A1D62,>0BFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Fall into hole (from older scene)
+	DATA >A1D62,>0aFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Fall into hole (from older scene)
 
 	END

@@ -25,6 +25,7 @@ framescore   equ 20
 
 * This can't move in the main page - be careful!
 VIDEO EQU >601E	
+VIDEORESUME EQU >605C
 
     AORG >6000
     
@@ -244,6 +245,17 @@ CALLVIDEO
 	LI R1,VIDEO			* needs to be an equate in other pages...
 	MOV @VIDEOPAGE,R3	* page of the video player
 	B @TRAMPRET
+	
+* this is a similar and tricker function that resumes a playing
+* video, for after the joystick move is detected. Lots of assumptions
+* here, but it should work if not too much is messed up. Make sure
+* you repair any corruption!
+CALLVIDRESUME
+	LI R0,CARTPAGE		* my page
+	MOV R0,@VIDEORET	* how to get back to me
+	LI R1,VIDEORESUME	* code is already in scratchpad (need the page to get back though)
+	MOV @VIDEOPAGE,R3	* page of the video player
+	B @TRAMPRET
 
 *********************************************************
 * Actual game code starting up here (post-init)
@@ -256,16 +268,15 @@ GAMESTART
 	MOVB @justdied,r0	* check for need to ressurrect
 	jeq notdied
 	
+* show lives (was already decremented in the death check after a scene)
+	bl @showlives
+
 * play ressurection sequence
 	CLR JOYMASK
 	MOV @scenebase,r1
 	mov *r1+,r8			* starting page
 	mov *r1,r7			* number of frames
 	BL @CALLVIDEO
-	
-* count down lives
-	sb @byte01,@lives
-	bl @showlives
 	
 * and clear the flag
 	movb @byte00,@justdied
@@ -292,29 +303,29 @@ noteasysc
 	
 * loop here until scenes are done, one way or another	
 scenelp
-* make sure we have rowbase in r5
-	mov @rowbase,r5
+* make sure we have rowbase in r13
+	mov @rowbase,r13
 
 * if we are playing in practice mode, award NO score
 	cb @byte02,@cfgeasy
 	jeq noscore
 
 * otherwise, add any score that is granted for reaching this scene
-	mov @framescore(r5),r0
+	mov @framescore(r13),r0
 	bl @addscore
 	bl @showscore
 noscore
 	
 * Now get the joystick mask. If we're in easy mode, we'll later replace this
 	clr JOYMASK
-	movb @framejoymask(r5),JOYMASK
+	movb @framejoymask(r13),JOYMASK
 	
 * now check for easy mode
 	movb @cfgeasy,r1
 	jeq scenehard
 	
 * overwrite mask with only the success bits	
-	movb @framejoygood(r5),JOYMASK
+	movb @framejoygood(r13),JOYMASK
 scenehard
 
 * now check whether hints are on
@@ -322,19 +333,27 @@ scenehard
 	jeq scenenohints
 	
 * load up the appropriate table for the hints
-	mov @framehint(r5),r0
+	mov @framehint(r13),r0
 	bl @vdpwta
 scenenohints
 
 * now finally load up the video parameters and go play it!
 	clr r7
-	movb @framelength(r5),r7
+	movb @framelength(r13),r7
 	swpb r7
-	mov *r5,r8		* framestart is 0
+* in practice mode, decrement the length by one if there's a hint so we stop on a clean frame if we're going to stop
+	cb @byte02,@cfgeasy			* practice mode?
+	jne nopracticelen			* no, skip
+	mov @framehint(r13),r0		* any hint icon?
+	ci r0,HINTNONE
+	jne nopracticelen			* no, skip
+	dec r7						* decrement length (NOTE: can never have a valid length of 1 with input!)
+nopracticelen
+	mov *r13,r8					* framestart is at offset 0 in the table
 	BL @CALLVIDEO
 	
 * now we have returned
-	mov @rowbase,r5			* get the base again
+	mov @rowbase,r13			* get the base again
 	
 * we need to determine how the video ended
 * (ie: by joystick or by frames)
@@ -344,7 +363,7 @@ scenenohints
 * if the scene times out in practice mode, just hold
 * the last frame until they move... we also turn on the hint in case it's off
 * (but not if there WAS no joystick hint)
-	mov @framehint(r5),r0	* read the hint arrow
+	mov @framehint(r13),r0	* read the hint arrow
 	ci r0,HINTNONE
 	jeq scenetimeout		* was supposed to time out
 
@@ -353,7 +372,7 @@ scenenohints
 
 * wait for the user to do the instructed move	
 * (We still have r0 from above, so we just use it)
-**	mov @framehint(r5),r0	* hint arrow, in case it's off
+**	mov @framehint(r13),r0	* hint arrow, in case it's off
 	bl @vdpwta
 	
 practiceloop
@@ -375,7 +394,7 @@ scenetimeoutbug
 	
 * scene timed out, so go to timed out scene
 scenetimeout
-	mov @frametimeout(r5),r0
+	mov @frametimeout(r13),r0
 	jeq scenedone		* no next scene
 	mov r0,@rowbase
 	jmp scenelp			* go play this scene
@@ -385,7 +404,7 @@ scenetimeout
 * so if there is a diagonal tie, the good move always wins
 scenejoy
 	clr JOYMASK
-	movb @framejoygood(r5),JOYMASK	 * success bitmask - see if we can apply it
+	movb @framejoygood(r13),JOYMASK	 * success bitmask - see if we can apply it
 	INV JOYMASK						* flip bits for SZCB
 	MOV JOYDAT,R0					* worker register
 	SZCB JOYMASK,R0					* apply the mask
@@ -393,11 +412,30 @@ scenejoy
 	MOV R0,JOYDAT					* not only the good bits are left
 NOTLOOKGOOD
 	
+* before we process it, play out the rest of the clip, if any
+* No, this does not look or feel right...
+*	movb JOYDAT,@SAVEJOY			* save the joystick
+*	mov r7,r7						* shouldn't be, but we'll check
+*	jeq playedoutdone
+*	mov r7,@save3					* save3 only used during scene setup
+*	clr JOYMASK						* no more valid input
+*	li r7,1							* play 1 frame for the beep
+*	LI r13,VDPWD					* restore r13 for the scratchpad code
+*	bl @CALLVIDRESUME
+*	movb @BEEPVOL,@SOUND			* stop the beep
+*	mov @save3,r7					* get saved frame count
+*	dec r7							* played 1
+*	jeq playedoutdone
+*	bl @CALLVIDRESUME				* play the rest
+*playedoutdone
+*	MOVB @SAVEJOY,JOYDAT			* restore the joystick
+*	mov @rowbase,r13				* get the base /again/
+	
 * work out which scene it was. If, by some bug, any scene
 * has a zero loaded, go to the timeout handler instead
 	COC @MASKUP,JOYDAT
 	JNE NOTUP
-	MOV @frameupsc(r5),r0
+	MOV @frameupsc(r13),r0
 	jeq scenetimeoutbug		* there was no registered scene
 	mov r0,@rowbase
 	jmp scenelp
@@ -405,7 +443,7 @@ NOTLOOKGOOD
 NOTUP
 	COC @MASKDOWN,JOYDAT
 	JNE NOTDOWN
-	MOV @framedownsc(r5),r0
+	MOV @framedownsc(r13),r0
 	jeq scenetimeoutbug		* there was no registered scene
 	mov r0,@rowbase
 	jmp scenelp
@@ -413,7 +451,7 @@ NOTUP
 NOTDOWN
 	COC @MASKLEFT,JOYDAT
 	JNE NOTLEFT
-	MOV @frameleftsc(r5),r0
+	MOV @frameleftsc(r13),r0
 	jeq scenetimeoutbug		* there was no registered scene
 	mov r0,@rowbase
 	jmp scenelp
@@ -421,7 +459,7 @@ NOTDOWN
 NOTLEFT
 	COC @MASKRIGHT,JOYDAT
 	JNE NOTRIGHT
-	MOV @framerightsc(r5),r0
+	MOV @framerightsc(r13),r0
 	jeq scenetimeoutbug		* there was no registered scene
 	mov r0,@rowbase
 	jmp scenelp
@@ -429,7 +467,7 @@ NOTLEFT
 NOTRIGHT
 	COC @MASKFIRE,JOYDAT
 	JNE scenetimeoutbug		* there was no matching move at all, somehow?
-	MOV @framefiresc(r5),r0
+	MOV @framefiresc(r13),r0
 	jeq scenetimeoutbug		* there was no registered scene
 	mov r0,@rowbase
 	jmp scenelp
@@ -437,10 +475,11 @@ NOTRIGHT
 * no more scenes to play out!
 scenedone
 * check if this was a death scene
-	movb @framedeath(r5),r0		* death flag
+	movb @framedeath(r13),r0		* death flag
 	jeq nodeath
 	
-* yep, player died, so set flag and check for remaining lives...
+* yep, player died, so set flag and game over video
+* caller will check for remaining lives
 * (the ressurrection sequence does the subtraction)
 	movb @byte01,@justdied
 	MOV @scenebase,r1

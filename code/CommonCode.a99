@@ -65,7 +65,7 @@ VDPQ4	equ >3b70
 * 83E4		sceneret (address to return to after a scene)
 * 83E6		Video return (holds the page to return after video)
 * 83E8		Video Page (holds 6000 or 6002 for joystick or keyboard video)
-* 83EA		(free byte)
+* 83EA		save joystick during scene playout
 * 83EB		just died? (BYTE)
 * 83EC-83ED scenebase
 * 83EE-83EF rowbase
@@ -89,7 +89,7 @@ RNDSED  equ >83e2		* our own random number seed location
 sceneret equ >83e4		* tracks what address to return to a scene player
 VIDEORET EQU >83E6		* tracks which page video should return to (Actual cartridge address, not index!)
 VIDEOPAGE EQU >83E8		* tracks which page (6000 or 6002) video is on
-** 83ea FREE (byte)
+SAVEJOY EQU >83EA		* save joystick during scene playout
 justdied equ >83EB		* flag for playing ressurection (byte)
 scenebase equ >83EC		* base address for a current scene
 rowbase equ >83ee		* current row address in a scene

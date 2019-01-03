@@ -17,10 +17,6 @@
 * as (frames * 1544) = samples / duration = rate)
 *
 **************
-* Known: joystick edge detection is lost between scenes... ie: right, right can be held down
-* Given the low frame rate, I think I'm going to accept this. As long as you don't do
-* incorrect motions, I won't penalize for holding the right one early.
-**************
 
 *
 ** Cartridge page - >6000 for joystick and >6002 for keyboard
@@ -31,9 +27,8 @@ CARTPAGE EQU >6000
 
     DEF MAIN
     
-* TODO: for the home mode elevator, give each group of 3 a different running off scene, so we can check which was played
-
-* TODO: home mode needs to know which level we exitted the elevator on
+* TODO: one level softer on the beep
+* TODO: see if there's a better pitch for the beep (can we find it online? What'd I use in my old demo?)
     
 * TODO: keyboard mode:
 *		-selected from GROM menu (done)
@@ -97,6 +92,7 @@ SceneF1Dragonslair 	equ >6052
 * TRAMPRET is always at >6000, and returns to R1 on the page in R3, corrupting R0
 * You can use B or BL, R11 will be preserved through to the target.
 * can only jump to pages with a zero data write
+**** MUST NOT MOVE, must be in every page! ****
 TRAMPRET
 	CLR *R3				* because we bank here, this code MUST always be the same!!
 	B *R1
@@ -117,6 +113,7 @@ MAIN
 ** You must set VIDEORET with the page of your return code
 ** You must call this on the VIDEOPAGE bank
 ** The scratchpad code will handle the return
+**** MUST NOT MOVE, video pages only ****
 VIDEO
 * save return address
 	MOV R11,@SAVE
@@ -142,6 +139,7 @@ donevid
 * clean up scratchpad so we can safely reboot
 * this is not allowed to move either - called from
 * the scene pages during practice mode
+**** MUST NOT MOVE, video pages only ****
 REBOOT
 * reset F18A
 	BL @RESTF18
@@ -155,6 +153,20 @@ RBLP1
 	JNE RBLP1
 * soft reset of console	
 	BLWP @>0000
+	
+* another fixed function - video resume
+**** MUST NOT MOVE, video pages only ****
+VIDEORESUME
+* save return address
+	MOV R11,@SAVE
+	
+* scratchpad code is already loaded, supposedly!	
+	bl @>8320
+
+* back to caller    
+ 	MOV @SAVE,R1		* return address
+ 	MOV @VIDEORET,R3	* return page
+	B @TRAMPRET			* trampoline
     
 * MAIN SCREEN TURN ON
 MAINSTART
@@ -188,7 +200,7 @@ RNDAOK
     MOVB R0,@SOUND
     SWPB R0
     MOVB R0,@SOUND
-	LI R0,>DFD8		* beep volumes
+	LI R0,>DFD2		* beep volumes (mute, loud)
 	MOV R0,@BEEPVOL
     
 * setup some persistent variables
@@ -293,15 +305,12 @@ CPLP1
 	SLA R8,1
 	AI R8,>6000
 
-* Loop point
-LOOP4EVR
-
 *	R0 is reserved for scratch
 *	R1 is reserved for scratch
 *	R2 is used for joystick calculations
 *   R3 is used (on F18A side only) to hold the VDP address
     CLR R4			* R4 is reserved for JOYDAT
-    CLR R5			* R5 is reserved for JOYOLD
+*   CLR R5			* R5 is reserved for JOYOLD
 *   LI R6,>0700		* R6 is reserved for JOYMASK (left,right,fire)
 *	MOV @FRAMES,r7
 *   li r8,>6002     * address for paging
@@ -357,7 +366,7 @@ LOOP4EVR
 ABSRET
 	INC R7
 	JEQ NOBEEP
-	MOVB @BEEPVOL+1,@SOUND
+	MOVB @BEEPVOL+1,@SOUND			* make the accepted joystick beep
 NOBEEP
 	MOV @SAVE2,R11
 	B *R11
@@ -382,11 +391,11 @@ OUTLOOP
 
 * increment page, and prepare the address to copy from (10 jmp to here)
     MOV r9,*R8+                                     30
-    LI R10,>6020                                    12  - 52 cycles (12 cycles over)
+    LI R10,>6020                                    12  - 50 cycles (10 cycles over)
 
 * Pattern 1 
     LI R0,>0040     * start address table 1 >0000   12
-    BL @LOOP1                                       20
+    BL @LOOP1                                       20 (accounted for in LOOP)
 
 * check page increment
     CI R8,>8000                                     14  - check for end of cart space
@@ -399,7 +408,7 @@ NOTLP
 
 * Color 1
     LI R0,>0060     * start address table 3 >2000   12
-    BL @LOOP1                                       20
+    BL @LOOP1                                       20 (accounted for in LOOP)
     
 * check for end of video
 	DEC R7											10
@@ -420,7 +429,7 @@ KEYOK
 
 * Pattern 2
     LI R0,>0048     * start address table 2 >0800   12
-    BL @LOOP1                                       20
+    BL @LOOP1                                       20 (accounted for in LOOP)
     
 * prepare joystick read
 	SBO 16                                          12
@@ -430,14 +439,14 @@ KEYOK
 
 * Color 2
     LI R0,>0068     * start address table 4 >2800   12
-    BL @LOOP1                                       20
+    BL @LOOP1                                       20 (accounted for in LOOP)
 
 * read the joystick lines
 	STCR JOYDAT,8								    44 - 44 cycles (4 over)
 
 * Pattern 2b
     LI R0,>004B     * start address table 5 >0B00   12
-    BL @LOOP1                                       20
+    BL @LOOP1                                       20 (accounted for in LOOP)
 
 * check joystick results
 	mov JOYDAT,r2	                                14 - make a copy to work on
@@ -446,7 +455,7 @@ KEYOK
 
 * Color 2b
     LI R0,>006B     * start address table 7 >2B00   12
-    BL @LOOP1                                       20
+    BL @LOOP1                                       20 (accounted for in LOOP)
 
 * continue processing joystick data
 	xor JOYOLD,JOYDAT                               14 - xor with old to get changed
@@ -455,7 +464,7 @@ KEYOK
 
 * Pattern 3
     LI R0,>0050     * start address table 6 >1000   12
-    BL @LOOP1                                       20
+    BL @LOOP1                                       20 (accounted for in LOOP)
 
 * finish processing the joystick, including early exit check
 	mov r2,JOYOLD	                                14
@@ -468,20 +477,19 @@ JOYOK
 
 * Color 3
     LI R0,>0070     * start address table 8 >3000   12
-    BL @LOOP1                                       20
+    BL @LOOP1										20 (accounted for in LOOP)
 
 * back to the top!
+	MOVB @BEEPVOL,*R15	* beep tone					54 - puts us 54 cycles over budget, but longer beep!
     JMP OUTLOOP                                     10
     
 * this is the actual copy block - VDP address in R0, which is destroyed
 LOOP1X
 *                                                   42 (init & BL & RT + 48 cycles wasted in callers)
     MOVB R0,*R14                                    26
-	MOVB @>8301,*R14								34 (R0 LSB)
-    LI R0,192                                       12
-*   MOVB *R10+,*R15   * write sound                 62  -   224 (6 over, when 48 cycles are used)
-	INC R10				* discard one cart sample	10
-	MOVB @BEEPVOL,*R15	* beep tone					54	-	226 (8 over, when 48 cycles are used)
+	MOVB @>8301,*R14								34 (R0 LSB - sets VDP write address)
+    LI R0,192                                       12 (blocks to write)
+    MOVB *R10+,*R15     * write sound               62  -   224 (6 over, when 48 cycles are used)
 
 * This loop executes 192 times, then ONE of the other paths happens, so the slight
 * miscounts are not too easily noticed.
@@ -570,9 +578,6 @@ CPLP118
 	SLA R8,1
 	AI R8,>6000
 
-* loop repeat point for F18A
-LOOP418
-
 * So, the 9900 always writes starting at >3800,
 * it then writes one extra byte to >3B00, containg a GPU
 * command:
@@ -588,7 +593,7 @@ LOOP418
 *   R3 is used (on F18A side only) to hold the VDP address
 	LI R3,>0078		* address of VDP buffer (>3800)
     CLR R4			* R4 is reserved for JOYDAT
-    CLR R5			* R5 is reserved for JOYOLD
+*   CLR R5			* R5 is reserved for JOYOLD
 *   LI R6,>0700		* R6 is reserved for JOYMASK (left,right,fire)
 *	MOV @FRAMES,r7
 *   li r8,>6002     * address for paging
@@ -704,18 +709,18 @@ JOYOK18
     BL @LOOP18                                      20
 
 * back to the top!
-    JMP OUTLOOP18                                   14  10
+	MOVB @BEEPVOL,*R15	* beep tone					54 - puts us 54 MORE cycles over budget, but longer beep!
+    JMP OUTLOOP18                                   10
 
 * this is the actual copy block 
 * pass the command byte in R0, R1 is destroyed (unlike the non-F18A version which takes and destroys R0)
+* Warning: this is 2 bytes longer than the non-F18A version!
 LOOP18X
 *                                                   42 (init & BL & RT + 48 cycles wasted in callers)
     MOVB R3,*R14                                    26
     MOVB @>8307,*R14								34 (R3 LSB)
     LI R1,192                                       12
-*   MOVB *R10+,*R15     * write sound               62  -   224 (6 over, when 48 cycles are used)
-	INC R10				* discard one cart sample	10
-	MOVB @BEEPVOL,*R15	* beep tone					54	-	226 (8 over, when 48 cycles are used)
+    MOVB *R10+,*R15     * write sound               62  -   224 (6 over, when 48 cycles are used)
 
 * This loop executes 192 times, then ONE of the other paths happens, so the slight
 * miscounts are not too easily noticed.
@@ -728,7 +733,7 @@ LOOP18Y
     DEC R1                                          10
     JNE LOOP18Y                                     10
     
-    MOVB R0,*R13									26	- command byte - makes us 26 more over
+    MOVB R0,*R13									26 - command byte - makes us 26 more over
     B *R11
 
 FINAL18
@@ -1522,8 +1527,7 @@ nlivhard
 * So, that's 1 (maybe 2) fixed clips: castle,doors
 	CLR JOYMASK
 	
-* there's no ressurection at startup, just decrement the lives
-	sb @byte01,@lives
+* Dragon's Lair counts lives down from 5 to 1, not 4 to 0, so don't decrement at the start
 	bl @showlives
 	
 * now play the castle intro
@@ -2105,7 +2109,6 @@ homec42bug
 	DATA >0000			* deliberate bad opcode so I can detect it
 
 * finished the second castle section... now we finally do the elevator
-* TODO: we're going to need some trickery to see when the player jumped off...	
 homec42
 	LI R0,VDPQ4+>4000	* going to clear out the replay queue
 	MOV R0,@REPLAYQ		* we're going to do this again too...
@@ -2134,11 +2137,11 @@ homec42
 	jmp gotcavern
 
 homeelev
-* todo: figure out which cavern adventure to run
-* by where the player jumped off the elevator
-* maybe we can have different end blocks and remember
-* which was the last animation played?
-	bl @RND
+* figure out which cavern adventure to run by where the player jumped off the elevator
+* the three expected levels are >7000,>7100,>7200, and we want 0,1,2, so we can just
+* shift and mask. ;) (And if I did this wrong, well, it'll still get something! muhaha.)
+	mov @rowbase,r0
+	swpb r0
 	andi r0,>03
 	
 gotcavern
@@ -2258,12 +2261,15 @@ ALREADYSCENE
 	movb @justdied,r0
 	jeq DONEALREADY
 	
-* yep, player died, so check for remaining lives...
-* (the ressurrection sequence does the subtraction)
-	movb @lives,r0
+* yep, player died, so decrement and check for remaining lives...
+* (the ressurrection sequence does the display)
+	sb @byte01,@lives
 	jne DONEDIED		* not game over yet!
 	
 * it /is/ game over, the player done bit the big one
+* show the newly zeroed lives
+	bl @showlives
+
 * play the game over scene... (scene helpfully gave us the data in R14/R15)
 	clr JOYMASK			* no input
 	mov R14,r8			* starting page of death scene
@@ -2281,6 +2287,11 @@ ALREADYSCENE
 * player died, so increment the replay scene queue to remember this one
 DONEDIED
 	inct @REPLAYQ
+	
+* display a brief black frame for a more comfortable transition to the next ressurection
+	bl @blackvid		* in case we didn't get all the way to black
+	li r13,40			* 123 second (note: fire button can cancel, should be okay)
+	bl @delay
 
 * and back to caller
 DONEALREADY

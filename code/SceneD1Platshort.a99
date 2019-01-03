@@ -81,9 +81,9 @@ A1C73
 ** deaths **
 
 A1C5D
-	DATA >1C5D,>16FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* mistimed jump
+	DATA >1C5D,>15FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* mistimed jump
 
 A1C20
-	DATA >1C20,>1EFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* platform lands on ground (death)
+	DATA >1C20,>1DFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* platform lands on ground (death)
 
 	END

@@ -71,7 +71,7 @@ A13C7
 A13C9
 	DATA >13CA,>0700,>1600,HINTNONE,A1450,0,A1483,A1483,0,A13D0,0				* Spinning (run at 13C7,13D0) (2 frames each) (U, LR dies)
 A13D0
-	DATA >13D1,>0600,>1610,HINTUP,A13D8,0,A1483,A1483,0,A1450,0					* Spinning (run at 13C7,13D0) (2 frames each) (U, LR dies)
+	DATA >13D1,>0600,>1610,HINTUP,A13D8,0,A1483,A1483,0,A1457,0					* Spinning (run at 13C7,13D0) (2 frames each) (U, LR dies)
 A13D8
 	DATA >13D8,>0B00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A13E3,4750	* Run past boppers (4750)
 A13E3
@@ -95,6 +95,9 @@ A142B
 
 A1450
 	DATA >1450,>14FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Mistimed the boppers
+
+A1457
+	DATA >1457,>0DFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* timeout boppers - not arcade accurate, overlaps above without run
 
 A1464
 	DATA >1464,>1FFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Too slow against wizard

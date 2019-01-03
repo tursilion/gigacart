@@ -39,6 +39,10 @@ CARTPAGE EQU >603C
 * 				Make sure the first scene is always 49 points
 *
 
+* This is the only scene modified with multiple exit points, so the HOME mode can
+* detect which level you jumped off at! Note the values are hard coded by address, so don't
+* change their addresses! (Using AORG to make that safer!)
+
 ** First label MUST be called SCENEDATA. The rest are whatever you want.
 ** First two words of a new scene are the ressurection start page and number of frames
 ** Next two words are the game over crumbling skeleton scene and number of frames
@@ -63,15 +67,15 @@ A1B98
 A1BC0
 	DATA >1BC0,>0200,>1A00,HINTNONE,A1C5D,A1C5D,A1C5D,0,0,A1BC3,0		* falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
 A1BC3
-	DATA >1BC2,>0300,>1A02,HINTLEFT,A1C5D,A1C5D,A1C73,0,0,A1BC6,0		* falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
+	DATA >1BC2,>0300,>1A02,HINTLEFT,A1C5D,A1C5D,A7000,0,0,A1BC6,0		* falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
 A1BC6
 	DATA >1BC5,>0400,>1A00,HINTNONE,A1C5D,A1C5D,A1C5D,0,0,A1BC9,0		* falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
 A1BC9
-	DATA >1BC9,>0300,>1A02,HINTLEFT,A1C5D,A1C5D,A1C73,0,0,A1BCC,0		* falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
+	DATA >1BC9,>0300,>1A02,HINTLEFT,A1C5D,A1C5D,A7000,0,0,A1BCC,0		* falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
 A1BCC
 	DATA >1BCC,>0300,>1A00,HINTNONE,A1C5D,A1C5D,A1C5D,0,0,A1BCF,0		* falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
 A1BCF
-	DATA >1BCF,>0300,>1A02,HINTLEFT,A1C5D,A1C5D,A1C73,0,0,A1BD2,0		* falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
+	DATA >1BCF,>0300,>1A02,HINTLEFT,A1C5D,A1C5D,A7000,0,0,A1BD2,0		* falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
 A1BD2
 	DATA >1BD2,>0400,>1A00,HINTNONE,A1C5D,A1C5D,A1C5D,0,0,A1BD6,0		* falling (jump at 1BC3-1BC5, 1BC9-1BCB, 1BCF-1BD1) left (L, UD dies)
 
@@ -81,15 +85,15 @@ A1BD6
 A1BE5
 	DATA >1BE5,>0300,>1C00,HINTNONE,A1C5D,A1C5D,0,A1C5D,0,A1BE8,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
 A1BE8
-	DATA >1BE8,>0300,>1C04,HINTRIGHT,A1C5D,A1C5D,0,A1C73,0,A1BEB,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+	DATA >1BE8,>0300,>1C04,HINTRIGHT,A1C5D,A1C5D,0,A7100,0,A1BEB,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
 A1BEB
 	DATA >1BEB,>0300,>1C00,HINTNONE,A1C5D,A1C5D,0,A1C5D,0,A1BEE,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
 A1BEE
-	DATA >1BEE,>0300,>1C04,HINTRIGHT,A1C5D,A1C5D,0,A1C73,0,A1BF1,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+	DATA >1BEE,>0300,>1C04,HINTRIGHT,A1C5D,A1C5D,0,A7100,0,A1BF1,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
 A1BF1
 	DATA >1BF1,>0200,>1C00,HINTNONE,A1C5D,A1C5D,0,A1C5D,0,A1BF3,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
 A1BF3
-	DATA >1BF3,>0300,>1C04,HINTRIGHT,A1C5D,A1C5D,0,A1C73,0,A1BF6,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
+	DATA >1BF3,>0300,>1C04,HINTRIGHT,A1C5D,A1C5D,0,A7100,0,A1BF6,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
 A1BF6
 	DATA >1BF6,>0500,>1C00,HINTNONE,A1C5D,A1C5D,0,A1C5D,0,A1BFB,0		* falling (jump at 1BE8-1BEA, 1BEE-1BF0, 1BF3-1BF5) right (R, UD dies)
 
@@ -99,29 +103,46 @@ A1BFB
 A1C0B
 	DATA >1C0B,>0200,>1A00,HINTNONE,A1C5D,A1C5D,A1C5D,0,0,A1C0D,0		* falling (jump at 1C0D-1C0F, 1C13-1C15, 1C19-1C1B) left (L, UD dies)
 A1C0D
-	DATA >1C0D,>0300,>1A02,HINTLEFT,A1C5D,A1C5D,A1C73,0,0,A1C10,0		* falling (jump at 1C0D-1C0F, 1C13-1C15, 1C19-1C1B) left (L, UD dies)
+	DATA >1C0D,>0300,>1A02,HINTLEFT,A1C5D,A1C5D,A7200,0,0,A1C10,0		* falling (jump at 1C0D-1C0F, 1C13-1C15, 1C19-1C1B) left (L, UD dies)
 A1C10
 	DATA >1C10,>0300,>1A00,HINTNONE,A1C5D,A1C5D,A1C5D,0,0,A1C13,0		* falling (jump at 1C0D-1C0F, 1C13-1C15, 1C19-1C1B) left (L, UD dies)
 A1C13
-	DATA >1C13,>0300,>1A02,HINTLEFT,A1C5D,A1C5D,A1C73,0,0,A1C16,0		* falling (jump at 1C0D-1C0F, 1C13-1C15, 1C19-1C1B) left (L, UD dies)
+	DATA >1C13,>0300,>1A02,HINTLEFT,A1C5D,A1C5D,A7200,0,0,A1C16,0		* falling (jump at 1C0D-1C0F, 1C13-1C15, 1C19-1C1B) left (L, UD dies)
 A1C16
 	DATA >1C16,>0300,>1A00,HINTNONE,A1C5D,A1C5D,A1C5D,0,0,A1C19,0		* falling (jump at 1C0D-1C0F, 1C13-1C15, 1C19-1C1B) left (L, UD dies)
 A1C19
-	DATA >1C19,>0300,>1A02,HINTLEFT,A1C5D,A1C5D,A1C73,0,0,A1C1C,0		* falling (jump at 1C0D-1C0F, 1C13-1C15, 1C19-1C1B) left (L, UD dies)
+	DATA >1C19,>0300,>1A02,HINTLEFT,A1C5D,A1C5D,A7200,0,0,A1C1C,0		* falling (jump at 1C0D-1C0F, 1C13-1C15, 1C19-1C1B) left (L, UD dies)
 A1C1C
 	DATA >1C1C,>0400,>1A00,HINTNONE,A1C5D,A1C5D,A1C5D,0,0,A1C20,0		* falling (jump at 1C0D-1C0F, 1C13-1C15, 1C19-1C1B) left (L, UD dies)
 
-A1C73
-	DATA >1C73,>2C00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* Successful jump (3255)
+** (successes are after deaths, at fixed address for easier detection)
 
 ** deaths **
 
 A1C20
-	DATA >1C20,>1EFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* platform lands on ground (death)
+	DATA >1C20,>1DFF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* platform lands on ground (death)
 
 A1C5D
-	DATA >1C5D,>16FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* mistimed jump
+	DATA >1C5D,>15FF,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,0		* mistimed jump
 
+** Successes - these all play the same animation, but are
+** stored at fixed addresses to make it easier for the home
+** mode to determine which was selected, and so select the
+** appropriate cavern adventure. There's no difference in arcade mode.
 
+* Elevator group 1	
+	AORG >7000
+A7000
+	DATA >1C73,>2C00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,3255		* Successful jump (3255)
+
+* Elevator group 2
+	AORG >7100
+A7100
+	DATA >1C73,>2C00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,3255		* Successful jump (3255)
+
+* Elevator group 3
+	AORG >7200
+A7200
+	DATA >1C73,>2C00,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,>0000,3255		* Successful jump (3255)
 
 	END
