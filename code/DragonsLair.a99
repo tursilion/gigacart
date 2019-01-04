@@ -27,9 +27,6 @@ CARTPAGE EQU >6000
 
     DEF MAIN
     
-* TODO: one level softer on the beep
-* TODO: see if there's a better pitch for the beep (can we find it online? What'd I use in my old demo?)
-    
 * TODO: keyboard mode:
 *		-selected from GROM menu (done)
 *		-lives on a different cartridge page (so we just return to that page instead (partially))
@@ -184,6 +181,12 @@ RNDAOK
 	MOV R0,@VIDEOPAGE
     
 *   * set up sound chip
+**************
+* The 'beep' played when a correct move is implemented is a fading
+* tone that's a mix of D3 (587Hz) and A4 (1760Hz). Since we're only
+* doing one channel, D3 is the stronger of the two, so that's what
+* we'll use.
+**************
     LI R0,>9FBF     * mute all channels
     MOVB R0,@SOUND
     SWPB R0
@@ -196,11 +199,11 @@ RNDAOK
     MOVB R0,@SOUND
     SWPB R0
     MOVB R0,@SOUND
-    LI R0,>C004		* beep frequency on ch 3 (no buzz?)
+    LI R0,>CE0B		* beep frequency on ch 3 (no buzz?)
     MOVB R0,@SOUND
     SWPB R0
     MOVB R0,@SOUND
-	LI R0,>DFD2		* beep volumes (mute, loud)
+	LI R0,>DFD3		* beep volumes (mute, loud)
 	MOV R0,@BEEPVOL
     
 * setup some persistent variables

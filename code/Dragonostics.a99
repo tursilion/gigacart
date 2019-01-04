@@ -493,6 +493,8 @@ d1fail
 	BL @SHOWANDPAUSE2
 d1flp
 	bl @joyfast
+	coc @MASKUP,JOYDAT
+	jeq d1ok			* continue if UP is pressed
 	jmp d1flp
 
 d1ok	
@@ -578,6 +580,8 @@ d2fail
 	BL @SHOWANDPAUSE2
 d2failp
 	BL @JOYFAST
+	coc @MASKDOWN,JOYDAT
+	jeq d2ok			* continue if DOWN is pressed
 	jmp d2failp
 	
 d2ok
@@ -829,6 +833,8 @@ d3fail
 	BL @SHOWANDPAUSE2
 d3failp
 	BL @JOYFAST
+	coc @MASKLEFT,JOYDAT
+	jeq MEMTEST			* continue if LEFT is pressed
 	jmp d3failp
 
 * not memtest here, but that's the exit label...
@@ -844,7 +850,7 @@ MEMTEST
 * There is no failure detectable, so just continue after
 * note we play at the softer volume that we use
 	LI R0,>8000		* channel
-	LI R5,>9800		* volume
+	LI R5,>9300		* volume
 
 d4lp2	
 	LI R2,SCALE		* scale table
@@ -1021,6 +1027,16 @@ SCALE
 	DATA >0c1a,>0d17,>0315,>0014,>0d11,>0e0f,>020e,>060d
 
 QUITK DATA >1100
+MASKUP
+	DATA JOYUP
+MASKDOWN
+	DATA JOYDOWN
+MASKLEFT
+	DATA JOYLEFT
+MASKRIGHT
+	DATA JOYRIGHT
+MASKFIRE
+	DATA JOYFIRE
 	
     END
     
