@@ -7,7 +7,7 @@ VDPRD   EQU >8800
 VDPST	EQU >8802
 
 * how many frames of code are before the video/data starts
-VIDEOFFSET EQU >002A
+VIDEOFFSET EQU >002F
 
 * Hint sprite tables
 HINTNONE EQU >8536

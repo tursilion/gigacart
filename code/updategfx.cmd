@@ -5,6 +5,7 @@
 d:
 cd \work\ti\dragonslair\dl_pics
 d:\work\ti\videobitmap2border\debug\videobitmap2border BORDER2 BorderOut.bin BORDER
+d:\work\ti\videobitmap2border\debug\videobitmap2border BORDERC BorderC.bin BORDER
 d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGHINTSEASYARCADE ConfigHintsEasyArcade.bin CONTENT COL 241
 d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGHINTSEASYHOME ConfigHintsEasyHome.bin CONTENT COL 241
 d:\work\ti\videobitmap2border\debug\videobitmap2border CONFIGHINTSHARDARCADE ConfigHintsHardArcade.bin CONTENT COL 241
@@ -281,6 +282,8 @@ cd ..\code
 copy /y gpl.bin gpl.tmp
 d:\work\setbinsize\release\setbinsize gpl.tmp 256
 copy /y /b DragonsLairC.bin + /b DragonsLairKeyC.bin + /b DragonosticsC.bin ^
++ /b ..\dl_pics\BorderC.bin + /b ..\dl_pics\Diag1.bin + /b ..\dl_pics\Diag2.bin ^
++ /b ..\dl_pics\Diag8.bin + /b ..\dl_pics\Diag9.bin ^
 + /b SceneA1Drawbridge.bin ^
 + /b SceneA1vestible.bin ^
 + /b SceneB2DrinkMe.bin ^
@@ -327,6 +330,20 @@ d:\work\setbinsize\release\setbinsize rawcart.bin 134217472
 copy /y /b rawcart.bin + /b gpl.tmp /b Test8.bin
 
 d:\work\ti\checksumcart\release\checksumcart.exe Test8.bin 256
+
+@rem make some truncated dummy carts for testing
+copy /y test8.bin dummy8.bin
+d:\work\setbinsize\release\setbinsize dummy8.bin 65536
+
+copy /y test8.bin dummy2M_8.bin
+d:\work\setbinsize\release\setbinsize dummy2M_8.bin 2097152
+
+copy /y test8.bin dummy32M_8.bin
+d:\work\setbinsize\release\setbinsize dummy32M_8.bin 33554432
+
+copy /y test8.bin dummybroken8.bin
+d:\work\ti\checksumcart\release\checksumcart.exe dummybroken8.bin 256 8
+
 goto :EOF
 
 :error

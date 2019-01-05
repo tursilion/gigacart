@@ -18,45 +18,54 @@ output.bin -> output_Cart8.bin
 0000	Base program (joystick)
 0001	Base program (keyboard)
 0002	Diagnostics
-0003	SceneA1 - Drawbridge (includes vestible)
-0004	SceneA1 - Vestible (only)
-0005	SceneB1 - Drink me
-0006	SceneB2Vines.bin 
-0007	SceneB2Wind.bin 
-0008	SceneB3Fire.bin 
-0009	SceneB3Pot.bin 
-000A	SceneB3Throne.bin 
-000B	SceneB4Goons.bin 
-000C	SceneB4Snakes.bin 
-000D	SceneB4Wall.bin 
-000E	SceneC5Lizardking.bin 
-000F	SceneC5Pit.bin 
-0010	SceneC5Ropes1.bin 
-0011	SceneC5Ropes2.bin 
-0012	SceneC6Horse1.bin 
-0013	SceneC6Horse2.bin 
-0014	SceneC6Smithy1.bin 
-0015	SceneC6Smithy2.bin 
-0016	SceneC6Wizard1.bin 
-0017	SceneC6Wizard2.bin 
-0018	SceneC7Crypt1.bin 
-0019	SceneC7Crypt2.bin 
-001A	SceneC7Knight1.bin 
-001B	SceneC7Knight2.bin 
-001C	SceneC7Pond1.bin 
-001D	SceneC7Pond2.bin 
-001E	SceneD1Platform.bin 
-001F	SceneD1Platform2.bin 
-0020	SceneD1Platshort.bin 
-0021	SceneE1Bats.bin 
-0022	SceneE2Blacknight.bin 
-0023	SceneE3Catwalk.bin 
-0024	SceneE4Electriccage.bin 
-0025	SceneE5Mudmen.bin 
-0026	SceneE6Poolballs.bin 
-0027	SceneE7River.bin 
-0028	SceneE8Vanishingfloor.bin 
-0029	SceneF1Dragonslair.bin 
+
+* these duplicated screens are used by diagnostics. As long as a cart has
+* at least 64k, then it can run the diagnostics as far as the ROM test.
+0003	Game screen border graphics	-- different format than screens, and pattern, then color...
+0004	Diag1 - RAM (unused - RAM and ROM are moved to earlier)
+0005	Diag2 - ROM (unused - RAM and ROM are moved to earlier)
+0006	Diag8 - ram test failed (Address on score) (unused - RAM and ROM are moved to earlier)
+0007	Diag9 - rom checksum failed (page on score) (unused - RAM and ROM are moved to earlier)
+
+0008	SceneA1 - Drawbridge (includes vestible)
+0009	SceneA1 - Vestible (only)
+000A	SceneB1 - Drink me
+000B	SceneB2Vines.bin 
+000C	SceneB2Wind.bin 
+000D	SceneB3Fire.bin 
+000E	SceneB3Pot.bin 
+000F	SceneB3Throne.bin 
+0010	SceneB4Goons.bin 
+0011	SceneB4Snakes.bin 
+0012	SceneB4Wall.bin 
+0013	SceneC5Lizardking.bin 
+0014	SceneC5Pit.bin 
+0015	SceneC5Ropes1.bin 
+0016	SceneC5Ropes2.bin 
+0017	SceneC6Horse1.bin 
+0018	SceneC6Horse2.bin 
+0019	SceneC6Smithy1.bin 
+001A	SceneC6Smithy2.bin 
+001B	SceneC6Wizard1.bin 
+001C	SceneC6Wizard2.bin 
+001D	SceneC7Crypt1.bin 
+001E	SceneC7Crypt2.bin 
+001F	SceneC7Knight1.bin 
+0020	SceneC7Knight2.bin 
+0021	SceneC7Pond1.bin 
+0022	SceneC7Pond2.bin 
+0023	SceneD1Platform.bin 
+0024	SceneD1Platform2.bin 
+0025	SceneD1Platshort.bin 
+0026	SceneE1Bats.bin 
+0027	SceneE2Blacknight.bin 
+0028	SceneE3Catwalk.bin 
+0029	SceneE4Electriccage.bin 
+002A	SceneE5Mudmen.bin 
+002B	SceneE6Poolballs.bin 
+002C	SceneE7River.bin 
+002D	SceneE8Vanishingfloor.bin 
+002E	SceneF1Dragonslair.bin 
 
 *** REMEMBER ALL THESE VALUES ARE OFFSET BY THE NUMBER OF CODE PAGES ABOVE!!       **
 *** They are the right values for the code - the VIDEO function adds in the offset **
@@ -1093,11 +1102,11 @@ xxxx	00Attract.bin
 	2926-2937	Dirk tries to magic sword and is tail whipped
 
 2937	(last frame)
-(10,551 frames)
+(10,551 frames (+ offset!!))
 
 2398 	(skip to frame 10,815 - empty space inbetween - ~ 2MB)
 
-2A3F	Game screen border graphics	-- different format than screens, and pattern, then color...
+2A3F	Game screen border graphics	-- different format than screens, and pattern, then color... (used, but duplicated)
 2A40	Config hints/easy/arcade -- these screens are 3k pattern, 3k color, and 768 bytes SIT (SIT always the same)
 2A41	Config hints/easy/enhanced
 2A42	Config hints/hard/arcade
@@ -1116,15 +1125,15 @@ xxxx	00Attract.bin
 2A4F	Instruction2Key
 2A50	GameOver
 2A51	ColorBars
-2A52	Diag1 - RAM
-2A53	Diag2 - ROM
+2A52	Diag1 - RAM (unused - RAM and ROM are moved to earlier)
+2A53	Diag2 - ROM (unused - RAM and ROM are moved to earlier)
 2A54	Diag3 - 9900
 2A55	Diag4 - Sound (3 tone scales, do each generator)
 2A56	Diag5 - Display (score and lives cycle 0-9 a few times)
 2A57	Diag6 - keyboard (show hint icons on joystick OR keyboard)
 2A58	Diag7 - warning about color bars (show for a few seconds)
-2A59	Diag8 - ram test failed (Address on score)
-2A5A	Diag9 - rom checksum failed (page on score)
+2A59	Diag8 - ram test failed (Address on score) (unused - RAM and ROM are moved to earlier)
+2A5A	Diag9 - rom checksum failed (page on score) (unused - RAM and ROM are moved to earlier)
 2A5B	Diag14 - 9900 test failed
 2A5C	AlphaLockUp
 2A5d	Config hints/practice/arcade
@@ -1155,4 +1164,3 @@ VDP Usage:
 3B02-3FFF	Free
 
 SAL resolution is every >80 bytes. So 5 SALs.
-
