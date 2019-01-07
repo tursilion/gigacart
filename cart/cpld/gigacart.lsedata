@@ -89,7 +89,7 @@
     </pins>
 
     <!--
-        Instances in netlist: 43
+        Instances in netlist: 41
     -->
 
     <instance  name = "ti_gclk_I_0"  library = "work"  arch = "RTL"  type = "comb">
@@ -100,11 +100,11 @@
 
         <nets>
         <nitem  name = "ti_gclk"  />
-        <nitem  name = "ti_gclk_N_54"  />
+        <nitem  name = "ti_gclk_N_53"  />
         </nets>
     </instance>
 
-    <instance  name = "ti_gsel_N_42_I_0"  library = "work"  arch = "RTL"  type = "comb">
+    <instance  name = "ti_gsel_N_48_I_0"  library = "work"  arch = "RTL"  type = "comb">
         <pins>
         <pitem  name = "a0"  direction = "in"  />
         <pitem  name = "a1"  direction = "in"  />
@@ -112,9 +112,9 @@
         </pins>
 
         <nets>
-        <nitem  name = "ti_gsel_N_42"  />
+        <nitem  name = "ti_gsel_N_48"  />
         <nitem  name = "gvalid"  />
-        <nitem  name = "gactive_N_52"  />
+        <nitem  name = "gactive_N_51"  />
         </nets>
     </instance>
 
@@ -127,12 +127,12 @@
 
         <nets>
         <nitem  name = "gactive"  />
-        <nitem  name = "ti_gsel_N_42"  />
-        <nitem  name = "gvalid_N_55"  />
+        <nitem  name = "ti_gsel_N_48"  />
+        <nitem  name = "gvalid_N_54"  />
         </nets>
     </instance>
 
-    <instance  name = "gvalid_103"  library = "work"  arch = "RTL"  type = "reg">
+    <instance  name = "gvalid_101"  library = "work"  arch = "RTL"  type = "reg">
         <pins>
         <pitem  name = "d"  direction = "in"  />
         <pitem  name = "clk"  direction = "in"  />
@@ -142,8 +142,8 @@
         </pins>
 
         <nets>
-        <nitem  name = "gvalid_N_55"  />
-        <nitem  name = "ti_gclk_N_54"  />
+        <nitem  name = "gvalid_N_54"  />
+        <nitem  name = "ti_gclk_N_53"  />
         <nitem  name = "n20"  />
         <nitem  name = "gvalid"  />
         </nets>
@@ -252,7 +252,7 @@
 
         <nets>
         <nitem  name = "ti_gsel"  />
-        <nitem  name = "ti_gsel_N_42"  />
+        <nitem  name = "ti_gsel_N_48"  />
         </nets>
     </instance>
 
@@ -264,7 +264,7 @@
 
         <nets>
         <nitem  name = "ti_adr[14]"  />
-        <nitem  name = "ti_adr_14__N_44"  />
+        <nitem  name = "ti_adr_14__N_50"  />
         </nets>
     </instance>
 
@@ -277,8 +277,22 @@
 
         <nets>
         <nitem  name = "gvalid"  />
-        <nitem  name = "grmpage"  />
-        <nitem  name = "dataout_N_40"  />
+        <nitem  name = "out_reset"  />
+        <nitem  name = "dataout_N_46"  />
+        </nets>
+    </instance>
+
+    <instance  name = "dataout_I_4"  library = "work"  arch = "RTL"  type = "comb">
+        <pins>
+        <pitem  name = "a0"  direction = "in"  />
+        <pitem  name = "a1"  direction = "in"  />
+        <pitem  name = "o"  direction = "out"  />
+        </pins>
+
+        <nets>
+        <nitem  name = "dataout_N_46"  />
+        <nitem  name = "ti_gsel_N_48"  />
+        <nitem  name = "dataout_N_45"  />
         </nets>
     </instance>
 
@@ -290,23 +304,9 @@
         </pins>
 
         <nets>
-        <nitem  name = "dataout_N_40"  />
-        <nitem  name = "ti_gsel_N_42"  />
-        <nitem  name = "dataout_N_39"  />
-        </nets>
-    </instance>
-
-    <instance  name = "dataout_I_2"  library = "work"  arch = "RTL"  type = "comb">
-        <pins>
-        <pitem  name = "a0"  direction = "in"  />
-        <pitem  name = "a1"  direction = "in"  />
-        <pitem  name = "o"  direction = "out"  />
-        </pins>
-
-        <nets>
-        <nitem  name = "dataout_N_39"  />
-        <nitem  name = "ti_adr_14__N_44"  />
-        <nitem  name = "dataout_N_38"  />
+        <nitem  name = "dataout_N_45"  />
+        <nitem  name = "ti_adr_14__N_50"  />
+        <nitem  name = "dataout_N_44"  />
         </nets>
     </instance>
 
@@ -330,9 +330,9 @@
         </pins>
 
         <nets>
-        <nitem  name = "dataout_N_38"  />
+        <nitem  name = "dataout_N_44"  />
         <nitem  name = "ti_rom_N_24"  />
-        <nitem  name = "dataout_N_37"  />
+        <nitem  name = "dataout_N_43"  />
         </nets>
     </instance>
 
@@ -347,7 +347,7 @@
         <nets>
         <nitem  name = "n20"  />
         <nitem  name = "ti_we"  />
-        <nitem  name = "dataout_N_37"  />
+        <nitem  name = "dataout_N_43"  />
         <nitem  name = "dataout"  />
         </nets>
     </instance>
@@ -446,7 +446,7 @@
         </nets>
     </instance>
 
-    <instance  name = "grmpage_105"  library = "work"  arch = "RTL"  type = "reg">
+    <instance  name = "grmpage_103"  library = "work"  arch = "RTL"  type = "reg">
         <pins>
         <pitem  name = "d"  direction = "in"  />
         <pitem  name = "clk"  direction = "in"  />
@@ -456,14 +456,14 @@
         </pins>
 
         <nets>
-        <nitem  name = "grmpage_N_45"  />
+        <nitem  name = "out_reset_N_36"  />
         <nitem  name = "gvalid"  />
         <nitem  name = "n20"  />
-        <nitem  name = "grmpage"  />
+        <nitem  name = "out_reset"  />
         </nets>
     </instance>
 
-    <instance  name = "ti_we_I_0_112"  library = "work"  arch = "RTL"  type = "comb">
+    <instance  name = "ti_we_I_0_110"  library = "work"  arch = "RTL"  type = "comb">
         <pins>
         <pitem  name = "i"  direction = "in"  />
         <pitem  name = "o"  direction = "out"  />
@@ -497,7 +497,7 @@
 
         <nets>
         <nitem  name = "grmadr[1]"  />
-        <nitem  name = "grmadr_1__N_49"  />
+        <nitem  name = "grmadr_1__N_40"  />
         </nets>
     </instance>
 
@@ -510,8 +510,8 @@
 
         <nets>
         <nitem  name = "grmadr[0]"  />
-        <nitem  name = "grmadr_1__N_49"  />
-        <nitem  name = "grmpage_N_47"  />
+        <nitem  name = "grmadr_1__N_40"  />
+        <nitem  name = "out_reset_N_38"  />
         </nets>
     </instance>
 
@@ -523,11 +523,11 @@
 
         <nets>
         <nitem  name = "grmadr[2]"  />
-        <nitem  name = "grmadr_2__N_51"  />
+        <nitem  name = "grmadr_2__N_42"  />
         </nets>
     </instance>
 
-    <instance  name = "grmpage_I_4"  library = "work"  arch = "RTL"  type = "comb">
+    <instance  name = "out_reset_I_2"  library = "work"  arch = "RTL"  type = "comb">
         <pins>
         <pitem  name = "a0"  direction = "in"  />
         <pitem  name = "a1"  direction = "in"  />
@@ -535,9 +535,9 @@
         </pins>
 
         <nets>
-        <nitem  name = "grmpage_N_47"  />
-        <nitem  name = "grmadr_2__N_51"  />
-        <nitem  name = "grmpage_N_46"  />
+        <nitem  name = "out_reset_N_38"  />
+        <nitem  name = "grmadr_2__N_42"  />
+        <nitem  name = "out_reset_N_37"  />
         </nets>
     </instance>
 
@@ -592,7 +592,7 @@
         </nets>
     </instance>
 
-    <instance  name = "grmpage_I_0"  library = "work"  arch = "RTL"  type = "comb">
+    <instance  name = "out_reset_I_0"  library = "work"  arch = "RTL"  type = "comb">
         <pins>
         <pitem  name = "a0"  direction = "in"  />
         <pitem  name = "a1"  direction = "in"  />
@@ -601,10 +601,10 @@
         </pins>
 
         <nets>
-        <nitem  name = "grmpage"  />
-        <nitem  name = "grmpage_N_46"  />
+        <nitem  name = "out_reset"  />
+        <nitem  name = "out_reset_N_37"  />
         <nitem  name = "grmadr_0__N_33"  />
-        <nitem  name = "grmpage_N_45"  />
+        <nitem  name = "out_reset_N_36"  />
         </nets>
     </instance>
 
@@ -654,7 +654,7 @@
         <nitem  name = "n110"  />
         <nitem  name = "n111"  />
         <nitem  name = "n112"  />
-        <nitem  name = "ti_adr_14__N_44"  />
+        <nitem  name = "ti_adr_14__N_50"  />
         <nitem  name = "grmadr_0__N_25[7]"  />
         <nitem  name = "grmadr_0__N_25[6]"  />
         <nitem  name = "grmadr_0__N_25[5]"  />
@@ -666,7 +666,7 @@
         </nets>
     </instance>
 
-    <instance  name = "grmadr_0__I_0_115"  library = "work"  arch = "RTL"  type = "comb">
+    <instance  name = "grmadr_0__I_0_109"  library = "work"  arch = "RTL"  type = "comb">
         <pins>
         <pitem  name = "d0[7]"  direction = "in"  />
         <pitem  name = "d0[6]"  direction = "in"  />
@@ -724,22 +724,6 @@
         </nets>
     </instance>
 
-    <instance  name = "out_reset_I_0"  library = "work"  arch = "RTL"  type = "comb">
-        <pins>
-        <pitem  name = "a0"  direction = "in"  />
-        <pitem  name = "a1"  direction = "in"  />
-        <pitem  name = "c"  direction = "in"  />
-        <pitem  name = "o"  direction = "out"  />
-        </pins>
-
-        <nets>
-        <nitem  name = "out_reset"  />
-        <nitem  name = "pwr"  />
-        <nitem  name = "grmadr_0__N_33"  />
-        <nitem  name = "out_reset_N_36"  />
-        </nets>
-    </instance>
-
     <instance  name = "gadd_I_0"  library = "work"  arch = "RTL"  type = "comb">
         <pins>
         <pitem  name = "a0"  direction = "in"  />
@@ -751,12 +735,12 @@
         <nets>
         <nitem  name = "gadd"  />
         <nitem  name = "pwr"  />
-        <nitem  name = "ti_adr_14__N_44"  />
-        <nitem  name = "gadd_N_57"  />
+        <nitem  name = "ti_adr_14__N_50"  />
+        <nitem  name = "gadd_N_56"  />
         </nets>
     </instance>
 
-    <instance  name = "gadd_I_0_116"  library = "work"  arch = "RTL"  type = "comb">
+    <instance  name = "gadd_I_0_113"  library = "work"  arch = "RTL"  type = "comb">
         <pins>
         <pitem  name = "a0"  direction = "in"  />
         <pitem  name = "a1"  direction = "in"  />
@@ -765,10 +749,10 @@
         </pins>
 
         <nets>
-        <nitem  name = "gadd_N_57"  />
+        <nitem  name = "gadd_N_56"  />
         <nitem  name = "n20"  />
         <nitem  name = "grmadr_0__N_33"  />
-        <nitem  name = "gadd_N_56"  />
+        <nitem  name = "gadd_N_55"  />
         </nets>
     </instance>
 
@@ -831,7 +815,7 @@
         </nets>
     </instance>
 
-    <instance  name = "bounce_107"  library = "work"  arch = "RTL"  type = "reg">
+    <instance  name = "gadd_105"  library = "work"  arch = "RTL"  type = "reg">
         <pins>
         <pitem  name = "d"  direction = "in"  />
         <pitem  name = "clk"  direction = "in"  />
@@ -841,24 +825,7 @@
         </pins>
 
         <nets>
-        <nitem  name = "out_reset_N_36"  />
-        <nitem  name = "gvalid"  />
-        <nitem  name = "n20"  />
-        <nitem  name = "out_reset"  />
-        </nets>
-    </instance>
-
-    <instance  name = "gadd_108"  library = "work"  arch = "RTL"  type = "reg">
-        <pins>
-        <pitem  name = "d"  direction = "in"  />
-        <pitem  name = "clk"  direction = "in"  />
-        <pitem  name = "s"  direction = "in"  />
-        <pitem  name = "r"  direction = "in"  />
-        <pitem  name = "q"  direction = "out"  />
-        </pins>
-
-        <nets>
-        <nitem  name = "gadd_N_56"  />
+        <nitem  name = "gadd_N_55"  />
         <nitem  name = "gvalid"  />
         <nitem  name = "n20"  />
         <nitem  name = "gadd"  />
@@ -907,7 +874,7 @@
         </nets>
     </instance>
 
-    <instance  name = "latch_13__I_0_111"  library = "work"  arch = "RTL"  type = "comb">
+    <instance  name = "latch_13__I_0_108"  library = "work"  arch = "RTL"  type = "comb">
         <pins>
         <pitem  name = "d0[13]"  direction = "in"  />
         <pitem  name = "d0[12]"  direction = "in"  />
@@ -1084,7 +1051,7 @@
         </nets>
     </instance>
 
-    <instance  name = "ti_adr_14__I_0_114"  library = "work"  arch = "RTL"  type = "comb">
+    <instance  name = "ti_adr_14__I_0_112"  library = "work"  arch = "RTL"  type = "comb">
         <pins>
         <pitem  name = "a0"  direction = "in"  />
         <pitem  name = "a1"  direction = "in"  />
@@ -1116,7 +1083,7 @@
         </nets>
     </instance>
 
-    <instance  name = "gactive_102"  library = "work"  arch = "RTL"  type = "reg">
+    <instance  name = "gactive_100"  library = "work"  arch = "RTL"  type = "reg">
         <pins>
         <pitem  name = "d"  direction = "in"  />
         <pitem  name = "clk"  direction = "in"  />
@@ -1126,14 +1093,14 @@
         </pins>
 
         <nets>
-        <nitem  name = "gactive_N_52"  />
-        <nitem  name = "ti_gclk_N_54"  />
+        <nitem  name = "gactive_N_51"  />
+        <nitem  name = "ti_gclk_N_53"  />
         <nitem  name = "n20"  />
         <nitem  name = "gactive"  />
         </nets>
     </instance>
 
-    <instance  name = "gvalid_I_0_113"  library = "work"  arch = "RTL"  type = "comb">
+    <instance  name = "gvalid_I_0_111"  library = "work"  arch = "RTL"  type = "comb">
         <pins>
         <pitem  name = "a[4]"  direction = "in"  />
         <pitem  name = "a[3]"  direction = "in"  />
@@ -1168,17 +1135,16 @@
     </instance>
 
     <!--
-        REG instances in netlist: 7
+        REG instances in netlist: 6
     -->
 
     <regs>
-        <reg  name = "gvalid_103"  />
+        <reg  name = "gvalid_101"  />
         <reg  name = "latch"  />
-        <reg  name = "grmpage_105"  />
+        <reg  name = "grmpage_103"  />
         <reg  name = "grmadr"  />
-        <reg  name = "bounce_107"  />
-        <reg  name = "gadd_108"  />
-        <reg  name = "gactive_102"  />
+        <reg  name = "gadd_105"  />
+        <reg  name = "gactive_100"  />
     </regs>
 
     <!--

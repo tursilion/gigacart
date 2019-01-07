@@ -12,8 +12,8 @@ EN_PinMacrocell = yes;
 
 [Revision]
 Parent = lc4k64v.lci;
-DATE = 10/15/2018;
-TIME = 00:36:59;
+DATE = 01/06/2019;
+TIME = 18:29:28;
 Source_Format = Pure_VHDL;
 Synthesis = LSE;
 
@@ -25,7 +25,10 @@ Synthesis = LSE;
 
 [Global Constraints]
 Fitter_effort_level = High;
-Logic_optimization_effort = 3;
+Logic_optimization_effort = 7;
+Nodes_collapsing_mode = Fmax;
+Xor_synthesis = Yes;
+Fmax_logic_level = 1;
 
 [Location Assignments]
 layer = OFF;
@@ -254,6 +257,7 @@ layer = OFF;
 [ORP Bypass]
 
 [Register Powerup]
+RESET = out_reset;
 NONE = ti_data_4_;
 
 [Constraint Version]

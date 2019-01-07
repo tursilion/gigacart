@@ -38,14 +38,14 @@ ENTITY gigacart IS
 --		out_rom2 : OUT STD_ULOGIC;			-- ROM select 2 (active low)
 --		out_rom3 : OUT STD_ULOGIC;			-- ROM select 3 (active low)
 --		out_rom4 : OUT STD_ULOGIC;			-- ROM select 4 (active low)
-		out_reset: OUT STD_ULOGIC			-- (47) output to hold flash chips in reset at startup
+		out_reset: OUT STD_ULOGIC := '0'		-- (47) output to hold flash chips in reset at startup (initial value ignored)
 	);
 END gigacart;
 
 ARCHITECTURE myarch OF gigacart IS
 -- flash chip interface
 --	SIGNAL chip    : STD_ULOGIC_VECTOR (1 DOWNTO 0) := "00"; -- 2 bits of chip select
-	SIGNAL bounce  : STD_ULOGIC := '0'; -- true to release reset after min 35uS
+--	SIGNAL bounce  : STD_ULOGIC := '0'; -- true to release reset after min 35uS
 	SIGNAL dataout : STD_ULOGIC; -- := '0'; -- true when we should enable flash data output
 
 -- rom emulation
@@ -92,6 +92,8 @@ BEGIN
 	ti_data(6) <= out_data(1) WHEN (dataout = '1') ELSE ('Z');
 	ti_data(7) <= out_data(0) WHEN (dataout = '1') ELSE ('Z'); -- LSB
 
+--	bounce <= '1' when dataout = '1' else bounce;
+
 	-- handle the ROM latch on write
 	PROCESS (ALL)
 	BEGIN
@@ -136,10 +138,8 @@ BEGIN
 		-- Addresses are written MSB first, addresses are shifted up as written
 		-- We don't have enough logic space to check the write address vs read address,
 		-- so writes to either space would trigger here. The OS shouldn't do any though.
-		-- Technically, also, GROMs should auto-increment their address bus. However,
-		-- the console ROM ALWAYS writes the GROM address and does not rely on this
-		-- auto-increment (strictly, the address readback assumes it). Since there will
-		-- be real GROMs in the system to deal with that part, we can skip all that circuitry.
+		-- Since there will be real GROMs in the system to deal with address readback,
+		-- we can skip all that circuitry. We do need autoincrement to run GPL though.
 		IF (rising_edge(gvalid)) THEN
 			IF (ti_we='0' AND ti_adr(14)='1') THEN
 				-- the limited bits available makes this a little more complex...
@@ -158,13 +158,16 @@ BEGIN
 				grmadr(5) <= ti_data(5);
 				grmadr(6) <= ti_data(6);
 				grmadr(7) <= ti_data(7); -- LSB
-	
-				-- while we're here, the first GROM address write is about 139 cycles
-				-- or 46uS from reset, which meets the reset requirement of 35uS
-				-- and also actually happens on 99/4 and v2.2 machines, unlike ROMS.
-				-- this releases the reset line to the flash chip. We're still a long
-				-- time from first access, easily meeting the 200ns post-reset requirement.
-				bounce <= '1';
+
+				-- was originally first GROM write, which I expected to be 139 cycles/46uS,
+				-- but I was still getting incomplete flash reset. Classic99 reports it's only
+				-- 113 cycles, so 33.9uS. And with 5% clock slip, could be as fast as 32uS.
+				-- We need 35uS, and apparently it's serious about that. First time the TI
+				-- has been /too fast/...
+				-- this releases the reset line to the flash chip, never goes low again
+				-- this doesn't work in real life - the tools see it stuck 'on' and never force
+				-- the initial '0' value.
+				--bounce <= '1';
 
 				-- don't increment before the next access
 				gadd <= '0';
@@ -196,6 +199,11 @@ BEGIN
 	out_adr(0) <= grmadr(7) WHEN (gvalid = '1') ELSE ti_adr(15);	-- LSB
 
 	-- flash control lines
-	out_reset <= bounce;
+	-- using grmpage means the flash is reset any time we are not selected in GROM,
+	-- but this seems (bizarrely) to actually work... need to test access times a bit
+	-- looks like the single-byte GROM tests are about 16-18uS long, datasheet says
+	-- it needs 200ns after a reset. We'll just keep testing.
+--	out_reset <= bounce;
+	out_reset <= grmpage;
 END myarch;
 
