@@ -14,11 +14,11 @@
 * Write the new SCENEDATA, add it to UpdateGfx.CMD (build and merge)
 * and update CommonCode.a99 (VIDEOFFSET)
 *
+	COPY "D:\work\ti\dragonslair\code\CommonCode.a99"
 
 ** this is used by all code that needs to return to the code page
-CARTPAGE EQU >6018
+CARTPAGE EQU >6018+SCENEOFFSET
 
-	COPY "D:\work\ti\dragonslair\code\CommonCode.a99"
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
 	
 * table layout...

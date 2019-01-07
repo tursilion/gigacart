@@ -15,12 +15,13 @@
 * and update CommonCode.a99 (VIDEOFFSET)
 *
 
-** this is used by all code that needs to return to the code page
-CARTPAGE EQU >6020
-
 	COPY "D:\work\ti\dragonslair\code\CommonCode.a99"
-	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
+
+** this is used by all code that needs to return to the code page
+CARTPAGE EQU >6020+SCENEOFFSET
 	
+	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"
+
 * table layout...
 *
 * start frame - the page index of the first frame

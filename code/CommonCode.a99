@@ -9,6 +9,12 @@ VDPST	EQU >8802
 * how many frames of code are before the video/data starts
 VIDEOFFSET EQU >002F
 
+* Scene offset, because I added a few more frames.
+* The code already assumes a starting frame of '3'
+* Note the offset in frames is multiplied by 2 for
+* the /address/ offset
+SCENEOFFSET EQU 10
+
 * Hint sprite tables
 HINTNONE EQU >8536
 HINTUP EQU >8537
