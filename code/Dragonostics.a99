@@ -1056,7 +1056,7 @@ d3ok
 * There is no failure detectable, so just continue after
 * note we play at the softer volume that we use
 	LI R0,>8000		* channel
-	LI R5,>9300		* volume
+	LI R5,>9600		* volume
 
 d4lp2	
 	LI R2,SCALE		* scale table

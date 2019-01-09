@@ -138,3 +138,49 @@ JOYLEFT EQU >0200
 JOYRIGHT EQU >0400
 JOYFIRE EQU >0100
 
+* number of lives
+liveasy equ 5
+livhard equ 3
+
+* a list of scenes here...
+* Note that each scene also has a CARTPAGE reference to itself!
+*
+SceneA1Drawbridge	equ >6006+SCENEOFFSET
+SceneA1Vestible		equ >6008+SCENEOFFSET
+SceneB1DrinkMe		equ >600A+SCENEOFFSET
+SceneB2Vines 		equ >600C+SCENEOFFSET
+SceneB2Wind 		equ >600E+SCENEOFFSET
+SceneB3Fire 		equ >6010+SCENEOFFSET
+SceneB3Pot 			equ >6012+SCENEOFFSET
+SceneB3Throne 		equ >6014+SCENEOFFSET
+SceneB4Goons 		equ >6016+SCENEOFFSET
+SceneB4Snakes 		equ >6018+SCENEOFFSET
+SceneB4Wall 		equ >601A+SCENEOFFSET
+SceneC5Lizardking 	equ >601C+SCENEOFFSET
+SceneC5Pit 			equ >601E+SCENEOFFSET
+SceneC5Ropes1 		equ >6020+SCENEOFFSET
+SceneC5Ropes2 		equ >6022+SCENEOFFSET
+SceneC6Horse1 		equ >6024+SCENEOFFSET
+SceneC6Horse2 		equ >6026+SCENEOFFSET
+SceneC6Smithy1 		equ >6028+SCENEOFFSET
+SceneC6Smithy2 		equ >602A+SCENEOFFSET
+SceneC6Wizard1 		equ >602C+SCENEOFFSET
+SceneC6Wizard2 		equ >602E+SCENEOFFSET
+SceneC7Crypt1 		equ >6030+SCENEOFFSET
+SceneC7Crypt2 		equ >6032+SCENEOFFSET
+SceneC7Knight1 		equ >6034+SCENEOFFSET
+SceneC7Knight2 		equ >6036+SCENEOFFSET
+SceneC7Pond1 		equ >6038+SCENEOFFSET
+SceneC7Pond2 		equ >603A+SCENEOFFSET
+SceneD1Platform 	equ >603C+SCENEOFFSET
+SceneD1Platform2 	equ >603E+SCENEOFFSET
+SceneD1Platshort 	equ >6040+SCENEOFFSET
+SceneE1Bats 		equ >6042+SCENEOFFSET
+SceneE2Blacknight 	equ >6044+SCENEOFFSET
+SceneE3Catwalk 		equ >6046+SCENEOFFSET
+SceneE4Electriccage equ >6048+SCENEOFFSET
+SceneE5Mudmen 		equ >604A+SCENEOFFSET
+SceneE6Poolballs 	equ >604C+SCENEOFFSET
+SceneE7River 		equ >604E+SCENEOFFSET
+SceneE8Vanishingfloor equ >6050+SCENEOFFSET
+SceneF1Dragonslair 	equ >6052+SCENEOFFSET
