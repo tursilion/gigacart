@@ -66,6 +66,7 @@ output.bin -> output_Cart8.bin
 002C	SceneE7River.bin 
 002D	SceneE8Vanishingfloor.bin 
 002E	SceneF1Dragonslair.bin 
+002F	SceneE7RiverArcade.bin 
 
 *** REMEMBER ALL THESE VALUES ARE OFFSET BY THE NUMBER OF CODE PAGES ABOVE!!       **
 *** They are the right values for the code - the VIDEO function adds in the offset **
@@ -964,7 +965,8 @@ xxxx	00Attract.bin
 
 2356	eriver.bin
 	225D-2271	Ressurection
-	2272-22B8	Intro Ye Boulders (49)
+	2272-2293	Intro Ye Boulders (49)
+	2294-22B8	Ye Boulders
 	22B9-22C1	Boulder 1 Threatens (L, UR dies)
 	22C2-22C9	Move left (379)
 	22CA-22D2	Boulder 2 Threatens (R, UL dies)
@@ -1142,6 +1144,8 @@ xxxx	00Attract.bin
 2a60	Thanks screen (these two are in the middle so the spacing matches the above set)
 2A61	Config No hints/practice/arcade (we skip to make it line up like the others)
 2A62	Config No hints/practice/enhanced
+2A63	Copyright
+2A64	Grid (scene select)
 
 
 VDP Usage:
@@ -1164,3 +1168,48 @@ VDP Usage:
 3B02-3FFF	Free
 
 SAL resolution is every >80 bytes. So 5 SALs.
+
+Scene select
+------------
+	DATA SceneA1Drawbridge		0
+    DATA SceneA1Vestible		1
+	DATA SceneB1DrinkMe			2
+    DATA SceneB2Vines 			3
+    DATA SceneB2Wind 			4
+    DATA SceneB3Fire 			5
+    DATA SceneB3Pot 			6	
+    DATA SceneB3Throne 			7
+    DATA SceneB4Goons 			8
+    DATA SceneB4Snakes 			9
+    DATA SceneB4Wall 			10
+    DATA SceneC5Lizardking 		11
+    DATA SceneC5Pit 			12
+    DATA SceneC5Ropes1 			13
+    DATA SceneC5Ropes2 			14
+    DATA SceneC6Horse1 			15
+    DATA SceneC6Horse2 			16
+    DATA SceneC6Smithy1 		17
+    DATA SceneC6Smithy2 		18
+    DATA SceneC6Wizard1 		19
+    DATA SceneC6Wizard2 		20
+    DATA SceneC7Crypt1 			21
+    DATA SceneC7Crypt2 			22
+    DATA SceneC7Knight1 		23
+    DATA SceneC7Knight2 		24
+    DATA SceneC7Pond1 			25
+    DATA SceneC7Pond2 			26
+    DATA SceneD1Platform 		27
+    DATA SceneD1Platform2 		28
+    DATA SceneD1Platshort 		29
+    DATA SceneE1Bats 			30
+    DATA SceneE2Blacknight 		31
+    DATA SceneE3Catwalk 		32
+    DATA SceneE4Electriccage 	33
+    DATA SceneE5Mudmen 			34
+    DATA SceneE6Poolballs 		35
+    DATA SceneE7River 			36
+    DATA SceneE8Vanishingfloor	37
+    DATA SceneF1Dragonslair 	38
+    DATA SceneE7RiverArcade		39
+    
+    

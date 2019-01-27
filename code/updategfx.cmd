@@ -40,6 +40,8 @@ d:\work\ti\videobitmap2border\debug\videobitmap2border DIAG14 Diag14.bin CONTENT
 d:\work\ti\videobitmap2border\debug\videobitmap2border ALPHALOCKUP AlphaLockUp.bin CONTENT
 d:\work\ti\videobitmap2border\debug\videobitmap2border WINSCREEN WinScreen.bin CONTENT
 d:\work\ti\videobitmap2border\debug\videobitmap2border THANKS Thanks.bin CONTENT
+d:\work\ti\videobitmap2border\debug\videobitmap2border COPYRIGHT Copyright.bin CONTENT
+d:\work\ti\videobitmap2border\debug\videobitmap2border GRID grid.bin CONTENT
 
 @rem prepare the video file
 @rem first -8192 removes the code page, which we don't want
@@ -260,6 +262,11 @@ python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneE7
 @if errorlevel 1 goto error
 d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneE7River.obj SceneE7River.bin -raw -block
 d:\work\setbinsize\release\setbinsize SceneE7River.bin 8192
+@rem Scene E7 - River (arcade page)
+python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneE7RiverArcade.a99 -L SceneE7RiverArcade.lst -o D:\classic99\dsk1\SceneE7RiverArcade.obj
+@if errorlevel 1 goto error
+d:\work\ti\tiobj2bin\release\tiobj2bin d:\classic99\dsk1\SceneE7RiverArcade.obj SceneE7RiverArcade.bin -raw -block
+d:\work\setbinsize\release\setbinsize SceneE7RiverArcade.bin 8192
 @rem Scene E8 - Vanishingfloor
 python \work\f18a\f18a_994a_isu_updater_1.9_beta\tools\xdt99\xas99.py -R SceneE8Vanishingfloor.a99 -L SceneE8Vanishingfloor.lst -o D:\classic99\dsk1\SceneE8Vanishingfloor.obj
 @if errorlevel 1 goto error
@@ -275,7 +282,7 @@ d:\work\setbinsize\release\setbinsize SceneF1Dragonslair.bin 8192
 @rem note we are assuming that the still frames are each exactly 8k and not padding individually
 @rem how long can a copy line be? (8192 chars, apparently)
 cd ..\dl_pics
-copy /y /b ..\output_Cart8.bin + /b BorderOut.bin + /b ConfigHintsEasyArcade.bin + /b ConfigHintsEasyHome.bin + /b ConfigHintsHardArcade.bin + /b ConfigHintsHardHome.bin + /b ConfigNoHintsEasyArcade.bin + /b ConfigNoHintsEasyHome.bin + /b ConfigNoHintsHardArcade.bin + /b ConfigNoHintsHardHome.bin + /B F18A.bin + /b HLSplash.bin + /b HLTitle.bin + /b ..\code\spritesC.bin + /b Instruction1Joy.bin + /b Instruction1Key.bin + /b Instruction2Joy.bin + /b Instruction2Key.bin + /b GameOver.bin + /b ColorBars.bin + /b Diag1.bin + /b Diag2.bin + /b Diag3.bin + /b Diag4.bin + /b Diag5.bin + /b Diag6.bin + /b Diag7.bin + /b Diag8.bin + /b Diag9.bin + /b Diag14.bin + /b AlphaLockUp.bin + /b ConfigHintsPracticeArcade.bin + /b ConfigHintsPracticeHome.bin + /b WinScreen.bin + /b Thanks.bin + /b ConfigNoHintsPracticeArcade.bin + /b ConfigNoHintsPracticeHome.bin /b CartROMData.bin
+copy /y /b ..\output_Cart8.bin + /b BorderOut.bin + /b ConfigHintsEasyArcade.bin + /b ConfigHintsEasyHome.bin + /b ConfigHintsHardArcade.bin + /b ConfigHintsHardHome.bin + /b ConfigNoHintsEasyArcade.bin + /b ConfigNoHintsEasyHome.bin + /b ConfigNoHintsHardArcade.bin + /b ConfigNoHintsHardHome.bin + /B F18A.bin + /b HLSplash.bin + /b HLTitle.bin + /b ..\code\spritesC.bin + /b Instruction1Joy.bin + /b Instruction1Key.bin + /b Instruction2Joy.bin + /b Instruction2Key.bin + /b GameOver.bin + /b ColorBars.bin + /b Diag1.bin + /b Diag2.bin + /b Diag3.bin + /b Diag4.bin + /b Diag5.bin + /b Diag6.bin + /b Diag7.bin + /b Diag8.bin + /b Diag9.bin + /b Diag14.bin + /b AlphaLockUp.bin + /b ConfigHintsPracticeArcade.bin + /b ConfigHintsPracticeHome.bin + /b WinScreen.bin + /b Thanks.bin + /b ConfigNoHintsPracticeArcade.bin + /b ConfigNoHintsPracticeHome.bin + /b Copyright.bin + /b grid.bin /b CartROMData.bin
 
 @rem pad up the GPL part and put the code into the cart
 cd ..\code
@@ -323,6 +330,7 @@ copy /y /b DragonsLairC.bin + /b DragonsLairKeyC.bin + /b DragonosticsC.bin ^
 + /b SceneE7River.bin ^
 + /b SceneE8Vanishingfloor.bin ^
 + /b SceneF1Dragonslair.bin ^
++ /b SceneE7RiverArcade.bin ^
 + /b ..\dl_pics\CartROMData.bin /b rawcart.bin
 
 @rem size to 128MB minus 256 bytes for the GPL code

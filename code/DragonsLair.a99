@@ -1,5 +1,6 @@
 ** remember to debug with 'break on illegal opcode' so we can find bad tables
-** remember to debug with 'break on illegal opcode' so we can find bad tables
+
+* Tune the rough scenes.
 
 **************
 * Dragon's Lair for the TI-99/4A - by M.Brent aka Tursi
@@ -347,24 +348,24 @@ OUTLOOP
     LI R0,>0040     * start address table 1 >0000   12
     BL @LOOP1                                       20 (accounted for in LOOP)
 
-* check page increment
-    CI R8,>8000                                     14  - check for end of cart space
-    JNE NOTLP                                       10  - continue if not there yet
-    LI R8,>6002                                     ...12 - else reset and
-    AI R9,>0100                                     ...10 - increment data
+* check for end of video
+	DEC R7											10
+	JOC NOTLP										10
+	CLR @CARTPAGE                                   ...26 (reset cartridge bank for code jump)
+	B @ABSRET										...16-2 for branch, but we are looping
 NOTLP   
 	SBZ 16											12
-	SBZ 17											12 - set QUIT column - 48 cycles (8 cycles over)
+	SBZ 17											12 - set QUIT column - 44 cycles (4 cycles over)
 
 * Color 1
     LI R0,>0060     * start address table 3 >2000   12
     BL @LOOP1                                       20 (accounted for in LOOP)
     
-* check for end of video
-	DEC R7											10
-	JOC NOTYET										10
-	CLR @CARTPAGE                                   ...26 (reset cartridge bank for code jump)
-	B @ABSRET										...16-2 for branch, but we are looping
+* check page increment
+    CI R8,>8000                                     14  - check for end of cart space
+    JNE NOTYET                                      10  - continue if not there yet
+    LI R8,>6002                                     ...12 - else reset and
+    AI R9,>0100                                     ...10 - increment data
 NOTYET
 * read the FCTN and EQUALS keys
 	TB 0											12 (equals)
@@ -374,7 +375,7 @@ NOTYET
 	CLR @CARTPAGE                                   ......26 (reset cartridge bank for code jump)
 	B @REBOOT										......16-2 (but who cares, we're rebooting)
 KEYOK
-*	         										  - 42 cycles (2 cycles over)
+*	         										  - 46 cycles (6 cycles over)
 *                                                      (22 over if equals down, count not calculated on repeat)
 
 * Pattern 2
@@ -576,24 +577,24 @@ OUTLOOP18
     LI R0,>8000     * command address table         12
     BL @LOOP18                                      20
 
-* check page increment
-    CI R8,>8000                                     14  - check for end of cart space
-    JNE NOTLP18                                     10  - continue if not there yet
-    LI R8,>6002                                     ...12 - else reset and
-    AI R9,>0100                                     ...10 - increment data
+* check for end of video
+	DEC R7											10
+	JOC NOTLP18   									10
+	CLR @CARTPAGE                                   ...26 (reset cartridge bank for code jump)
+	B @ABSRET										...16-2 for branch, but we are looping (shared return)
 NOTLP18   
 	SBZ 16											12
-	SBZ 17											12 - set QUIT column - 48 cycles (8 cycles over)
+	SBZ 17											12 - set QUIT column - 44 cycles (4 cycles over)
 
 * Color 1
     LI R0,>2000     * command copy first blocks     12
     BL @LOOP18                                      20
 
-* check for end of video
-	DEC R7											10
-	JOC NOTYET18   									10
-	CLR @CARTPAGE                                   ...26 (reset cartridge bank for code jump)
-	B @ABSRET										...16-2 for branch, but we are looping (shared return)
+* check page increment
+    CI R8,>8000                                     14  - check for end of cart space
+    JNE NOTYET18                                    10  - continue if not there yet
+    LI R8,>6002                                     ...12 - else reset and
+    AI R9,>0100                                     ...10 - increment data
 NOTYET18
 * read the FCTN and EQUALS keys
 	TB 0											12 (equals)
@@ -603,7 +604,7 @@ NOTYET18
 	CLR @CARTPAGE                                   ......26 (reset cartridge bank for code jump)
 	B @REBOOT										......16-2 (but who cares, we're rebooting)
 KEYOK18
-*	         										  - 42 cycles (2 cycles over)
+*	         										  - 46 cycles (6 cycles over)
 *                                                      (22 over if equals down, count not calculated on repeat)
 
 * Pattern 2
@@ -1263,6 +1264,11 @@ VDPR16
 GAMESTART
 
 * run a simple attract mode
+
+* copyright screen before anything else
+	LI R0,>2A63
+	LI R1,300
+	BL @SHOWANDPAUSE
 	
 * if F18A is detected, then show that splash screen first
 	MOVB @f18aflg,R0
@@ -1445,6 +1451,13 @@ NONEWKEY
 	JEQ OPTLP			* nope
 	MOV JOYDAT,JOYOLD	* save new state
 	JEQ OPTLP			* nothing pressed
+	
+* if the user is holding UP, jump to the scene select
+	BL @JOYFAST
+	ANDI JOYDAT,JOYUP
+	JEQ NOSCENE
+	B @SCENESELGO
+NOSCENE
 	
 * option screen exitted with fire -- start the game
 	MOVB @BEEPVOL+1,@SOUND	* beep
@@ -1649,9 +1662,10 @@ arcadec4bug
 * game won! we're done!	
 arcadec4
 * display the win screen. Give it a long timeout, but do timeout.
-	LI R0,>2a5f
-	LI R1,18000			* about 5 minutes
-	BL @SHOWANDPAUSE
+* Win screen is ugly, never mind ;)
+*	LI R0,>2a5f
+*	LI R1,18000			* about 5 minutes
+*	BL @SHOWANDPAUSE
 
 * we're done. Back to the attract mode
 	B @attract
@@ -1697,8 +1711,8 @@ ARCADETABLE
 	data SceneC5Ropes1,SceneC5Ropes2,SceneB4Wall
 	data SceneC6Horse1,SceneC6Horse2,SceneB1DrinkMe
 	data SceneC6Horse1,SceneC6Horse2,SceneB1DrinkMe
-	data SceneC7Crypt1,SceneC7Crypt2,SceneE7River
-	data SceneC7Crypt1,SceneC7Crypt2,SceneE7River
+	data SceneC7Crypt1,SceneC7Crypt2,SceneE7RiverArcade
+	data SceneC7Crypt1,SceneC7Crypt2,SceneE7RiverArcade
 	data SceneD1PlatShort,SceneD1PlatShort,SceneA1Vestible			* SceneD1PlatShort duplicated on purpose
 	data SceneD1PlatShort,SceneD1PlatShort,SceneA1Vestible			* SceneD1PlatShort duplicated on purpose
 	data SceneE6Poolballs,SceneE4Electriccage,SceneE2Blacknight
@@ -2280,10 +2294,118 @@ BYTE03
 	BYTE >03
 BYTEFF
 	BYTE >FF
+scenecnt
+	BYTE 40
 	
 	EVEN
 QUITK        
     DATA >1100
 
-    END
+* scene select - access holding UP when you start from the config menu
+* select the scene from the score (right only) and then play it
+* we just use score as the selector - no tricks needed for numbers less than 99
+    EVEN
+
+SCENESELGO
+	MOVB @BYTE00,@queuevdp		* init storage
+
+SCENESEL
+* load the grid to indicate something happened
+	LI R0,>2A64
+	LI R1,1
+	BL @SHOWANDPAUSE
+
+	CLR @lives			* and scr1
+	clr @scr2			* and scr3
+	movb @queuevdp,@scr3  * restore the index
+	
+SCENEW1
+	BL @JOYFAST
+	ANDI JOYDAT,JOYFIRE
+	JNE SCENEW1			* wait till fire is released
+
+SCENEL1
+	BL @showscore
+	
+	LI R0,>2FFF
+SCENED1
+	DEC R0
+	JNE SCENED1			* lazy throttle
+	
+SCENEL2
+	BL @JOYFAST
+
+	MOV JOYDAT,R0
+	ANDI R0,JOYRIGHT
+	JEQ SCNORIGHT
+	AB @BYTE01,@scr3
+	CB @scr3,@scenecnt
+	JL SCENEL1
+	sB @BYTE01,@scr3	* reset if too high
+	JMP SCENEL1
+SCNORIGHT	
+
+	MOV JOYDAT,R0
+	ANDI R0,JOYLEFT
+	JEQ SCNOLEFT
+	sB @BYTE01,@scr3
+	JOC SCENEL1
+	JMP SCENESEL		* reset to zero if negative
+
+SCNOLEFT
+	ANDI JOYDAT,JOYFIRE
+	JEQ SCENEL2
+	
+* fire pressed, so play the appropriate scene
+	MOVB @scr3,@QUEUEVDP	* save the scene index
+	CLR R1
+	MOVB @scr3,R1
+	SWPB R1
+	SLA r1,1
+	MOV @TESTLST(R1),R1		* get the scene
+	BL @ALREADYSCENE		* play the scene
+	JMP SCENESEL			* loop till quit
     
+TESTLST
+	DATA SceneA1Drawbridge		0
+    DATA SceneA1Vestible		1
+	DATA SceneB1DrinkMe			2
+    DATA SceneB2Vines 			3
+    DATA SceneB2Wind 			4
+    DATA SceneB3Fire 			5
+    DATA SceneB3Pot 			6	
+    DATA SceneB3Throne 			7
+    DATA SceneB4Goons 			8
+    DATA SceneB4Snakes 			9
+    DATA SceneB4Wall 			10
+    DATA SceneC5Lizardking 		11
+    DATA SceneC5Pit 			12
+    DATA SceneC5Ropes1 			13
+    DATA SceneC5Ropes2 			14
+    DATA SceneC6Horse1 			15
+    DATA SceneC6Horse2 			16
+    DATA SceneC6Smithy1 		17
+    DATA SceneC6Smithy2 		18
+    DATA SceneC6Wizard1 		19
+    DATA SceneC6Wizard2 		20
+    DATA SceneC7Crypt1 			21
+    DATA SceneC7Crypt2 			22
+    DATA SceneC7Knight1 		23
+    DATA SceneC7Knight2 		24
+    DATA SceneC7Pond1 			25
+    DATA SceneC7Pond2 			26
+    DATA SceneD1Platform 		27
+    DATA SceneD1Platform2 		28
+    DATA SceneD1Platshort 		29
+    DATA SceneE1Bats 			30
+    DATA SceneE2Blacknight 		31
+    DATA SceneE3Catwalk 		32
+    DATA SceneE4Electriccage 	33
+    DATA SceneE5Mudmen 			34
+    DATA SceneE6Poolballs 		35
+    DATA SceneE7River 			36
+    DATA SceneE8Vanishingfloor	37
+    DATA SceneF1Dragonslair 	38
+    DATA SceneE7RiverArcade		39
+    
+    END

@@ -68,7 +68,7 @@ A0884
 A088A
 	DATA >088A,>0600,>0000,HINTNONE,0,0,0,0,0,A0890,2675						* Dirk swords it (2675)
 A0890
-	DATA >0890,>0500,>0301,HINTSWORD,0,0,A08DC,0,A0895,A08DC,0					* Dirk swords it, another appears (S, L dies)
+	DATA >0890,>0500,>0301,HINTNONE,0,0,A08DC,0,A0895,A0895,0					* Dirk swords it, another appears (S optional, L dies)
 A0895
 	DATA >0895,>0400,>0000,HINTNONE,>0000,>0000,>0000,>0000,>0000,A089A,49		* Dirk swings as skull rope drops (49)
 A089A

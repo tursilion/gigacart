@@ -7,7 +7,7 @@ VDPRD   EQU >8800
 VDPST	EQU >8802
 
 * how many frames of code are before the video/data starts
-VIDEOFFSET EQU >002F
+VIDEOFFSET EQU >0030
 
 * Scene offset, because I added a few more frames.
 * The code already assumes a starting frame of '3'
@@ -184,3 +184,4 @@ SceneE6Poolballs 	equ >604C+SCENEOFFSET
 SceneE7River 		equ >604E+SCENEOFFSET
 SceneE8Vanishingfloor equ >6050+SCENEOFFSET
 SceneF1Dragonslair 	equ >6052+SCENEOFFSET
+SceneE7RiverArcade	equ >6054+SCENEOFFSET

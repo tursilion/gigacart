@@ -369,24 +369,24 @@ OUTLOOP
     LI R0,>0040     * start address table 1 >0000   12
     BL @LOOP1                                       20 (accounted for in LOOP)
 
-* check page increment
-    CI R8,>8000                                     14  - check for end of cart space
-    JNE NOTLP                                       10  - continue if not there yet
-    LI R8,>6002                                     ...12 - else reset and
-    AI R9,>0100                                     ...10 - increment data
+* check for end of video
+	DEC R7											10
+	JOC NOTLP										10
+	CLR @CARTPAGE                                   ...26 (reset cartridge bank for code jump)
+	B @ABSRET										...16-2 for branch, but we are looping
 NOTLP   
 	SBZ 15											12
-	SBZ 16											12 - set QUIT column - 48 cycles (8 cycles over)
+	SBZ 16											12 - set QUIT column - 44 cycles (4 cycles over)
 
 * Color 1
     LI R0,>0060     * start address table 3 >2000   12
     BL @LOOP1                                       20 (accounted for in LOOP)
     
-* check for end of video
-	DEC R7											10
-	JOC NOTYET										10
-	CLR @CARTPAGE                                   ...26 (reset cartridge bank for code jump)
-	B @ABSRET										...16-2 for branch, but we are looping
+* check page increment
+    CI R8,>8000                                     14  - check for end of cart space
+    JNE NOTYET                                      10  - continue if not there yet
+    LI R8,>6002                                     ...12 - else reset and
+    AI R9,>0100                                     ...10 - increment data
 NOTYET
 * read the FCTN and EQUALS keys
 	TB 0											12 (equals)
@@ -396,7 +396,7 @@ NOTYET
 	CLR @CARTPAGE                                   ......26 (reset cartridge bank for code jump)
 	B @REBOOT										......16-2 (but who cares, we're rebooting)
 KEYOK
-*	         										  - 42 cycles (2 cycles over)
+*	         										  - 46 cycles (6 cycles over)
 *                                                      (22 over if equals down, count not calculated on repeat)
 
 * Pattern 2
@@ -599,24 +599,24 @@ OUTLOOP18
     LI R0,>8000     * command address table         12
     BL @LOOP18                                      20
 
-* check page increment
-    CI R8,>8000                                     14  - check for end of cart space
-    JNE NOTLP18                                     10  - continue if not there yet
-    LI R8,>6002                                     ...12 - else reset and
-    AI R9,>0100                                     ...10 - increment data
+* check for end of video
+	DEC R7											10
+	JOC NOTLP18   									10
+	CLR @CARTPAGE                                   ...26 (reset cartridge bank for code jump)
+	B @ABSRET										...16-2 for branch, but we are looping (shared return)
 NOTLP18   
 	SBZ 15											12
-	SBZ 16											12 - set QUIT column - 48 cycles (8 cycles over)
+	SBZ 16											12 - set QUIT column - 44 cycles (4 cycles over)
 
 * Color 1
     LI R0,>2000     * command copy first blocks     12
     BL @LOOP18                                      20
 
-* check for end of video
-	DEC R7											10
-	JOC NOTYET18   									10
-	CLR @CARTPAGE                                   ...26 (reset cartridge bank for code jump)
-	B @ABSRET										...16-2 for branch, but we are looping (shared return)
+* check page increment
+    CI R8,>8000                                     14  - check for end of cart space
+    JNE NOTYET18                                    10  - continue if not there yet
+    LI R8,>6002                                     ...12 - else reset and
+    AI R9,>0100                                     ...10 - increment data
 NOTYET18
 * read the FCTN and EQUALS keys
 	TB 0											12 (equals)
@@ -626,7 +626,7 @@ NOTYET18
 	CLR @CARTPAGE                                   ......26 (reset cartridge bank for code jump)
 	B @REBOOT										......16-2 (but who cares, we're rebooting)
 KEYOK18
-*	         										  - 42 cycles (2 cycles over)
+*	         										  - 46 cycles (6 cycles over)
 *                                                      (22 over if equals down, count not calculated on repeat)
 
 * Pattern 2
@@ -1295,6 +1295,11 @@ VDPR16
 GAMESTART
 
 * run a simple attract mode
+
+* copyright screen before anything else
+	LI R0,>2A63
+	LI R1,300
+	BL @SHOWANDPAUSE
 	
 * if F18A is detected, then show that splash screen first
 	MOVB @f18aflg,R0
@@ -1474,7 +1479,7 @@ NONEWKEY
 	JEQ OPTLP			* nope
 	MOV JOYDAT,JOYOLD	* save new state
 	JEQ OPTLP			* nothing pressed
-	
+
 * option screen exitted with fire -- start the game
 	MOVB @BEEPVOL+1,@SOUND	* beep
 	BL @BLACKVID
@@ -1678,10 +1683,10 @@ arcadec4bug
 * game won! we're done!	
 arcadec4
 * display the win screen. Give it a long timeout, but do timeout.
-* my win screen is kind of lame... 
-	LI R0,>2a5f
-	LI R1,18000			* about 5 minutes
-	BL @SHOWANDPAUSE
+* Win screen is ugly, never mind ;)
+*	LI R0,>2a5f
+*	LI R1,18000			* about 5 minutes
+*	BL @SHOWANDPAUSE
 
 * we're done. Back to the attract mode
 	B @attract

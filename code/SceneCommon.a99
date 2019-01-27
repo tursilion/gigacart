@@ -100,6 +100,38 @@ MENUKY
 	INV JOYDAT			* make sure '1' bits are active
 	B *R11
 
+* Fast keyboard read with fire - kills R12 and R10, uses JOYDAT
+* blocking, too, there's a NOP. Maps to keyboard bits.
+* also checks for QUIT
+KEYFAST
+* check QUIT (same code as console ROM)
+	LI 12,>0024 		* Load CRU
+	LDCR @>0012,3
+	SRC 12,7			* delay
+	LI 12,>0006
+	STCR R10,8 			* Fetch CRU
+	CZC @QUITK,R10 		* QUIT key?
+	JNE MENUKY2
+	B @REBOOT			* reboot if yes
+MENUKY2
+* read keyboard B
+	li r12,>0024
+	li r10,>0200
+	ldcr r10,3
+	NOP
+	li r12,>0006
+	stcr JOYDAT,8		* reads D and E
+* read keyboard A
+	LI R12,>0024
+	LI R10,>0100
+	ldcr r10,3
+	SWPB JOYDAT
+	li r12,>0006
+	stcr JOYDAT,8		* Reads S,X and period
+	SRL JOYDAT,5		* make index
+	MOVB @KEY2JOY(JOYDAT),JOYDAT	* lookup table to joystick bits
+	B *R11
+
 * set the color table for video to black
 BLACKVID
 	MOV R11,@SAVE3
@@ -374,9 +406,23 @@ nopracticelen
 * (We still have r0 from above, so we just use it)
 **	mov @framehint(r13),r0	* hint arrow, in case it's off
 	bl @vdpwta
-	
+
+* need to check for keyboard or joystick...
+* so, we're going to make an assumption that joystick is 6000 and keyboard is at 6002
 practiceloop
+	c @JOYPAGE,@VIDEOPAGE	* are we using joystick?
+	jeq pracjoy
+
+* read keyboard instead	
+	bl @keyfast
+	jmp pracread
+
+pracjoy
+* read joystick
 	bl @joyfast
+
+pracread
+* continue on with our input...
 	CZC JOYMASK,JOYDAT		* are we there yet?
 	jeq practiceloop		* nope
 	
@@ -470,7 +516,7 @@ NOTRIGHT
 	MOV @framefiresc(r13),r0
 	jeq scenetimeoutbug		* there was no registered scene
 	mov r0,@rowbase
-	jmp scenelp
+	b @scenelp
 
 * no more scenes to play out!
 scenedone
@@ -538,4 +584,9 @@ MASKRIGHT
 	DATA JOYRIGHT
 MASKFIRE
 	DATA JOYFIRE
+JOYPAGE
+	DATA >6000
 	
+KEY2JOY
+	COPY "D:\work\ti\dragonslair\code\key2joy.a99"
+
