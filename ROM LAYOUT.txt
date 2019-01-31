@@ -1106,7 +1106,7 @@ xxxx	00Attract.bin
 2937	(last frame)
 (10,551 frames (+ offset!!))
 
-2398 	(skip to frame 10,815 - empty space inbetween - ~ 2MB)
+2A3E 	(skip to frame 10,815 - empty space inbetween - ~ 2MB)
 
 2A3F	Game screen border graphics	-- different format than screens, and pattern, then color... (used, but duplicated)
 2A40	Config hints/easy/arcade -- these screens are 3k pattern, 3k color, and 768 bytes SIT (SIT always the same)
@@ -1147,6 +1147,7 @@ xxxx	00Attract.bin
 2A63	Copyright
 2A64	Grid (scene select)
 
+3FFF	Last page
 
 VDP Usage:
 0000-17ff	PDT

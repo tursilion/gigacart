@@ -1493,6 +1493,18 @@ NONEWKEY
 	jne nlivhard
 	li r0,livhard
 nlivhard
+
+* cheat - hold shift for tons of lives
+	LI R12,>0024
+	CLR R1
+	LDCR R1,3
+	NOP
+	LI R12,>0010
+	TB 0			* is shift pressed?
+	JEQ NOCHEATL	* if not, skip over
+	li r0,>0099
+NOCHEATL
+
 	swpb r0
 	movb r0,@lives
 	
