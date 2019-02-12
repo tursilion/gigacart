@@ -1,0 +1,669 @@
+EDIF2BLIF version IspLever 1.0  Linked Equations File
+Copyright(C), 1992-2015, Lattice Semiconductor Corp.
+All Rights Reserved.
+
+Design gigacart created Sun Feb 11 01:51:17 2018
+
+
+ P-Terms   Fan-in  Fan-out  Type  Name (attributes)
+---------  ------  -------  ----  -----------------
+   1/1        1        1    Pin   ti_data_3_ 
+   1/1        1        1    Pin   ti_data_3_.OE 
+   1/1        1        1    Pin   ti_data_2_ 
+   1/1        1        1    Pin   ti_data_2_.OE 
+   1/1        1        1    Pin   ti_data_1_ 
+   1/1        1        1    Pin   ti_data_1_.OE 
+   1/1        1        1    Pin   ti_data_0_ 
+   1/1        1        1    Pin   ti_data_0_.OE 
+   1/1        1        1    Pin   ti_data_7_ 
+   1/1        1        1    Pin   ti_data_7_.OE 
+   1/1        1        1    Pin   out_adr_25_ 
+   1/1        1        1    Pin   out_adr_24_ 
+   1/1        1        1    Pin   out_adr_26_ 
+   1/1        1        1    Pin   out_adr_23_ 
+   1/1        1        1    Pin   out_adr_22_ 
+   1/1        1        1    Pin   out_adr_21_ 
+   1/1        1        1    Pin   out_adr_20_ 
+   1/1        1        1    Pin   out_adr_19_ 
+   1/1        1        1    Pin   out_rom 
+   1/1        1        1    Pin   out_adr_18_ 
+   1/1        1        1    Pin   out_we 
+   1/1        1        1    Pin   out_adr_17_ 
+   1/1        1        1    Pin   out_rom1 
+   1/1        1        1    Pin   out_adr_16_ 
+   1/1        1        1    Pin   out_rom2 
+   1/1        1        1    Pin   out_adr_15_ 
+   1/1        1        1    Pin   out_rom3 
+   1/1        1        1    Pin   out_adr_14_ 
+   1/1        1        1    Pin   out_rom4 
+   1/1        1        1    Pin   out_adr_13_ 
+   1/1        1        1    Pin   out_adr_12_ 
+   1/1        1        1    Pin   out_adr_11_ 
+   1/1        1        1    Pin   out_adr_10_ 
+   1/1        1        1    Pin   out_adr_9_ 
+   1/1        1        1    Pin   out_adr_8_ 
+   1/1        1        1    Pin   out_adr_7_ 
+   1/1        1        1    Pin   out_adr_6_ 
+   1/1        1        1    Pin   out_adr_5_ 
+   1/1        1        1    Pin   out_adr_4_ 
+   1/1        1        1    Pin   out_adr_3_ 
+   1/1        1        1    Pin   out_adr_2_ 
+   1/1        1        1    Pin   out_adr_1_ 
+   1/1        1        1    Pin   out_adr_0_ 
+   1/1        1        1    Pin   ti_data_6_ 
+   1/1        1        1    Pin   ti_data_6_.OE 
+   1/1        1        1    Pin   ti_data_5_ 
+   1/1        1        1    Pin   ti_data_5_.OE 
+   1/1        1        1    Pin   ti_data_4_ 
+   1/1        1        1    Pin   ti_data_4_.OE 
+   1          2        1    Node  un2_ti_data 
+   1          2        1    Node  un2_out_rom1 
+   1          2        1    Node  un2_out_rom2 
+   1          2        1    Node  un2_out_rom3 
+   1          2        1    Node  un2_out_rom4 
+   1/1        1        1    Node  chip_0_.CE 
+   1/1        1        1    Node  chip_0_.D 
+   1/1        1        1    Node  chip_0_.C 
+   1/1        1        1    Node  chip_1_.CE 
+   1/1        1        1    Node  chip_1_.D 
+   1/1        1        1    Node  chip_1_.C 
+   1/1        1        1    Node  latch_0_reg.CE 
+   1/1        1        1    Node  latch_0_reg.D 
+   1/1        1        1    Node  latch_0_reg.C 
+   1/1        1        1    Node  latch_1_reg.CE 
+   1/1        1        1    Node  latch_1_reg.D 
+   1/1        1        1    Node  latch_1_reg.C 
+   1/1        1        1    Node  latch_2_reg.CE 
+   1/1        1        1    Node  latch_2_reg.D 
+   1/1        1        1    Node  latch_2_reg.C 
+   1/1        1        1    Node  latch_3_reg.CE 
+   1/1        1        1    Node  latch_3_reg.D 
+   1/1        1        1    Node  latch_3_reg.C 
+   1/1        1        1    Node  latch_4_reg.CE 
+   1/1        1        1    Node  latch_4_reg.D 
+   1/1        1        1    Node  latch_4_reg.C 
+   1/1        1        1    Node  latch_5_reg.CE 
+   1/1        1        1    Node  latch_5_reg.D 
+   1/1        1        1    Node  latch_5_reg.C 
+   1/1        1        1    Node  latch_6_reg.CE 
+   1/1        1        1    Node  latch_6_reg.D 
+   1/1        1        1    Node  latch_6_reg.C 
+   1/1        1        1    Node  latch_7_reg.CE 
+   1/1        1        1    Node  latch_7_reg.D 
+   1/1        1        1    Node  latch_7_reg.C 
+   1/1        1        1    Node  latch_8_reg.CE 
+   1/1        1        1    Node  latch_8_reg.D 
+   1/1        1        1    Node  latch_8_reg.C 
+   1/1        1        1    Node  latch_9_reg.CE 
+   1/1        1        1    Node  latch_9_reg.D 
+   1/1        1        1    Node  latch_9_reg.C 
+   1/1        1        1    Node  latch_10_reg.CE 
+   1/1        1        1    Node  latch_10_reg.D 
+   1/1        1        1    Node  latch_10_reg.C 
+   1/1        1        1    Node  latch_11_reg.CE 
+   1/1        1        1    Node  latch_11_reg.D 
+   1/1        1        1    Node  latch_11_reg.C 
+   1/1        1        1    Node  latch_12_reg.CE 
+   1/1        1        1    Node  latch_12_reg.D 
+   1/1        1        1    Node  latch_12_reg.C 
+   1/1        1        1    Node  latch_13_reg.CE 
+   1/1        1        1    Node  latch_13_reg.D 
+   1/1        1        1    Node  latch_13_reg.C 
+   1          1        1    Node  un2_out_rom4_i 
+   1          1        1    Node  un2_out_rom3_i 
+   1          1        1    Node  un2_out_rom2_i 
+   1          1        1    Node  un2_out_rom1_i 
+   1          1        1    Node  chip_i_0__n 
+   1          1        1    Node  chip_i_1__n 
+   1          1        1    Node  ti_rom_i 
+   1/1        1        1    Node  ti_adr_c_0__n 
+   1/1        1        1    Node  ti_adr_c_1__n 
+   1/1        1        1    Node  ti_adr_c_2__n 
+   1/1        1        1    Node  ti_adr_c_3__n 
+   1/1        1        1    Node  ti_adr_c_4__n 
+   1/1        1        1    Node  ti_adr_c_5__n 
+   1/1        1        1    Node  ti_adr_c_6__n 
+   1/1        1        1    Node  ti_adr_c_7__n 
+   1/1        1        1    Node  ti_adr_c_8__n 
+   1/1        1        1    Node  ti_adr_c_9__n 
+   1/1        1        1    Node  ti_adr_c_10__n 
+   1/1        1        1    Node  ti_adr_c_11__n 
+   1/1        1        1    Node  ti_adr_c_12__n 
+   1/1        1        1    Node  ti_we_c 
+   1/1        1        1    Node  ti_rom_c 
+   1/1        1        1    Node  out_data_c_0__n 
+   1/1        1        1    Node  out_data_c_1__n 
+   1/1        1        1    Node  out_data_c_2__n 
+   1/1        1        1    Node  out_data_c_3__n 
+   1/1        1        1    Node  out_data_c_4__n 
+   1/1        1        1    Node  out_data_c_5__n 
+   1/1        1        1    Node  out_data_c_6__n 
+   1/1        1        1    Node  out_data_c_7__n 
+   1          2        1    Node  un2_out_rom4_1 
+   1          2        1    Node  un2_out_rom3_1 
+   1          2        1    Node  un2_out_rom2_1 
+   1          2        1    Node  un2_out_rom1_1 
+=========
+ 136/120        Best P-Term Total: 136
+                       Total Pins: 64
+                      Total Nodes: 55
+            Average P-Term/Output: 1
+
+
+Equations:
+
+ti_data_3_ = (out_data_c_3__n);
+
+ti_data_3_.OE = (un2_ti_data);
+
+ti_data_2_ = (out_data_c_2__n);
+
+ti_data_2_.OE = (un2_ti_data);
+
+ti_data_1_ = (out_data_c_1__n);
+
+ti_data_1_.OE = (un2_ti_data);
+
+ti_data_0_ = (out_data_c_0__n);
+
+ti_data_0_.OE = (un2_ti_data);
+
+ti_data_7_ = (out_data_c_7__n);
+
+ti_data_7_.OE = (un2_ti_data);
+
+out_adr_25_ = (latch_12_reg);
+
+out_adr_24_ = (latch_11_reg);
+
+out_adr_26_ = (latch_13_reg);
+
+out_adr_23_ = (latch_10_reg);
+
+out_adr_22_ = (latch_9_reg);
+
+out_adr_21_ = (latch_8_reg);
+
+out_adr_20_ = (latch_7_reg);
+
+out_adr_19_ = (latch_6_reg);
+
+out_rom = (ti_rom_c);
+
+out_adr_18_ = (latch_5_reg);
+
+out_we = (ti_we_c);
+
+out_adr_17_ = (latch_4_reg);
+
+out_rom1 = (un2_out_rom1_i);
+
+out_adr_16_ = (latch_3_reg);
+
+out_rom2 = (un2_out_rom2_i);
+
+out_adr_15_ = (latch_2_reg);
+
+out_rom3 = (un2_out_rom3_i);
+
+out_adr_14_ = (latch_1_reg);
+
+out_rom4 = (un2_out_rom4_i);
+
+out_adr_13_ = (latch_0_reg);
+
+out_adr_12_ = (ti_adr_c_12__n);
+
+out_adr_11_ = (ti_adr_c_11__n);
+
+out_adr_10_ = (ti_adr_c_10__n);
+
+out_adr_9_ = (ti_adr_c_9__n);
+
+out_adr_8_ = (ti_adr_c_8__n);
+
+out_adr_7_ = (ti_adr_c_7__n);
+
+out_adr_6_ = (ti_adr_c_6__n);
+
+out_adr_5_ = (ti_adr_c_5__n);
+
+out_adr_4_ = (ti_adr_c_4__n);
+
+out_adr_3_ = (ti_adr_c_3__n);
+
+out_adr_2_ = (ti_adr_c_2__n);
+
+out_adr_1_ = (ti_adr_c_1__n);
+
+out_adr_0_ = (ti_adr_c_0__n);
+
+ti_data_6_ = (out_data_c_6__n);
+
+ti_data_6_.OE = (un2_ti_data);
+
+ti_data_5_ = (out_data_c_5__n);
+
+ti_data_5_.OE = (un2_ti_data);
+
+ti_data_4_ = (out_data_c_4__n);
+
+ti_data_4_.OE = (un2_ti_data);
+
+un2_ti_data = (ti_rom_i & ti_we_c);
+
+un2_out_rom1 = (un2_out_rom1_1 & chip_i_1__n);
+
+un2_out_rom2 = (un2_out_rom2_1 & chip_i_1__n);
+
+un2_out_rom3 = (un2_out_rom3_1 & chip_i_0__n);
+
+un2_out_rom4 = (un2_out_rom4_1 & chip_1_);
+
+chip_0_.CE = (ti_rom_i);
+
+chip_0_.D = (ti_data_2_.PIN);
+
+chip_0_.C = (ti_we_c);
+
+chip_1_.CE = (ti_rom_i);
+
+chip_1_.D = (ti_data_3_.PIN);
+
+chip_1_.C = (ti_we_c);
+
+latch_0_reg.CE = (ti_rom_i);
+
+latch_0_reg.D = (ti_adr_c_1__n);
+
+latch_0_reg.C = (ti_we_c);
+
+latch_1_reg.CE = (ti_rom_i);
+
+latch_1_reg.D = (ti_adr_c_2__n);
+
+latch_1_reg.C = (ti_we_c);
+
+latch_2_reg.CE = (ti_rom_i);
+
+latch_2_reg.D = (ti_adr_c_3__n);
+
+latch_2_reg.C = (ti_we_c);
+
+latch_3_reg.CE = (ti_rom_i);
+
+latch_3_reg.D = (ti_adr_c_4__n);
+
+latch_3_reg.C = (ti_we_c);
+
+latch_4_reg.CE = (ti_rom_i);
+
+latch_4_reg.D = (ti_adr_c_5__n);
+
+latch_4_reg.C = (ti_we_c);
+
+latch_5_reg.CE = (ti_rom_i);
+
+latch_5_reg.D = (ti_adr_c_6__n);
+
+latch_5_reg.C = (ti_we_c);
+
+latch_6_reg.CE = (ti_rom_i);
+
+latch_6_reg.D = (ti_adr_c_7__n);
+
+latch_6_reg.C = (ti_we_c);
+
+latch_7_reg.CE = (ti_rom_i);
+
+latch_7_reg.D = (ti_adr_c_8__n);
+
+latch_7_reg.C = (ti_we_c);
+
+latch_8_reg.CE = (ti_rom_i);
+
+latch_8_reg.D = (ti_adr_c_9__n);
+
+latch_8_reg.C = (ti_we_c);
+
+latch_9_reg.CE = (ti_rom_i);
+
+latch_9_reg.D = (ti_adr_c_10__n);
+
+latch_9_reg.C = (ti_we_c);
+
+latch_10_reg.CE = (ti_rom_i);
+
+latch_10_reg.D = (ti_adr_c_11__n);
+
+latch_10_reg.C = (ti_we_c);
+
+latch_11_reg.CE = (ti_rom_i);
+
+latch_11_reg.D = (ti_adr_c_12__n);
+
+latch_11_reg.C = (ti_we_c);
+
+latch_12_reg.CE = (ti_rom_i);
+
+latch_12_reg.D = (ti_data_0_.PIN);
+
+latch_12_reg.C = (ti_we_c);
+
+latch_13_reg.CE = (ti_rom_i);
+
+latch_13_reg.D = (ti_data_1_.PIN);
+
+latch_13_reg.C = (ti_we_c);
+
+un2_out_rom4_i = (!un2_out_rom4);
+
+un2_out_rom3_i = (!un2_out_rom3);
+
+un2_out_rom2_i = (!un2_out_rom2);
+
+un2_out_rom1_i = (!un2_out_rom1);
+
+chip_i_0__n = (!chip_0_);
+
+chip_i_1__n = (!chip_1_);
+
+ti_rom_i = (!ti_rom_c);
+
+ti_adr_c_0__n = (ti_adr_0_);
+
+ti_adr_c_1__n = (ti_adr_1_);
+
+ti_adr_c_2__n = (ti_adr_2_);
+
+ti_adr_c_3__n = (ti_adr_3_);
+
+ti_adr_c_4__n = (ti_adr_4_);
+
+ti_adr_c_5__n = (ti_adr_5_);
+
+ti_adr_c_6__n = (ti_adr_6_);
+
+ti_adr_c_7__n = (ti_adr_7_);
+
+ti_adr_c_8__n = (ti_adr_8_);
+
+ti_adr_c_9__n = (ti_adr_9_);
+
+ti_adr_c_10__n = (ti_adr_10_);
+
+ti_adr_c_11__n = (ti_adr_11_);
+
+ti_adr_c_12__n = (ti_adr_12_);
+
+ti_we_c = (ti_we);
+
+ti_rom_c = (ti_rom);
+
+out_data_c_0__n = (out_data_0_);
+
+out_data_c_1__n = (out_data_1_);
+
+out_data_c_2__n = (out_data_2_);
+
+out_data_c_3__n = (out_data_3_);
+
+out_data_c_4__n = (out_data_4_);
+
+out_data_c_5__n = (out_data_5_);
+
+out_data_c_6__n = (out_data_6_);
+
+out_data_c_7__n = (out_data_7_);
+
+un2_out_rom4_1 = (ti_rom_i & chip_0_);
+
+un2_out_rom3_1 = (ti_rom_i & chip_1_);
+
+un2_out_rom2_1 = (ti_rom_i & chip_0_);
+
+un2_out_rom1_1 = (ti_rom_i & chip_i_0__n);
+
+
+Reverse-Polarity Equations:
+
+!ti_data_3_ = (!out_data_c_3__n);
+
+!ti_data_3_.OE = (!un2_ti_data);
+
+!ti_data_2_ = (!out_data_c_2__n);
+
+!ti_data_2_.OE = (!un2_ti_data);
+
+!ti_data_1_ = (!out_data_c_1__n);
+
+!ti_data_1_.OE = (!un2_ti_data);
+
+!ti_data_0_ = (!out_data_c_0__n);
+
+!ti_data_0_.OE = (!un2_ti_data);
+
+!ti_data_7_ = (!out_data_c_7__n);
+
+!ti_data_7_.OE = (!un2_ti_data);
+
+!out_adr_25_ = (!latch_12_reg);
+
+!out_adr_24_ = (!latch_11_reg);
+
+!out_adr_26_ = (!latch_13_reg);
+
+!out_adr_23_ = (!latch_10_reg);
+
+!out_adr_22_ = (!latch_9_reg);
+
+!out_adr_21_ = (!latch_8_reg);
+
+!out_adr_20_ = (!latch_7_reg);
+
+!out_adr_19_ = (!latch_6_reg);
+
+!out_rom = (!ti_rom_c);
+
+!out_adr_18_ = (!latch_5_reg);
+
+!out_we = (!ti_we_c);
+
+!out_adr_17_ = (!latch_4_reg);
+
+!out_rom1 = (!un2_out_rom1_i);
+
+!out_adr_16_ = (!latch_3_reg);
+
+!out_rom2 = (!un2_out_rom2_i);
+
+!out_adr_15_ = (!latch_2_reg);
+
+!out_rom3 = (!un2_out_rom3_i);
+
+!out_adr_14_ = (!latch_1_reg);
+
+!out_rom4 = (!un2_out_rom4_i);
+
+!out_adr_13_ = (!latch_0_reg);
+
+!out_adr_12_ = (!ti_adr_c_12__n);
+
+!out_adr_11_ = (!ti_adr_c_11__n);
+
+!out_adr_10_ = (!ti_adr_c_10__n);
+
+!out_adr_9_ = (!ti_adr_c_9__n);
+
+!out_adr_8_ = (!ti_adr_c_8__n);
+
+!out_adr_7_ = (!ti_adr_c_7__n);
+
+!out_adr_6_ = (!ti_adr_c_6__n);
+
+!out_adr_5_ = (!ti_adr_c_5__n);
+
+!out_adr_4_ = (!ti_adr_c_4__n);
+
+!out_adr_3_ = (!ti_adr_c_3__n);
+
+!out_adr_2_ = (!ti_adr_c_2__n);
+
+!out_adr_1_ = (!ti_adr_c_1__n);
+
+!out_adr_0_ = (!ti_adr_c_0__n);
+
+!ti_data_6_ = (!out_data_c_6__n);
+
+!ti_data_6_.OE = (!un2_ti_data);
+
+!ti_data_5_ = (!out_data_c_5__n);
+
+!ti_data_5_.OE = (!un2_ti_data);
+
+!ti_data_4_ = (!out_data_c_4__n);
+
+!ti_data_4_.OE = (!un2_ti_data);
+
+!chip_0_.CE = (!ti_rom_i);
+
+!chip_0_.D = (!ti_data_2_.PIN);
+
+!chip_0_.C = (!ti_we_c);
+
+!chip_1_.CE = (!ti_rom_i);
+
+!chip_1_.D = (!ti_data_3_.PIN);
+
+!chip_1_.C = (!ti_we_c);
+
+!latch_0_reg.CE = (!ti_rom_i);
+
+!latch_0_reg.D = (!ti_adr_c_1__n);
+
+!latch_0_reg.C = (!ti_we_c);
+
+!latch_1_reg.CE = (!ti_rom_i);
+
+!latch_1_reg.D = (!ti_adr_c_2__n);
+
+!latch_1_reg.C = (!ti_we_c);
+
+!latch_2_reg.CE = (!ti_rom_i);
+
+!latch_2_reg.D = (!ti_adr_c_3__n);
+
+!latch_2_reg.C = (!ti_we_c);
+
+!latch_3_reg.CE = (!ti_rom_i);
+
+!latch_3_reg.D = (!ti_adr_c_4__n);
+
+!latch_3_reg.C = (!ti_we_c);
+
+!latch_4_reg.CE = (!ti_rom_i);
+
+!latch_4_reg.D = (!ti_adr_c_5__n);
+
+!latch_4_reg.C = (!ti_we_c);
+
+!latch_5_reg.CE = (!ti_rom_i);
+
+!latch_5_reg.D = (!ti_adr_c_6__n);
+
+!latch_5_reg.C = (!ti_we_c);
+
+!latch_6_reg.CE = (!ti_rom_i);
+
+!latch_6_reg.D = (!ti_adr_c_7__n);
+
+!latch_6_reg.C = (!ti_we_c);
+
+!latch_7_reg.CE = (!ti_rom_i);
+
+!latch_7_reg.D = (!ti_adr_c_8__n);
+
+!latch_7_reg.C = (!ti_we_c);
+
+!latch_8_reg.CE = (!ti_rom_i);
+
+!latch_8_reg.D = (!ti_adr_c_9__n);
+
+!latch_8_reg.C = (!ti_we_c);
+
+!latch_9_reg.CE = (!ti_rom_i);
+
+!latch_9_reg.D = (!ti_adr_c_10__n);
+
+!latch_9_reg.C = (!ti_we_c);
+
+!latch_10_reg.CE = (!ti_rom_i);
+
+!latch_10_reg.D = (!ti_adr_c_11__n);
+
+!latch_10_reg.C = (!ti_we_c);
+
+!latch_11_reg.CE = (!ti_rom_i);
+
+!latch_11_reg.D = (!ti_adr_c_12__n);
+
+!latch_11_reg.C = (!ti_we_c);
+
+!latch_12_reg.CE = (!ti_rom_i);
+
+!latch_12_reg.D = (!ti_data_0_.PIN);
+
+!latch_12_reg.C = (!ti_we_c);
+
+!latch_13_reg.CE = (!ti_rom_i);
+
+!latch_13_reg.D = (!ti_data_1_.PIN);
+
+!latch_13_reg.C = (!ti_we_c);
+
+!ti_adr_c_0__n = (!ti_adr_0_);
+
+!ti_adr_c_1__n = (!ti_adr_1_);
+
+!ti_adr_c_2__n = (!ti_adr_2_);
+
+!ti_adr_c_3__n = (!ti_adr_3_);
+
+!ti_adr_c_4__n = (!ti_adr_4_);
+
+!ti_adr_c_5__n = (!ti_adr_5_);
+
+!ti_adr_c_6__n = (!ti_adr_6_);
+
+!ti_adr_c_7__n = (!ti_adr_7_);
+
+!ti_adr_c_8__n = (!ti_adr_8_);
+
+!ti_adr_c_9__n = (!ti_adr_9_);
+
+!ti_adr_c_10__n = (!ti_adr_10_);
+
+!ti_adr_c_11__n = (!ti_adr_11_);
+
+!ti_adr_c_12__n = (!ti_adr_12_);
+
+!ti_we_c = (!ti_we);
+
+!ti_rom_c = (!ti_rom);
+
+!out_data_c_0__n = (!out_data_0_);
+
+!out_data_c_1__n = (!out_data_1_);
+
+!out_data_c_2__n = (!out_data_2_);
+
+!out_data_c_3__n = (!out_data_3_);
+
+!out_data_c_4__n = (!out_data_4_);
+
+!out_data_c_5__n = (!out_data_5_);
+
+!out_data_c_6__n = (!out_data_6_);
+
+!out_data_c_7__n = (!out_data_7_);
+

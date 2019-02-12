@@ -1,0 +1,6 @@
+C:\ispLEVER_Classic2_0\synpbase\bin64\c_vhdl.exe  -synchk  -prodtype  synplify_pro  -useclone -ui  -synchk  -nostructver -dmgen  D:\work\TI\dragonslair\cart\cpld\rev_1\dm  -lite -ui -fid2 -ram -sharing on -ll 2000 -autosm -ignore_undefined_lib  -lib work D:\work\TI\dragonslair\cart\cpld\design.vhd -log  D:\work\TI\dragonslair\cart\cpld\rev_1\syntax.log 
+rc:0 success:1
+D:\work\TI\dragonslair\cart\cpld\design.vhd|i|1538270015|9241
+D:\work\TI\dragonslair\cart\cpld\rev_1\syntax.log|o|1538270343|1788
+C:\ispLEVER_Classic2_0\synpbase\bin\c_vhdl.exe|i|1401259898|2046976
+C:\ispLEVER_Classic2_0\synpbase\bin64\c_vhdl.exe|i|1401260104|5533184

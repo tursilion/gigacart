@@ -1,0 +1,212 @@
+|--------------------------------------------------- ----------|
+|- ispLEVER Classic 2.0.00.17.20.15 Equations File            -|
+|- Copyright(C), 1992-2012, Lattice Semiconductor Corporation -|
+|- All Rights Reserved.                                       -|
+|--------------------------------------------------------------|
+
+
+Equations:
+
+dataout = ti_we & !ti_gsel & !ti_adr_14_ & gvalid_143reg.Q & grmpage_144reg.Q
+    # ti_we & !ti_rom ; (2 pterms, 6 signals)
+
+gactive_142.D = !( ti_gsel & !gvalid_143reg.Q ) ; (1 pterm, 2 signals)
+gactive_142.C = !ti_gclk ; (1 pterm, 1 signal)
+
+gadd_146.D = !( !ti_we & ti_adr_14_ ) ; (1 pterm, 2 signals)
+gadd_146.C = gvalid_143reg.Q ; (1 pterm, 1 signal)
+gadd_146.CE = !( ti_we & ti_adr_14_ ) ; (1 pterm, 2 signals)
+
+grmadr_i0.T = !ti_adr_14_ & grmadr_i1.Q & grmadr_i2.Q & grmadr_i3.Q
+       & grmadr_i4.Q & grmadr_i5.Q & grmadr_i6.Q & grmadr_i7.Q & gadd_146.Q
+    # ti_adr_14_ & !ti_data_0_.PIN & grmadr_i0.Q
+    # ti_adr_14_ & ti_data_0_.PIN & !grmadr_i0.Q ; (3 pterms, 11 signals)
+grmadr_i0.C = gvalid_143reg.Q ; (1 pterm, 1 signal)
+grmadr_i0.CE = !( ti_we & ti_adr_14_ ) ; (1 pterm, 2 signals)
+
+grmadr_i1.T = !ti_adr_14_ & grmadr_i2.Q & grmadr_i3.Q & grmadr_i4.Q
+       & grmadr_i5.Q & grmadr_i6.Q & grmadr_i7.Q & gadd_146.Q
+    # ti_adr_14_ & !ti_data_1_.PIN & grmadr_i1.Q
+    # ti_adr_14_ & ti_data_1_.PIN & !grmadr_i1.Q ; (3 pterms, 10 signals)
+grmadr_i1.C = gvalid_143reg.Q ; (1 pterm, 1 signal)
+grmadr_i1.CE = !( ti_we & ti_adr_14_ ) ; (1 pterm, 2 signals)
+
+grmadr_i2.T = !ti_adr_14_ & grmadr_i3.Q & grmadr_i4.Q & grmadr_i5.Q
+       & grmadr_i6.Q & grmadr_i7.Q & gadd_146.Q
+    # ti_adr_14_ & !ti_data_2_.PIN & grmadr_i2.Q
+    # ti_adr_14_ & ti_data_2_.PIN & !grmadr_i2.Q ; (3 pterms, 9 signals)
+grmadr_i2.C = gvalid_143reg.Q ; (1 pterm, 1 signal)
+grmadr_i2.CE = !( ti_we & ti_adr_14_ ) ; (1 pterm, 2 signals)
+
+grmadr_i3.T = !ti_adr_14_ & grmadr_i4.Q & grmadr_i5.Q & grmadr_i6.Q
+       & grmadr_i7.Q & gadd_146.Q
+    # ti_adr_14_ & !ti_data_3_.PIN & grmadr_i3.Q
+    # ti_adr_14_ & ti_data_3_.PIN & !grmadr_i3.Q ; (3 pterms, 8 signals)
+grmadr_i3.C = gvalid_143reg.Q ; (1 pterm, 1 signal)
+grmadr_i3.CE = !( ti_we & ti_adr_14_ ) ; (1 pterm, 2 signals)
+
+grmadr_i4.T = !ti_adr_14_ & grmadr_i5.Q & grmadr_i6.Q & grmadr_i7.Q
+       & gadd_146.Q
+    # ti_adr_14_ & !ti_data_4_.PIN & grmadr_i4.Q
+    # ti_adr_14_ & ti_data_4_.PIN & !grmadr_i4.Q ; (3 pterms, 7 signals)
+grmadr_i4.C = gvalid_143reg.Q ; (1 pterm, 1 signal)
+grmadr_i4.CE = !( ti_we & ti_adr_14_ ) ; (1 pterm, 2 signals)
+
+grmadr_i5.D.X1 = !ti_adr_14_ & grmadr_i5.Q
+    # ti_adr_14_ & ti_data_5_.PIN ; (2 pterms, 3 signals)
+grmadr_i5.D.X2 = !ti_adr_14_ & grmadr_i6.Q & grmadr_i7.Q & gadd_146.Q ; (1 pterm, 4 signals)
+grmadr_i5.C = gvalid_143reg.Q ; (1 pterm, 1 signal)
+grmadr_i5.CE = !( ti_we & ti_adr_14_ ) ; (1 pterm, 2 signals)
+
+grmadr_i6.D = !ti_adr_14_ & !grmadr_i6.Q & grmadr_i7.Q & gadd_146.Q
+    # !ti_adr_14_ & grmadr_i6.Q & !gadd_146.Q
+    # !ti_adr_14_ & grmadr_i6.Q & !grmadr_i7.Q
+    # ti_adr_14_ & ti_data_6_.PIN ; (4 pterms, 5 signals)
+grmadr_i6.C = gvalid_143reg.Q ; (1 pterm, 1 signal)
+grmadr_i6.CE = !( ti_we & ti_adr_14_ ) ; (1 pterm, 2 signals)
+
+grmadr_i7.D = !ti_adr_14_ & grmadr_i7.Q & !gadd_146.Q
+    # !ti_adr_14_ & !grmadr_i7.Q & gadd_146.Q
+    # ti_data_7_.PIN & ti_adr_14_ ; (3 pterms, 4 signals)
+grmadr_i7.C = gvalid_143reg.Q ; (1 pterm, 1 signal)
+grmadr_i7.CE = !( ti_we & ti_adr_14_ ) ; (1 pterm, 2 signals)
+
+grmpage_144reg.D = !ti_adr_14_ & grmadr_i0.Q & !grmadr_i1.Q
+    # ti_we & grmadr_i0.Q & !grmadr_i1.Q
+    # grmadr_i0.Q & !grmadr_i1.Q & !grmadr_i2.Q ; (3 pterms, 5 signals)
+grmpage_144reg.C = gvalid_143reg.Q ; (1 pterm, 1 signal)
+grmpage_144reg.CE = !ti_we & ti_adr_14_ ; (1 pterm, 2 signals)
+
+gvalid_143reg.D = !ti_gsel & gactive_142.Q ; (1 pterm, 2 signals)
+gvalid_143reg.C = !ti_gclk ; (1 pterm, 1 signal)
+
+out_adr_0_ = ti_adr_15_ & !gvalid_143reg.Q
+    # gvalid_143reg.Q & grmadr_i7.Q ; (2 pterms, 3 signals)
+
+out_adr_10_ = !( !ti_adr_5_ & !gvalid_143reg.Q ) ; (1 pterm, 2 signals)
+
+out_adr_11_ = !( !ti_adr_4_ & !gvalid_143reg.Q ) ; (1 pterm, 2 signals)
+
+out_adr_12_ = !( !ti_adr_3_ & !gvalid_143reg.Q ) ; (1 pterm, 2 signals)
+
+out_adr_13_.D = !ti_gsel & gactive_142.Q ; (1 pterm, 2 signals)
+out_adr_13_.C = !ti_gclk ; (1 pterm, 1 signal)
+
+out_adr_14_.D = !ti_gsel & gactive_142.Q ; (1 pterm, 2 signals)
+out_adr_14_.C = !ti_gclk ; (1 pterm, 1 signal)
+
+out_adr_15_.D = !ti_gsel & gactive_142.Q ; (1 pterm, 2 signals)
+out_adr_15_.C = !ti_gclk ; (1 pterm, 1 signal)
+
+out_adr_16_.D = !ti_gsel & gactive_142.Q ; (1 pterm, 2 signals)
+out_adr_16_.C = !ti_gclk ; (1 pterm, 1 signal)
+
+out_adr_17_.D = !ti_gsel & gactive_142.Q ; (1 pterm, 2 signals)
+out_adr_17_.C = !ti_gclk ; (1 pterm, 1 signal)
+
+out_adr_18_.D = !ti_gsel & gactive_142.Q ; (1 pterm, 2 signals)
+out_adr_18_.C = !ti_gclk ; (1 pterm, 1 signal)
+
+out_adr_19_.D = !ti_gsel & gactive_142.Q ; (1 pterm, 2 signals)
+out_adr_19_.C = !ti_gclk ; (1 pterm, 1 signal)
+
+out_adr_1_ = ti_adr_14_ & !gvalid_143reg.Q
+    # gvalid_143reg.Q & grmadr_i6.Q ; (2 pterms, 3 signals)
+
+out_adr_20_.D = !ti_gsel & gactive_142.Q ; (1 pterm, 2 signals)
+out_adr_20_.C = !ti_gclk ; (1 pterm, 1 signal)
+
+out_adr_21_.D = !ti_gsel & gactive_142.Q ; (1 pterm, 2 signals)
+out_adr_21_.C = !ti_gclk ; (1 pterm, 1 signal)
+
+out_adr_22_.D = !ti_gsel & gactive_142.Q ; (1 pterm, 2 signals)
+out_adr_22_.C = !ti_gclk ; (1 pterm, 1 signal)
+
+out_adr_23_.D = !ti_gsel & gactive_142.Q ; (1 pterm, 2 signals)
+out_adr_23_.C = !ti_gclk ; (1 pterm, 1 signal)
+
+out_adr_24_.D = !ti_gsel & gactive_142.Q ; (1 pterm, 2 signals)
+out_adr_24_.C = !ti_gclk ; (1 pterm, 1 signal)
+
+out_adr_25_.D = !ti_gsel & gactive_142.Q ; (1 pterm, 2 signals)
+out_adr_25_.C = !ti_gclk ; (1 pterm, 1 signal)
+
+out_adr_26_.D = !ti_gsel & gactive_142.Q ; (1 pterm, 2 signals)
+out_adr_26_.C = !ti_gclk ; (1 pterm, 1 signal)
+
+out_adr_2_ = ti_adr_13_ & !gvalid_143reg.Q
+    # gvalid_143reg.Q & grmadr_i5.Q ; (2 pterms, 3 signals)
+
+out_adr_3_ = ti_adr_12_ & !gvalid_143reg.Q
+    # gvalid_143reg.Q & grmadr_i4.Q ; (2 pterms, 3 signals)
+
+out_adr_4_ = ti_adr_11_ & !gvalid_143reg.Q
+    # gvalid_143reg.Q & grmadr_i3.Q ; (2 pterms, 3 signals)
+
+out_adr_5_ = ti_adr_10_ & !gvalid_143reg.Q
+    # gvalid_143reg.Q & grmadr_i2.Q ; (2 pterms, 3 signals)
+
+out_adr_6_ = ti_adr_9_ & !gvalid_143reg.Q
+    # gvalid_143reg.Q & grmadr_i1.Q ; (2 pterms, 3 signals)
+
+out_adr_7_ = ti_adr_8_ & !gvalid_143reg.Q
+    # gvalid_143reg.Q & grmadr_i0.Q ; (2 pterms, 3 signals)
+
+out_adr_8_ = !( !ti_adr_7_ & !gvalid_143reg.Q ) ; (1 pterm, 2 signals)
+
+out_adr_9_ = !( !ti_adr_6_ & !gvalid_143reg.Q ) ; (1 pterm, 2 signals)
+
+out_reset.D = !ti_adr_14_ & grmadr_i0.Q & !grmadr_i1.Q
+    # ti_we & grmadr_i0.Q & !grmadr_i1.Q
+    # grmadr_i0.Q & !grmadr_i1.Q & !grmadr_i2.Q ; (3 pterms, 5 signals)
+out_reset.C = gvalid_143reg.Q ; (1 pterm, 1 signal)
+out_reset.CE = !ti_we & ti_adr_14_ ; (1 pterm, 2 signals)
+
+out_rom1 = ti_gsel ; (1 pterm, 1 signal)
+
+out_rom2.D = !ti_adr_14_ & grmadr_i0.Q & !grmadr_i1.Q
+    # ti_we & grmadr_i0.Q & !grmadr_i1.Q
+    # grmadr_i0.Q & !grmadr_i1.Q & !grmadr_i2.Q ; (3 pterms, 5 signals)
+out_rom2.C = gvalid_143reg.Q ; (1 pterm, 1 signal)
+out_rom2.CE = !ti_we & ti_adr_14_ ; (1 pterm, 2 signals)
+
+out_rom3 = ti_gclk ; (1 pterm, 1 signal)
+
+out_rom4 = ti_we ; (1 pterm, 1 signal)
+
+ti_data_0_ = ti_adr_15_ & ti_adr_8_
+    # ti_adr_8_ & !dataout ; (2 pterms, 3 signals)
+ti_data_0_.OE = dataout ; (1 pterm, 1 signal)
+
+ti_data_1_ = ti_adr_15_ & ti_adr_9_
+    # ti_adr_9_ & !dataout ; (2 pterms, 3 signals)
+ti_data_1_.OE = dataout ; (1 pterm, 1 signal)
+
+ti_data_2_ = ti_adr_15_ & ti_adr_10_
+    # ti_adr_10_ & !dataout ; (2 pterms, 3 signals)
+ti_data_2_.OE = dataout ; (1 pterm, 1 signal)
+
+ti_data_3_ = !ti_adr_15_ & ti_adr_3_ & dataout
+    # ti_adr_15_ & ti_adr_11_
+    # ti_adr_11_ & !dataout ; (3 pterms, 4 signals)
+ti_data_3_.OE = dataout ; (1 pterm, 1 signal)
+
+ti_data_4_ = !ti_adr_15_ & ti_adr_4_ & dataout
+    # ti_adr_15_ & ti_adr_12_
+    # ti_adr_12_ & !dataout ; (3 pterms, 4 signals)
+ti_data_4_.OE = dataout ; (1 pterm, 1 signal)
+
+ti_data_5_ = !ti_adr_15_ & ti_adr_5_ & dataout
+    # ti_adr_15_ & ti_adr_13_
+    # ti_adr_13_ & !dataout ; (3 pterms, 4 signals)
+ti_data_5_.OE = dataout ; (1 pterm, 1 signal)
+
+ti_data_6_ = !ti_adr_15_ & ti_adr_6_ & dataout
+    # ti_adr_15_ & ti_adr_14_
+    # ti_adr_14_ & !dataout ; (3 pterms, 4 signals)
+ti_data_6_.OE = dataout ; (1 pterm, 1 signal)
+
+ti_data_7_ = ti_adr_7_ & dataout
+    # ti_adr_15_ ; (2 pterms, 3 signals)
+ti_data_7_.OE = dataout ; (1 pterm, 1 signal)
+

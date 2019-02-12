@@ -1,0 +1,4 @@
+Part Number: LC4064V-10T100I
+C:\ispLEVER_Classic2_0\ispvmsystem/ispufw -dev LC4064V-XXT100 -if gigacart.jed -oft -isc -lever
+Invoke process : C:\ispLEVER_Classic2_0\ispvmsystem/ispufw -dev LC4064V-XXT100 -if gigacart.jed -oft -isc -lever
+ISC file is generated successfully

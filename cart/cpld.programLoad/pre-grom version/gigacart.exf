@@ -1,0 +1,592 @@
+Section Type   Array Num   Name                     Real Name          Base     Number     Increment
+// -------------------------------------------------------------------------------------------------
+      Port          1      ti_adr(15:3)                   ti_adr                 15         13            -1
+      Port          2      out_data(7:0)                 out_data                  7          8            -1
+      Port          3      out_adr(26:0)                  out_adr                 26         27            -1
+      Port          4      ti_data(7:0)                  ti_data                  7          8            -1
+End
+Section Member   Rename                   Array-Notation          Array Number     Index
+// -------------------------------------------------------------------------------------
+        Port      ti_adr_15_                   ti_adr[15]                       1            0            
+        Port      ti_adr_14_                   ti_adr[14]                       1            1            
+        Port      ti_adr_13_                   ti_adr[13]                       1            2            
+        Port      ti_adr_12_                   ti_adr[12]                       1            3            
+        Port      ti_adr_11_                   ti_adr[11]                       1            4            
+        Port      ti_adr_10_                   ti_adr[10]                       1            5            
+        Port      ti_adr_9_                   ti_adr[9]                       1            6            
+        Port      ti_adr_8_                   ti_adr[8]                       1            7            
+        Port      ti_adr_7_                   ti_adr[7]                       1            8            
+        Port      ti_adr_6_                   ti_adr[6]                       1            9            
+        Port      ti_adr_5_                   ti_adr[5]                       1            10            
+        Port      ti_adr_4_                   ti_adr[4]                       1            11            
+        Port      ti_adr_3_                   ti_adr[3]                       1            12            
+        Port      ti_data_7_                  ti_data[7]                       4            0            
+        Port      ti_data_6_                  ti_data[6]                       4            1            
+        Port      ti_data_5_                  ti_data[5]                       4            2            
+        Port      ti_data_4_                  ti_data[4]                       4            3            
+        Port      ti_data_3_                  ti_data[3]                       4            4            
+        Port      ti_data_2_                  ti_data[2]                       4            5            
+        Port      ti_data_1_                  ti_data[1]                       4            6            
+        Port      ti_data_0_                  ti_data[0]                       4            7            
+        Port      out_adr_26_                  out_adr[26]                       3            0            
+        Port      out_adr_25_                  out_adr[25]                       3            1            
+        Port      out_adr_24_                  out_adr[24]                       3            2            
+        Port      out_adr_23_                  out_adr[23]                       3            3            
+        Port      out_adr_22_                  out_adr[22]                       3            4            
+        Port      out_adr_21_                  out_adr[21]                       3            5            
+        Port      out_adr_20_                  out_adr[20]                       3            6            
+        Port      out_adr_19_                  out_adr[19]                       3            7            
+        Port      out_adr_18_                  out_adr[18]                       3            8            
+        Port      out_adr_17_                  out_adr[17]                       3            9            
+        Port      out_adr_16_                  out_adr[16]                       3            10            
+        Port      out_adr_15_                  out_adr[15]                       3            11            
+        Port      out_adr_14_                  out_adr[14]                       3            12            
+        Port      out_adr_13_                  out_adr[13]                       3            13            
+        Port      out_adr_12_                  out_adr[12]                       3            14            
+        Port      out_adr_11_                  out_adr[11]                       3            15            
+        Port      out_adr_10_                  out_adr[10]                       3            16            
+        Port      out_adr_9_                  out_adr[9]                       3            17            
+        Port      out_adr_8_                  out_adr[8]                       3            18            
+        Port      out_adr_7_                  out_adr[7]                       3            19            
+        Port      out_adr_6_                  out_adr[6]                       3            20            
+        Port      out_adr_5_                  out_adr[5]                       3            21            
+        Port      out_adr_4_                  out_adr[4]                       3            22            
+        Port      out_adr_3_                  out_adr[3]                       3            23            
+        Port      out_adr_2_                  out_adr[2]                       3            24            
+        Port      out_adr_1_                  out_adr[1]                       3            25            
+        Port      out_adr_0_                  out_adr[0]                       3            26            
+        Port      out_data_7_                 out_data[7]                       2            0            
+        Port      out_data_6_                 out_data[6]                       2            1            
+        Port      out_data_5_                 out_data[5]                       2            2            
+        Port      out_data_4_                 out_data[4]                       2            3            
+        Port      out_data_3_                 out_data[3]                       2            4            
+        Port      out_data_2_                 out_data[2]                       2            5            
+        Port      out_data_1_                 out_data[1]                       2            6            
+        Port      out_data_0_                 out_data[0]                       2            7            
+End
+Section Cross Reference File
+Design 'gigacart' created Tue Jul 03 23:27:47 2018
+   Type              New Name                               Original Name
+// ----------------------------------------------------------------------
+   Inst           out_adr_1_9_                              out_adr_1[9]
+   Inst           out_adr_1_8_                              out_adr_1[8]
+   Inst          out_adr_1_13_                             out_adr_1[13]
+   Inst          out_adr_1_14_                             out_adr_1[14]
+   Inst          out_adr_1_15_                             out_adr_1[15]
+   Inst          out_adr_1_16_                             out_adr_1[16]
+   Inst          out_adr_1_17_                             out_adr_1[17]
+   Inst          out_adr_1_18_                             out_adr_1[18]
+   Inst          out_adr_1_19_                             out_adr_1[19]
+   Inst          out_adr_1_20_                             out_adr_1[20]
+   Inst          out_adr_1_21_                             out_adr_1[21]
+   Inst              latch_13_                                 latch[13]
+   Inst               latch_0_                                  latch[0]
+   Inst               latch_1_                                  latch[1]
+   Inst               latch_2_                                  latch[2]
+   Inst               latch_3_                                  latch[3]
+   Inst               latch_4_                                  latch[4]
+   Inst               latch_5_                                  latch[5]
+   Inst               latch_6_                                  latch[6]
+   Inst               latch_7_                                  latch[7]
+   Inst               latch_8_                                  latch[8]
+   Inst               latch_9_                                  latch[9]
+   Inst              latch_10_                                 latch[10]
+   Inst              latch_11_                                 latch[11]
+   Inst              latch_12_                                 latch[12]
+   Inst              ti_adr_3_                                 ti_adr[3]
+   Inst              ti_adr_4_                                 ti_adr[4]
+   Inst              ti_adr_5_                                 ti_adr[5]
+   Inst              ti_adr_6_                                 ti_adr[6]
+   Inst              ti_adr_7_                                 ti_adr[7]
+   Inst              ti_adr_8_                                 ti_adr[8]
+   Inst              ti_adr_9_                                 ti_adr[9]
+   Inst             ti_adr_10_                                ti_adr[10]
+   Inst             ti_adr_11_                                ti_adr[11]
+   Inst             ti_adr_12_                                ti_adr[12]
+   Inst             ti_adr_13_                                ti_adr[13]
+   Inst             ti_adr_14_                                ti_adr[14]
+   Inst             ti_adr_15_                                ti_adr[15]
+   Inst             ti_data_0_                                ti_data[0]
+   Inst             ti_data_1_                                ti_data[1]
+   Inst             ti_data_2_                                ti_data[2]
+   Inst             ti_data_3_                                ti_data[3]
+   Inst             ti_data_4_                                ti_data[4]
+   Inst             ti_data_5_                                ti_data[5]
+   Inst             ti_data_6_                                ti_data[6]
+   Inst             ti_data_7_                                ti_data[7]
+   Inst             out_adr_0_                                out_adr[0]
+   Inst             out_adr_1_                                out_adr[1]
+   Inst             out_adr_2_                                out_adr[2]
+   Inst             out_adr_3_                                out_adr[3]
+   Inst             out_adr_4_                                out_adr[4]
+   Inst             out_adr_5_                                out_adr[5]
+   Inst             out_adr_6_                                out_adr[6]
+   Inst             out_adr_7_                                out_adr[7]
+   Inst             out_adr_8_                                out_adr[8]
+   Inst             out_adr_9_                                out_adr[9]
+   Inst            out_adr_10_                               out_adr[10]
+   Inst            out_adr_11_                               out_adr[11]
+   Inst            out_adr_12_                               out_adr[12]
+   Inst            out_adr_13_                               out_adr[13]
+   Inst            out_adr_14_                               out_adr[14]
+   Inst            out_adr_15_                               out_adr[15]
+   Inst            out_adr_16_                               out_adr[16]
+   Inst            out_adr_17_                               out_adr[17]
+   Inst            out_adr_18_                               out_adr[18]
+   Inst            out_adr_19_                               out_adr[19]
+   Inst            out_adr_20_                               out_adr[20]
+   Inst            out_adr_21_                               out_adr[21]
+   Inst            out_adr_22_                               out_adr[22]
+   Inst            out_adr_23_                               out_adr[23]
+   Inst            out_adr_24_                               out_adr[24]
+   Inst            out_adr_25_                               out_adr[25]
+   Inst            out_adr_26_                               out_adr[26]
+   Inst            out_data_0_                               out_data[0]
+   Inst            out_data_1_                               out_data[1]
+   Inst            out_data_2_                               out_data[2]
+   Inst            out_data_3_                               out_data[3]
+   Inst            out_data_4_                               out_data[4]
+   Inst            out_data_5_                               out_data[5]
+   Inst            out_data_6_                               out_data[6]
+   Inst            out_data_7_                               out_data[7]
+   Inst         out_adr_1_i_9_                            out_adr_1_i[9]
+   Inst          ti_adr_c_i_5_                             ti_adr_c_i[5]
+   Inst        out_adr_1_i_10_                           out_adr_1_i[10]
+   Inst          ti_adr_c_i_4_                             ti_adr_c_i[4]
+   Inst        out_adr_1_i_11_                           out_adr_1_i[11]
+   Inst          ti_adr_c_i_3_                             ti_adr_c_i[3]
+   Inst        out_adr_1_i_12_                           out_adr_1_i[12]
+   Inst             latch_i_5_                                latch_i[5]
+   Inst        out_adr_1_i_18_                           out_adr_1_i[18]
+   Inst             latch_i_4_                                latch_i[4]
+   Inst        out_adr_1_i_17_                           out_adr_1_i[17]
+   Inst             latch_i_3_                                latch_i[3]
+   Inst        out_adr_1_i_16_                           out_adr_1_i[16]
+   Inst             latch_i_2_                                latch_i[2]
+   Inst        out_adr_1_i_15_                           out_adr_1_i[15]
+   Inst             latch_i_1_                                latch_i[1]
+   Inst        out_adr_1_i_14_                           out_adr_1_i[14]
+   Inst             latch_i_0_                                latch_i[0]
+   Inst        out_adr_1_i_13_                           out_adr_1_i[13]
+   Inst          ti_adr_c_i_7_                             ti_adr_c_i[7]
+   Inst         out_adr_1_i_8_                            out_adr_1_i[8]
+   Inst          ti_adr_c_i_6_                             ti_adr_c_i[6]
+   Inst        out_adr_1_i_26_                           out_adr_1_i[26]
+   Inst            latch_i_12_                               latch_i[12]
+   Inst        out_adr_1_i_25_                           out_adr_1_i[25]
+   Inst            latch_i_11_                               latch_i[11]
+   Inst        out_adr_1_i_24_                           out_adr_1_i[24]
+   Inst            latch_i_10_                               latch_i[10]
+   Inst        out_adr_1_i_23_                           out_adr_1_i[23]
+   Inst             latch_i_9_                                latch_i[9]
+   Inst        out_adr_1_i_22_                           out_adr_1_i[22]
+   Inst             latch_i_8_                                latch_i[8]
+   Inst        out_adr_1_i_21_                           out_adr_1_i[21]
+   Inst             latch_i_7_                                latch_i[7]
+   Inst        out_adr_1_i_20_                           out_adr_1_i[20]
+   Inst             latch_i_6_                                latch_i[6]
+   Inst        out_adr_1_i_19_                           out_adr_1_i[19]
+   Inst          grmadr_9_i_7_                             grmadr_9_i[7]
+   Inst          grmadr_9_i_6_                             grmadr_9_i[6]
+   Inst          grmadr_9_i_5_                             grmadr_9_i[5]
+   Inst          grmadr_9_i_4_                             grmadr_9_i[4]
+   Inst          grmadr_9_i_3_                             grmadr_9_i[3]
+   Inst            latch_i_13_                               latch_i[13]
+   Inst        out_adr_14_4__r                           out_adr_14_4_.r
+   Inst        out_adr_14_4__m                           out_adr_14_4_.m
+   Inst        out_adr_14_4__n                           out_adr_14_4_.n
+   Inst        out_adr_14_4__p                           out_adr_14_4_.p
+   Inst        out_adr_12_5__r                           out_adr_12_5_.r
+   Inst        out_adr_12_5__m                           out_adr_12_5_.m
+   Inst        out_adr_12_5__n                           out_adr_12_5_.n
+   Inst        out_adr_12_5__p                           out_adr_12_5_.p
+   Inst        out_adr_10_6__r                           out_adr_10_6_.r
+   Inst        out_adr_10_6__m                           out_adr_10_6_.m
+   Inst        out_adr_10_6__n                           out_adr_10_6_.n
+   Inst        out_adr_10_6__p                           out_adr_10_6_.p
+   Inst         out_adr_8_7__r                            out_adr_8_7_.r
+   Inst         out_adr_8_7__m                            out_adr_8_7_.m
+   Inst         out_adr_8_7__n                            out_adr_8_7_.n
+   Inst         out_adr_8_7__p                            out_adr_8_7_.p
+   Inst         grmadr_11_1__r                            grmadr_11_1_.r
+   Inst         grmadr_11_1__m                            grmadr_11_1_.m
+   Inst         grmadr_11_1__n                            grmadr_11_1_.n
+   Inst         grmadr_11_1__p                            grmadr_11_1_.p
+   Inst         grmadr_11_2__r                            grmadr_11_2_.r
+   Inst         grmadr_11_2__m                            grmadr_11_2_.m
+   Inst         grmadr_11_2__n                            grmadr_11_2_.n
+   Inst         grmadr_11_2__p                            grmadr_11_2_.p
+   Inst         grmadr_11_3__r                            grmadr_11_3_.r
+   Inst         grmadr_11_3__m                            grmadr_11_3_.m
+   Inst         grmadr_11_3__n                            grmadr_11_3_.n
+   Inst         grmadr_11_3__p                            grmadr_11_3_.p
+   Inst         grmadr_11_4__r                            grmadr_11_4_.r
+   Inst         grmadr_11_4__m                            grmadr_11_4_.m
+   Inst         grmadr_11_4__n                            grmadr_11_4_.n
+   Inst         grmadr_11_4__p                            grmadr_11_4_.p
+   Inst         grmadr_11_5__r                            grmadr_11_5_.r
+   Inst         grmadr_11_5__m                            grmadr_11_5_.m
+   Inst         grmadr_11_5__n                            grmadr_11_5_.n
+   Inst         grmadr_11_5__p                            grmadr_11_5_.p
+   Inst         grmadr_11_6__r                            grmadr_11_6_.r
+   Inst         grmadr_11_6__m                            grmadr_11_6_.m
+   Inst         grmadr_11_6__n                            grmadr_11_6_.n
+   Inst         grmadr_11_6__p                            grmadr_11_6_.p
+   Inst         grmadr_11_7__r                            grmadr_11_7_.r
+   Inst         grmadr_11_7__m                            grmadr_11_7_.m
+   Inst         grmadr_11_7__n                            grmadr_11_7_.n
+   Inst         grmadr_11_7__p                            grmadr_11_7_.p
+   Inst          grmadr_9_0__r                             grmadr_9_0_.r
+   Inst          grmadr_9_0__m                             grmadr_9_0_.m
+   Inst          grmadr_9_0__n                             grmadr_9_0_.n
+   Inst          grmadr_9_0__p                             grmadr_9_0_.p
+   Inst          grmadr_9_1__r                             grmadr_9_1_.r
+   Inst          grmadr_9_1__m                             grmadr_9_1_.m
+   Inst          grmadr_9_1__n                             grmadr_9_1_.n
+   Inst          grmadr_9_1__p                             grmadr_9_1_.p
+   Inst          grmadr_9_2__r                             grmadr_9_2_.r
+   Inst          grmadr_9_2__m                             grmadr_9_2_.m
+   Inst          grmadr_9_2__n                             grmadr_9_2_.n
+   Inst          grmadr_9_2__p                             grmadr_9_2_.p
+   Inst        out_adr_22_0__r                           out_adr_22_0_.r
+   Inst        out_adr_22_0__m                           out_adr_22_0_.m
+   Inst        out_adr_22_0__n                           out_adr_22_0_.n
+   Inst        out_adr_22_0__p                           out_adr_22_0_.p
+   Inst        out_adr_20_1__r                           out_adr_20_1_.r
+   Inst        out_adr_20_1__m                           out_adr_20_1_.m
+   Inst        out_adr_20_1__n                           out_adr_20_1_.n
+   Inst        out_adr_20_1__p                           out_adr_20_1_.p
+   Inst        out_adr_18_2__r                           out_adr_18_2_.r
+   Inst        out_adr_18_2__m                           out_adr_18_2_.m
+   Inst        out_adr_18_2__n                           out_adr_18_2_.n
+   Inst        out_adr_18_2__p                           out_adr_18_2_.p
+   Inst        out_adr_16_3__r                           out_adr_16_3_.r
+   Inst        out_adr_16_3__m                           out_adr_16_3_.m
+   Inst        out_adr_16_3__n                           out_adr_16_3_.n
+   Inst        out_adr_16_3__p                           out_adr_16_3_.p
+   Inst           ti_adr_i_14_                              ti_adr_i[14]
+   Inst            grmadr_9_3_                               grmadr_9[3]
+   Inst            grmadr_9_4_                               grmadr_9[4]
+   Inst            grmadr_9_5_                               grmadr_9[5]
+   Inst            grmadr_9_6_                               grmadr_9[6]
+   Inst            grmadr_9_7_                               grmadr_9[7]
+   Inst         grmadr_11_0__r                            grmadr_11_0_.r
+   Inst         grmadr_11_0__m                            grmadr_11_0_.m
+   Inst         grmadr_11_0__n                            grmadr_11_0_.n
+   Inst         grmadr_11_0__p                            grmadr_11_0_.p
+   Inst          out_adr_1_22_                             out_adr_1[22]
+   Inst          out_adr_1_23_                             out_adr_1[23]
+   Inst          out_adr_1_24_                             out_adr_1[24]
+   Inst          out_adr_1_25_                             out_adr_1[25]
+   Inst          out_adr_1_26_                             out_adr_1[26]
+   Inst          out_adr_1_12_                             out_adr_1[12]
+   Inst          out_adr_1_11_                             out_adr_1[11]
+   Inst          out_adr_1_10_                             out_adr_1[10]
+   Net      grmadr_11_5__un3_n                          grmadr_11_5_.un3
+   Net      grmadr_11_5__un1_n                          grmadr_11_5_.un1
+   Net      grmadr_11_5__un0_n                          grmadr_11_5_.un0
+   Net      grmadr_11_6__un3_n                          grmadr_11_6_.un3
+   Net      grmadr_11_6__un1_n                          grmadr_11_6_.un1
+   Net         out_adr_22_0__n                             out_adr_22[0]
+   Net      grmadr_11_6__un0_n                          grmadr_11_6_.un0
+   Net         out_adr_20_1__n                             out_adr_20[1]
+   Net      grmadr_11_7__un3_n                          grmadr_11_7_.un3
+   Net         out_adr_18_2__n                             out_adr_18[2]
+   Net      grmadr_11_7__un1_n                          grmadr_11_7_.un1
+   Net         out_adr_16_3__n                             out_adr_16[3]
+   Net      grmadr_11_7__un0_n                          grmadr_11_7_.un0
+   Net         out_adr_14_4__n                             out_adr_14[4]
+   Net       grmadr_9_0__un3_n                           grmadr_9_0_.un3
+   Net         out_adr_12_5__n                             out_adr_12[5]
+   Net       grmadr_9_0__un1_n                           grmadr_9_0_.un1
+   Net         out_adr_10_6__n                             out_adr_10[6]
+   Net       grmadr_9_0__un0_n                           grmadr_9_0_.un0
+   Net          out_adr_8_7__n                              out_adr_8[7]
+   Net       grmadr_9_1__un3_n                           grmadr_9_1_.un3
+   Net          out_adr_1_8__n                              out_adr_1[8]
+   Net       grmadr_9_1__un1_n                           grmadr_9_1_.un1
+   Net          out_adr_1_9__n                              out_adr_1[9]
+   Net       grmadr_9_1__un0_n                           grmadr_9_1_.un0
+   Net         out_adr_1_10__n                             out_adr_1[10]
+   Net       grmadr_9_2__un3_n                           grmadr_9_2_.un3
+   Net         out_adr_1_11__n                             out_adr_1[11]
+   Net       grmadr_9_2__un1_n                           grmadr_9_2_.un1
+   Net         out_adr_1_12__n                             out_adr_1[12]
+   Net       grmadr_9_2__un0_n                           grmadr_9_2_.un0
+   Net         out_adr_1_13__n                             out_adr_1[13]
+   Net     out_adr_22_0__un3_n                         out_adr_22_0_.un3
+   Net         out_adr_1_14__n                             out_adr_1[14]
+   Net     out_adr_22_0__un1_n                         out_adr_22_0_.un1
+   Net         out_adr_1_15__n                             out_adr_1[15]
+   Net     out_adr_22_0__un0_n                         out_adr_22_0_.un0
+   Net         out_adr_1_16__n                             out_adr_1[16]
+   Net     out_adr_20_1__un3_n                         out_adr_20_1_.un3
+   Net         out_adr_1_17__n                             out_adr_1[17]
+   Net     out_adr_20_1__un1_n                         out_adr_20_1_.un1
+   Net         out_adr_1_18__n                             out_adr_1[18]
+   Net     out_adr_20_1__un0_n                         out_adr_20_1_.un0
+   Net         out_adr_1_19__n                             out_adr_1[19]
+   Net     out_adr_18_2__un3_n                         out_adr_18_2_.un3
+   Net         out_adr_1_20__n                             out_adr_1[20]
+   Net     out_adr_18_2__un1_n                         out_adr_18_2_.un1
+   Net         out_adr_1_21__n                             out_adr_1[21]
+   Net     out_adr_18_2__un0_n                         out_adr_18_2_.un0
+   Net         out_adr_1_22__n                             out_adr_1[22]
+   Net     out_adr_16_3__un3_n                         out_adr_16_3_.un3
+   Net         out_adr_1_23__n                             out_adr_1[23]
+   Net     out_adr_16_3__un1_n                         out_adr_16_3_.un1
+   Net         out_adr_1_24__n                             out_adr_1[24]
+   Net     out_adr_16_3__un0_n                         out_adr_16_3_.un0
+   Net         out_adr_1_25__n                             out_adr_1[25]
+   Net      grmadr_11_0__un3_n                          grmadr_11_0_.un3
+   Net         out_adr_1_26__n                             out_adr_1[26]
+   Net      grmadr_11_0__un1_n                          grmadr_11_0_.un1
+   Net      grmadr_11_0__un0_n                          grmadr_11_0_.un0
+   Net                 vcc_n_n                                       VCC
+   Net              latch_0__n                                  latch[0]
+   Net              latch_1__n                                  latch[1]
+   Net              latch_2__n                                  latch[2]
+   Net              latch_3__n                                  latch[3]
+   Net              latch_4__n                                  latch[4]
+   Net              latch_5__n                                  latch[5]
+   Net              latch_6__n                                  latch[6]
+   Net              latch_7__n                                  latch[7]
+   Net              latch_8__n                                  latch[8]
+   Net              latch_9__n                                  latch[9]
+   Net             latch_10__n                                 latch[10]
+   Net             latch_11__n                                 latch[11]
+   Net             latch_12__n                                 latch[12]
+   Net             latch_13__n                                 latch[13]
+   Net        un19_grmadr_1__n                            un19_grmadr[1]
+   Net        un19_grmadr_2__n                            un19_grmadr[2]
+   Net        un19_grmadr_3__n                            un19_grmadr[3]
+   Net        un19_grmadr_4__n                            un19_grmadr[4]
+   Net        un19_grmadr_5__n                            un19_grmadr[5]
+   Net        un19_grmadr_6__n                            un19_grmadr[6]
+   Net        un19_grmadr_7__n                            un19_grmadr[7]
+   Net           grmadr_9_3__n                               grmadr_9[3]
+   Net           grmadr_9_4__n                               grmadr_9[4]
+   Net           grmadr_9_5__n                               grmadr_9[5]
+   Net           grmadr_9_6__n                               grmadr_9[6]
+   Net           grmadr_9_7__n                               grmadr_9[7]
+   Net           grmadr_9_0__n                               grmadr_9[0]
+   Net           grmadr_9_1__n                               grmadr_9[1]
+   Net           grmadr_9_2__n                               grmadr_9[2]
+   Net          ti_adr_i_14__n                              ti_adr_i[14]
+   Net           ti_adr_c_3__n                               ti_adr_c[3]
+   Net             ti_adr_3__n                                 ti_adr[3]
+   Net           ti_adr_c_4__n                               ti_adr_c[4]
+   Net             ti_adr_4__n                                 ti_adr[4]
+   Net           ti_adr_c_5__n                               ti_adr_c[5]
+   Net             ti_adr_5__n                                 ti_adr[5]
+   Net           ti_adr_c_6__n                               ti_adr_c[6]
+   Net             ti_adr_6__n                                 ti_adr[6]
+   Net           ti_adr_c_7__n                               ti_adr_c[7]
+   Net             ti_adr_7__n                                 ti_adr[7]
+   Net           ti_adr_c_8__n                               ti_adr_c[8]
+   Net             ti_adr_8__n                                 ti_adr[8]
+   Net           ti_adr_c_9__n                               ti_adr_c[9]
+   Net             ti_adr_9__n                                 ti_adr[9]
+   Net          ti_adr_c_10__n                              ti_adr_c[10]
+   Net            ti_adr_10__n                                ti_adr[10]
+   Net          ti_adr_c_11__n                              ti_adr_c[11]
+   Net            ti_adr_11__n                                ti_adr[11]
+   Net          ti_adr_c_12__n                              ti_adr_c[12]
+   Net            ti_adr_12__n                                ti_adr[12]
+   Net          ti_adr_c_13__n                              ti_adr_c[13]
+   Net            ti_adr_13__n                                ti_adr[13]
+   Net          ti_adr_c_14__n                              ti_adr_c[14]
+   Net            ti_adr_14__n                                ti_adr[14]
+   Net          ti_adr_c_15__n                              ti_adr_c[15]
+   Net          ti_data_c_0__n                              ti_data_c[0]
+   Net            ti_data_0__n                                ti_data[0]
+   Net          ti_data_c_1__n                              ti_data_c[1]
+   Net            ti_data_1__n                                ti_data[1]
+   Net          ti_data_c_2__n                              ti_data_c[2]
+   Net            ti_data_2__n                                ti_data[2]
+   Net            ti_data_3__n                                ti_data[3]
+   Net            ti_data_4__n                                ti_data[4]
+   Net            ti_data_5__n                                ti_data[5]
+   Net          ti_data_c_6__n                              ti_data_c[6]
+   Net            ti_data_6__n                                ti_data[6]
+   Net          ti_data_c_7__n                              ti_data_c[7]
+   Net            out_adr_0__n                                out_adr[0]
+   Net            out_adr_1__n                                out_adr[1]
+   Net            out_adr_2__n                                out_adr[2]
+   Net            out_adr_3__n                                out_adr[3]
+   Net            out_adr_4__n                                out_adr[4]
+   Net            out_adr_5__n                                out_adr[5]
+   Net            out_adr_6__n                                out_adr[6]
+   Net            out_adr_7__n                                out_adr[7]
+   Net            out_adr_8__n                                out_adr[8]
+   Net            out_adr_9__n                                out_adr[9]
+   Net           out_adr_10__n                               out_adr[10]
+   Net           out_adr_11__n                               out_adr[11]
+   Net           out_adr_12__n                               out_adr[12]
+   Net           out_adr_13__n                               out_adr[13]
+   Net           out_adr_14__n                               out_adr[14]
+   Net           out_adr_15__n                               out_adr[15]
+   Net           out_adr_16__n                               out_adr[16]
+   Net           out_adr_17__n                               out_adr[17]
+   Net           out_adr_18__n                               out_adr[18]
+   Net           out_adr_19__n                               out_adr[19]
+   Net           out_adr_20__n                               out_adr[20]
+   Net           out_adr_21__n                               out_adr[21]
+   Net           out_adr_22__n                               out_adr[22]
+   Net           out_adr_23__n                               out_adr[23]
+   Net           out_adr_24__n                               out_adr[24]
+   Net           out_adr_25__n                               out_adr[25]
+   Net         out_data_c_0__n                             out_data_c[0]
+   Net           out_data_0__n                               out_data[0]
+   Net         out_data_c_1__n                             out_data_c[1]
+   Net           out_data_1__n                               out_data[1]
+   Net         out_data_c_2__n                             out_data_c[2]
+   Net           out_data_2__n                               out_data[2]
+   Net         out_data_c_3__n                             out_data_c[3]
+   Net           out_data_3__n                               out_data[3]
+   Net         out_data_c_4__n                             out_data_c[4]
+   Net           out_data_4__n                               out_data[4]
+   Net         out_data_c_5__n                             out_data_c[5]
+   Net           out_data_5__n                               out_data[5]
+   Net         out_data_c_6__n                             out_data_c[6]
+   Net           out_data_6__n                               out_data[6]
+   Net         out_data_c_7__n                             out_data_c[7]
+   Net          grmadr_11_7__n                              grmadr_11[7]
+   Net          grmadr_11_6__n                              grmadr_11[6]
+   Net          grmadr_11_5__n                              grmadr_11[5]
+   Net          grmadr_11_4__n                              grmadr_11[4]
+   Net          grmadr_11_3__n                              grmadr_11[3]
+   Net          grmadr_11_2__n                              grmadr_11[2]
+   Net          grmadr_11_1__n                              grmadr_11[1]
+   Net          grmadr_11_0__n                              grmadr_11[0]
+   Net         grmadr_9_0_7__n                             grmadr_9_0[7]
+   Net         grmadr_9_0_6__n                             grmadr_9_0[6]
+   Net         grmadr_9_0_5__n                             grmadr_9_0[5]
+   Net         grmadr_9_0_4__n                             grmadr_9_0[4]
+   Net         grmadr_9_0_3__n                             grmadr_9_0[3]
+   Net           latch_i_13__n                               latch_i[13]
+   Net       out_adr_1_0_26__n                           out_adr_1_0[26]
+   Net           latch_i_12__n                               latch_i[12]
+   Net       out_adr_1_0_25__n                           out_adr_1_0[25]
+   Net           latch_i_11__n                               latch_i[11]
+   Net       out_adr_1_0_24__n                           out_adr_1_0[24]
+   Net           latch_i_10__n                               latch_i[10]
+   Net       out_adr_1_0_23__n                           out_adr_1_0[23]
+   Net            latch_i_9__n                                latch_i[9]
+   Net       out_adr_1_0_22__n                           out_adr_1_0[22]
+   Net            latch_i_8__n                                latch_i[8]
+   Net       out_adr_1_0_21__n                           out_adr_1_0[21]
+   Net            latch_i_7__n                                latch_i[7]
+   Net       out_adr_1_0_20__n                           out_adr_1_0[20]
+   Net            latch_i_6__n                                latch_i[6]
+   Net       out_adr_1_0_19__n                           out_adr_1_0[19]
+   Net            latch_i_5__n                                latch_i[5]
+   Net       out_adr_1_0_18__n                           out_adr_1_0[18]
+   Net            latch_i_4__n                                latch_i[4]
+   Net       out_adr_1_0_17__n                           out_adr_1_0[17]
+   Net            latch_i_3__n                                latch_i[3]
+   Net       out_adr_1_0_16__n                           out_adr_1_0[16]
+   Net            latch_i_2__n                                latch_i[2]
+   Net       out_adr_1_0_15__n                           out_adr_1_0[15]
+   Net            latch_i_1__n                                latch_i[1]
+   Net       out_adr_1_0_14__n                           out_adr_1_0[14]
+   Net            latch_i_0__n                                latch_i[0]
+   Net       out_adr_1_0_13__n                           out_adr_1_0[13]
+   Net         ti_adr_c_i_7__n                             ti_adr_c_i[7]
+   Net        out_adr_1_0_8__n                            out_adr_1_0[8]
+   Net         ti_adr_c_i_6__n                             ti_adr_c_i[6]
+   Net        out_adr_1_0_9__n                            out_adr_1_0[9]
+   Net         ti_adr_c_i_5__n                             ti_adr_c_i[5]
+   Net       out_adr_1_0_10__n                           out_adr_1_0[10]
+   Net         ti_adr_c_i_4__n                             ti_adr_c_i[4]
+   Net       out_adr_1_0_11__n                           out_adr_1_0[11]
+   Net         ti_adr_c_i_3__n                             ti_adr_c_i[3]
+   Net       out_adr_1_0_12__n                           out_adr_1_0[12]
+   Net     out_adr_14_4__un3_n                         out_adr_14_4_.un3
+   Net     out_adr_14_4__un1_n                         out_adr_14_4_.un1
+   Net     out_adr_14_4__un0_n                         out_adr_14_4_.un0
+   Net     out_adr_12_5__un3_n                         out_adr_12_5_.un3
+   Net     out_adr_12_5__un1_n                         out_adr_12_5_.un1
+   Net     out_adr_12_5__un0_n                         out_adr_12_5_.un0
+   Net     out_adr_10_6__un3_n                         out_adr_10_6_.un3
+   Net     out_adr_10_6__un1_n                         out_adr_10_6_.un1
+   Net     out_adr_10_6__un0_n                         out_adr_10_6_.un0
+   Net      out_adr_8_7__un3_n                          out_adr_8_7_.un3
+   Net      out_adr_8_7__un1_n                          out_adr_8_7_.un1
+   Net      out_adr_8_7__un0_n                          out_adr_8_7_.un0
+   Net      grmadr_11_1__un3_n                          grmadr_11_1_.un3
+   Net      grmadr_11_1__un1_n                          grmadr_11_1_.un1
+   Net      grmadr_11_1__un0_n                          grmadr_11_1_.un0
+   Net      grmadr_11_2__un3_n                          grmadr_11_2_.un3
+   Net      grmadr_11_2__un1_n                          grmadr_11_2_.un1
+   Net      grmadr_11_2__un0_n                          grmadr_11_2_.un0
+   Net      grmadr_11_3__un3_n                          grmadr_11_3_.un3
+   Net      grmadr_11_3__un1_n                          grmadr_11_3_.un1
+   Net      grmadr_11_3__un0_n                          grmadr_11_3_.un0
+   Net      grmadr_11_4__un3_n                          grmadr_11_4_.un3
+   Net      grmadr_11_4__un1_n                          grmadr_11_4_.un1
+   Net      grmadr_11_4__un0_n                          grmadr_11_4_.un0
+End
+Section Type      Name
+// ----------------------------------------------------------------------
+        Input     ti_adr_15_
+        Input     out_data_7_
+        Input     ti_we
+        Input     ti_rom
+        Input     ti_gsel
+        Input     ti_adr_14_
+        Input     ti_adr_13_
+        Input     ti_adr_12_
+        Input     ti_adr_11_
+        Input     ti_adr_10_
+        Input     ti_adr_9_
+        Input     ti_adr_8_
+        Input     ti_adr_7_
+        Input     ti_adr_6_
+        Input     ti_adr_5_
+        Input     ti_adr_4_
+        Input     ti_adr_3_
+        Input     out_data_6_
+        Input     out_data_5_
+        Input     out_data_4_
+        Input     out_data_3_
+        Input     out_data_2_
+        Input     out_data_1_
+        Input     out_data_0_
+        Output     out_adr_26_
+        Output     out_reset
+        Output     out_adr_25_
+        Output     out_adr_24_
+        Output     out_adr_23_
+        Output     out_adr_22_
+        Output     out_adr_21_
+        Output     out_adr_20_
+        Output     out_adr_19_
+        Output     out_adr_18_
+        Output     out_adr_17_
+        Output     out_adr_16_
+        Output     out_adr_15_
+        Output     out_adr_14_
+        Output     out_adr_13_
+        Output     out_adr_12_
+        Output     out_adr_11_
+        Output     out_adr_10_
+        Output     out_adr_9_
+        Output     out_adr_8_
+        Output     out_adr_7_
+        Output     out_adr_6_
+        Output     out_adr_5_
+        Output     out_adr_4_
+        Output     out_adr_3_
+        Output     out_adr_2_
+        Output     out_adr_1_
+        Output     out_adr_0_
+        Bidi     ti_data_7_
+        Bidi     ti_data_6_
+        Bidi     ti_data_5_
+        Bidi     ti_data_4_
+        Bidi     ti_data_3_
+        Bidi     ti_data_2_
+        Bidi     ti_data_1_
+        Bidi     ti_data_0_
+End

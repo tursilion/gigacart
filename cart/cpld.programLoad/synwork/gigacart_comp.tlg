@@ -1,0 +1,5 @@
+@N: CD630 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":21:7:21:14|Synthesizing work.gigacart.myarch 
+Post processing for work.gigacart.myarch
+@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":147:2:147:3|Input data for signal grmadr(0 to 7) contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
+@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":62:2:62:3|Input data for signal gvalid contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
+@W: CL116 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":62:2:62:3|Input data for signal gactive contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.

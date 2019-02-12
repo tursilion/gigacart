@@ -1,0 +1,18 @@
+@N: CD630 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":17:7:17:14|Synthesizing work.gigacart.myarch 
+@W: CG296 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":60:1:60:7|Incomplete sensitivity list - assuming completeness
+@W: CG290 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":63:6:63:11|Referenced variable ti_rom is not in sensitivity list
+@W: CG296 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":91:1:91:7|Incomplete sensitivity list - assuming completeness
+@W: CG290 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":94:59:94:63|Referenced variable ti_we is not in sensitivity list
+@W: CG290 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":94:40:94:45|Referenced variable ti_adr is not in sensitivity list
+Post processing for work.gigacart.myarch
+@W: CL169 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":35:54:35:69|Pruning register chip_3(1 downto 0)  
+@A: CL282 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":63:2:63:3|Feedback mux created for signal latch[13:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":39:31:39:33|Found combinational loop at grmadr[0]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":119:2:119:3|Found combinational loop at grmadr[0]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":119:2:119:3|Found combinational loop at grmadr[1]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":119:2:119:3|Found combinational loop at grmadr[2]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":119:2:119:3|Found combinational loop at grmadr[3]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":119:2:119:3|Found combinational loop at grmadr[4]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":119:2:119:3|Found combinational loop at grmadr[5]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":119:2:119:3|Found combinational loop at grmadr[6]
+@W: CL179 :"D:\work\ti\dragonslair\cart\cpld\design.vhd":119:2:119:3|Found combinational loop at grmadr[7]

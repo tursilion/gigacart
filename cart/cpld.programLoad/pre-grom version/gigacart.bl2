@@ -1,0 +1,942 @@
+#$ TOOL ispLEVER Classic 2.0.00.17.20.15
+#$ DATE Tue Jul 03 23:27:47 2018
+#$ MODULE gigacart
+#$ PINS 60 ti_adr_15_ ti_data_7_ out_adr_26_ out_data_7_ ti_we ti_rom ti_gsel \
+#  out_reset ti_adr_14_ ti_adr_13_ ti_adr_12_ ti_adr_11_ ti_adr_10_ ti_adr_9_ ti_adr_8_ \
+#  ti_adr_7_ ti_adr_6_ ti_adr_5_ ti_adr_4_ ti_adr_3_ ti_data_6_ ti_data_5_ ti_data_4_ \
+#  ti_data_3_ ti_data_2_ ti_data_1_ ti_data_0_ out_adr_25_ out_adr_24_ out_adr_23_ \
+#  out_adr_22_ out_adr_21_ out_adr_20_ out_adr_19_ out_adr_18_ out_adr_17_ out_adr_16_ \
+#  out_adr_15_ out_adr_14_ out_adr_13_ out_adr_12_ out_adr_11_ out_adr_10_ out_adr_9_ \
+#  out_adr_8_ out_adr_7_ out_adr_6_ out_adr_5_ out_adr_4_ out_adr_3_ out_adr_2_ \
+#  out_adr_1_ out_adr_0_ out_data_6_ out_data_5_ out_data_4_ out_data_3_ out_data_2_ \
+#  out_data_1_ out_data_0_
+#$ NODES 220 grmadr_11_5__un3_n grmadr_11_5__un1_n grmadr_11_5__un0_n \
+#  grmadr_11_6__un3_n grmadr_11_6__un1_n out_adr_22_0__n grmadr_11_6__un0_n \
+#  out_adr_20_1__n grmadr_11_7__un3_n out_adr_18_2__n grmadr_11_7__un1_n \
+#  out_adr_16_3__n grmadr_11_7__un0_n out_adr_14_4__n grmadr_9_0__un3_n \
+#  out_adr_12_5__n grmadr_9_0__un1_n out_adr_10_6__n grmadr_9_0__un0_n out_adr_8_7__n \
+#  grmadr_9_1__un3_n out_adr_1_8__n grmadr_9_1__un1_n out_adr_1_9__n \
+#  grmadr_9_1__un0_n out_adr_1_10__n grmadr_9_2__un3_n out_adr_1_11__n \
+#  grmadr_9_2__un1_n out_adr_1_12__n grmadr_9_2__un0_n out_adr_1_13__n \
+#  out_adr_22_0__un3_n out_adr_1_14__n out_adr_22_0__un1_n out_adr_1_15__n \
+#  out_adr_22_0__un0_n out_adr_1_16__n out_adr_20_1__un3_n out_adr_1_17__n \
+#  out_adr_20_1__un1_n out_adr_1_18__n out_adr_20_1__un0_n out_adr_1_19__n \
+#  out_adr_18_2__un3_n out_adr_1_20__n out_adr_18_2__un1_n out_adr_1_21__n \
+#  out_adr_18_2__un0_n out_adr_1_22__n out_adr_16_3__un3_n out_adr_1_23__n \
+#  out_adr_16_3__un1_n out_adr_1_24__n out_adr_16_3__un0_n out_adr_1_25__n \
+#  grmadr_11_0__un3_n out_adr_1_26__n grmadr_11_0__un1_n inst_bouncereg \
+#  grmadr_11_0__un0_n un4_ti_data inst_grminc gvalid inst_grmpage grmpage10 latch_0_ \
+#  latch_1_ latch_2_ latch_3_ latch_4_ latch_5_ latch_6_ latch_7_ latch_8_ latch_9_ \
+#  latch_10_ latch_11_ latch_12_ latch_13_ N_69 N_71 N_73 N_75 N_77 N_79 G_48 G_46 G_44 G_42 \
+#  G_40 G_38 G_36 grmadr_9_3__n grmadr_9_4__n grmadr_9_5__n grmadr_9_6__n grmadr_9_7__n \
+#  grmadr_9_0__n grmadr_9_1__n grmadr_9_2__n un1_ti_data ti_we_i ti_rom_i N_90_i N_96_i \
+#  N_95_i ti_adr_i_14__n ti_gsel_i ti_adr_c_3__n ti_adr_c_4__n ti_adr_c_5__n \
+#  ti_adr_c_6__n ti_adr_c_7__n ti_adr_c_8__n ti_adr_c_9__n ti_adr_c_10__n \
+#  ti_adr_c_11__n ti_adr_c_12__n ti_adr_c_13__n ti_adr_c_14__n ti_adr_c_15__n \
+#  ti_data_c_0__n ti_data_c_1__n ti_data_c_2__n ti_we_c ti_rom_c ti_gsel_c \
+#  out_data_c_0__n out_data_c_1__n out_data_c_2__n out_data_c_3__n out_data_c_4__n \
+#  out_data_c_5__n out_data_c_6__n out_data_c_7__n grmadr_11_7__n grmadr_11_6__n \
+#  grmadr_11_5__n grmadr_11_4__n grmadr_11_3__n grmadr_11_2__n grmadr_11_1__n \
+#  grmadr_11_0__n gvalid_i un1_ti_data_0 grmpage10_i grmadr_9_0_7__n N_125_i \
+#  grmadr_9_0_6__n N_126_i grmadr_9_0_5__n N_127_i grmadr_9_0_4__n N_128_i \
+#  grmadr_9_0_3__n latch_i_13__n out_adr_1_0_26__n latch_i_12__n out_adr_1_0_25__n \
+#  latch_i_11__n out_adr_1_0_24__n latch_i_10__n out_adr_1_0_23__n latch_i_9__n \
+#  out_adr_1_0_22__n latch_i_8__n out_adr_1_0_21__n latch_i_7__n out_adr_1_0_20__n \
+#  latch_i_6__n out_adr_1_0_19__n latch_i_5__n out_adr_1_0_18__n latch_i_4__n \
+#  out_adr_1_0_17__n latch_i_3__n out_adr_1_0_16__n latch_i_2__n out_adr_1_0_15__n \
+#  latch_i_1__n out_adr_1_0_14__n latch_i_0__n out_adr_1_0_13__n ti_adr_c_i_7__n \
+#  out_adr_1_0_8__n ti_adr_c_i_6__n out_adr_1_0_9__n ti_adr_c_i_5__n \
+#  out_adr_1_0_10__n ti_adr_c_i_4__n out_adr_1_0_11__n ti_adr_c_i_3__n \
+#  out_adr_1_0_12__n gvalid_1 grmpage_1_1 out_adr_14_4__un3_n out_adr_14_4__un1_n \
+#  out_adr_14_4__un0_n out_adr_12_5__un3_n out_adr_12_5__un1_n out_adr_12_5__un0_n \
+#  out_adr_10_6__un3_n out_adr_10_6__un1_n out_adr_10_6__un0_n out_adr_8_7__un3_n \
+#  out_adr_8_7__un1_n out_adr_8_7__un0_n grmadr_11_1__un3_n grmadr_11_1__un1_n \
+#  grmadr_11_1__un0_n grmadr_11_2__un3_n grmadr_11_2__un1_n grmadr_11_2__un0_n \
+#  grmadr_11_3__un3_n grmadr_11_3__un1_n grmadr_11_3__un0_n grmadr_11_4__un3_n \
+#  grmadr_11_4__un1_n grmadr_11_4__un0_n
+.model gigacart
+.inputs ti_adr_15_.BLIF out_data_7_.BLIF ti_we.BLIF ti_rom.BLIF ti_gsel.BLIF \
+ti_adr_14_.BLIF ti_adr_13_.BLIF ti_adr_12_.BLIF ti_adr_11_.BLIF \
+ti_adr_10_.BLIF ti_adr_9_.BLIF ti_adr_8_.BLIF ti_adr_7_.BLIF ti_adr_6_.BLIF \
+ti_adr_5_.BLIF ti_adr_4_.BLIF ti_adr_3_.BLIF out_data_6_.BLIF out_data_5_.BLIF \
+out_data_4_.BLIF out_data_3_.BLIF out_data_2_.BLIF out_data_1_.BLIF \
+out_data_0_.BLIF ti_data_7_.BLIF ti_data_6_.BLIF ti_data_5_.BLIF \
+ti_data_4_.BLIF ti_data_3_.BLIF ti_data_2_.BLIF ti_data_1_.BLIF \
+ti_data_0_.BLIF grmadr_11_5__un3_n.BLIF grmadr_11_5__un1_n.BLIF \
+grmadr_11_5__un0_n.BLIF grmadr_11_6__un3_n.BLIF grmadr_11_6__un1_n.BLIF \
+out_adr_22_0__n.BLIF grmadr_11_6__un0_n.BLIF out_adr_20_1__n.BLIF \
+grmadr_11_7__un3_n.BLIF out_adr_18_2__n.BLIF grmadr_11_7__un1_n.BLIF \
+out_adr_16_3__n.BLIF grmadr_11_7__un0_n.BLIF out_adr_14_4__n.BLIF \
+grmadr_9_0__un3_n.BLIF out_adr_12_5__n.BLIF grmadr_9_0__un1_n.BLIF \
+out_adr_10_6__n.BLIF grmadr_9_0__un0_n.BLIF out_adr_8_7__n.BLIF \
+grmadr_9_1__un3_n.BLIF out_adr_1_8__n.BLIF grmadr_9_1__un1_n.BLIF \
+out_adr_1_9__n.BLIF grmadr_9_1__un0_n.BLIF out_adr_1_10__n.BLIF \
+grmadr_9_2__un3_n.BLIF out_adr_1_11__n.BLIF grmadr_9_2__un1_n.BLIF \
+out_adr_1_12__n.BLIF grmadr_9_2__un0_n.BLIF out_adr_1_13__n.BLIF \
+out_adr_22_0__un3_n.BLIF out_adr_1_14__n.BLIF out_adr_22_0__un1_n.BLIF \
+out_adr_1_15__n.BLIF out_adr_22_0__un0_n.BLIF out_adr_1_16__n.BLIF \
+out_adr_20_1__un3_n.BLIF out_adr_1_17__n.BLIF out_adr_20_1__un1_n.BLIF \
+out_adr_1_18__n.BLIF out_adr_20_1__un0_n.BLIF out_adr_1_19__n.BLIF \
+out_adr_18_2__un3_n.BLIF out_adr_1_20__n.BLIF out_adr_18_2__un1_n.BLIF \
+out_adr_1_21__n.BLIF out_adr_18_2__un0_n.BLIF out_adr_1_22__n.BLIF \
+out_adr_16_3__un3_n.BLIF out_adr_1_23__n.BLIF out_adr_16_3__un1_n.BLIF \
+out_adr_1_24__n.BLIF out_adr_16_3__un0_n.BLIF out_adr_1_25__n.BLIF \
+grmadr_11_0__un3_n.BLIF out_adr_1_26__n.BLIF grmadr_11_0__un1_n.BLIF \
+inst_bouncereg.BLIF grmadr_11_0__un0_n.BLIF un4_ti_data.BLIF inst_grminc.BLIF \
+gvalid.BLIF inst_grmpage.BLIF grmpage10.BLIF latch_0_.BLIF latch_1_.BLIF \
+latch_2_.BLIF latch_3_.BLIF latch_4_.BLIF latch_5_.BLIF latch_6_.BLIF \
+latch_7_.BLIF latch_8_.BLIF latch_9_.BLIF latch_10_.BLIF latch_11_.BLIF \
+latch_12_.BLIF latch_13_.BLIF N_69.BLIF N_71.BLIF N_73.BLIF N_75.BLIF \
+N_77.BLIF N_79.BLIF G_48.BLIF G_46.BLIF G_44.BLIF G_42.BLIF G_40.BLIF \
+G_38.BLIF G_36.BLIF grmadr_9_3__n.BLIF grmadr_9_4__n.BLIF grmadr_9_5__n.BLIF \
+grmadr_9_6__n.BLIF grmadr_9_7__n.BLIF grmadr_9_0__n.BLIF grmadr_9_1__n.BLIF \
+grmadr_9_2__n.BLIF un1_ti_data.BLIF ti_we_i.BLIF ti_rom_i.BLIF N_90_i.BLIF \
+N_96_i.BLIF N_95_i.BLIF ti_adr_i_14__n.BLIF ti_gsel_i.BLIF ti_adr_c_3__n.BLIF \
+ti_adr_c_4__n.BLIF ti_adr_c_5__n.BLIF ti_adr_c_6__n.BLIF ti_adr_c_7__n.BLIF \
+ti_adr_c_8__n.BLIF ti_adr_c_9__n.BLIF ti_adr_c_10__n.BLIF ti_adr_c_11__n.BLIF \
+ti_adr_c_12__n.BLIF ti_adr_c_13__n.BLIF ti_adr_c_14__n.BLIF \
+ti_adr_c_15__n.BLIF ti_data_c_0__n.BLIF ti_data_c_1__n.BLIF \
+ti_data_c_2__n.BLIF ti_we_c.BLIF ti_rom_c.BLIF ti_gsel_c.BLIF \
+out_data_c_0__n.BLIF out_data_c_1__n.BLIF out_data_c_2__n.BLIF \
+out_data_c_3__n.BLIF out_data_c_4__n.BLIF out_data_c_5__n.BLIF \
+out_data_c_6__n.BLIF out_data_c_7__n.BLIF grmadr_11_7__n.BLIF \
+grmadr_11_6__n.BLIF grmadr_11_5__n.BLIF grmadr_11_4__n.BLIF \
+grmadr_11_3__n.BLIF grmadr_11_2__n.BLIF grmadr_11_1__n.BLIF \
+grmadr_11_0__n.BLIF gvalid_i.BLIF un1_ti_data_0.BLIF grmpage10_i.BLIF \
+grmadr_9_0_7__n.BLIF N_125_i.BLIF grmadr_9_0_6__n.BLIF N_126_i.BLIF \
+grmadr_9_0_5__n.BLIF N_127_i.BLIF grmadr_9_0_4__n.BLIF N_128_i.BLIF \
+grmadr_9_0_3__n.BLIF latch_i_13__n.BLIF out_adr_1_0_26__n.BLIF \
+latch_i_12__n.BLIF out_adr_1_0_25__n.BLIF latch_i_11__n.BLIF \
+out_adr_1_0_24__n.BLIF latch_i_10__n.BLIF out_adr_1_0_23__n.BLIF \
+latch_i_9__n.BLIF out_adr_1_0_22__n.BLIF latch_i_8__n.BLIF \
+out_adr_1_0_21__n.BLIF latch_i_7__n.BLIF out_adr_1_0_20__n.BLIF \
+latch_i_6__n.BLIF out_adr_1_0_19__n.BLIF latch_i_5__n.BLIF \
+out_adr_1_0_18__n.BLIF latch_i_4__n.BLIF out_adr_1_0_17__n.BLIF \
+latch_i_3__n.BLIF out_adr_1_0_16__n.BLIF latch_i_2__n.BLIF \
+out_adr_1_0_15__n.BLIF latch_i_1__n.BLIF out_adr_1_0_14__n.BLIF \
+latch_i_0__n.BLIF out_adr_1_0_13__n.BLIF ti_adr_c_i_7__n.BLIF \
+out_adr_1_0_8__n.BLIF ti_adr_c_i_6__n.BLIF out_adr_1_0_9__n.BLIF \
+ti_adr_c_i_5__n.BLIF out_adr_1_0_10__n.BLIF ti_adr_c_i_4__n.BLIF \
+out_adr_1_0_11__n.BLIF ti_adr_c_i_3__n.BLIF out_adr_1_0_12__n.BLIF \
+gvalid_1.BLIF grmpage_1_1.BLIF out_adr_14_4__un3_n.BLIF \
+out_adr_14_4__un1_n.BLIF out_adr_14_4__un0_n.BLIF out_adr_12_5__un3_n.BLIF \
+out_adr_12_5__un1_n.BLIF out_adr_12_5__un0_n.BLIF out_adr_10_6__un3_n.BLIF \
+out_adr_10_6__un1_n.BLIF out_adr_10_6__un0_n.BLIF out_adr_8_7__un3_n.BLIF \
+out_adr_8_7__un1_n.BLIF out_adr_8_7__un0_n.BLIF grmadr_11_1__un3_n.BLIF \
+grmadr_11_1__un1_n.BLIF grmadr_11_1__un0_n.BLIF grmadr_11_2__un3_n.BLIF \
+grmadr_11_2__un1_n.BLIF grmadr_11_2__un0_n.BLIF grmadr_11_3__un3_n.BLIF \
+grmadr_11_3__un1_n.BLIF grmadr_11_3__un0_n.BLIF grmadr_11_4__un3_n.BLIF \
+grmadr_11_4__un1_n.BLIF grmadr_11_4__un0_n.BLIF ti_data_0_.PIN.BLIF \
+ti_data_1_.PIN.BLIF ti_data_2_.PIN.BLIF ti_data_6_.PIN.BLIF \
+ti_data_7_.PIN.BLIF
+.outputs out_adr_26_ out_reset out_adr_25_ out_adr_24_ out_adr_23_ out_adr_22_ \
+out_adr_21_ out_adr_20_ out_adr_19_ out_adr_18_ out_adr_17_ out_adr_16_ \
+out_adr_15_ out_adr_14_ out_adr_13_ out_adr_12_ out_adr_11_ out_adr_10_ \
+out_adr_9_ out_adr_8_ out_adr_7_ out_adr_6_ out_adr_5_ out_adr_4_ out_adr_3_ \
+out_adr_2_ out_adr_1_ out_adr_0_ latch_13_.D latch_13_.CE latch_13_.C \
+latch_0_.D latch_0_.CE latch_0_.C latch_1_.D latch_1_.CE latch_1_.C latch_2_.D \
+latch_2_.CE latch_2_.C latch_3_.D latch_3_.CE latch_3_.C latch_4_.D \
+latch_4_.CE latch_4_.C latch_5_.D latch_5_.CE latch_5_.C latch_6_.D \
+latch_6_.CE latch_6_.C latch_7_.D latch_7_.CE latch_7_.C latch_8_.D \
+latch_8_.CE latch_8_.C latch_9_.D latch_9_.CE latch_9_.C latch_10_.D \
+latch_10_.CE latch_10_.C latch_11_.D latch_11_.CE latch_11_.C latch_12_.D \
+latch_12_.CE latch_12_.C inst_grmpage.D inst_grmpage.CE inst_grmpage.C \
+inst_grminc.D inst_grminc.C inst_bouncereg.D inst_bouncereg.C ti_data_7_ \
+ti_data_6_ ti_data_5_ ti_data_4_ ti_data_3_ ti_data_2_ ti_data_1_ ti_data_0_ \
+grmadr_11_5__un3_n grmadr_11_5__un1_n grmadr_11_5__un0_n grmadr_11_6__un3_n \
+grmadr_11_6__un1_n out_adr_22_0__n grmadr_11_6__un0_n out_adr_20_1__n \
+grmadr_11_7__un3_n out_adr_18_2__n grmadr_11_7__un1_n out_adr_16_3__n \
+grmadr_11_7__un0_n out_adr_14_4__n grmadr_9_0__un3_n out_adr_12_5__n \
+grmadr_9_0__un1_n out_adr_10_6__n grmadr_9_0__un0_n out_adr_8_7__n \
+grmadr_9_1__un3_n out_adr_1_8__n grmadr_9_1__un1_n out_adr_1_9__n \
+grmadr_9_1__un0_n out_adr_1_10__n grmadr_9_2__un3_n out_adr_1_11__n \
+grmadr_9_2__un1_n out_adr_1_12__n grmadr_9_2__un0_n out_adr_1_13__n \
+out_adr_22_0__un3_n out_adr_1_14__n out_adr_22_0__un1_n out_adr_1_15__n \
+out_adr_22_0__un0_n out_adr_1_16__n out_adr_20_1__un3_n out_adr_1_17__n \
+out_adr_20_1__un1_n out_adr_1_18__n out_adr_20_1__un0_n out_adr_1_19__n \
+out_adr_18_2__un3_n out_adr_1_20__n out_adr_18_2__un1_n out_adr_1_21__n \
+out_adr_18_2__un0_n out_adr_1_22__n out_adr_16_3__un3_n out_adr_1_23__n \
+out_adr_16_3__un1_n out_adr_1_24__n out_adr_16_3__un0_n out_adr_1_25__n \
+grmadr_11_0__un3_n out_adr_1_26__n grmadr_11_0__un1_n grmadr_11_0__un0_n \
+un4_ti_data gvalid grmpage10 N_69 N_71 N_73 N_75 N_77 N_79 grmadr_9_3__n \
+grmadr_9_4__n grmadr_9_5__n grmadr_9_6__n grmadr_9_7__n grmadr_9_0__n \
+grmadr_9_1__n grmadr_9_2__n un1_ti_data ti_we_i ti_rom_i N_90_i N_96_i N_95_i \
+ti_adr_i_14__n ti_gsel_i ti_adr_c_3__n ti_adr_c_4__n ti_adr_c_5__n \
+ti_adr_c_6__n ti_adr_c_7__n ti_adr_c_8__n ti_adr_c_9__n ti_adr_c_10__n \
+ti_adr_c_11__n ti_adr_c_12__n ti_adr_c_13__n ti_adr_c_14__n ti_adr_c_15__n \
+ti_data_c_0__n ti_data_c_1__n ti_data_c_2__n ti_we_c ti_rom_c ti_gsel_c \
+out_data_c_0__n out_data_c_1__n out_data_c_2__n out_data_c_3__n \
+out_data_c_4__n out_data_c_5__n out_data_c_6__n out_data_c_7__n grmadr_11_7__n \
+grmadr_11_6__n grmadr_11_5__n grmadr_11_4__n grmadr_11_3__n grmadr_11_2__n \
+grmadr_11_1__n grmadr_11_0__n gvalid_i un1_ti_data_0 grmpage10_i \
+grmadr_9_0_7__n N_125_i grmadr_9_0_6__n N_126_i grmadr_9_0_5__n N_127_i \
+grmadr_9_0_4__n N_128_i grmadr_9_0_3__n latch_i_13__n out_adr_1_0_26__n \
+latch_i_12__n out_adr_1_0_25__n latch_i_11__n out_adr_1_0_24__n latch_i_10__n \
+out_adr_1_0_23__n latch_i_9__n out_adr_1_0_22__n latch_i_8__n \
+out_adr_1_0_21__n latch_i_7__n out_adr_1_0_20__n latch_i_6__n \
+out_adr_1_0_19__n latch_i_5__n out_adr_1_0_18__n latch_i_4__n \
+out_adr_1_0_17__n latch_i_3__n out_adr_1_0_16__n latch_i_2__n \
+out_adr_1_0_15__n latch_i_1__n out_adr_1_0_14__n latch_i_0__n \
+out_adr_1_0_13__n ti_adr_c_i_7__n out_adr_1_0_8__n ti_adr_c_i_6__n \
+out_adr_1_0_9__n ti_adr_c_i_5__n out_adr_1_0_10__n ti_adr_c_i_4__n \
+out_adr_1_0_11__n ti_adr_c_i_3__n out_adr_1_0_12__n gvalid_1 grmpage_1_1 \
+out_adr_14_4__un3_n out_adr_14_4__un1_n out_adr_14_4__un0_n \
+out_adr_12_5__un3_n out_adr_12_5__un1_n out_adr_12_5__un0_n \
+out_adr_10_6__un3_n out_adr_10_6__un1_n out_adr_10_6__un0_n out_adr_8_7__un3_n \
+out_adr_8_7__un1_n out_adr_8_7__un0_n grmadr_11_1__un3_n grmadr_11_1__un1_n \
+grmadr_11_1__un0_n grmadr_11_2__un3_n grmadr_11_2__un1_n grmadr_11_2__un0_n \
+grmadr_11_3__un3_n grmadr_11_3__un1_n grmadr_11_3__un0_n grmadr_11_4__un3_n \
+grmadr_11_4__un1_n grmadr_11_4__un0_n ti_data_0_.OE ti_data_1_.OE \
+ti_data_2_.OE ti_data_6_.OE ti_data_7_.OE ti_data_3_.OE ti_data_4_.OE \
+ti_data_5_.OE G_48 G_46 G_44 G_42 G_40 G_38 G_36
+.names grmpage_1_1.BLIF N_96_i.BLIF inst_grmpage.D
+11 1
+.names inst_bouncereg.D
+ 1
+.names inst_grminc.BLIF grmadr_11_5__un3_n
+0 1
+.names G_38.BLIF inst_grminc.BLIF grmadr_11_5__un1_n
+11 1
+.names grmadr_9_5__n.BLIF grmadr_11_5__un3_n.BLIF grmadr_11_5__un0_n
+11 1
+.names inst_grminc.BLIF grmadr_11_6__un3_n
+0 1
+.names G_36.BLIF inst_grminc.BLIF grmadr_11_6__un1_n
+11 1
+.names out_adr_22_0__un1_n.BLIF out_adr_22_0__un0_n.BLIF out_adr_22_0__n
+1- 1
+-1 1
+.names grmadr_9_6__n.BLIF grmadr_11_6__un3_n.BLIF grmadr_11_6__un0_n
+11 1
+.names out_adr_20_1__un1_n.BLIF out_adr_20_1__un0_n.BLIF out_adr_20_1__n
+1- 1
+-1 1
+.names inst_grminc.BLIF grmadr_11_7__un3_n
+0 1
+.names out_adr_18_2__un1_n.BLIF out_adr_18_2__un0_n.BLIF out_adr_18_2__n
+1- 1
+-1 1
+.names N_90_i.BLIF inst_grminc.BLIF grmadr_11_7__un1_n
+11 1
+.names out_adr_16_3__un1_n.BLIF out_adr_16_3__un0_n.BLIF out_adr_16_3__n
+1- 1
+-1 1
+.names grmadr_9_7__n.BLIF grmadr_11_7__un3_n.BLIF grmadr_11_7__un0_n
+11 1
+.names out_adr_14_4__un1_n.BLIF out_adr_14_4__un0_n.BLIF out_adr_14_4__n
+1- 1
+-1 1
+.names grmpage10.BLIF grmadr_9_0__un3_n
+0 1
+.names out_adr_12_5__un1_n.BLIF out_adr_12_5__un0_n.BLIF out_adr_12_5__n
+1- 1
+-1 1
+.names ti_data_c_0__n.BLIF grmpage10.BLIF grmadr_9_0__un1_n
+11 1
+.names out_adr_10_6__un1_n.BLIF out_adr_10_6__un0_n.BLIF out_adr_10_6__n
+1- 1
+-1 1
+.names grmadr_11_0__n.BLIF grmadr_9_0__un3_n.BLIF grmadr_9_0__un0_n
+11 1
+.names out_adr_8_7__un1_n.BLIF out_adr_8_7__un0_n.BLIF out_adr_8_7__n
+1- 1
+-1 1
+.names grmpage10.BLIF grmadr_9_1__un3_n
+0 1
+.names out_adr_1_0_8__n.BLIF out_adr_1_8__n
+0 1
+.names ti_data_c_1__n.BLIF grmpage10.BLIF grmadr_9_1__un1_n
+11 1
+.names out_adr_1_0_9__n.BLIF out_adr_1_9__n
+0 1
+.names grmadr_11_1__n.BLIF grmadr_9_1__un3_n.BLIF grmadr_9_1__un0_n
+11 1
+.names out_adr_1_0_10__n.BLIF out_adr_1_10__n
+0 1
+.names grmpage10.BLIF grmadr_9_2__un3_n
+0 1
+.names out_adr_1_0_11__n.BLIF out_adr_1_11__n
+0 1
+.names ti_data_c_2__n.BLIF grmpage10.BLIF grmadr_9_2__un1_n
+11 1
+.names out_adr_1_0_12__n.BLIF out_adr_1_12__n
+0 1
+.names grmadr_11_2__n.BLIF grmadr_9_2__un3_n.BLIF grmadr_9_2__un0_n
+11 1
+.names out_adr_1_0_13__n.BLIF out_adr_1_13__n
+0 1
+.names gvalid.BLIF out_adr_22_0__un3_n
+0 1
+.names out_adr_1_0_14__n.BLIF out_adr_1_14__n
+0 1
+.names grmadr_11_7__n.BLIF gvalid.BLIF out_adr_22_0__un1_n
+11 1
+.names out_adr_1_0_15__n.BLIF out_adr_1_15__n
+0 1
+.names ti_adr_c_15__n.BLIF out_adr_22_0__un3_n.BLIF out_adr_22_0__un0_n
+11 1
+.names out_adr_1_0_16__n.BLIF out_adr_1_16__n
+0 1
+.names gvalid.BLIF out_adr_20_1__un3_n
+0 1
+.names out_adr_1_0_17__n.BLIF out_adr_1_17__n
+0 1
+.names grmadr_11_6__n.BLIF gvalid.BLIF out_adr_20_1__un1_n
+11 1
+.names out_adr_1_0_18__n.BLIF out_adr_1_18__n
+0 1
+.names ti_adr_c_14__n.BLIF out_adr_20_1__un3_n.BLIF out_adr_20_1__un0_n
+11 1
+.names out_adr_1_0_19__n.BLIF out_adr_1_19__n
+0 1
+.names gvalid.BLIF out_adr_18_2__un3_n
+0 1
+.names out_adr_1_0_20__n.BLIF out_adr_1_20__n
+0 1
+.names grmadr_11_5__n.BLIF gvalid.BLIF out_adr_18_2__un1_n
+11 1
+.names out_adr_1_0_21__n.BLIF out_adr_1_21__n
+0 1
+.names ti_adr_c_13__n.BLIF out_adr_18_2__un3_n.BLIF out_adr_18_2__un0_n
+11 1
+.names out_adr_1_0_22__n.BLIF out_adr_1_22__n
+0 1
+.names gvalid.BLIF out_adr_16_3__un3_n
+0 1
+.names out_adr_1_0_23__n.BLIF out_adr_1_23__n
+0 1
+.names grmadr_11_4__n.BLIF gvalid.BLIF out_adr_16_3__un1_n
+11 1
+.names out_adr_1_0_24__n.BLIF out_adr_1_24__n
+0 1
+.names ti_adr_c_12__n.BLIF out_adr_16_3__un3_n.BLIF out_adr_16_3__un0_n
+11 1
+.names out_adr_1_0_25__n.BLIF out_adr_1_25__n
+0 1
+.names inst_grminc.BLIF grmadr_11_0__un3_n
+0 1
+.names out_adr_1_0_26__n.BLIF out_adr_1_26__n
+0 1
+.names G_48.BLIF inst_grminc.BLIF grmadr_11_0__un1_n
+11 1
+.names grmadr_9_0__n.BLIF grmadr_11_0__un3_n.BLIF grmadr_11_0__un0_n
+11 1
+.names ti_we_c.BLIF un1_ti_data.BLIF un4_ti_data
+11 1
+.names gvalid_1.BLIF ti_gsel_i.BLIF gvalid
+11 1
+.names ti_adr_c_14__n.BLIF ti_we_i.BLIF grmpage10
+11 1
+.names grmadr_11_7__n.BLIF grmadr_11_6__n.BLIF N_69
+11 1
+.names N_69.BLIF grmadr_11_5__n.BLIF N_71
+11 1
+.names N_71.BLIF grmadr_11_4__n.BLIF N_73
+11 1
+.names N_73.BLIF grmadr_11_3__n.BLIF N_75
+11 1
+.names N_75.BLIF grmadr_11_2__n.BLIF N_77
+11 1
+.names N_77.BLIF grmadr_11_1__n.BLIF N_79
+11 1
+.names grmadr_9_0_3__n.BLIF grmadr_9_3__n
+0 1
+.names grmadr_9_0_4__n.BLIF grmadr_9_4__n
+0 1
+.names grmadr_9_0_5__n.BLIF grmadr_9_5__n
+0 1
+.names grmadr_9_0_6__n.BLIF grmadr_9_6__n
+0 1
+.names grmadr_9_0_7__n.BLIF grmadr_9_7__n
+0 1
+.names grmadr_9_0__un1_n.BLIF grmadr_9_0__un0_n.BLIF grmadr_9_0__n
+1- 1
+-1 1
+.names grmadr_9_1__un1_n.BLIF grmadr_9_1__un0_n.BLIF grmadr_9_1__n
+1- 1
+-1 1
+.names grmadr_9_2__un1_n.BLIF grmadr_9_2__un0_n.BLIF grmadr_9_2__n
+1- 1
+-1 1
+.names un1_ti_data_0.BLIF un1_ti_data
+0 1
+.names ti_we_c.BLIF ti_we_i
+0 1
+.names ti_rom_c.BLIF ti_rom_i
+0 1
+.names grmadr_11_7__n.BLIF N_90_i
+0 1
+.names grmadr_11_1__n.BLIF N_96_i
+0 1
+.names grmadr_11_2__n.BLIF N_95_i
+0 1
+.names ti_adr_c_14__n.BLIF ti_adr_i_14__n
+0 1
+.names ti_gsel_c.BLIF ti_gsel_i
+0 1
+.names grmadr_11_7__un1_n.BLIF grmadr_11_7__un0_n.BLIF grmadr_11_7__n
+1- 1
+-1 1
+.names grmadr_11_6__un1_n.BLIF grmadr_11_6__un0_n.BLIF grmadr_11_6__n
+1- 1
+-1 1
+.names grmadr_11_5__un1_n.BLIF grmadr_11_5__un0_n.BLIF grmadr_11_5__n
+1- 1
+-1 1
+.names grmadr_11_4__un1_n.BLIF grmadr_11_4__un0_n.BLIF grmadr_11_4__n
+1- 1
+-1 1
+.names grmadr_11_3__un1_n.BLIF grmadr_11_3__un0_n.BLIF grmadr_11_3__n
+1- 1
+-1 1
+.names grmadr_11_2__un1_n.BLIF grmadr_11_2__un0_n.BLIF grmadr_11_2__n
+1- 1
+-1 1
+.names grmadr_11_1__un1_n.BLIF grmadr_11_1__un0_n.BLIF grmadr_11_1__n
+1- 1
+-1 1
+.names grmadr_11_0__un1_n.BLIF grmadr_11_0__un0_n.BLIF grmadr_11_0__n
+1- 1
+-1 1
+.names gvalid.BLIF gvalid_i
+0 1
+.names gvalid_i.BLIF ti_rom_c.BLIF un1_ti_data_0
+11 1
+.names grmpage10.BLIF grmpage10_i
+0 1
+.names N_90_i.BLIF grmpage10_i.BLIF grmadr_9_0_7__n
+11 1
+.names grmadr_11_6__n.BLIF N_125_i
+0 1
+.names N_125_i.BLIF grmpage10_i.BLIF grmadr_9_0_6__n
+11 1
+.names grmadr_11_5__n.BLIF N_126_i
+0 1
+.names N_126_i.BLIF grmpage10_i.BLIF grmadr_9_0_5__n
+11 1
+.names grmadr_11_4__n.BLIF N_127_i
+0 1
+.names N_127_i.BLIF grmpage10_i.BLIF grmadr_9_0_4__n
+11 1
+.names grmadr_11_3__n.BLIF N_128_i
+0 1
+.names N_128_i.BLIF grmpage10_i.BLIF grmadr_9_0_3__n
+11 1
+.names latch_13_.BLIF latch_i_13__n
+0 1
+.names gvalid_i.BLIF latch_i_13__n.BLIF out_adr_1_0_26__n
+11 1
+.names latch_12_.BLIF latch_i_12__n
+0 1
+.names gvalid_i.BLIF latch_i_12__n.BLIF out_adr_1_0_25__n
+11 1
+.names latch_11_.BLIF latch_i_11__n
+0 1
+.names gvalid_i.BLIF latch_i_11__n.BLIF out_adr_1_0_24__n
+11 1
+.names latch_10_.BLIF latch_i_10__n
+0 1
+.names gvalid_i.BLIF latch_i_10__n.BLIF out_adr_1_0_23__n
+11 1
+.names latch_9_.BLIF latch_i_9__n
+0 1
+.names gvalid_i.BLIF latch_i_9__n.BLIF out_adr_1_0_22__n
+11 1
+.names latch_8_.BLIF latch_i_8__n
+0 1
+.names gvalid_i.BLIF latch_i_8__n.BLIF out_adr_1_0_21__n
+11 1
+.names latch_7_.BLIF latch_i_7__n
+0 1
+.names gvalid_i.BLIF latch_i_7__n.BLIF out_adr_1_0_20__n
+11 1
+.names latch_6_.BLIF latch_i_6__n
+0 1
+.names gvalid_i.BLIF latch_i_6__n.BLIF out_adr_1_0_19__n
+11 1
+.names latch_5_.BLIF latch_i_5__n
+0 1
+.names gvalid_i.BLIF latch_i_5__n.BLIF out_adr_1_0_18__n
+11 1
+.names latch_4_.BLIF latch_i_4__n
+0 1
+.names gvalid_i.BLIF latch_i_4__n.BLIF out_adr_1_0_17__n
+11 1
+.names latch_3_.BLIF latch_i_3__n
+0 1
+.names gvalid_i.BLIF latch_i_3__n.BLIF out_adr_1_0_16__n
+11 1
+.names latch_2_.BLIF latch_i_2__n
+0 1
+.names gvalid_i.BLIF latch_i_2__n.BLIF out_adr_1_0_15__n
+11 1
+.names latch_1_.BLIF latch_i_1__n
+0 1
+.names gvalid_i.BLIF latch_i_1__n.BLIF out_adr_1_0_14__n
+11 1
+.names latch_0_.BLIF latch_i_0__n
+0 1
+.names gvalid_i.BLIF latch_i_0__n.BLIF out_adr_1_0_13__n
+11 1
+.names ti_adr_c_7__n.BLIF ti_adr_c_i_7__n
+0 1
+.names gvalid_i.BLIF ti_adr_c_i_7__n.BLIF out_adr_1_0_8__n
+11 1
+.names ti_adr_c_6__n.BLIF ti_adr_c_i_6__n
+0 1
+.names gvalid_i.BLIF ti_adr_c_i_6__n.BLIF out_adr_1_0_9__n
+11 1
+.names ti_adr_c_5__n.BLIF ti_adr_c_i_5__n
+0 1
+.names gvalid_i.BLIF ti_adr_c_i_5__n.BLIF out_adr_1_0_10__n
+11 1
+.names ti_adr_c_4__n.BLIF ti_adr_c_i_4__n
+0 1
+.names gvalid_i.BLIF ti_adr_c_i_4__n.BLIF out_adr_1_0_11__n
+11 1
+.names ti_adr_c_3__n.BLIF ti_adr_c_i_3__n
+0 1
+.names gvalid_i.BLIF ti_adr_c_i_3__n.BLIF out_adr_1_0_12__n
+11 1
+.names inst_grmpage.BLIF ti_adr_i_14__n.BLIF gvalid_1
+11 1
+.names grmadr_11_0__n.BLIF N_95_i.BLIF grmpage_1_1
+11 1
+.names gvalid.BLIF out_adr_14_4__un3_n
+0 1
+.names grmadr_11_3__n.BLIF gvalid.BLIF out_adr_14_4__un1_n
+11 1
+.names ti_adr_c_11__n.BLIF out_adr_14_4__un3_n.BLIF out_adr_14_4__un0_n
+11 1
+.names gvalid.BLIF out_adr_12_5__un3_n
+0 1
+.names grmadr_11_2__n.BLIF gvalid.BLIF out_adr_12_5__un1_n
+11 1
+.names ti_adr_c_10__n.BLIF out_adr_12_5__un3_n.BLIF out_adr_12_5__un0_n
+11 1
+.names gvalid.BLIF out_adr_10_6__un3_n
+0 1
+.names grmadr_11_1__n.BLIF gvalid.BLIF out_adr_10_6__un1_n
+11 1
+.names ti_adr_c_9__n.BLIF out_adr_10_6__un3_n.BLIF out_adr_10_6__un0_n
+11 1
+.names gvalid.BLIF out_adr_8_7__un3_n
+0 1
+.names grmadr_11_0__n.BLIF gvalid.BLIF out_adr_8_7__un1_n
+11 1
+.names ti_adr_c_8__n.BLIF out_adr_8_7__un3_n.BLIF out_adr_8_7__un0_n
+11 1
+.names inst_grminc.BLIF grmadr_11_1__un3_n
+0 1
+.names G_46.BLIF inst_grminc.BLIF grmadr_11_1__un1_n
+11 1
+.names grmadr_9_1__n.BLIF grmadr_11_1__un3_n.BLIF grmadr_11_1__un0_n
+11 1
+.names inst_grminc.BLIF grmadr_11_2__un3_n
+0 1
+.names G_44.BLIF inst_grminc.BLIF grmadr_11_2__un1_n
+11 1
+.names grmadr_9_2__n.BLIF grmadr_11_2__un3_n.BLIF grmadr_11_2__un0_n
+11 1
+.names inst_grminc.BLIF grmadr_11_3__un3_n
+0 1
+.names G_42.BLIF inst_grminc.BLIF grmadr_11_3__un1_n
+11 1
+.names grmadr_9_3__n.BLIF grmadr_11_3__un3_n.BLIF grmadr_11_3__un0_n
+11 1
+.names inst_grminc.BLIF grmadr_11_4__un3_n
+0 1
+.names G_40.BLIF inst_grminc.BLIF grmadr_11_4__un1_n
+11 1
+.names grmadr_9_4__n.BLIF grmadr_11_4__un3_n.BLIF grmadr_11_4__un0_n
+11 1
+.names N_79.BLIF grmadr_11_0__n.BLIF G_48
+01 1
+10 1
+11 0
+00 0
+.names N_77.BLIF grmadr_11_1__n.BLIF G_46
+01 1
+10 1
+11 0
+00 0
+.names N_75.BLIF grmadr_11_2__n.BLIF G_44
+01 1
+10 1
+11 0
+00 0
+.names N_73.BLIF grmadr_11_3__n.BLIF G_42
+01 1
+10 1
+11 0
+00 0
+.names N_71.BLIF grmadr_11_4__n.BLIF G_40
+01 1
+10 1
+11 0
+00 0
+.names N_69.BLIF grmadr_11_5__n.BLIF G_38
+01 1
+10 1
+11 0
+00 0
+.names grmadr_11_7__n.BLIF grmadr_11_6__n.BLIF G_36
+01 1
+10 1
+11 0
+00 0
+.names out_adr_1_26__n.BLIF out_adr_26_
+1 1
+0 0
+.names inst_bouncereg.BLIF out_reset
+1 1
+0 0
+.names out_adr_1_25__n.BLIF out_adr_25_
+1 1
+0 0
+.names out_adr_1_24__n.BLIF out_adr_24_
+1 1
+0 0
+.names out_adr_1_23__n.BLIF out_adr_23_
+1 1
+0 0
+.names out_adr_1_22__n.BLIF out_adr_22_
+1 1
+0 0
+.names out_adr_1_21__n.BLIF out_adr_21_
+1 1
+0 0
+.names out_adr_1_20__n.BLIF out_adr_20_
+1 1
+0 0
+.names out_adr_1_19__n.BLIF out_adr_19_
+1 1
+0 0
+.names out_adr_1_18__n.BLIF out_adr_18_
+1 1
+0 0
+.names out_adr_1_17__n.BLIF out_adr_17_
+1 1
+0 0
+.names out_adr_1_16__n.BLIF out_adr_16_
+1 1
+0 0
+.names out_adr_1_15__n.BLIF out_adr_15_
+1 1
+0 0
+.names out_adr_1_14__n.BLIF out_adr_14_
+1 1
+0 0
+.names out_adr_1_13__n.BLIF out_adr_13_
+1 1
+0 0
+.names out_adr_1_12__n.BLIF out_adr_12_
+1 1
+0 0
+.names out_adr_1_11__n.BLIF out_adr_11_
+1 1
+0 0
+.names out_adr_1_10__n.BLIF out_adr_10_
+1 1
+0 0
+.names out_adr_1_9__n.BLIF out_adr_9_
+1 1
+0 0
+.names out_adr_1_8__n.BLIF out_adr_8_
+1 1
+0 0
+.names out_adr_8_7__n.BLIF out_adr_7_
+1 1
+0 0
+.names out_adr_10_6__n.BLIF out_adr_6_
+1 1
+0 0
+.names out_adr_12_5__n.BLIF out_adr_5_
+1 1
+0 0
+.names out_adr_14_4__n.BLIF out_adr_4_
+1 1
+0 0
+.names out_adr_16_3__n.BLIF out_adr_3_
+1 1
+0 0
+.names out_adr_18_2__n.BLIF out_adr_2_
+1 1
+0 0
+.names out_adr_20_1__n.BLIF out_adr_1_
+1 1
+0 0
+.names out_adr_22_0__n.BLIF out_adr_0_
+1 1
+0 0
+.names ti_data_6_.PIN.BLIF latch_13_.D
+1 1
+0 0
+.names ti_rom_i.BLIF latch_13_.CE
+1 1
+0 0
+.names ti_we_c.BLIF latch_13_.C
+1 1
+0 0
+.names ti_adr_c_14__n.BLIF latch_0_.D
+1 1
+0 0
+.names ti_rom_i.BLIF latch_0_.CE
+1 1
+0 0
+.names ti_we_c.BLIF latch_0_.C
+1 1
+0 0
+.names ti_adr_c_13__n.BLIF latch_1_.D
+1 1
+0 0
+.names ti_rom_i.BLIF latch_1_.CE
+1 1
+0 0
+.names ti_we_c.BLIF latch_1_.C
+1 1
+0 0
+.names ti_adr_c_12__n.BLIF latch_2_.D
+1 1
+0 0
+.names ti_rom_i.BLIF latch_2_.CE
+1 1
+0 0
+.names ti_we_c.BLIF latch_2_.C
+1 1
+0 0
+.names ti_adr_c_11__n.BLIF latch_3_.D
+1 1
+0 0
+.names ti_rom_i.BLIF latch_3_.CE
+1 1
+0 0
+.names ti_we_c.BLIF latch_3_.C
+1 1
+0 0
+.names ti_adr_c_10__n.BLIF latch_4_.D
+1 1
+0 0
+.names ti_rom_i.BLIF latch_4_.CE
+1 1
+0 0
+.names ti_we_c.BLIF latch_4_.C
+1 1
+0 0
+.names ti_adr_c_9__n.BLIF latch_5_.D
+1 1
+0 0
+.names ti_rom_i.BLIF latch_5_.CE
+1 1
+0 0
+.names ti_we_c.BLIF latch_5_.C
+1 1
+0 0
+.names ti_adr_c_8__n.BLIF latch_6_.D
+1 1
+0 0
+.names ti_rom_i.BLIF latch_6_.CE
+1 1
+0 0
+.names ti_we_c.BLIF latch_6_.C
+1 1
+0 0
+.names ti_adr_c_7__n.BLIF latch_7_.D
+1 1
+0 0
+.names ti_rom_i.BLIF latch_7_.CE
+1 1
+0 0
+.names ti_we_c.BLIF latch_7_.C
+1 1
+0 0
+.names ti_adr_c_6__n.BLIF latch_8_.D
+1 1
+0 0
+.names ti_rom_i.BLIF latch_8_.CE
+1 1
+0 0
+.names ti_we_c.BLIF latch_8_.C
+1 1
+0 0
+.names ti_adr_c_5__n.BLIF latch_9_.D
+1 1
+0 0
+.names ti_rom_i.BLIF latch_9_.CE
+1 1
+0 0
+.names ti_we_c.BLIF latch_9_.C
+1 1
+0 0
+.names ti_adr_c_4__n.BLIF latch_10_.D
+1 1
+0 0
+.names ti_rom_i.BLIF latch_10_.CE
+1 1
+0 0
+.names ti_we_c.BLIF latch_10_.C
+1 1
+0 0
+.names ti_adr_c_3__n.BLIF latch_11_.D
+1 1
+0 0
+.names ti_rom_i.BLIF latch_11_.CE
+1 1
+0 0
+.names ti_we_c.BLIF latch_11_.C
+1 1
+0 0
+.names ti_data_7_.PIN.BLIF latch_12_.D
+1 1
+0 0
+.names ti_rom_i.BLIF latch_12_.CE
+1 1
+0 0
+.names ti_we_c.BLIF latch_12_.C
+1 1
+0 0
+.names grmpage10.BLIF inst_grmpage.CE
+1 1
+0 0
+.names ti_gsel_i.BLIF inst_grmpage.C
+1 1
+0 0
+.names ti_adr_i_14__n.BLIF inst_grminc.D
+1 1
+0 0
+.names ti_gsel_i.BLIF inst_grminc.C
+1 1
+0 0
+.names ti_rom_i.BLIF inst_bouncereg.C
+1 1
+0 0
+.names out_data_c_0__n.BLIF ti_data_7_
+1 1
+0 0
+.names out_data_c_1__n.BLIF ti_data_6_
+1 1
+0 0
+.names out_data_c_2__n.BLIF ti_data_5_
+1 1
+0 0
+.names out_data_c_3__n.BLIF ti_data_4_
+1 1
+0 0
+.names out_data_c_4__n.BLIF ti_data_3_
+1 1
+0 0
+.names out_data_c_5__n.BLIF ti_data_2_
+1 1
+0 0
+.names out_data_c_6__n.BLIF ti_data_1_
+1 1
+0 0
+.names out_data_c_7__n.BLIF ti_data_0_
+1 1
+0 0
+.names ti_adr_3_.BLIF ti_adr_c_3__n
+1 1
+0 0
+.names ti_adr_4_.BLIF ti_adr_c_4__n
+1 1
+0 0
+.names ti_adr_5_.BLIF ti_adr_c_5__n
+1 1
+0 0
+.names ti_adr_6_.BLIF ti_adr_c_6__n
+1 1
+0 0
+.names ti_adr_7_.BLIF ti_adr_c_7__n
+1 1
+0 0
+.names ti_adr_8_.BLIF ti_adr_c_8__n
+1 1
+0 0
+.names ti_adr_9_.BLIF ti_adr_c_9__n
+1 1
+0 0
+.names ti_adr_10_.BLIF ti_adr_c_10__n
+1 1
+0 0
+.names ti_adr_11_.BLIF ti_adr_c_11__n
+1 1
+0 0
+.names ti_adr_12_.BLIF ti_adr_c_12__n
+1 1
+0 0
+.names ti_adr_13_.BLIF ti_adr_c_13__n
+1 1
+0 0
+.names ti_adr_14_.BLIF ti_adr_c_14__n
+1 1
+0 0
+.names ti_adr_15_.BLIF ti_adr_c_15__n
+1 1
+0 0
+.names ti_data_0_.PIN.BLIF ti_data_c_0__n
+1 1
+0 0
+.names ti_data_1_.PIN.BLIF ti_data_c_1__n
+1 1
+0 0
+.names ti_data_2_.PIN.BLIF ti_data_c_2__n
+1 1
+0 0
+.names ti_we.BLIF ti_we_c
+1 1
+0 0
+.names ti_rom.BLIF ti_rom_c
+1 1
+0 0
+.names ti_gsel.BLIF ti_gsel_c
+1 1
+0 0
+.names out_data_0_.BLIF out_data_c_0__n
+1 1
+0 0
+.names out_data_1_.BLIF out_data_c_1__n
+1 1
+0 0
+.names out_data_2_.BLIF out_data_c_2__n
+1 1
+0 0
+.names out_data_3_.BLIF out_data_c_3__n
+1 1
+0 0
+.names out_data_4_.BLIF out_data_c_4__n
+1 1
+0 0
+.names out_data_5_.BLIF out_data_c_5__n
+1 1
+0 0
+.names out_data_6_.BLIF out_data_c_6__n
+1 1
+0 0
+.names out_data_7_.BLIF out_data_c_7__n
+1 1
+0 0
+.names un4_ti_data.BLIF ti_data_0_.OE
+1 1
+0 0
+.names un4_ti_data.BLIF ti_data_1_.OE
+1 1
+0 0
+.names un4_ti_data.BLIF ti_data_2_.OE
+1 1
+0 0
+.names un4_ti_data.BLIF ti_data_6_.OE
+1 1
+0 0
+.names un4_ti_data.BLIF ti_data_7_.OE
+1 1
+0 0
+.names un4_ti_data.BLIF ti_data_3_.OE
+1 1
+0 0
+.names un4_ti_data.BLIF ti_data_4_.OE
+1 1
+0 0
+.names un4_ti_data.BLIF ti_data_5_.OE
+1 1
+0 0
+.end

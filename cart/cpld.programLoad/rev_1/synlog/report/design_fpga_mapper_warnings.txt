@@ -1,0 +1,3 @@
+@W: MT462 :"d:\work\ti\dragonslair\cart\cpld\design.vhd":60:2:60:3|Net un1_ti_gclk_1 appears to be an unidentified clock source. Assuming default frequency. 
+@W: MT462 :"d:\work\ti\dragonslair\cart\cpld\design.vhd":138:2:138:3|Net un1_ti_we_1 appears to be an unidentified clock source. Assuming default frequency. 
+@W: MT420 |Found inferred clock gigacart|ti_we with period 1000.00ns. Please declare a user-defined clock on object "p:ti_we"

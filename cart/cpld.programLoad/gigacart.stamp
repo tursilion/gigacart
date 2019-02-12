@@ -1,0 +1,353 @@
+
+Timing Report for STAMP
+
+//  Project = gigacart
+//  Family  = lc4k
+//  Device  = LC4064V
+//  Speed   = -10
+//  Voltage = 3.3
+//  Operating Condition = IND
+//  Data sheet version  = 3.2
+
+//  Pass Bidirection = OFF
+//  Pass S/R = OFF
+//  Pass Latch = OFF
+//  T_SU Endpoints D/T inputs = ON
+//  T_SU Endpoints CE inputs = OFF
+//  T_SU Endpoints S/R inputs = OFF
+//  T_SU Endpoints RAM gated = ON
+//  Fmax of CE = ON
+//  Fmax of RAM = ON
+
+//  Location(From => To)
+//    Pin number: numeric number preceded by "p", BGA number as is
+//    Macrocell number: Segment#,GLB#,Macrocell#
+//                      Segment#: starts from 0 (if applicable)
+//                      GLB#: starts from A..Z, AA..ZZ
+//                      Macrocell#: starts from 0 to 31
+
+
+Section IO
+  //DESTINATION NODES;
+  ti_data[0] [bidi]
+  ti_data[1] [bidi]
+  ti_data[2] [bidi]
+  ti_data[3] [bidi]
+  ti_data[4] [bidi]
+  ti_data[5] [bidi]
+  ti_data[6] [bidi]
+  ti_data[7] [bidi]
+  out_adr[0] [out]
+  out_adr[1] [out]
+  out_adr[2] [out]
+  out_adr[3] [out]
+  out_adr[4] [out]
+  out_adr[5] [out]
+  out_adr[6] [out]
+  out_adr[7] [out]
+  out_adr[8] [out]
+  out_adr[9] [out]
+  out_adr[10] [out]
+  out_adr[11] [out]
+  out_adr[12] [out]
+  out_adr[13] [out]
+  out_adr[14] [out]
+  out_adr[15] [out]
+  out_adr[16] [out]
+  out_adr[17] [out]
+  out_adr[18] [out]
+  out_adr[19] [out]
+  out_adr[20] [out]
+  out_adr[21] [out]
+  out_adr[22] [out]
+  out_adr[23] [out]
+  out_adr[24] [out]
+  out_adr[25] [out]
+  out_adr[26] [out]
+  out_reset [out]
+  grmadr_0_.C [reg]
+  grmadr_1_.C [reg]
+  grmadr_2_.C [reg]
+  grmadr_3_.C [reg]
+  grmadr_4_.C [reg]
+  grmadr_5_.C [reg]
+  grmadr_6_.C [reg]
+  grmadr_7_.C [reg]
+  inst_gactive.C [reg]
+  inst_grmpage.C [reg]
+  inst_gvalid.C [reg]
+  latch_0_.C [reg]
+  latch_1_.C [reg]
+  latch_2_.C [reg]
+  latch_3_.C [reg]
+  latch_4_.C [reg]
+  latch_5_.C [reg]
+  latch_6_.C [reg]
+  latch_7_.C [reg]
+  latch_8_.C [reg]
+  latch_9_.C [reg]
+  latch_10_.C [reg]
+  latch_11_.C [reg]
+  latch_12_.C [reg]
+  latch_13_.C [reg]
+  out_reset.C [reg]
+  grmadr_0_.CE [reg]
+  grmadr_0_.D [reg]
+  grmadr_1_.CE [reg]
+  grmadr_1_.D [reg]
+  grmadr_2_.CE [reg]
+  grmadr_2_.D [reg]
+  grmadr_3_.CE [reg]
+  grmadr_3_.D [reg]
+  grmadr_4_.CE [reg]
+  grmadr_4_.D [reg]
+  grmadr_5_.CE [reg]
+  grmadr_5_.D [reg]
+  grmadr_6_.CE [reg]
+  grmadr_6_.D [reg]
+  grmadr_7_.CE [reg]
+  grmadr_7_.D [reg]
+  inst_gactive.D [reg]
+  inst_grmpage.CE [reg]
+  inst_grmpage.D [reg]
+  inst_gvalid.CE [reg]
+  inst_gvalid.D [reg]
+  latch_0_.CE [reg]
+  latch_0_.D [reg]
+  latch_1_.CE [reg]
+  latch_1_.D [reg]
+  latch_2_.CE [reg]
+  latch_2_.D [reg]
+  latch_3_.CE [reg]
+  latch_3_.D [reg]
+  latch_4_.CE [reg]
+  latch_4_.D [reg]
+  latch_5_.CE [reg]
+  latch_5_.D [reg]
+  latch_6_.CE [reg]
+  latch_6_.D [reg]
+  latch_7_.CE [reg]
+  latch_7_.D [reg]
+  latch_8_.CE [reg]
+  latch_8_.D [reg]
+  latch_9_.CE [reg]
+  latch_9_.D [reg]
+  latch_10_.CE [reg]
+  latch_10_.D [reg]
+  latch_11_.CE [reg]
+  latch_11_.D [reg]
+  latch_12_.CE [reg]
+  latch_12_.D [reg]
+  latch_13_.CE [reg]
+  latch_13_.D [reg]
+  out_reset.D [reg]
+
+  //SOURCE NODES;
+  out_data[0] [in]
+  out_data[1] [in]
+  out_data[2] [in]
+  out_data[3] [in]
+  out_data[4] [in]
+  out_data[5] [in]
+  out_data[6] [in]
+  out_data[7] [in]
+  ti_adr[3] [in]
+  ti_adr[4] [in]
+  ti_adr[5] [in]
+  ti_adr[6] [in]
+  ti_adr[7] [in]
+  ti_adr[8] [in]
+  ti_adr[9] [in]
+  ti_adr[10] [in]
+  ti_adr[11] [in]
+  ti_adr[12] [in]
+  ti_adr[13] [in]
+  ti_adr[14] [in]
+  ti_adr[15] [in]
+  ti_gclk [in]
+  ti_gsel [in]
+  ti_rom [in]
+  ti_we [in]
+  grmadr_0_.Q [reg]
+  grmadr_1_.Q [reg]
+  grmadr_2_.Q [reg]
+  grmadr_3_.Q [reg]
+  grmadr_4_.Q [reg]
+  grmadr_5_.Q [reg]
+  grmadr_6_.Q [reg]
+  grmadr_7_.Q [reg]
+  inst_gactive.Q [reg]
+  inst_grmpage.Q [reg]
+  inst_gvalid.Q [reg]
+  latch_0_.Q [reg]
+  latch_1_.Q [reg]
+  latch_2_.Q [reg]
+  latch_3_.Q [reg]
+  latch_4_.Q [reg]
+  latch_5_.Q [reg]
+  latch_6_.Q [reg]
+  latch_7_.Q [reg]
+  latch_8_.Q [reg]
+  latch_9_.Q [reg]
+  latch_10_.Q [reg]
+  latch_11_.Q [reg]
+  latch_12_.Q [reg]
+  latch_13_.Q [reg]
+  out_reset.Q [reg]
+
+
+Section fMAX
+
+  Maximum Operating Frequency: 129.87 MHz
+  Clock Source From:           ti_gclk
+  Logic Levels:                1
+  Path Delay:                  7.70 ns
+  Path Expansion                                Source                        Destination
+  ==============                                ======                        ===========
+   1.17  tCOi                                   grmadr_0_.C                   grmadr_0_.Q
+   5.21  tFBK+tROUTE+tMCELL                     grmadr_0_.Q                   inst_grmpage.D
+   1.32  tS_PT                                  inst_grmpage.D                inst_grmpage.C
+ 
+  Clock Source From: ti_gclk
+  Delay         Level   Location(From => To)    Source                        Destination                   Destination_Clock
+  =====         =====   ====================    ======                        ===========                   =================
+   7.70           1      C9       =>  C10       grmadr_0_.C                   inst_grmpage.D                ti_we
+   7.70           1      B8       =>  C10       grmadr_1_.C                   inst_grmpage.D                ti_we
+   7.70           1      B9       =>  C10       grmadr_2_.C                   inst_grmpage.D                ti_we
+   7.55           1      B2       =>  B1        inst_gactive.C                inst_gvalid.CE                ti_gsel
+ 
+  Clock Source From: ti_gsel
+  Delay         Level   Location(From => To)    Source                        Destination                   Destination_Clock
+  =====         =====   ====================    ======                        ===========                   =================
+   7.70           1      C9       =>  C10       grmadr_0_.C                   inst_grmpage.D                ti_we
+   7.70           1      B8       =>  C10       grmadr_1_.C                   inst_grmpage.D                ti_we
+   7.70           1      B9       =>  C10       grmadr_2_.C                   inst_grmpage.D                ti_we
+   7.55           1      B2       =>  B1        inst_gactive.C                inst_gvalid.CE                ti_gsel
+ 
+  Clock Source From: ti_we
+  Delay         Level   Location(From => To)    Source                        Destination                   Destination_Clock
+  =====         =====   ====================    ======                        ===========                   =================
+   7.70           1      C9       =>  C10       grmadr_0_.C                   inst_grmpage.D                ti_we
+   7.70           1      B8       =>  C10       grmadr_1_.C                   inst_grmpage.D                ti_we
+   7.70           1      B9       =>  C10       grmadr_2_.C                   inst_grmpage.D                ti_we
+   7.70           1      C10      =>  B2        inst_grmpage.C                inst_gactive.D                ti_gsel
+   7.70           1      C10      =>  B1        inst_grmpage.C                inst_gvalid.D                 ti_gsel
+   7.70           1      C4       =>  C4        out_reset.C                   out_reset.D                   ti_we
+   7.55           1      C10      =>  B1        inst_grmpage.C                inst_gvalid.CE                ti_gsel
+
+
+Section tSU
+
+   tSU,    tHD   Level   Location(From => To)    Source                        Destination                   Reference_Clock
+  ===========   =====   ====================    ======                        ===========                   ===============
+  3.10,  2.15     1     p5        =>  B8        ti_data[1]                    grmadr_1_.D                   ti_we
+  3.10,  2.15     1     p6        =>  B9        ti_data[2]                    grmadr_2_.D                   ti_we
+  3.10,  2.15     1     p8        =>  B10       ti_data[3]                    grmadr_3_.D                   ti_we
+  3.10,  2.15     1     p9        =>  B11       ti_data[4]                    grmadr_4_.D                   ti_we
+  3.10,  2.15     1     p10       =>  B12       ti_data[5]                    grmadr_5_.D                   ti_we
+  3.10,  2.15     1     p11       =>  B13       ti_data[6]                    grmadr_6_.D                   ti_we
+  3.10,  2.15     1     p14       =>  B14       ti_data[7]                    grmadr_7_.D                   ti_we
+  2.85,  2.40     1     p4        =>  C9        ti_data[0]                    grmadr_0_.D                   ti_we
+  2.85,  2.40     1     p11       =>  B7        ti_data[6]                    latch_13_.D                   ti_we
+  2.85,  2.40     1     p14       =>  B6        ti_data[7]                    latch_12_.D                   ti_we
+  2.60,  2.65     1     p3        =>  C11       ti_adr[14]                    latch_0_.D                    ti_we
+  2.55,  2.70     1     p19       =>  A10       ti_adr[5]                     latch_9_.D                    ti_we
+  2.55,  2.70     1     p22       =>  D9        ti_adr[7]                     latch_7_.D                    ti_we
+  2.55,  2.70     1     p23       =>  A9        ti_adr[8]                     latch_6_.D                    ti_we
+  2.55,  2.70     1     p31       =>  A8        ti_adr[13]                    latch_1_.D                    ti_we
+  2.50,  2.75     1     p17       =>  D11       ti_adr[4]                     latch_10_.D                   ti_we
+  2.50,  2.75     1     p20       =>  D10       ti_adr[6]                     latch_8_.D                    ti_we
+  2.50,  2.75     1     p27       =>  C14       ti_adr[9]                     latch_5_.D                    ti_we
+  2.50,  2.75     1     p30       =>  C12       ti_adr[12]                    latch_2_.D                    ti_we
+  2.50,  2.80     1     p3        =>  B2        ti_adr[14]                    inst_gactive.D                ti_gclk
+  2.50,  2.80     1     p3        =>  B1        ti_adr[14]                    inst_gvalid.D                 ti_gclk
+  2.45,  2.85     1     p44       =>  B2        ti_gsel                       inst_gactive.D                ti_gclk
+  2.45,  2.85     1     p44       =>  B1        ti_gsel                       inst_gvalid.D                 ti_gclk
+  2.35,  2.90     1     p3        =>  C4        ti_adr[14]                    out_reset.D                   ti_we
+  2.30,  2.95     1     p21       =>  B5        ti_adr[3]                     latch_11_.D                   ti_we
+  2.30,  2.95     1     p28       =>  B4        ti_adr[10]                    latch_4_.D                    ti_we
+  2.30,  2.95     1     p29       =>  B3        ti_adr[11]                    latch_3_.D                    ti_we
+  2.30,  2.95     1     p44       =>  C4        ti_gsel                       out_reset.D                   ti_we
+
+
+Section tPD
+
+   Delay         Level   Location(From => To)    Source                        Destination
+  =====         =====   ====================    ======                        ===========
+  12.30           1     p86       => p14        out_data[0]                   ti_data[7]
+  12.30           1     p87       => p11        out_data[1]                   ti_data[6]
+  12.30           1     p88       => p10        out_data[2]                   ti_data[5]
+  12.30           1     p89       => p9         out_data[3]                   ti_data[4]
+  12.30           1     p91       => p8         out_data[4]                   ti_data[3]
+  12.30           1     p92       => p6         out_data[5]                   ti_data[2]
+  12.30           1     p93       => p5         out_data[6]                   ti_data[1]
+  12.30           1     p94       => p4         out_data[7]                   ti_data[0]
+  11.80           1     p3        => p84        ti_adr[14]                    out_adr[1]
+  11.75           1     p21       => p70        ti_adr[3]                     out_adr[12]
+  11.75           1     p19       => p67        ti_adr[5]                     out_adr[10]
+  11.75           1     p22       => p58        ti_adr[7]                     out_adr[8]
+  11.75           1     p23       => p56        ti_adr[8]                     out_adr[7]
+  11.75           1     p28       => p54        ti_adr[10]                    out_adr[5]
+  11.75           1     p29       => p53        ti_adr[11]                    out_adr[4]
+  11.75           1     p31       => p49        ti_adr[13]                    out_adr[2]
+  11.70           1     p17       => p69        ti_adr[4]                     out_adr[11]
+  11.70           1     p20       => p66        ti_adr[6]                     out_adr[9]
+  11.70           1     p27       => p55        ti_adr[9]                     out_adr[6]
+  11.70           1     p30       => p50        ti_adr[12]                    out_adr[3]
+  11.70           1     p34       => p97        ti_adr[15]                    out_adr[0]
+
+
+Section tCO
+
+     tCO         Level   Location(From => To)    Source                        Destination                   Register_Clock
+    ===         =====   ====================    ======                        ===========                   ==============
+  17.20           2     p44       => p97        ti_gsel                       out_adr[0]                    inst_gvalid.C
+  17.20           2     p44       => p84        ti_gsel                       out_adr[1]                    inst_gvalid.C
+  17.20           2     p44       => p49        ti_gsel                       out_adr[2]                    inst_gvalid.C
+  17.20           2     p44       => p50        ti_gsel                       out_adr[3]                    inst_gvalid.C
+  17.20           2     p44       => p53        ti_gsel                       out_adr[4]                    inst_gvalid.C
+  17.20           2     p44       => p54        ti_gsel                       out_adr[5]                    inst_gvalid.C
+  17.20           2     p44       => p55        ti_gsel                       out_adr[6]                    inst_gvalid.C
+  17.20           2     p44       => p56        ti_gsel                       out_adr[7]                    inst_gvalid.C
+  17.20           2     p44       => p58        ti_gsel                       out_adr[8]                    inst_gvalid.C
+  17.20           2     p44       => p66        ti_gsel                       out_adr[9]                    inst_gvalid.C
+  17.20           2     p44       => p67        ti_gsel                       out_adr[10]                   inst_gvalid.C
+  17.20           2     p44       => p69        ti_gsel                       out_adr[11]                   inst_gvalid.C
+  17.20           2     p44       => p70        ti_gsel                       out_adr[12]                   inst_gvalid.C
+  17.20           2     p44       => p71        ti_gsel                       out_adr[13]                   inst_gvalid.C
+  17.20           2     p44       => p72        ti_gsel                       out_adr[14]                   inst_gvalid.C
+  17.20           2     p44       => p78        ti_gsel                       out_adr[15]                   inst_gvalid.C
+  17.20           2     p44       => p79        ti_gsel                       out_adr[16]                   inst_gvalid.C
+  17.20           2     p44       => p98        ti_gsel                       out_adr[17]                   inst_gvalid.C
+  17.20           2     p44       => p59        ti_gsel                       out_adr[18]                   inst_gvalid.C
+  17.20           2     p44       => p60        ti_gsel                       out_adr[19]                   inst_gvalid.C
+  17.20           2     p44       => p65        ti_gsel                       out_adr[20]                   inst_gvalid.C
+  17.20           2     p44       => p64        ti_gsel                       out_adr[21]                   inst_gvalid.C
+  17.20           2     p44       => p61        ti_gsel                       out_adr[22]                   inst_gvalid.C
+  17.20           2     p44       => p80        ti_gsel                       out_adr[23]                   inst_gvalid.C
+  17.20           2     p44       => p81        ti_gsel                       out_adr[24]                   inst_gvalid.C
+  17.20           2     p44       => p100       ti_gsel                       out_adr[25]                   inst_gvalid.C
+  17.20           2     p44       => p99        ti_gsel                       out_adr[26]                   inst_gvalid.C
+  17.15           2     p16       => p56        ti_we                         out_adr[7]                    grmadr_0_.C
+  17.15           2     p16       => p79        ti_we                         out_adr[16]                   latch_3_.C
+  17.15           2     p16       => p98        ti_we                         out_adr[17]                   latch_4_.C
+  17.15           2     p16       => p81        ti_we                         out_adr[24]                   latch_11_.C
+  17.15           2     p16       => p100       ti_we                         out_adr[25]                   latch_12_.C
+  17.15           2     p16       => p99        ti_we                         out_adr[26]                   latch_13_.C
+  16.90           2     p16       => p97        ti_we                         out_adr[0]                    grmadr_7_.C
+  16.90           2     p16       => p84        ti_we                         out_adr[1]                    grmadr_6_.C
+  16.90           2     p16       => p49        ti_we                         out_adr[2]                    grmadr_5_.C
+  16.90           2     p16       => p50        ti_we                         out_adr[3]                    grmadr_4_.C
+  16.90           2     p16       => p53        ti_we                         out_adr[4]                    grmadr_3_.C
+  16.90           2     p16       => p54        ti_we                         out_adr[5]                    grmadr_2_.C
+  16.90           2     p16       => p55        ti_we                         out_adr[6]                    grmadr_1_.C
+  16.90           2     p16       => p71        ti_we                         out_adr[13]                   latch_0_.C
+  16.90           2     p16       => p72        ti_we                         out_adr[14]                   latch_1_.C
+  16.90           2     p16       => p78        ti_we                         out_adr[15]                   latch_2_.C
+  16.90           2     p16       => p59        ti_we                         out_adr[18]                   latch_5_.C
+  16.90           2     p16       => p60        ti_we                         out_adr[19]                   latch_6_.C
+  16.90           2     p16       => p65        ti_we                         out_adr[20]                   latch_7_.C
+  16.90           2     p16       => p64        ti_we                         out_adr[21]                   latch_8_.C
+  16.90           2     p16       => p61        ti_we                         out_adr[22]                   latch_9_.C
+  16.90           2     p16       => p80        ti_we                         out_adr[23]                   latch_10_.C
+   9.20           1     p16       => p47        ti_we                         out_reset                     out_reset.C

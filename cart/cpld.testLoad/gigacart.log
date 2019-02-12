@@ -1,0 +1,10 @@
+<Warning>  P38031:  Invalid signal 'out_data_7_' in the constraint file is ignored.
+<Warning>  P38031:  Invalid signal 'out_data_6_' in the constraint file is ignored.
+<Warning>  P38031:  Invalid signal 'out_data_5_' in the constraint file is ignored.
+<Warning>  P38031:  Invalid signal 'out_data_4_' in the constraint file is ignored.
+<Warning>  P38031:  Invalid signal 'out_data_3_' in the constraint file is ignored.
+<Warning>  P38031:  Invalid signal 'out_data_2_' in the constraint file is ignored.
+<Warning>  P38031:  Invalid signal 'out_data_1_' in the constraint file is ignored.
+<Warning>  P38031:  Invalid signal 'out_data_0_' in the constraint file is ignored.
+<Warning>  P38088:  Balanced partitioning turned off.
+Project 'gigacart' was Fitted Successfully!

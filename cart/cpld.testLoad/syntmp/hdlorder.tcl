@@ -1,0 +1,1 @@
+project -fileorder "D:/work/ti/dragonslair/cart/cpld/design.vhd" 

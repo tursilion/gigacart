@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE		ispXCF	SYSTEM	"IspXCF.dtd" >
+<ispXCF version="18.1">
+	<Comment></Comment>
+	<Chain>
+		<Comm>JTAG</Comm>
+		<Device>
+			<Pos>1</Pos>
+			<Ref>Gigacart CPLD</Ref>
+			<Vendor>Lattice</Vendor>
+			<Family>ispMACH4000</Family>
+			<Name>LC4064V</Name>
+			<IDCode>0x0180d043</IDCode>
+			<Package>100-pin TQFP</Package>
+			<PON>LC4064V-XXT100</PON>
+			<Bypass>
+				<InstrLen>8</InstrLen>
+				<InstrVal>11111111</InstrVal>
+				<BScanLen>1</BScanLen>
+				<BScanVal>0</BScanVal>
+			</Bypass>
+			<File>D:\work\TI\dragonslair\cart\cpld.testLoad\gigacart.jed</File>
+			<FileTime>02/12/19 02:08:01</FileTime>
+			<JedecChecksum>0x46E0</JedecChecksum>
+			<Operation>Erase,Program,Verify</Operation>
+			<Option>
+				<SVFVendor>JTAG STANDARD</SVFVendor>
+				<IOState>HighZ</IOState>
+				<PreloadLength>138</PreloadLength>
+				<IOVectorData>0x00000000000000000000000000000000000</IOVectorData>
+				<OverideUES value="TRUE"/>
+				<TCKFrequency>1.000000 MHz</TCKFrequency>
+				<SVFProcessor>ispVM</SVFProcessor>
+				<Usercode>0xFFFFFFFF</Usercode>
+				<AccessMode>JTAG</AccessMode>
+			</Option>
+		</Device>
+	</Chain>
+	<ProjectOptions>
+		<Program>SEQUENTIAL</Program>
+		<Process>ENTIRED CHAIN</Process>
+		<OperationOverride>No Override</OperationOverride>
+		<StartTAP>TLR</StartTAP>
+		<EndTAP>TLR</EndTAP>
+		<DeGlitch value="TRUE"/>
+		<VerifyUsercode value="TRUE"/>
+		<PinSetting>
+			TMS	LOW;
+			TCK	LOW;
+			TDI	LOW;
+			TDO	LOW;
+		</PinSetting>
+	</ProjectOptions>
+	<USBOptions>
+		<PortAdd>EzUSB-0</PortAdd>
+		<USBID>\\?\usb#vid_1134&amp;amp;pid_8001#a&amp;amp;34f94e8b&amp;amp;0&amp;amp;3#</USBID>
+	</USBOptions>
+</ispXCF>

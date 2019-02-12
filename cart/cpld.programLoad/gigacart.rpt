@@ -1,0 +1,629 @@
+|--------------------------------------------------------------|
+|- ispLEVER Classic 2.0.00.17.20.15 Fitter Report File        -|
+|- Copyright(C), 1992-2012, Lattice Semiconductor Corporation -|
+|- All Rights Reserved.                                       -|
+|--------------------------------------------------------------|
+
+
+
+
+The Basic/Detailed Report Format can be selected in the dialog box
+Tools->Fitter Report File Format...
+
+Project_Summary
+~~~~~~~~~~~~~~~
+Project Name         :  gigacart
+Project Path         :  D:\work\TI\dragonslair\cart\cpld
+Project Fitted on    :  Thu Feb 07 17:00:16 2019
+
+Device               :  M4064_64
+Package              :  100
+GLB Input Mux Size   :  12
+Available Blocks     :  4
+Speed                :  -10
+Part Number          :  LC4064V-10T100I
+Source Format        :  Pure_VHDL
+
+
+// Project 'gigacart' Fit Successfully! //
+
+
+Compilation_Times
+~~~~~~~~~~~~~~~~~
+Prefit Time                     0 secs
+Load Design Time                0.03 secs
+Partition Time                  0.01 secs
+Place Time                      0.03 secs
+Route Time                      0.00 secs
+Total Fit Time                  00:00:01
+
+
+Design_Summary
+~~~~~~~~~~~~~~
+Total Input Pins                16
+Total Logic Functions           49
+  Total Output Pins             31
+  Total Bidir I/O Pins          16
+  Total Buried Nodes            2
+Total Flip-Flops                17
+  Total D Flip-Flops            17
+  Total T Flip-Flops            0
+  Total Latches                 0
+Total Product Terms             101
+
+Total Reserved Pins             0
+Total Locked Pins               63
+Total Locked Nodes              0
+
+Total Unique Output Enables     2
+Total Unique Clocks             1
+Total Unique Clock Enables      1
+Total Unique Resets             0
+Total Unique Presets            0
+
+Fmax Logic Levels               -
+
+
+Device_Resource_Summary
+~~~~~~~~~~~~~~~~~~~~~~~
+                                 Device
+                                 Total    Used   Not Used   Utilization
+-----------------------------------------------------------------------
+Dedicated Pins
+  Clock/Input Pins                  4        0      4    -->     0
+  Input-Only Pins                   6        2      4    -->    33
+  I/O / Enable Pins                 2        2      0    -->   100
+I/O Pins                           62       59      3    -->    95
+Logic Functions                    64       49     15    -->    76
+  Input Registers                  64        0     64    -->     0
+
+GLB Inputs                        144       57     87    -->    39
+Logical Product Terms             320       68    252    -->    21
+Occupied GLBs                       4        4      0    -->   100
+Macrocells                         64       49     15    -->    76
+
+Control Product Terms:
+  GLB Clock/Clock Enables           4        4      0    -->   100
+  GLB Reset/Presets                 4        0      4    -->     0
+  Macrocell Clocks                 64        0     64    -->     0
+  Macrocell Clock Enables          64       17     47    -->    26
+  Macrocell Enables                64        0     64    -->     0
+  Macrocell Resets                 64        0     64    -->     0
+  Macrocell Presets                64        0     64    -->     0
+
+Global Routing Pool               144       35    109    -->    24
+  GRP from IFB                     ..       32     ..    -->    ..
+    (from input signals)           ..       16     ..    -->    ..
+    (from output signals)          ..        0     ..    -->    ..
+    (from bidir signals)           ..       16     ..    -->    ..
+  GRP from MFB                     ..        3     ..    -->    ..
+----------------------------------------------------------------------
+
+<Note> 1 : The available PT is the product term that has not been used.
+<Note> 2 : IFB is I/O feedback.
+<Note> 3 : MFB is macrocell feedback.
+
+
+
+GLB_Resource_Summary
+~~~~~~~~~~~~~~~~~~~~
+                                                                                     # of PT
+               ---  Fanin  ---    I/O    Input  Macrocells       Macrocells   Logic  clusters
+             Unique Shared Total  Pins    Regs Used Inaccessible  available    PTs   used
+-------------------------------------------------------------------------------------------
+Maximum
+  GLB                      36      *(1)     8   --     --             16       80       16
+-------------------------------------------------------------------------------------------
+  GLB    A     14     3    17     15/16     0   15      0              1       18       15
+  GLB    B      5     3     8     14/16     0    4      0             12        6        4
+  GLB    C     11     7    18     16/16     0   15      0              1       21       14
+  GLB    D      7     7    14     14/16     0   15      0              1       23       15
+-------------------------------------------------------------------------------------------
+TOTALS:        37    20    57     59/64     0   49      0             15       68       48
+
+<Note> 1 : For ispMACH 4000 devices, the number of IOs depends on the GLB.
+<Note> 2 : Four rightmost columns above reflect last status of the placement process.
+
+
+
+GLB_Control_Summary
+~~~~~~~~~~~~~~~~~~~
+           Shared Shared | Mcell  Mcell  Mcell  Mcell  Mcell 
+           Clk/CE Rst/Pr | Clock  CE     Enable Reset  Preset
+------------------------------------------------------------------------------
+Maximum
+  GLB        1      1        16     16     16     16     16  
+==============================================================================
+  GLB    A   1      0         0      3      0      0      0
+  GLB    B   1      0         0      2      0      0      0
+  GLB    C   1      0         0      4      0      0      0
+  GLB    D   1      0         0      8      0      0      0
+------------------------------------------------------------------------------
+
+<Note> 1 : For ispMACH 4000 devices, the number of output enables depends on the GLB.
+
+
+
+Optimizer_and_Fitter_Options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Pin Assignment :                       Yes
+Group Assignment :                     No
+Pin Reservation :                      No
+
+@Ignore_Project_Constraints :
+  Pin Assignments :                    No
+      Keep Block Assignment            --
+      Keep Segment Assignment          --
+  Group Assignments :                  No
+  Macrocell Assignment :               No
+      Keep Block Assignment            --
+      Keep Segment Assignment          --
+
+@Backannotate_Project_Constraints
+  Pin Assignments :                    No
+  Pin And Block Assignments :          No
+  Pin, Macrocell and Block :           No
+
+@Timing_Constraints :                  No
+
+@Global_Project_Optimization :
+  Balanced Partitioning :              Yes
+  Spread Placement :                   Yes
+
+  Note :
+    Pack Design :
+       Balanced Partitioning = No
+       Spread Placement      = No
+    Spread Design :
+       Balanced Partitioning = Yes
+       Spread Placement      = Yes
+
+
+@Logic_Synthesis :
+  Logic Reduction :                    Yes
+  Node Collapsing :                    Fmax
+  Fmax_Logic_Level :                   1
+  D/T Synthesis :                      Yes
+  XOR Synthesis :                      Yes
+  Max. P-Term for Collapsing :         16
+  Max. P-Term for Splitting :          80
+  Max Symbols :                        24
+
+@Utilization_options
+  Max. % of Macrocells used :          100
+@Usercode                               (HEX)
+@IO_Types                              Default = LVCMOS18 (2)
+@Output_Slew_Rate                      Default = FAST (2)
+@Power                                 Default = HIGH (2)
+@Pull                                  Default = PULLUP_UP (2)
+@Fast_Bypass                           Default = None (2)
+@ORP_Bypass                            Default = None
+@Input_Registers                       Default = None (2)
+@Register_Powerup                      Default = None
+
+Device Options:
+<Note> 1 : Reserved unused I/Os can be independently driven to Low or High, and does not
+           follow the drive level set for the Global Configure Unused I/O Option.
+<Note> 2 : For user-specified constraints on individual signals, refer to the Output,
+           Bidir and Buried Signal Lists.
+
+
+
+Pinout_Listing
+~~~~~~~~~~~~~~
+      | Pin   | Bank |GLB |Assigned|                 | Signal|
+Pin No| Type  |Number|Pad |Pin     |     I/O Type    | Type  | Signal name
+-----------------------------------------------------------------------------
+1     | GND   |   -  |    |        |                 |       |
+2     | TDI   |   -  |    |        |                 |       |
+3     |  I_O  |   0  | A8 |    *   |LVTTL_5V         | Input |ti_adr_14_
+4     |  I_O  |   0  | A9 |    *   |LVTTL            | Bidir |ti_data_0_
+5     |  I_O  |   0  | A10|    *   |LVTTL            | Bidir |ti_data_1_
+6     |  I_O  |   0  | A11|    *   |LVTTL            | Bidir |ti_data_2_
+7     |GNDIO0 |   -  |    |        |                 |       |
+8     |  I_O  |   0  | A12|    *   |LVTTL            | Bidir |ti_data_3_
+9     |  I_O  |   0  | A13|    *   |LVTTL            | Bidir |ti_data_4_
+10    |  I_O  |   0  | A14|    *   |LVTTL            | Bidir |ti_data_5_
+11    |  I_O  |   0  | A15|    *   |LVTTL            | Bidir |ti_data_6_
+12    | IN0   |   0  |    |        |                 |       |
+13    |VCCIO0 |   -  |    |        |                 |       |
+14    |  I_O  |   0  | B15|    *   |LVTTL            | Bidir |ti_data_7_
+15    |  I_O  |   0  | B14|    *   |LVTTL_5V         | Input |ti_rom
+16    |  I_O  |   0  | B13|    *   |LVTTL_5V         | Input |ti_we
+17    |  I_O  |   0  | B12|    *   |LVTTL_5V         | Input |ti_adr_4_
+18    |GNDIO0 |   -  |    |        |                 |       |
+19    |  I_O  |   0  | B11|    *   |LVTTL_5V         | Input |ti_adr_5_
+20    |  I_O  |   0  | B10|    *   |LVTTL_5V         | Input |ti_adr_6_
+21    |  I_O  |   0  | B9 |    *   |LVTTL_5V         | Input |ti_adr_3_
+22    |  I_O  |   0  | B8 |    *   |LVTTL_5V         | Input |ti_adr_7_
+23    | IN1   |   0  |    |    *   |LVTTL_5V         | Input |ti_adr_8_
+24    | TCK   |   -  |    |        |                 |       |
+25    | VCC   |   -  |    |        |                 |       |
+26    | GND   |   -  |    |        |                 |       |
+27    | IN2   |   0  |    |    *   |LVTTL_5V         | Input |ti_adr_9_
+28    |  I_O  |   0  | B7 |    *   |LVTTL_5V         | Input |ti_adr_10_
+29    |  I_O  |   0  | B6 |    *   |LVTTL_5V         | Input |ti_adr_11_
+30    |  I_O  |   0  | B5 |    *   |LVTTL_5V         | Input |ti_adr_12_
+31    |  I_O  |   0  | B4 |    *   |LVTTL_5V         | Input |ti_adr_13_
+32    |GNDIO0 |   -  |    |        |                 |       |
+33    |VCCIO0 |   -  |    |        |                 |       |
+34    |  I_O  |   0  | B3 |    *   |LVTTL_5V         | Input |ti_adr_15_
+35    |  I_O  |   0  | B2 |    *   |LVTTL            | Output|out_oe
+36    |  I_O  |   0  | B1 |        |                 |       |
+37    |  I_O  |   0  | B0 |        |                 |       |
+38    |INCLK1 |   0  |    |        |                 |       |
+39    |INCLK2 |   1  |    |        |                 |       |
+40    | VCC   |   -  |    |        |                 |       |
+41    |  I_O  |   1  | C0 |    *   |LVCMOS33         | Bidir |out_data_2_
+42    |  I_O  |   1  | C1 |    *   |LVCMOS33         | Bidir |out_data_3_
+43    |  I_O  |   1  | C2 |    *   |LVTTL            | Output|out_ce
+44    |  I_O  |   1  | C3 |    *   |LVTTL_5V         | Input |ti_gsel
+45    |VCCIO1 |   -  |    |        |                 |       |
+46    |GNDIO1 |   -  |    |        |                 |       |
+47    |  I_O  |   1  | C4 |    *   |LVTTL            | Output|out_reset
+48    |  I_O  |   1  | C5 |    *   |LVTTL            | Output|out_we
+49    |  I_O  |   1  | C6 |    *   |LVTTL            | Output|out_adr_2_
+50    |  I_O  |   1  | C7 |    *   |LVTTL            | Output|out_adr_3_
+51    | GND   |   -  |    |        |                 |       |
+52    | TMS   |   -  |    |        |                 |       |
+53    |  I_O  |   1  | C8 |    *   |LVTTL            | Output|out_adr_4_
+54    |  I_O  |   1  | C9 |    *   |LVTTL            | Output|out_adr_5_
+55    |  I_O  |   1  | C10|    *   |LVTTL            | Output|out_adr_6_
+56    |  I_O  |   1  | C11|    *   |LVTTL            | Output|out_adr_7_
+57    |GNDIO1 |   -  |    |        |                 |       |
+58    |  I_O  |   1  | C12|    *   |LVTTL            | Output|out_adr_8_
+59    |  I_O  |   1  | C13|    *   |LVTTL            | Output|out_adr_18_
+60    |  I_O  |   1  | C14|    *   |LVTTL            | Output|out_adr_19_
+61    |  I_O  |   1  | C15|    *   |LVTTL            | Output|out_adr_22_
+62    | IN3   |   1  |    |        |                 |       |
+63    |VCCIO1 |   -  |    |        |                 |       |
+64    |  I_O  |   1  | D15|    *   |LVTTL            | Output|out_adr_21_
+65    |  I_O  |   1  | D14|    *   |LVTTL            | Output|out_adr_20_
+66    |  I_O  |   1  | D13|    *   |LVTTL            | Output|out_adr_9_
+67    |  I_O  |   1  | D12|    *   |LVTTL            | Output|out_adr_10_
+68    |GNDIO1 |   -  |    |        |                 |       |
+69    |  I_O  |   1  | D11|    *   |LVTTL            | Output|out_adr_11_
+70    |  I_O  |   1  | D10|    *   |LVTTL            | Output|out_adr_12_
+71    |  I_O  |   1  | D9 |    *   |LVTTL            | Output|out_adr_13_
+72    |  I_O  |   1  | D8 |    *   |LVTTL            | Output|out_adr_14_
+73    | IN4   |   1  |    |        |                 |       |
+74    | TDO   |   -  |    |        |                 |       |
+75    | VCC   |   -  |    |        |                 |       |
+76    | GND   |   -  |    |        |                 |       |
+77    | IN5   |   1  |    |        |                 |       |
+78    |  I_O  |   1  | D7 |    *   |LVTTL            | Output|out_adr_15_
+79    |  I_O  |   1  | D6 |    *   |LVTTL            | Output|out_adr_16_
+80    |  I_O  |   1  | D5 |    *   |LVTTL            | Output|out_adr_23_
+81    |  I_O  |   1  | D4 |    *   |LVTTL            | Output|out_adr_24_
+82    |GNDIO1 |   -  |    |        |                 |       |
+83    |VCCIO1 |   -  |    |        |                 |       |
+84    |  I_O  |   1  | D3 |    *   |LVTTL            | Output|out_adr_1_
+85    |  I_O  |   1  | D2 |        |                 |       |
+86    |  I_O  |   1  | D1 |    *   |LVCMOS33         | Bidir |out_data_0_
+87    | I_O/OE|   1  | D0 |    *   |LVCMOS33         | Bidir |out_data_1_
+88    |INCLK3 |   1  |    |        |                 |       |
+89    |INCLK0 |   0  |    |        |                 |       |
+90    | VCC   |   -  |    |        |                 |       |
+91    | I_O/OE|   0  | A0 |    *   |LVCMOS33         | Bidir |out_data_4_
+92    |  I_O  |   0  | A1 |    *   |LVCMOS33         | Bidir |out_data_5_
+93    |  I_O  |   0  | A2 |    *   |LVCMOS33         | Bidir |out_data_6_
+94    |  I_O  |   0  | A3 |    *   |LVCMOS33         | Bidir |out_data_7_
+95    |VCCIO0 |   -  |    |        |                 |       |
+96    |GNDIO0 |   -  |    |        |                 |       |
+97    |  I_O  |   0  | A4 |    *   |LVTTL            | Output|out_adr_0_
+98    |  I_O  |   0  | A5 |    *   |LVTTL            | Output|out_adr_17_
+99    |  I_O  |   0  | A6 |    *   |LVTTL            | Output|out_adr_26_
+100   |  I_O  |   0  | A7 |    *   |LVTTL            | Output|out_adr_25_
+-----------------------------------------------------------------------------
+
+<Note> GLB Pad : This notation refers to the GLB I/O pad number in the device.
+<Note> Assigned Pin : user or dedicated input assignment (E.g. Clock pins).
+<Note> Pin Type : 
+          ClkIn : Dedicated input or clock pin 
+           CLK  : Dedicated clock pin
+           I_O  : Input/Output pin
+           INP  : Dedicated input pin
+           JTAG : JTAG Control and test pin
+           NC   : No connected
+
+
+
+Input_Signal_List
+~~~~~~~~~~~~~~~~~
+                Input
+         Pin    Fanout
+ Pin GLB Type           Pullup Signal
+-----------------------------------------
+  28   B  I/O   2 A-C-      Up ti_adr_10_
+  29   B  I/O   2 --CD      Up ti_adr_11_
+  30   B  I/O   2 --CD      Up ti_adr_12_
+  31   B  I/O   2 --CD      Up ti_adr_13_
+   3   A  I/O   1 ---D      Up ti_adr_14_
+  34   B  I/O   4 ABCD      Up ti_adr_15_
+  21   B  I/O   1 ---D      Up ti_adr_3_
+  17   B  I/O   1 ---D      Up ti_adr_4_
+  19   B  I/O   2 --CD      Up ti_adr_5_
+  20   B  I/O   1 ---D      Up ti_adr_6_
+  22   B  I/O   2 --CD      Up ti_adr_7_
+  23  --  IN    1 --C-      Up ti_adr_8_
+  27  --  IN    1 --C-      Up ti_adr_9_
+  44   C  I/O   1 --C-      Up ti_gsel
+  15   B  I/O   4 ABCD      Up ti_rom
+  16   B  I/O   4 ABCD      Up ti_we
+-----------------------------------------
+
+
+
+Output_Signal_List
+~~~~~~~~~~~~~~~~~~
+          I         C      P R P       O Output
+          N         L Mc   R E U C O F B Fanout
+ Pin GLB  P LL PTs  S Type E S P E E P P         Slew Pullup Signal
+------------------------------------------------------------------------
+  97   A  1  1   1  1 COM                  ----  Slow     Up out_adr_0_
+  67   D  1  1   1  1 COM                  ----  Slow     Up out_adr_10_
+  69   D  1  1   1  1 COM                  ----  Slow     Up out_adr_11_
+  70   D  1  1   1  1 COM                  ----  Slow     Up out_adr_12_
+  71   D  4  -   2  1 DFF      R *         ----  Slow     Up out_adr_13_
+  72   D  4  -   2  1 DFF      R *         ----  Slow     Up out_adr_14_
+  78   D  4  -   2  1 DFF      R *         ----  Slow     Up out_adr_15_
+  79   D  4  -   2  1 DFF      R *         ----  Slow     Up out_adr_16_
+  98   A  4  -   2  2 DFF      R *         ----  Slow     Up out_adr_17_
+  59   C  4  -   2  1 DFF      R *         ----  Slow     Up out_adr_18_
+  60   C  4  -   2  1 DFF      R *         ----  Slow     Up out_adr_19_
+  84   D  1  1   1  1 COM                  ----  Slow     Up out_adr_1_
+  65   D  4  -   2  1 DFF      R *         ----  Slow     Up out_adr_20_
+  64   D  4  -   2  1 DFF      R *         ----  Slow     Up out_adr_21_
+  61   C  4  -   2  1 DFF      R *         ----  Slow     Up out_adr_22_
+  80   D  4  -   2  1 DFF      R *         ----  Slow     Up out_adr_23_
+  81   D  4  -   2  1 DFF      R *         ----  Slow     Up out_adr_24_
+ 100   A  4  -   2  1 DFF      R *         ----  Slow     Up out_adr_25_
+  99   A  4  -   2  1 DFF      R *         ----  Slow     Up out_adr_26_
+  49   C  1  1   1  1 COM                  ----  Slow     Up out_adr_2_
+  50   C  1  1   1  1 COM                  ----  Slow     Up out_adr_3_
+  53   C  1  1   1  1 COM                  ----  Slow     Up out_adr_4_
+  54   C  1  1   1  1 COM                  ----  Slow     Up out_adr_5_
+  55   C  1  1   1  1 COM                  ----  Slow     Up out_adr_6_
+  56   C  1  1   1  1 COM                  ----  Slow     Up out_adr_7_
+  58   C  1  1   1  1 COM                  ----  Slow     Up out_adr_8_
+  66   D  1  1   1  1 COM                  ----  Slow     Up out_adr_9_
+  43   C  5  2   2  1 COM                  ----  Fast     Up out_ce
+  35   B  4  1   1  1 COM                  ----  Fast     Up out_oe
+  47   C  4  -   2  1 DFF      R *         ----  Fast     Up out_reset
+  48   C  5  1   2  1 COM                1 --C-  Fast     Up out_we
+------------------------------------------------------------------------
+
+<Note> CLS = Number of clusters used
+       INP = Number of input signals
+       PTs = Number of product terms
+        LL = Number of logic levels
+       PRE = Has preset equation
+       RES = Has reset equation
+       PUP = Power-Up initial state: R=Reset, S=Set
+        CE = Has clock enable equation
+        OE = Has output enable equation
+        FP = Fast path used
+       OBP = ORP bypass used
+
+
+
+Bidir_Signal_List
+~~~~~~~~~~~~~~~~~
+          I         C      P R P       O Bidir
+          N         L Mc   R E U C O F B Fanout
+ Pin GLB  P LL PTs  S Type E S P E E P P         Slew Pullup Signal
+------------------------------------------------------------------------
+  86   D  1  1   1  1 COM          *     1 -B--  Fast     Up out_data_0_
+  87   D  1  1   1  1 COM          *     1 A---  Fast     Up out_data_1_
+  41   C  1  1   1  1 COM          *     1 A---  Fast     Up out_data_2_
+  42   C  1  1   1  1 COM          *     1 A---  Fast     Up out_data_3_
+  91   A  1  1   1  1 COM          *     1 A---  Fast     Up out_data_4_
+  92   A  1  1   1  1 COM          *     1 A---  Fast     Up out_data_5_
+  93   A  1  1   1  1 COM          *     1 A---  Fast     Up out_data_6_
+  94   A  1  1   1  1 COM          *     1 A---  Fast     Up out_data_7_
+   4   A  1  1   1  1 COM          *     1 A---  Slow     Up ti_data_0_
+   5   A  1  1   1  1 COM          *     1 A---  Slow     Up ti_data_1_
+   6   A  1  1   1  1 COM          *     1 A---  Slow     Up ti_data_2_
+   8   A  1  1   1  1 COM          *     2 A-C-  Slow     Up ti_data_3_
+   9   A  1  1   1  1 COM          *     2 -BC-  Slow     Up ti_data_4_
+  10   A  1  1   1  1 COM          *     2 -BC-  Slow     Up ti_data_5_
+  11   A  1  1   1  1 COM          *     2 A--D  Slow     Up ti_data_6_
+  14   B  1  1   1  1 COM          *     2 A--D  Slow     Up ti_data_7_
+------------------------------------------------------------------------
+
+<Note> CLS = Number of clusters used
+       INP = Number of input signals
+       PTs = Number of product terms
+        LL = Number of logic levels
+       PRE = Has preset equation
+       RES = Has reset equation
+       PUP = Power-Up initial state: R=Reset, S=Set
+        CE = Has clock enable equation
+        OE = Has output enable equation
+        FP = Fast path used
+       OBP = ORP bypass used
+
+
+
+Buried_Signal_List
+~~~~~~~~~~~~~~~~~~
+        I         C      P R P       Node
+        N         L Mc   R E U C I F Fanout
+Mc GLB  P LL PTs  S Type E S P E R P         Signal
+-----------------------------------------------------------
+12   B  4  -   2  1 DFF      R *     2 -BC-  wordmask_i0_i0
+10   B  4  -   2  1 DFF      R *     2 -BC-  wordmask_i0_i1
+--   B  4   1  0 PTOE             ----     ti_data_0_.OE
+--   C  1   1  0 PTOE             ----     out_data_0_.OE
+-----------------------------------------------------------
+
+<Note> CLS = Number of clusters used
+       INP = Number of input signals
+       PTs = Number of product terms
+        LL = Number of logic levels
+       PRE = Has preset equation
+       RES = Has reset equation
+       PUP = Power-Up initial state: R=Reset, S=Set
+        CE = Has clock enable equation
+        OE = Has output enable equation
+        IR = Input register
+        FP = Fast path used
+       OBP = ORP bypass used
+
+
+
+PostFit_Equations
+~~~~~~~~~~~~~~~~~
+out_adr_0_ = ti_adr_15_ ; (1 pterm, 1 signal)
+
+out_adr_10_ = ti_adr_5_ ; (1 pterm, 1 signal)
+
+out_adr_11_ = ti_adr_4_ ; (1 pterm, 1 signal)
+
+out_adr_12_ = ti_adr_3_ ; (1 pterm, 1 signal)
+
+out_adr_13_.D = ti_adr_14_ ; (1 pterm, 1 signal)
+out_adr_13_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_13_.CE = !ti_adr_15_ & !ti_rom ; (1 pterm, 2 signals)
+
+out_adr_14_.D = ti_adr_13_ ; (1 pterm, 1 signal)
+out_adr_14_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_14_.CE = !ti_adr_15_ & !ti_rom ; (1 pterm, 2 signals)
+
+out_adr_15_.D = ti_adr_12_ ; (1 pterm, 1 signal)
+out_adr_15_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_15_.CE = !ti_adr_15_ & !ti_rom ; (1 pterm, 2 signals)
+
+out_adr_16_.D = ti_adr_11_ ; (1 pterm, 1 signal)
+out_adr_16_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_16_.CE = !ti_adr_15_ & !ti_rom ; (1 pterm, 2 signals)
+
+out_adr_17_.D = ti_adr_10_ ; (1 pterm, 1 signal)
+out_adr_17_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_17_.CE = !ti_adr_15_ & !ti_rom ; (1 pterm, 2 signals)
+
+out_adr_18_.D = ti_adr_9_ ; (1 pterm, 1 signal)
+out_adr_18_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_18_.CE = !ti_adr_15_ & !ti_rom ; (1 pterm, 2 signals)
+
+out_adr_19_.D = ti_adr_8_ ; (1 pterm, 1 signal)
+out_adr_19_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_19_.CE = !ti_adr_15_ & !ti_rom ; (1 pterm, 2 signals)
+
+out_adr_1_ = ti_adr_14_ ; (1 pterm, 1 signal)
+
+out_adr_20_.D = ti_adr_7_ ; (1 pterm, 1 signal)
+out_adr_20_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_20_.CE = !ti_adr_15_ & !ti_rom ; (1 pterm, 2 signals)
+
+out_adr_21_.D = ti_adr_6_ ; (1 pterm, 1 signal)
+out_adr_21_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_21_.CE = !ti_adr_15_ & !ti_rom ; (1 pterm, 2 signals)
+
+out_adr_22_.D = ti_adr_5_ ; (1 pterm, 1 signal)
+out_adr_22_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_22_.CE = !ti_adr_15_ & !ti_rom ; (1 pterm, 2 signals)
+
+out_adr_23_.D = ti_adr_4_ ; (1 pterm, 1 signal)
+out_adr_23_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_23_.CE = !ti_adr_15_ & !ti_rom ; (1 pterm, 2 signals)
+
+out_adr_24_.D = ti_adr_3_ ; (1 pterm, 1 signal)
+out_adr_24_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_24_.CE = !ti_adr_15_ & !ti_rom ; (1 pterm, 2 signals)
+
+out_adr_25_.D = ti_data_7_.PIN ; (1 pterm, 1 signal)
+out_adr_25_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_25_.CE = !ti_adr_15_ & !ti_rom ; (1 pterm, 2 signals)
+
+out_adr_26_.D = ti_data_6_.PIN ; (1 pterm, 1 signal)
+out_adr_26_.C = ti_we ; (1 pterm, 1 signal)
+out_adr_26_.CE = !ti_adr_15_ & !ti_rom ; (1 pterm, 2 signals)
+
+out_adr_2_ = ti_adr_13_ ; (1 pterm, 1 signal)
+
+out_adr_3_ = ti_adr_12_ ; (1 pterm, 1 signal)
+
+out_adr_4_ = ti_adr_11_ ; (1 pterm, 1 signal)
+
+out_adr_5_ = ti_adr_10_ ; (1 pterm, 1 signal)
+
+out_adr_6_ = ti_adr_9_ ; (1 pterm, 1 signal)
+
+out_adr_7_ = ti_adr_8_ ; (1 pterm, 1 signal)
+
+out_adr_8_ = ti_adr_7_ ; (1 pterm, 1 signal)
+
+out_adr_9_ = ti_adr_6_ ; (1 pterm, 1 signal)
+
+out_ce = !( ti_we & !ti_rom & !wordmask_i0_i1.Q & !wordmask_i0_i0.Q
+    # !out_we ) ; (2 pterms, 5 signals)
+
+out_data_0_ = ti_data_7_.PIN ; (1 pterm, 1 signal)
+out_data_0_.OE = !out_we ; (1 pterm, 1 signal)
+
+out_data_1_ = ti_data_6_.PIN ; (1 pterm, 1 signal)
+out_data_1_.OE = !out_we ; (1 pterm, 1 signal)
+
+out_data_2_ = ti_data_5_.PIN ; (1 pterm, 1 signal)
+out_data_2_.OE = !out_we ; (1 pterm, 1 signal)
+
+out_data_3_ = ti_data_4_.PIN ; (1 pterm, 1 signal)
+out_data_3_.OE = !out_we ; (1 pterm, 1 signal)
+
+out_data_4_ = ti_data_3_.PIN ; (1 pterm, 1 signal)
+out_data_4_.OE = !out_we ; (1 pterm, 1 signal)
+
+out_data_5_ = ti_data_2_.PIN ; (1 pterm, 1 signal)
+out_data_5_.OE = !out_we ; (1 pterm, 1 signal)
+
+out_data_6_ = ti_data_1_.PIN ; (1 pterm, 1 signal)
+out_data_6_.OE = !out_we ; (1 pterm, 1 signal)
+
+out_data_7_ = ti_data_0_.PIN ; (1 pterm, 1 signal)
+out_data_7_.OE = !out_we ; (1 pterm, 1 signal)
+
+out_oe = !( ti_we & !ti_rom & !wordmask_i0_i1.Q & !wordmask_i0_i0.Q ) ; (1 pterm, 4 signals)
+
+out_reset.D = ti_data_3_.PIN ; (1 pterm, 1 signal)
+out_reset.C = ti_we ; (1 pterm, 1 signal)
+out_reset.CE = !ti_adr_15_ & !ti_rom ; (1 pterm, 2 signals)
+
+out_we = !( !ti_adr_15_ & !ti_we & !ti_gsel & wordmask_i0_i1.Q
+    # ti_adr_15_ & !ti_we & !ti_gsel & wordmask_i0_i0.Q ) ; (2 pterms, 5 signals)
+
+ti_data_0_ = out_data_7_.PIN ; (1 pterm, 1 signal)
+ti_data_0_.OE = ti_we & !ti_rom & !wordmask_i0_i1.Q & !wordmask_i0_i0.Q ; (1 pterm, 4 signals)
+
+ti_data_1_ = out_data_6_.PIN ; (1 pterm, 1 signal)
+ti_data_1_.OE = ti_we & !ti_rom & !wordmask_i0_i1.Q & !wordmask_i0_i0.Q ; (1 pterm, 4 signals)
+
+ti_data_2_ = out_data_5_.PIN ; (1 pterm, 1 signal)
+ti_data_2_.OE = ti_we & !ti_rom & !wordmask_i0_i1.Q & !wordmask_i0_i0.Q ; (1 pterm, 4 signals)
+
+ti_data_3_ = out_data_4_.PIN ; (1 pterm, 1 signal)
+ti_data_3_.OE = ti_we & !ti_rom & !wordmask_i0_i1.Q & !wordmask_i0_i0.Q ; (1 pterm, 4 signals)
+
+ti_data_4_ = out_data_3_.PIN ; (1 pterm, 1 signal)
+ti_data_4_.OE = ti_we & !ti_rom & !wordmask_i0_i1.Q & !wordmask_i0_i0.Q ; (1 pterm, 4 signals)
+
+ti_data_5_ = out_data_2_.PIN ; (1 pterm, 1 signal)
+ti_data_5_.OE = ti_we & !ti_rom & !wordmask_i0_i1.Q & !wordmask_i0_i0.Q ; (1 pterm, 4 signals)
+
+ti_data_6_ = out_data_1_.PIN ; (1 pterm, 1 signal)
+ti_data_6_.OE = ti_we & !ti_rom & !wordmask_i0_i1.Q & !wordmask_i0_i0.Q ; (1 pterm, 4 signals)
+
+ti_data_7_ = out_data_0_.PIN ; (1 pterm, 1 signal)
+ti_data_7_.OE = ti_we & !ti_rom & !wordmask_i0_i1.Q & !wordmask_i0_i0.Q ; (1 pterm, 4 signals)
+
+wordmask_i0_i0.D = ti_data_5_.PIN ; (1 pterm, 1 signal)
+wordmask_i0_i0.C = ti_we ; (1 pterm, 1 signal)
+wordmask_i0_i0.CE = !ti_adr_15_ & !ti_rom ; (1 pterm, 2 signals)
+
+wordmask_i0_i1.D = ti_data_4_.PIN ; (1 pterm, 1 signal)
+wordmask_i0_i1.C = ti_we ; (1 pterm, 1 signal)
+wordmask_i0_i1.CE = !ti_adr_15_ & !ti_rom ; (1 pterm, 2 signals)
+
+
+
+

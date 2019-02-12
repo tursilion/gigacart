@@ -1,0 +1,21 @@
+Synopsys VHDL Compiler, version comp201403rcp1, Build 060R, built May 27 2014
+@N|Running in 64-bit mode
+Copyright (C) 1994-2014 Synopsys, Inc. This software and the associated documentation are proprietary to Synopsys, Inc. This software may only be used in accordance with the terms and conditions of a written license agreement with Synopsys, Inc.  All other use, reproduction, or distribution of this software is strictly prohibited.
+
+@N: CD720 :"C:\ispLEVER_Classic2_0\synpbase\lib\vhd\std.vhd":123:18:123:21|Setting time resolution to ns
+@N:"D:\work\TI\dragonslair\cart\cpld\design.vhd":21:7:21:14|Top entity is set to gigacart.
+VHDL syntax check successful!
+@N: CD630 :"D:\work\TI\dragonslair\cart\cpld\design.vhd":21:7:21:14|Synthesizing work.gigacart.myarch 
+@W: CD638 :"D:\work\TI\dragonslair\cart\cpld\design.vhd":50:8:50:13|Signal grminc is undriven 
+Post processing for work.gigacart.myarch
+@W: CL116 :"D:\work\TI\dragonslair\cart\cpld\design.vhd":138:2:138:3|Input data for signal grmadr(0 to 7) contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
+@W: CL116 :"D:\work\TI\dragonslair\cart\cpld\design.vhd":60:2:60:3|Input data for signal gvalid contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
+@W: CL116 :"D:\work\TI\dragonslair\cart\cpld\design.vhd":60:2:60:3|Input data for signal gactive contains references to signal edges. An asynchronous reset may be missing from the sensitivity list.
+@END
+
+At c_vhdl Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 69MB peak: 71MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+# Sat Sep 29 18:19:03 2018
+
+###########################################################]

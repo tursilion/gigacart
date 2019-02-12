@@ -1,0 +1,16 @@
+ispLEVER Classic 2.0.00.17.20.15 SDFGEN
+Copyright(C),1992-2015, Lattice Semiconductor Corporation. All Rights Reserved.
+Output Files:
+  Netlist File: gigacart.vho
+  Delay   File: gigacart.sdf
+
+Parsing C:/ispLEVER_Classic2_0/ispcpld/dat/sdf.mdl
+Input file: d:/work/ti/dragonslair/cart/cpld\gigacart.tt4
+Reading library information ...
+Mapping to combinational gates 
+Mapping to netlist view.
+Utilization Estimate
+    Combinational Macros:         55
+    Flip-Flop and Latch Macros:   16
+    I/O Pads:                     64
+Elapsed time: 2 seconds

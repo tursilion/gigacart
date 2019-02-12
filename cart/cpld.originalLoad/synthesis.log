@@ -1,0 +1,145 @@
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2015 Lattice Semiconductor Corporation,  All rights reserved.
+Mon Feb 11 23:10:51 2019
+
+
+Command Line:  C:\ispLEVER_Classic2_0\lse/bin/nt/synthesis -f gigacart.synproj 
+
+Synthesis options:
+The -a option is ispMACH400ZE.
+The -t option is not used.
+The -d option is LC4064V.
+Using default performance grade 6.
+                                                          
+
+##########################################################
+
+### Lattice Family : ispMACH400ZE
+
+### Device  : LC4064V
+
+### Package : 
+
+##########################################################
+
+                                                          
+
+Optimization goal = Area
+Top-level module name = gigacart.
+WARNING - synthesis: Ignoring Frequency option in Area Mode. Setting to default frequency of 1.0 MHz.
+WARNING - synthesis: Ignoring SDC constraints in Area Mode!
+Target frequency = 1.000000 MHz.
+Timing path count = 3
+fsm_encoding_style = auto
+resolve_mixed_drivers = 0
+Use IO Insertion = TRUE
+Resource Sharing = TRUE
+Propagate Constants = TRUE
+Remove Duplicate Registers = TRUE
+Output EDIF file name = gigacart.edi.
+WARNING - synthesis: Option -force_gsr will be set to false when option -output_edif/-ngo are set
+The -comp option is FALSE.
+The -syn option is FALSE.
+VHDL library = work
+VHDL design file = design.vhd
+-sdc option: SDC file input not used.
+-lpf option: Output file option is not used.
+-vh2008
+
+Hardtimer checking is enabled (default). The -dt option is not used.
+The -r option is OFF. [ Remove LOC Properties is OFF. ]
+Technology check ok...
+
+Analyzing Verilog file C:/ispLEVER_Classic2_0/lse/userware/NT/SYNTHESIS_HEADERS/mach.v. VERI-1482
+Compile design.
+Compile Design Begin
+INFO - synthesis: The default VHDL library search path is now "D:/work/TI/dragonslair/cart/cpld.prev". VHDL-1504
+Analyzing VHDL file design.vhd. VHDL-1481
+INFO - synthesis: design.vhd(24): analyzing entity gigacart. VHDL-1012
+INFO - synthesis: design.vhd(45): analyzing architecture myarch. VHDL-1010
+unit gigacart is not yet analyzed. VHDL-1485
+design.vhd(24): executing gigacart(myarch)
+
+WARNING - synthesis: design.vhd(43): replacing existing netlist gigacart(myarch). VHDL-1205
+Top module name (VHDL): gigacart
+Loading NGL library 'C:/ispLEVER_Classic2_0/lse/xo2c00/data/xo2clib.ngl'...
+Loading NGL library 'C:/ispLEVER_Classic2_0/lse/or5g00/data/orc5glib.ngl'...
+Loading device for application map from file 'xo2c640.nph' in environment: C:/ispLEVER_Classic2_0/lse.
+Package Status:                     Final          Version 1.36.
+Top-level module name = gigacart.
+
+
+
+Applying 1.000000 MHz constraint to all clocks
+
+WARNING - synthesis: No .lpf file will be written because the -lpf option is not used or is set to zero.
+Results of NGD DRC are available in gigacart_drc.log.
+
+################### Begin Area Report (gigacart)######################
+Number of register bits => 26 of 880 (2 % )
+AND2 => 44
+AND4 => 1
+BI_DIR => 8
+DFF => 2
+DFFC => 24
+GND => 1
+IBUF => 25
+INV => 10
+OBUF => 28
+OR2 => 39
+VCC => 1
+XOR2 => 8
+################### End Area Report ##################
+
+################### Begin Clock Report ######################
+Clock Nets
+Number of Clocks: 3
+  Net : gvalid, loads : 40
+  Net : ti_we_c, loads : 17
+  Net : ti_gclk_N_53, loads : 2
+Clock Enable Nets
+Number of Clock Enables: 0
+Top 0 highest fanout Clock Enables:
+Highest fanout non-clock nets
+Top 10 highest fanout non-clock nets:
+  Net : ti_rom_N_24, loads : 15
+  Net : ti_adr_c_14, loads : 13
+  Net : ti_adr_14__N_50, loads : 9
+  Net : n282, loads : 9
+  Net : dataout, loads : 8
+  Net : n396, loads : 8
+  Net : grmadr_1, loads : 4
+  Net : grmadr_2, loads : 4
+  Net : grmadr_0, loads : 3
+  Net : grmadr_3, loads : 3
+################### End Clock Report ##################
+
+Timing Report Summary
+--------------
+--------------------------------------------------------------------------------
+Constraint                              |   Constraint|       Actual|Levels
+--------------------------------------------------------------------------------
+                                        |             |             |
+create_clock -period 1000.000000 -name  |             |             |
+clk2 [get_nets ti_gclk_N_53]            |            -|            -|     0  
+                                        |             |             |
+create_clock -period 1000.000000 -name  |             |             |
+clk1 [get_nets ti_we_c]                 |            -|            -|     0  
+                                        |             |             |
+create_clock -period 1000.000000 -name  |             |             |
+clk0 [get_nets gvalid]                  |            -|            -|     0  
+                                        |             |             |
+--------------------------------------------------------------------------------
+
+
+All constraints were met.
+
+
+Peak Memory Usage: 55.035  MB
+
+--------------------------------------------------------------
+Elapsed CPU time for LSE flow : 0.766  secs
+--------------------------------------------------------------

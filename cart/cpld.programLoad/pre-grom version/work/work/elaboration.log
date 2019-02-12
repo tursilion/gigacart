@@ -1,0 +1,33 @@
+Active-HDL 10.1.3088.5434  2018-03-01 22:42:17
+
+Elaboration top modules:
+Architecture                  myarch(gigacart)
+
+
+-------------------------------------------------------------------------------------------
+Entity   | Architecture | Library | Info | Compiler Version          | Compilation Options
+-------------------------------------------------------------------------------------------
+gigacart | myarch       | work    |      | 10.1.3088.5434  (Windows) | -O3
+-------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------
+VHDL Package            | Library | Info | Compiler Version          | Compilation Options
+-------------------------------------------------------------------------------------------
+standard                | std     |      |                           | <unavailable>
+TEXTIO                  | std     |      | 10.1.3088.5434  (Windows) |  -2008
+std_logic_1164          | ieee    |      | 10.1.3088.5434  (Windows) |  -2008
+-------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------
+Library                 | Comment
+-------------------------------------------------------------------------------------------
+ieee                    | Standard IEEE packages library
+std                     | Standard VHDL library
+work                    | None
+-------------------------------------------------------------------------------------------
+
+
+Simulation Options: asim -O5 +access +r +m+gigacart gigacart myarch
+
+
+The performance of simulation is reduced. Version Lattice Edition

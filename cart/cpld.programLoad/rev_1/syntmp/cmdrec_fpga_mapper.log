@@ -1,0 +1,10 @@
+C:\ispLEVER_Classic2_0\synpbase\bin64\m_att.exe  -prodtype  synplify_pro  -encrypt  -pro  -rundir  D:\work\TI\dragonslair\cart\cpld\rev_1  -part 2C04A  -grade -4   -maxfan 100 -RWCheckOnRam 1 -forcenogsr -summaryfile D:\work\TI\dragonslair\cart\cpld\rev_1\synlog\report\design_fpga_mapper.xml -multisrs  -oedif  D:\work\TI\dragonslair\cart\cpld\rev_1\proj_1.edn  D:\work\TI\dragonslair\cart\cpld\rev_1\synwork\design_mult.srs  -devicelib  C:\ispLEVER_Classic2_0\synpbase\lib\lucent\orca2.v  -ologparam  D:\work\TI\dragonslair\cart\cpld\rev_1\syntmp\design.plg  -osyn  D:\work\TI\dragonslair\cart\cpld\rev_1\design.srm  -prjdir  D:\work\TI\dragonslair\cart\cpld\  -prjname  proj_1  -log  D:\work\TI\dragonslair\cart\cpld\rev_1\synlog\design_fpga_mapper.srr 
+rc:1 success:1
+D:\work\TI\dragonslair\cart\cpld\rev_1\proj_1.edn|o|1538270368|47422
+D:\work\TI\dragonslair\cart\cpld\rev_1\synwork\design_mult.srs|i|1538270367|3741
+C:\ispLEVER_Classic2_0\synpbase\lib\lucent\orca2.v|i|1401296784|40399
+D:\work\TI\dragonslair\cart\cpld\rev_1\syntmp\design.plg|o|1538270368|1113
+D:\work\TI\dragonslair\cart\cpld\rev_1\design.srm|o|1538270368|32792
+D:\work\TI\dragonslair\cart\cpld\rev_1\synlog\design_fpga_mapper.srr|o|1538270368|11603
+C:\ispLEVER_Classic2_0\synpbase\bin\m_att.exe|i|1399401674|7716352
+C:\ispLEVER_Classic2_0\synpbase\bin64\m_att.exe|i|1399404512|8884224
