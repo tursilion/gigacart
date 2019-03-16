@@ -1,0 +1,49 @@
+* flash interface test - change 0x7ff0 to 0x12
+* Several hardware assumptions:
+* Writing to 0x6000 sets a latch but bits:
+*  0x04 controls LSB write enable
+*  0x08 controls MSB write enable
+*  0x10 control flash reset
+* Writes only work through >E000 space
+* Reads only work through >6000 space
+
+	AORG >8320
+	
+* Need to do several steps without interruption
+* EasyBug's reads mean I can't test it by hand
+
+* First, reset the flash chip
+	CLR @>6000
+	CLR R2
+LP1
+	DEC R2
+	JNE LP1
+	
+* 	clear reset and allow MSB only
+	MOVB @MSB,@>6000
+*   delay since just out of reset
+    NOP
+* write first unlock
+    MOVB @UN1,@>EAAA
+* allow LSB only
+	MOVB @LSB,@>6000
+* write second unlock
+	MOVB @UN2,@>E555
+* allow MSB only
+	MOVB @MSB,@>6000
+* write command
+	MOVB @CMD,@>EAAA
+* write data (MSB)
+	MOVB @VAL,@>FFF0
+* technically now we need to wait, but eh.
+	B *R11
+	
+MSB DATA >1800
+LSB DATA >1400
+UN1 DATA >AA00
+UN2 DATA >5500
+CMD DATA >A000
+VAL DATA >1200
+
+	END
+	

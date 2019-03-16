@@ -1,0 +1,28 @@
+Drill report for D:\work\TI\dragonslair\cart\kicad.thru\kicad.kicad_pcb
+Created on 12/3/2018 10:38:35 PM
+
+Copper Layer Stackup:
+    =============================================================
+    L1 :  F.Cu                      front
+    L2 :  3v3                       inner1
+    L3 :  Gnd                       inner2
+    L4 :  B.Cu                      back
+
+
+Drill file 'kicad.drl' contains
+    plated through holes:
+    =============================================================
+    T1  0.40mm  0.016"  (47 holes)
+    T2  0.60mm  0.024"  (3 holes)
+    T3  0.80mm  0.031"  (32 holes)
+    T4  1.00mm  0.039"  (11 holes)
+
+    Total plated holes count 93
+
+
+Drill file 'kicad-NPTH.drl' contains
+    unplated through holes:
+    =============================================================
+    T1  5.00mm  0.197"  (1 hole)
+
+    Total unplated holes count 1

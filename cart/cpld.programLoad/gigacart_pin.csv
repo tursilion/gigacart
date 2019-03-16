@@ -1,7 +1,7 @@
  ispLEVER Classic 2.0.00.17.20.15 Fitter Report File 
 Project Name,gigacart
-Project Path,D:\work\TI\dragonslair\cart\cpld
-Project Fitted on,Thu Feb 07 17:00:16 2019
+Project Path,D:\work\TI\dragonslair\cart\cpld.programLoad
+Project Fitted on,Mon Mar 11 20:06:13 2019
 
 Pin,Pin_Type,Bank,GLB_Pad,Assigned,I/O_Type,Signal_Type,Signal_Name
 1,GND,-,,,,,

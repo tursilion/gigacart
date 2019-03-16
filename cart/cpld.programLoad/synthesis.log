@@ -3,7 +3,7 @@ Copyright (c) 1995 AT&T Corp.   All rights reserved.
 Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
 Copyright (c) 2001 Agere Systems   All rights reserved.
 Copyright (c) 2002-2015 Lattice Semiconductor Corporation,  All rights reserved.
-Thu Feb 07 17:00:12 2019
+Mon Mar 11 20:06:07 2019
 
 
 Command Line:  C:\ispLEVER_Classic2_0\lse/bin/nt/synthesis -f gigacart.synproj 
@@ -56,7 +56,7 @@ Technology check ok...
 Analyzing Verilog file C:/ispLEVER_Classic2_0/lse/userware/NT/SYNTHESIS_HEADERS/mach.v. VERI-1482
 Compile design.
 Compile Design Begin
-INFO - synthesis: The default VHDL library search path is now "D:/work/TI/dragonslair/cart/cpld". VHDL-1504
+INFO - synthesis: The default VHDL library search path is now "D:/work/TI/dragonslair/cart/cpld.programLoad". VHDL-1504
 Analyzing VHDL file design.vhd. VHDL-1481
 INFO - synthesis: design.vhd(26): analyzing entity gigacart. VHDL-1012
 INFO - synthesis: design.vhd(46): analyzing architecture myarch. VHDL-1010
@@ -131,8 +131,8 @@ clk0 [get_nets ti_we_c]                 |            -|            -|     0
 All constraints were met.
 
 
-Peak Memory Usage: 54.738  MB
+Peak Memory Usage: 54.840  MB
 
 --------------------------------------------------------------
-Elapsed CPU time for LSE flow : 0.641  secs
+Elapsed CPU time for LSE flow : 0.672  secs
 --------------------------------------------------------------

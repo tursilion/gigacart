@@ -7,7 +7,7 @@
 -- Tie a jumper between this pin and the 74LS138 select for >E000
 -- This gives us two address ranges for the cartridge:
 -- >6000, which accesses normally (including writes for setting the latch)
--- >E000, which passes through MSB writes only
+-- >E000, which passes through specified writes only
 
 -- Latch has two extra bits which as the byte mask:
 -- 10 means send the MSB only (>08)

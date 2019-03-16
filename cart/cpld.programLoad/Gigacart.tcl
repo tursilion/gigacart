@@ -106584,3 +106584,234 @@ if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj g
 
 ########## Tcl recorder end at 02/07/19 17:00:12 ###########
 
+
+########## Tcl recorder starts at 03/11/19 20:05:56 ##########
+
+set version "2.0"
+set proj_dir "D:/work/TI/dragonslair/cart/cpld.programLoad"
+cd $proj_dir
+
+# Get directory paths
+set pver $version
+regsub -all {\.} $pver {_} pver
+set lscfile "lsc_"
+append lscfile $pver ".ini"
+set lsvini_dir [lindex [array get env LSC_INI_PATH] 1]
+set lsvini_path [file join $lsvini_dir $lscfile]
+if {[catch {set fid [open $lsvini_path]} msg]} {
+	 puts "File Open Error: $lsvini_path"
+	 return false
+} else {set data [read $fid]; close $fid }
+foreach line [split $data '\n'] { 
+	set lline [string tolower $line]
+	set lline [string trim $lline]
+	if {[string compare $lline "\[paths\]"] == 0} { set path 1; continue}
+	if {$path && [regexp {^\[} $lline]} {set path 0; break}
+	if {$path && [regexp {^bin} $lline]} {set cpld_bin $line; continue}
+	if {$path && [regexp {^fpgapath} $lline]} {set fpga_dir $line; continue}
+	if {$path && [regexp {^fpgabinpath} $lline]} {set fpga_bin $line}}
+
+set cpld_bin [string range $cpld_bin [expr [string first "=" $cpld_bin]+1] end]
+regsub -all "\"" $cpld_bin "" cpld_bin
+set cpld_bin [file join $cpld_bin]
+set install_dir [string range $cpld_bin 0 [expr [string first "ispcpld" $cpld_bin]-2]]
+regsub -all "\"" $install_dir "" install_dir
+set install_dir [file join $install_dir]
+set fpga_dir [string range $fpga_dir [expr [string first "=" $fpga_dir]+1] end]
+regsub -all "\"" $fpga_dir "" fpga_dir
+set fpga_dir [file join $fpga_dir]
+set fpga_bin [string range $fpga_bin [expr [string first "=" $fpga_bin]+1] end]
+regsub -all "\"" $fpga_bin "" fpga_bin
+set fpga_bin [file join $fpga_bin]
+
+if {[string match "*$fpga_bin;*" $env(PATH)] == 0 } {
+   set env(PATH) "$fpga_bin;$env(PATH)" }
+
+if {[string match "*$cpld_bin;*" $env(PATH)] == 0 } {
+   set env(PATH) "$cpld_bin;$env(PATH)" }
+
+lappend auto_path [file join $install_dir "ispcpld" "tcltk" "lib" "ispwidget" "runproc"]
+package require runcmd
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/vhd2jhd\" design.vhd -o design.jhd -m \"$install_dir/ispcpld/generic/lib/vhd/location.map\" -p \"$install_dir/ispcpld/generic/lib\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/11/19 20:05:56 ###########
+
+
+########## Tcl recorder starts at 03/11/19 20:06:06 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart_lse.env w} rspFile] {
+	puts stderr "Cannot create response file gigacart_lse.env: $rspFile"
+} else {
+	puts $rspFile "FOUNDRY=$install_dir/lse
+PATH=$install_dir/lse/bin/nt;%PATH%
+"
+	close $rspFile
+}
+if [catch {open gigacart.synproj w} rspFile] {
+	puts stderr "Cannot create response file gigacart.synproj: $rspFile"
+} else {
+	puts $rspFile "-a ispMACH400ZE
+-d LC4064V
+-top gigacart
+-vhd design.vhd
+-output_edif gigacart.edi
+-optimization_goal Area
+-frequency  200
+-fsm_encoding_style Auto
+-use_io_insertion 1
+-resource_sharing 1
+-propagate_constants 1
+-remove_duplicate_regs 1
+-twr_paths  3
+-resolve_mixed_drivers 0
+-vh2008
+"
+	close $rspFile
+}
+if [runCmd "\"$install_dir/lse/bin/nt/synthesis\" -f \"gigacart.synproj\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart_lse.env
+file delete gigacart.synproj
+if [runCmd "\"$cpld_bin/edif2blf\" -edf gigacart.edi -out gigacart.bl0 -err automake.err -log gigacart.log -prj gigacart -lib \"$install_dir/ispcpld/dat/mach.edn\" -net_Vcc VCC -net_GND GND -nbx -dse -tlw -cvt YES -xor"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl0 -collapse none -reduce none -keepwires  -err automake.err -family"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblflink\" \"gigacart.bl1\" -o \"gigacart.bl2\" -omod \"gigacart\"  -err \"automake.err\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/impsrc\"  -prj gigacart -lci gigacart.lct -log gigacart.imp -err automake.err -tti gigacart.bl2 -dir $proj_dir"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -blifopt gigacart.b2_"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mblifopt\" gigacart.bl2 -sweep -mergefb -err automake.err -o gigacart.bl3 @gigacart.b2_ "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -diofft gigacart.d0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/mdiofft\" gigacart.bl3 -family AMDMACH -idev van -o gigacart.bl4 -oxrf gigacart.xrf -err automake.err @gigacart.d0 "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/abelvci\" -vci gigacart.lct -dev lc4k -prefit gigacart.l0"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/prefit\" -blif -inp gigacart.bl4 -out gigacart.bl5 -err automake.err -log gigacart.log -mod gigacart @gigacart.l0  -sc"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/11/19 20:06:06 ###########
+

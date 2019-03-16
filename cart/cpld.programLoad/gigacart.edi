@@ -4,7 +4,7 @@
   (keywordMap (keywordLevel 0))
   (status
     (written
-      (timeStamp 2019 2 7 17 0 13)
+      (timeStamp 2019 3 11 20 6 8)
       (author "Lattice Semiconductor Corp.")
       (program "EDIF Writer"(version "lse"))
     )

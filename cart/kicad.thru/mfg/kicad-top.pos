@@ -1,0 +1,8 @@
+### Module positions - created on 12/03/18 22:38:15 ###
+### Printed by Pcbnew version kicad 4.0.7
+## Unit = mm, Angle = deg.
+## Side : top
+# Ref     Val                   Package                           PosX       PosY       Rot  Side
+U2        S29GL01G-128MB-Flash  TSOP-56                       179.7529   -88.7434    0.0000  top
+U3        GigaCart_CPLD_LC4064  TQFP-100_14x14mm_Pitch0.5mm   137.0000   -93.0000    0.0000  top
+## End

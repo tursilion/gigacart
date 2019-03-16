@@ -13,8 +13,8 @@ Tools->Fitter Report File Format...
 Project_Summary
 ~~~~~~~~~~~~~~~
 Project Name         :  gigacart
-Project Path         :  D:\work\TI\dragonslair\cart\cpld
-Project Fitted on    :  Thu Feb 07 17:00:16 2019
+Project Path         :  D:\work\TI\dragonslair\cart\cpld.programLoad
+Project Fitted on    :  Mon Mar 11 20:06:13 2019
 
 Device               :  M4064_64
 Package              :  100
@@ -31,8 +31,8 @@ Source Format        :  Pure_VHDL
 Compilation_Times
 ~~~~~~~~~~~~~~~~~
 Prefit Time                     0 secs
-Load Design Time                0.03 secs
-Partition Time                  0.01 secs
+Load Design Time                0.06 secs
+Partition Time                  0.02 secs
 Place Time                      0.03 secs
 Route Time                      0.00 secs
 Total Fit Time                  00:00:01
