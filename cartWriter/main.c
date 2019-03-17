@@ -43,6 +43,9 @@
 #define NULL 0
 #endif
 
+// define this to enable gigacart verify print back
+#define VERIFYLATCH
+
 // forward declarations
 void flashReset() ;
 void flashUnlock() ;
@@ -75,10 +78,25 @@ bool cf7WriteSector(unsigned int high, unsigned int low) ;
 // this is where we store buffers from the CF device
 unsigned char buffer[512];
 
+#ifdef VERIFYLATCH
+volatile unsigned char verify;
+volatile unsigned int verifylatch;
+
 // write to this to set the control bits on the flash (note you write ALL of them!)
-#define FLASH_SETBITS *((volatile unsigned char*)0x6000)
+#define FLASH_SETBITS(yy) *((volatile unsigned char*)0x6000)=verify=(yy); printf("%s - latch >6000 = >%X\n", __FUNCTION__, (yy));
 // or this one is you need a non-zero latch
-#define FLASH_SETLATCH(xx) *((volatile unsigned char*)(0x6000+(xx)))
+#define FLASH_SETLATCH(xx,yy) verifylatch=(xx); *((volatile unsigned char*)(0x6000+(xx)))=verify=(yy); printf("%s - latch >%X%X = >%X\n", __FUNCTION__, (0x6000+(xx))>>8, (0x6000+(xx))&0xff, (yy));
+// write to this one to write data to the flash (within 8k, of course, and based on the bits)
+#define FLASH_WRITE(xx,yy) verifylatch=(xx); *((volatile unsigned char*)(0xE000+(xx)))=verify=(yy); printf("%s - write >%X%X = >%X\n", __FUNCTION__, (0xe000+(xx))>>8, (0xe000+(xx))&0xff, (yy));
+#else
+// write to this to set the control bits on the flash (note you write ALL of them!)
+#define FLASH_SETBITS(yy) *((volatile unsigned char*)0x6000)=yy
+// or this one is you need a non-zero latch
+#define FLASH_SETLATCH(xx,yy) *((volatile unsigned char*)(0x6000+(xx)))=(yy);
+// write to this one to write data to the flash (within 8k, of course, and based on the bits)
+#define FLASH_WRITE(xx,yy) *((volatile unsigned char*)(0xE000+(xx)))=(yy)
+#endif
+
 // and read from this for data
 #define FLASH_READ(xx) *((volatile unsigned char*)(0x6000+(xx)))
 
@@ -86,9 +104,6 @@ unsigned char buffer[512];
 #define FLASH_WRITELSB 0x04
 #define FLASH_WRITEMSB 0x08
 #define FLASH_UNRESET  0x10
-
-// write to this one to write data to the flash (within 8k, of course, and based on the bits)
-#define FLASH_WRITE(xx) *((volatile unsigned char*)(0xE000+(xx)))
 
 // the offset is 128k, which is 16 (8k) pages. Latches are every 2 addresses.
 #define FLASH_SKIPOFFSET (128*1024)
@@ -119,14 +134,15 @@ unsigned char buffer[512];
 
 // does the reset. Release reset by setting the latch bits
 void flashReset() {
-    FLASH_SETBITS = 0;
+    FLASH_SETBITS(0);
 }
 
 // unlock sequence required for most operations
 void flashUnlock() {
-    FLASH_SETBITS = FLASH_UNRESET | FLASH_WRITEMSB;     // enable writes
-    FLASH_WRITE(0xaa) = 0xaa;                           // unlock step 1
-    FLASH_WRITE(0x554)= 0x55;                           // unlock step 2
+    FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);     // enable writes
+    FLASH_WRITE(0xaaa, 0xaa);                          // unlock step 1
+    FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITELSB);     // enable writes
+    FLASH_WRITE(0x555, 0x55);                          // unlock step 2
 }
 
 // read the CFI data from the flash, and spit some of it out
@@ -137,22 +153,23 @@ void flashReadCfi() {
 
     printf("Flash CFI information:\n");
 
-    // No unlock is needed
-    FLASH_SETBITS = FLASH_UNRESET | FLASH_WRITEMSB;     // enable writes
-    FLASH_WRITE(0xaa) = 0x98;                           // CFI
-    FLASH_SETBITS = FLASH_UNRESET;                      // enable reads
+    // No unlock is needed - note that CFI is one of the only
+    // commands that uses 0x0AA instead of 0xAAA
+    FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);     // enable writes
+    FLASH_WRITE(0xaa, 0x98);                           // CFI
+    FLASH_SETBITS(FLASH_UNRESET);                      // enable reads
 
-    // copy 256 bytes (they won't all be useful)
+    // copy 512 bytes (they won't all be useful)
     // since we're 8-bit, we get the least significant byte
     // of every 16-bit pairing (twice)
-    for (int idx=0; idx<256; ++idx) {
+    for (int idx=0; idx<512; ++idx) {
         buffer[idx] = FLASH_READ(idx);
     }
 
     // exit CFI mode
-    FLASH_SETBITS = FLASH_UNRESET | FLASH_WRITEMSB;     // enable writes
-    FLASH_WRITE(0xaa) = 0xf0;
-    FLASH_SETBITS = FLASH_UNRESET;                      // enable reads
+    FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);     // enable writes
+    FLASH_WRITE(0xaa, 0xf0);
+    FLASH_SETBITS(FLASH_UNRESET);                      // enable reads
 
     // check for the QRY string - if this isn't there, we may not have data
     if ((buffer[0x20]!='Q') || (buffer[0x22]!='R') || (buffer[0x24]!='Y')) {
@@ -237,32 +254,80 @@ void flashReadCfi() {
 
 }
 
+// read the flash status register
+// this doesn't work .. maybe it's not supported?
+// can't make it work by hand either...
+void flashReadStatus() {
+    // No unlock is needed
+    FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);     // enable writes
+    FLASH_WRITE(0xaaa, 0x70);                          // Status register
+    FLASH_SETBITS(FLASH_UNRESET);                      // enable reads
+
+    // the hardware layout means we can only read the LSB of the status register,
+    // since we can't mask out reads (and LSB is first). Fortunately, that's the
+    // byte we need!
+    unsigned int tmp = *((volatile unsigned int*)0x6000);
+
+#ifdef VERIFYLATCH
+    printf("Status word read: >%X%X\n", tmp>>8, tmp&0xff);
+#endif
+
+    unsigned char x = tmp&0xff;                   // we need the LSB
+
+    if (x&0x80) {
+        // device ready
+        printf("Ready          : yes\n");
+        printf("Erase suspend  : %s\n", (x&0x40)?"yes":"no");
+        printf("Erase status   : %s\n", (x&0x20)?"fail":"ok");
+        printf("Program status : %s\n", (x&0x10)?"fail":"ok");
+        printf("Write Buf Abort: %s\n", (x&0x08)?"yes":"no");
+        printf("Program suspend: %s\n", (x&0x04)?"yes":"no");
+        printf("Sector locked  : %s\n", (x&0x04)?"yes":"no");
+        printf("Continuity     : %s\n", (x&0x04)?"ok":"no");
+    } else {
+        // all other bits are invalid if ready is not set
+        printf("Ready          : no\n");
+    }
+
+    // clear the status register by writing 0x71
+    FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);     // enable writes
+    FLASH_WRITE(0xaaa, 0x71);                          // Clear Status register
+    FLASH_SETBITS(FLASH_UNRESET);                      // enable reads
+
+}
+
 // wait for a write operation to complete
 // takes in the address to read back, and the byte value to expect
 bool flashWaitForWrite(unsigned int page, unsigned int adr, unsigned char val) {
     int latch = (page&0xfff) << 1;
     unsigned char bits = (page>>12) & 0x03;
-    FLASH_SETLATCH(latch) = bits | FLASH_UNRESET;
+    FLASH_SETLATCH(latch, bits | FLASH_UNRESET);
 
     int time = 0;
     int cycles = 0;
 
     printf("Waiting...");
-
+    
     for (;;) {
         unsigned char x = FLASH_READ(adr);
         if (x == val) {
-            printf("\rOk.       \n");
+            printf("\n");
             return true;
         }
-        if (x & 0x02) {
+        if (x & 0x20) {
             // one more read to make sure it's not a false positive caused by transition
             // recommended by the datasheet
             x = FLASH_READ(adr);
             if (x == val) {
                 return true;
             }
-            printf("\nWrite operation reports failed\n");
+            printf(">%X\n", x);
+            if (x & 0x08) {
+                printf("Erase operation reports failed\n");
+            } else {
+                printf("Write operation reports failed\n");
+            }
+            flashReadStatus();
             return false;
         }
 
@@ -272,7 +337,7 @@ bool flashWaitForWrite(unsigned int page, unsigned int adr, unsigned char val) {
             if (cycles >= 60) {
                 ++time;
                 cycles=0;
-                printf("\rWaiting... %ds", time);
+                printf("\rWaiting... >%X != >%X - %ds", x, val, time);
                 kscanfast(0);
                 if (KSCAN_KEY == ' ') {
                     printf("\n-- Aborted by keypress\n");
@@ -291,34 +356,53 @@ bool flashWriteFast(unsigned int page, unsigned int adr) {
     int latch = (page&0xfff) << 1;
     unsigned char bits = (page>>12) & 0x03;
 
+    // some data is written to the /sector/ offset, which per the
+    // library is a 4k boundary. Since we are working in 8k pages
+    // we can happily just mask. (adr should not be larger than >1FFF)
+    // The actual address used in the Spansion code is:
+    // (adr & SA_OFFSET_MASK) + LLD_UNLOCK_ADDR2
+    // SA_OFFSET_MASK is 0xfffff000, so 4k
+    // LLD_UNLOCK_ADDR2 is 0x555, and it notes that it's added
+    // only for backward compatibility, but we should match it.
+    unsigned int sa = (adr&0x1000)+0x555;
+
     if (adr%32) {
         printf("* Can't write to unaligned address: %X%X\n", (adr>>8), (adr&0xff));
         return false;
     }
 
-    printf("WRITING page %X%X, address %X%X\n", page>>8, page&0xff, adr>>8, adr&0xff);
+    printf("WRITING page %d, address 0x%X%X\n", page, adr>>8, adr&0xff);
 
-    for (int off=0; off<512; off+=32, adr+=32) {
+    for (int off=0; off<512; off+=32) {
         flashUnlock();
-        FLASH_SETLATCH(latch) = bits | FLASH_UNRESET | FLASH_WRITEMSB;
-
-        FLASH_WRITE(adr) = 0x25;        // buffer write
-        FLASH_WRITE(adr) = 31;          // 32 writes will follow (start with -1)
+        FLASH_SETLATCH(latch, bits | FLASH_UNRESET | FLASH_WRITELSB);
+        // This needs to go to the /sector/ address.
+        FLASH_WRITE(sa, 0x25);        // buffer write (note sure - datasheet says sa, example says adr?)
+        FLASH_WRITE(sa, 31);          // 32 writes will follow (start with -1)
 
         // todo: fully untested - can we enable full 16-bit writes??
-        FLASH_SETLATCH(latch) = bits | FLASH_UNRESET | FLASH_WRITEMSB | FLASH_WRITELSB;
+        // if it doesn't work, byte writes will be a fair bit slower on the TI side...
+        FLASH_SETLATCH(latch, bits | FLASH_UNRESET | FLASH_WRITEMSB | FLASH_WRITELSB);
 
         // write 32 16-bit words to the flash. The multiplexer will do 32 8-bit writes
-        for (int idx=off; idx<off+32; idx+=2) {
-            FLASH_WRITE(adr+idx) = *((unsigned int*)(&buffer[idx]));
+        for (unsigned int idx=off; idx<off+32; idx+=2) {
+            // FLASH_WRITE is only 8 bit, so we need a 16-bit version
+            unsigned int data = *((unsigned int*)(&buffer[idx]));
+            unsigned int outadr = 0xe000 + (adr+idx);
+            *((volatile unsigned int*)(outadr)) = data;
+#ifdef VERIFYLATCH
+            printf("%s - write >%X%X = >%X%X\n", __FUNCTION__, outadr>>8, outadr&0xff, data>>8, data&0xff);
+#endif
         }
 
-        FLASH_SETLATCH(latch) = bits | FLASH_UNRESET | FLASH_WRITEMSB;
-
-        FLASH_WRITE(adr) = 0x29;        // start the process
+        // this should be the right place to write the start command to...
+        FLASH_SETLATCH(latch, bits | FLASH_UNRESET | FLASH_WRITELSB);
+        FLASH_WRITE(sa, 0x29);        // start the process (datasheet says sa, example says adr)
 
         // expected time is 512uS to 2048uS
-        if (!flashWaitForWrite(page, adr+31, buffer[31])) {
+        // Watch out - LSB is first, MSB is second. The docs suggest this is okay, but is it??
+        // Spansion polls by checking the status register instead....
+        if (!flashWaitForWrite(page, adr+30, buffer[30])) {     // track MSB as the last write...?
             return false;
         }
     }
@@ -335,22 +419,22 @@ bool flashWriteSlow(unsigned int page, unsigned int adr) {
     int latch = (page&0xfff) << 1;
     unsigned char bits = (page>>12) & 0x03;
 
-    printf("Writing page %X%X, address %X%X\n", page>>8, page&0xff, adr>>8, adr&0xff);
+    printf("Writing page 0x%d, address 0x%X%X\n", page, adr>>8, adr&0xff);
 
     for (int off=0; off<512; off++, adr++) {
         flashUnlock();
 
         // send the command
-        FLASH_SETBITS = FLASH_UNRESET | FLASH_WRITEMSB;
-        FLASH_WRITE(0xaaa) = 0xa0;        // single word (byte) write
+        FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);
+        FLASH_WRITE(0xaaa, 0xa0);        // single word (byte) write
 
         // write the data
         if (adr & 1) {
-            FLASH_SETLATCH(latch) = bits | FLASH_UNRESET | FLASH_WRITELSB;
+            FLASH_SETLATCH(latch, bits | FLASH_UNRESET | FLASH_WRITELSB);
         } else {
-            FLASH_SETLATCH(latch) = bits | FLASH_UNRESET | FLASH_WRITEMSB;
+            FLASH_SETLATCH(latch, bits | FLASH_UNRESET | FLASH_WRITEMSB);
         }
-        FLASH_WRITE(adr) = buffer[off];
+        FLASH_WRITE(adr, buffer[off]);
 
         // TODO: do we need to wait? the program time ranges from
         // 256uS to 2048uS.. on the TI 256uS is about 80 instructions.
@@ -378,12 +462,12 @@ bool flashSectorErase(unsigned int page) {
 
     // send the command
     flashUnlock();
-    FLASH_SETBITS = FLASH_UNRESET | FLASH_WRITEMSB;
-    FLASH_WRITE(0xaaa) = 0x80;      // first step
+    FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);
+    FLASH_WRITE(0xaaa, 0x80);      // first step
 
     flashUnlock();
-    FLASH_SETLATCH(latch) = bits | FLASH_UNRESET | FLASH_WRITEMSB;
-    FLASH_WRITE(0) = 0x30;          // start erase
+    FLASH_SETLATCH(latch, bits | FLASH_UNRESET | FLASH_WRITEMSB);
+    FLASH_WRITE(0, 0x30);          // start erase
 
     if (!flashWaitForWrite(page, 0, 0xff)) {
         return false;
@@ -395,12 +479,12 @@ bool flashChipErase() {
     printf("Erasing flash chip...\n");
 
     flashUnlock();
-    FLASH_SETBITS = FLASH_UNRESET | FLASH_WRITEMSB;
-    FLASH_WRITE(0xaaa) = 0x80;      // first step
+    FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);
+    FLASH_WRITE(0xaaa, 0x80);      // first step
     
     flashUnlock();
-    FLASH_SETBITS = FLASH_UNRESET | FLASH_WRITEMSB;
-    FLASH_WRITE(0xaaa) = 0x10;      // second step, operation starts
+    FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);
+    FLASH_WRITE(0xaaa, 0x10);      // second step, operation starts
 
     // this takes over ten minutes!
     if (!flashWaitForWrite(0, 0, 0xff)) {
@@ -414,6 +498,8 @@ bool flashChipErase() {
 // CF7 functions
 //////////////////////////
 
+// seem to need a long (seconds?) delay after this...?
+// this will blow away 8-bit mode
 void cf7Reset() {
     volatile int idx;
 
@@ -429,11 +515,11 @@ void cf7Reset() {
 }
 
 void cf7Init() { 
-    cf7Reset();
-
     CF7_CRU_ON;
 
-        CF7_WRITE(CF7_FEATURES) = 0x81;         // 8-bit mode
+        CF7_WRITE(CF7_FEATURES) = 0x01;         // 8-bit mode (0x81 is disable 8-bit mode)
+        CF7_WRITE(CF7_SECTOR_CNT) = 0;          // no config
+        CF7_WRITE(CF7_CARD_HEAD) = 0;           // drive zero
         CF7_WRITE(CF7_COMMAND) = 0xef;          // set features
 
     CF7_CRU_OFF;
@@ -558,7 +644,9 @@ void cf7IdentifyDevice() {
         }
 
         printf("Identify...");
-        for (int off=0; off<512; ++off) {
+        // the data comes in 16-bit swapped (only for this, normal reads and writes are fine)
+        for (int off=0; off<512; off+=2) {
+            buffer[off+1] = CF7_READ(CF7_DATA);
             buffer[off] = CF7_READ(CF7_DATA);
         }
         printf(":\n");
@@ -566,9 +654,11 @@ void cf7IdentifyDevice() {
     CF7_CRU_OFF;
 
     // now parse the useful data...
+    // I don't think these are coming from the right places...
     printf("Size    : 0x%X%X%X%X sectors\n", buffer[14], buffer[15], buffer[16], buffer[17]);
-    printf("Capacity: 0x%X%X%X%X sectors\n", buffer[114], buffer[115], buffer[116], buffer[117]);
-    printf("LBA     : 0x%X%X%X%X sectors\n", buffer[120], buffer[121], buffer[122], buffer[123]);
+    // these next two have the opposite word order to the first one... weird (but confirmed).
+    printf("Capacity: 0x%X%X%X%X sectors\n", buffer[116], buffer[117], buffer[114], buffer[115]);
+    printf("LBA     : 0x%X%X%X%X sectors\n", buffer[122], buffer[123], buffer[120], buffer[121]);
     printf("Serial: ");
         for (int idx=20; idx<40; ++idx) { putchar(buffer[idx]); }
         putchar('\n');
@@ -577,6 +667,7 @@ void cf7IdentifyDevice() {
         for (int idx=46; idx<76; ++idx) { putchar(buffer[idx]); }
         putchar('\n');
 
+#ifdef VERIFYLATCH
     // dump what we read
     for (int idx=0; idx<512; ++idx) {
         if ((buffer[idx]>=' ')&&(buffer[idx]<='z')) {
@@ -586,6 +677,7 @@ void cf7IdentifyDevice() {
         } 
     }
     printf("\n");
+#endif
 
 }
 
@@ -633,13 +725,14 @@ bool cf7ReadSector(unsigned int high, unsigned int low) {
 
 // I don't really need a write, but might as well have it somewhere - can
 // throw it into libti99 later...
+// don't need to swap the buffer for writes...
 bool cf7WriteSector(unsigned int high, unsigned int low) {
     volatile int idx = 0;
 
     CF7_CRU_ON;
 
         cf7SetAddress(high, low);
-        
+
         if (!cf7WaitForReady()) {
             CF7_CRU_OFF;
             return false;
@@ -693,13 +786,14 @@ int main() {
 		int x;
         x = set_text_raw();
 		charsetlc();
-		vdpmemset(gColor, 0x10, 32);
 		VDP_SET_REGISTER(VDP_REG_MODE1, x);
 		VDP_REG1_KSCAN_MIRROR = x;
 		VDP_SET_REGISTER(VDP_REG_COL, 0x17);
+        scrn_scroll = fast_scrn_scroll;
 	}
 	
     flashReset();
+    cf7Init();
 
 	printf("CF7 to Seahorse board programmer\n\n");
 
@@ -715,24 +809,78 @@ int main() {
         printf("  S to test flash slow write\n");
         printf("  X to test sector erase\n");
         printf("  E to test flash erase\n");
+        printf("  I for flash status info\n");
         printf("  R to put flash in reset\n");
         printf("\n  1 to reset CF7\n");
         printf("  2 to read CF info\n");
         printf("  3 to read CF7\n");
         printf("  4 to write CF7 (destructive!)\n");
         printf("  5 to check CF card error\n");
+        printf("\n  Q to quit\n");
         while (loop) {
             kscanfast(0);
             switch (KSCAN_KEY) {
-                case 'C':   flashReadCfi(); loop=0; break;
-                case 'F':   printf("Fast: Page 16, address 512\n"); if (flashWriteFast(16,512)) printf("OK!\n"); else printf("Failed!\n"); loop=0; break;
-                case 'S':   printf("Slow: Page 16, address 1024\n"); if (flashWriteFast(16,1024)) printf("OK!\n"); else printf("Failed!\n"); loop=0; break;
-                case 'X':   if (flashSectorErase(16)) printf("OK!\n"); else printf("Failed!\n"); loop=0; break;
-                case 'E':   if (flashChipErase()) printf("OK!\n"); else printf("Failed!\n"); loop=0; break;
-                case 'R':   flashReset(); loop=0; break;
+                case 'Q':   return 0;
+                case 'C':   flashReadCfi(); 
+                            loop=0; 
+                            break;
 
-                case '1':   cf7Reset(); loop=0; break;
-                case '2':   cf7IdentifyDevice(); loop=0; break;
+                case 'F':   printf("Fast: Page 16, address 512\n"); 
+                            for (int idx=0; idx<512; ++idx) {
+                                buffer[idx]=(idx&0xff);
+                            }
+                            if (flashWriteFast(16,512)) {
+                                printf("OK!\n"); 
+                            } else {
+                                printf("Failed!\n");
+                            }
+                            loop=0; 
+                            break;
+
+                case 'S':   printf("Slow: Page 16, address 1024\n"); 
+                            for (int idx=0; idx<512; ++idx) {
+                                buffer[idx]=(idx&0xff);
+                            }
+                            if (flashWriteSlow(16,1024)) {
+                                printf("OK!\n"); 
+                            } else {
+                                printf("Failed!\n"); 
+                            }
+                            loop=0; 
+                            break;
+
+                case 'X':   if (flashSectorErase(16)) {
+                                printf("OK!\n"); 
+                            } else {
+                                printf("Failed!\n"); 
+                            }   
+                            loop=0; 
+                            break;
+
+                case 'E':   if (flashChipErase()) {
+                                printf("OK!\n"); 
+                            } else {
+                                printf("Failed!\n");
+                            }
+                            loop=0; 
+                            break;
+
+                case 'I':   flashReadStatus(); 
+                            loop=0; 
+                            break;
+
+                case 'R':   flashReset(); 
+                            loop=0; 
+                            break;
+
+                case '1':   cf7Init(); 
+                            loop=0; 
+                            break;
+
+                case '2':   cf7IdentifyDevice(); 
+                            loop=0; 
+                            break;
+
                 case '3':   if (cf7ReadSector(cfhigh, cflow)) {
                                 for (int idx=0; idx<512; ++idx) {
                                     if ((buffer[idx]>=' ')&&(buffer[idx]<='z')) {
@@ -749,19 +897,22 @@ int main() {
                             if (cflow == 0) ++cfhigh; 
                             loop=0; 
                             break;
+
                 case '4':   for (int idx=0; idx<512; ++idx) {
                                 buffer[idx]=(idx&0xff);
                             }
-                            if (cf7WriteSector(0, 800)) {
+                            strcpy(buffer,"Mike was here");
+                            if (cf7WriteSector(0, 5)) {
                                 printf("OK!\n");
                             } else {
                                 printf("Failed!\n"); 
                             }
-                            ++cflow; 
-                            if (cflow == 0) ++cfhigh; 
                             loop=0; 
                             break;
-                case '5':   cf7CardError(); loop=0; break;
+
+                case '5':   cf7CardError(); 
+                            loop=0; 
+                            break;
             }
         }
         printf("Press a key...\n");

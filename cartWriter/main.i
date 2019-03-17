@@ -164,9 +164,12 @@ void fast_hexprint(unsigned char x);
 void faster_hexprint(unsigned char x);
 
 
-void scrn_scroll();
 
-extern void (*fast_scrn_scroll)();
+void scrn_scroll_default();
+extern void (*scrn_scroll)();
+
+
+void fast_scrn_scroll();
 
 
 
@@ -202,7 +205,7 @@ void charset();
 
 
 void charsetlc();
-# 358 "/mnt/d/work/ti/libti99/vdp.h"
+# 361 "/mnt/d/work/ti/libti99/vdp.h"
 void gplvdp(int vect, int adr, int cnt);
 
 
@@ -353,7 +356,7 @@ char* uint2hex(unsigned int x);
 
 void gets(char *buf, int maxlen);
 # 36 "main.c" 2
-# 47 "main.c"
+# 50 "main.c"
 void flashReset() ;
 void flashUnlock() ;
 void flashReadCfi() ;
@@ -362,7 +365,7 @@ int flashWriteFast(unsigned int page, unsigned int adr) ;
 int flashWriteSlow(unsigned int page, unsigned int adr) ;
 int flashSectorErase(unsigned int page) ;
 int flashChipErase() ;
-# 66 "main.c"
+# 69 "main.c"
 void cf7Reset() ;
 void cf7Init() ;
 void cf7SetAddress(unsigned int high, unsigned int low) ;
@@ -374,16 +377,21 @@ int cf7WriteSector(unsigned int high, unsigned int low) ;
 
 
 unsigned char buffer[512];
-# 121 "main.c"
+
+
+volatile unsigned char verify;
+volatile unsigned int verifylatch;
+# 136 "main.c"
 void flashReset() {
-    *((volatile unsigned char*)0x6000) = 0;
+    *((volatile unsigned char*)0x6000)=verify=(0); printf("%s - latch >6000 = >%X\n", __FUNCTION__, (0));;
 }
 
 
 void flashUnlock() {
-    *((volatile unsigned char*)0x6000) = 0x10 | 0x08;
-    *((volatile unsigned char*)(0xE000+(0xaa))) = 0xaa;
-    *((volatile unsigned char*)(0xE000+(0x554)))= 0x55;
+    *((volatile unsigned char*)0x6000)=verify=(0x10 | 0x08); printf("%s - latch >6000 = >%X\n", __FUNCTION__, (0x10 | 0x08));;
+    verifylatch=(0xaaa); *((volatile unsigned char*)(0xE000+(0xaaa)))=verify=(0xaa); printf("%s - write >%X%X = >%X\n", __FUNCTION__, (0xe000+(0xaaa))>>8, (0xe000+(0xaaa))&0xff, (0xaa));;
+    *((volatile unsigned char*)0x6000)=verify=(0x10 | 0x04); printf("%s - latch >6000 = >%X\n", __FUNCTION__, (0x10 | 0x04));;
+    verifylatch=(0x555); *((volatile unsigned char*)(0xE000+(0x555)))=verify=(0x55); printf("%s - write >%X%X = >%X\n", __FUNCTION__, (0xe000+(0x555))>>8, (0xe000+(0x555))&0xff, (0x55));;
 }
 
 
@@ -395,16 +403,22 @@ void flashReadCfi() {
     printf("Flash CFI information:\n");
 
 
-    *((volatile unsigned char*)0x6000) = 0x10 | 0x08;
-    *((volatile unsigned char*)(0xE000+(0xaa))) = 0x98;
-    *((volatile unsigned char*)0x6000) = 0x10;
+
+    *((volatile unsigned char*)0x6000)=verify=(0x10 | 0x08); printf("%s - latch >6000 = >%X\n", __FUNCTION__, (0x10 | 0x08));;
+    verifylatch=(0xaa); *((volatile unsigned char*)(0xE000+(0xaa)))=verify=(0x98); printf("%s - write >%X%X = >%X\n", __FUNCTION__, (0xe000+(0xaa))>>8, (0xe000+(0xaa))&0xff, (0x98));;
+    *((volatile unsigned char*)0x6000)=verify=(0x10); printf("%s - latch >6000 = >%X\n", __FUNCTION__, (0x10));;
 
 
 
 
-    for (int idx=0; idx<256; ++idx) {
+    for (int idx=0; idx<512; ++idx) {
         buffer[idx] = *((volatile unsigned char*)(0x6000+(idx)));
     }
+
+
+    *((volatile unsigned char*)0x6000)=verify=(0x10 | 0x08); printf("%s - latch >6000 = >%X\n", __FUNCTION__, (0x10 | 0x08));;
+    verifylatch=(0xaa); *((volatile unsigned char*)(0xE000+(0xaa)))=verify=(0xf0); printf("%s - write >%X%X = >%X\n", __FUNCTION__, (0xe000+(0xaa))>>8, (0xe000+(0xaa))&0xff, (0xf0));;
+    *((volatile unsigned char*)0x6000)=verify=(0x10); printf("%s - latch >6000 = >%X\n", __FUNCTION__, (0x10));;
 
 
     if ((buffer[0x20]!='Q') || (buffer[0x22]!='R') || (buffer[0x24]!='Y')) {
@@ -491,10 +505,52 @@ void flashReadCfi() {
 
 
 
+
+void flashReadStatus() {
+
+    *((volatile unsigned char*)0x6000)=verify=(0x10 | 0x08); printf("%s - latch >6000 = >%X\n", __FUNCTION__, (0x10 | 0x08));;
+    verifylatch=(0xaaa); *((volatile unsigned char*)(0xE000+(0xaaa)))=verify=(0x70); printf("%s - write >%X%X = >%X\n", __FUNCTION__, (0xe000+(0xaaa))>>8, (0xe000+(0xaaa))&0xff, (0x70));;
+    *((volatile unsigned char*)0x6000)=verify=(0x10); printf("%s - latch >6000 = >%X\n", __FUNCTION__, (0x10));;
+
+
+
+
+    unsigned int tmp = *((volatile unsigned int*)0x6000);
+
+
+    printf("Status word read: >%X%X\n", tmp>>8, tmp&0xff);
+
+
+    unsigned char x = tmp&0xff;
+
+    if (x&0x80) {
+
+        printf("Ready          : yes\n");
+        printf("Erase suspend  : %s\n", (x&0x40)?"yes":"no");
+        printf("Erase status   : %s\n", (x&0x20)?"fail":"ok");
+        printf("Program status : %s\n", (x&0x10)?"fail":"ok");
+        printf("Write Buf Abort: %s\n", (x&0x08)?"yes":"no");
+        printf("Program suspend: %s\n", (x&0x04)?"yes":"no");
+        printf("Sector locked  : %s\n", (x&0x04)?"yes":"no");
+        printf("Continuity     : %s\n", (x&0x04)?"ok":"no");
+    } else {
+
+        printf("Ready          : no\n");
+    }
+
+
+    *((volatile unsigned char*)0x6000)=verify=(0x10 | 0x08); printf("%s - latch >6000 = >%X\n", __FUNCTION__, (0x10 | 0x08));;
+    verifylatch=(0xaaa); *((volatile unsigned char*)(0xE000+(0xaaa)))=verify=(0x71); printf("%s - write >%X%X = >%X\n", __FUNCTION__, (0xe000+(0xaaa))>>8, (0xe000+(0xaaa))&0xff, (0x71));;
+    *((volatile unsigned char*)0x6000)=verify=(0x10); printf("%s - latch >6000 = >%X\n", __FUNCTION__, (0x10));;
+
+}
+
+
+
 int flashWaitForWrite(unsigned int page, unsigned int adr, unsigned char val) {
     int latch = (page&0xfff) << 1;
     unsigned char bits = (page>>12) & 0x03;
-    *((volatile unsigned char*)(0x6000+(latch))) = bits | 0x10;
+    verifylatch=(latch); *((volatile unsigned char*)(0x6000+(latch)))=verify=(bits | 0x10); printf("%s - latch >%X%X = >%X\n", __FUNCTION__, (0x6000+(latch))>>8, (0x6000+(latch))&0xff, (bits | 0x10));;
 
     int time = 0;
     int cycles = 0;
@@ -504,17 +560,23 @@ int flashWaitForWrite(unsigned int page, unsigned int adr, unsigned char val) {
     for (;;) {
         unsigned char x = *((volatile unsigned char*)(0x6000+(adr)));
         if (x == val) {
-            printf("\rOk.       \n");
+            printf("\n");
             return 1;
         }
-        if (x & 0x02) {
+        if (x & 0x20) {
 
 
             x = *((volatile unsigned char*)(0x6000+(adr)));
             if (x == val) {
                 return 1;
             }
-            printf("\nWrite operation reports failed\n");
+            printf(">%X\n", x);
+            if (x & 0x08) {
+                printf("Erase operation reports failed\n");
+            } else {
+                printf("Write operation reports failed\n");
+            }
+            flashReadStatus();
             return 0;
         }
 
@@ -524,7 +586,7 @@ int flashWaitForWrite(unsigned int page, unsigned int adr, unsigned char val) {
             if (cycles >= 60) {
                 ++time;
                 cycles=0;
-                printf("\rWaiting... %ds", time);
+                printf("\rWaiting... >%X != >%X - %ds", x, val, time);
                 kscanfast(0);
                 if (*((volatile unsigned char*)0x8375) == ' ') {
                     printf("\n-- Aborted by keypress\n");
@@ -542,35 +604,46 @@ int flashWaitForWrite(unsigned int page, unsigned int adr, unsigned char val) {
 int flashWriteFast(unsigned int page, unsigned int adr) {
     int latch = (page&0xfff) << 1;
     unsigned char bits = (page>>12) & 0x03;
+# 367 "main.c"
+    unsigned int sa = (adr&0x1000)+0x555;
 
     if (adr%32) {
         printf("* Can't write to unaligned address: %X%X\n", (adr>>8), (adr&0xff));
         return 0;
     }
 
-    printf("WRITING page %X%X, address %X%X\n", page>>8, page&0xff, adr>>8, adr&0xff);
+    printf("WRITING page %d, address 0x%X%X\n", page, adr>>8, adr&0xff);
 
-    for (int off=0; off<512; off+=32, adr+=32) {
+    for (int off=0; off<512; off+=32) {
         flashUnlock();
-        *((volatile unsigned char*)(0x6000+(latch))) = bits | 0x10 | 0x08;
+        verifylatch=(latch); *((volatile unsigned char*)(0x6000+(latch)))=verify=(bits | 0x10 | 0x04); printf("%s - latch >%X%X = >%X\n", __FUNCTION__, (0x6000+(latch))>>8, (0x6000+(latch))&0xff, (bits | 0x10 | 0x04));;
 
-        *((volatile unsigned char*)(0xE000+(adr))) = 0x25;
-        *((volatile unsigned char*)(0xE000+(adr))) = 31;
-
-
-        *((volatile unsigned char*)(0x6000+(latch))) = bits | 0x10 | 0x08 | 0x04;
+        verifylatch=(sa); *((volatile unsigned char*)(0xE000+(sa)))=verify=(0x25); printf("%s - write >%X%X = >%X\n", __FUNCTION__, (0xe000+(sa))>>8, (0xe000+(sa))&0xff, (0x25));;
+        verifylatch=(sa); *((volatile unsigned char*)(0xE000+(sa)))=verify=(31); printf("%s - write >%X%X = >%X\n", __FUNCTION__, (0xe000+(sa))>>8, (0xe000+(sa))&0xff, (31));;
 
 
-        for (int idx=off; idx<off+32; idx+=2) {
-            *((volatile unsigned char*)(0xE000+(adr+idx))) = *((unsigned int*)(&buffer[idx]));
+
+        verifylatch=(latch); *((volatile unsigned char*)(0x6000+(latch)))=verify=(bits | 0x10 | 0x08 | 0x04); printf("%s - latch >%X%X = >%X\n", __FUNCTION__, (0x6000+(latch))>>8, (0x6000+(latch))&0xff, (bits | 0x10 | 0x08 | 0x04));;
+
+
+        for (unsigned int idx=off; idx<off+32; idx+=2) {
+
+            unsigned int data = *((unsigned int*)(&buffer[idx]));
+            unsigned int outadr = 0xe000 + (adr+idx);
+            *((volatile unsigned int*)(outadr)) = data;
+
+            printf("%s - write >%X%X = >%X%X\n", __FUNCTION__, outadr>>8, outadr&0xff, data>>8, data&0xff);
+
         }
 
-        *((volatile unsigned char*)(0x6000+(latch))) = bits | 0x10 | 0x08;
 
-        *((volatile unsigned char*)(0xE000+(adr))) = 0x29;
+        verifylatch=(latch); *((volatile unsigned char*)(0x6000+(latch)))=verify=(bits | 0x10 | 0x04); printf("%s - latch >%X%X = >%X\n", __FUNCTION__, (0x6000+(latch))>>8, (0x6000+(latch))&0xff, (bits | 0x10 | 0x04));;
+        verifylatch=(sa); *((volatile unsigned char*)(0xE000+(sa)))=verify=(0x29); printf("%s - write >%X%X = >%X\n", __FUNCTION__, (0xe000+(sa))>>8, (0xe000+(sa))&0xff, (0x29));;
 
 
-        if (!flashWaitForWrite(page, adr+31, buffer[31])) {
+
+
+        if (!flashWaitForWrite(page, adr+30, buffer[30])) {
             return 0;
         }
     }
@@ -587,22 +660,22 @@ int flashWriteSlow(unsigned int page, unsigned int adr) {
     int latch = (page&0xfff) << 1;
     unsigned char bits = (page>>12) & 0x03;
 
-    printf("Writing page %X%X, address %X%X\n", page>>8, page&0xff, adr>>8, adr&0xff);
+    printf("Writing page 0x%d, address 0x%X%X\n", page, adr>>8, adr&0xff);
 
     for (int off=0; off<512; off++, adr++) {
         flashUnlock();
 
 
-        *((volatile unsigned char*)0x6000) = 0x10 | 0x08;
-        *((volatile unsigned char*)(0xE000+(0xaaa))) = 0xa0;
+        *((volatile unsigned char*)0x6000)=verify=(0x10 | 0x08); printf("%s - latch >6000 = >%X\n", __FUNCTION__, (0x10 | 0x08));;
+        verifylatch=(0xaaa); *((volatile unsigned char*)(0xE000+(0xaaa)))=verify=(0xa0); printf("%s - write >%X%X = >%X\n", __FUNCTION__, (0xe000+(0xaaa))>>8, (0xe000+(0xaaa))&0xff, (0xa0));;
 
 
         if (adr & 1) {
-            *((volatile unsigned char*)(0x6000+(latch))) = bits | 0x10 | 0x04;
+            verifylatch=(latch); *((volatile unsigned char*)(0x6000+(latch)))=verify=(bits | 0x10 | 0x04); printf("%s - latch >%X%X = >%X\n", __FUNCTION__, (0x6000+(latch))>>8, (0x6000+(latch))&0xff, (bits | 0x10 | 0x04));;
         } else {
-            *((volatile unsigned char*)(0x6000+(latch))) = bits | 0x10 | 0x08;
+            verifylatch=(latch); *((volatile unsigned char*)(0x6000+(latch)))=verify=(bits | 0x10 | 0x08); printf("%s - latch >%X%X = >%X\n", __FUNCTION__, (0x6000+(latch))>>8, (0x6000+(latch))&0xff, (bits | 0x10 | 0x08));;
         }
-        *((volatile unsigned char*)(0xE000+(adr))) = buffer[off];
+        verifylatch=(adr); *((volatile unsigned char*)(0xE000+(adr)))=verify=(buffer[off]); printf("%s - write >%X%X = >%X\n", __FUNCTION__, (0xe000+(adr))>>8, (0xe000+(adr))&0xff, (buffer[off]));;
 
 
 
@@ -630,12 +703,12 @@ int flashSectorErase(unsigned int page) {
 
 
     flashUnlock();
-    *((volatile unsigned char*)0x6000) = 0x10 | 0x08;
-    *((volatile unsigned char*)(0xE000+(0xaaa))) = 0x80;
+    *((volatile unsigned char*)0x6000)=verify=(0x10 | 0x08); printf("%s - latch >6000 = >%X\n", __FUNCTION__, (0x10 | 0x08));;
+    verifylatch=(0xaaa); *((volatile unsigned char*)(0xE000+(0xaaa)))=verify=(0x80); printf("%s - write >%X%X = >%X\n", __FUNCTION__, (0xe000+(0xaaa))>>8, (0xe000+(0xaaa))&0xff, (0x80));;
 
     flashUnlock();
-    *((volatile unsigned char*)(0x6000+(latch))) = bits | 0x10 | 0x08;
-    *((volatile unsigned char*)(0xE000+(0))) = 0x30;
+    verifylatch=(latch); *((volatile unsigned char*)(0x6000+(latch)))=verify=(bits | 0x10 | 0x08); printf("%s - latch >%X%X = >%X\n", __FUNCTION__, (0x6000+(latch))>>8, (0x6000+(latch))&0xff, (bits | 0x10 | 0x08));;
+    verifylatch=(0); *((volatile unsigned char*)(0xE000+(0)))=verify=(0x30); printf("%s - write >%X%X = >%X\n", __FUNCTION__, (0xe000+(0))>>8, (0xe000+(0))&0xff, (0x30));;
 
     if (!flashWaitForWrite(page, 0, 0xff)) {
         return 0;
@@ -647,12 +720,12 @@ int flashChipErase() {
     printf("Erasing flash chip...\n");
 
     flashUnlock();
-    *((volatile unsigned char*)0x6000) = 0x10 | 0x08;
-    *((volatile unsigned char*)(0xE000+(0xaaa))) = 0x80;
+    *((volatile unsigned char*)0x6000)=verify=(0x10 | 0x08); printf("%s - latch >6000 = >%X\n", __FUNCTION__, (0x10 | 0x08));;
+    verifylatch=(0xaaa); *((volatile unsigned char*)(0xE000+(0xaaa)))=verify=(0x80); printf("%s - write >%X%X = >%X\n", __FUNCTION__, (0xe000+(0xaaa))>>8, (0xe000+(0xaaa))&0xff, (0x80));;
 
     flashUnlock();
-    *((volatile unsigned char*)0x6000) = 0x10 | 0x08;
-    *((volatile unsigned char*)(0xE000+(0xaaa))) = 0x10;
+    *((volatile unsigned char*)0x6000)=verify=(0x10 | 0x08); printf("%s - latch >6000 = >%X\n", __FUNCTION__, (0x10 | 0x08));;
+    verifylatch=(0xaaa); *((volatile unsigned char*)(0xE000+(0xaaa)))=verify=(0x10); printf("%s - write >%X%X = >%X\n", __FUNCTION__, (0xe000+(0xaaa))>>8, (0xe000+(0xaaa))&0xff, (0x10));;
 
 
     if (!flashWaitForWrite(0, 0, 0xff)) {
@@ -661,6 +734,8 @@ int flashChipErase() {
 
     return 1;
 }
+
+
 
 
 
@@ -681,11 +756,11 @@ void cf7Reset() {
 }
 
 void cf7Init() {
-    cf7Reset();
-
     __asm__( "li r12,>1100\n\tsbo 0" : : : "r12" );;
 
-        *((volatile unsigned char*)(0x5f00+(3))) = 0x81;
+        *((volatile unsigned char*)(0x5f00+(3))) = 0x01;
+        *((volatile unsigned char*)(0x5f00+(5))) = 0;
+        *((volatile unsigned char*)(0x5f00+(0xd))) = 0;
         *((volatile unsigned char*)(0x5f00+(0xf))) = 0xef;
 
     __asm__( "li r12,>1100\n\tsbz 0" : : : "r12" );;
@@ -810,7 +885,9 @@ void cf7IdentifyDevice() {
         }
 
         printf("Identify...");
-        for (int off=0; off<512; ++off) {
+
+        for (int off=0; off<512; off+=2) {
+            buffer[off+1] = *((volatile unsigned char*)(0x5e00+(1)));
             buffer[off] = *((volatile unsigned char*)(0x5e00+(1)));
         }
         printf(":\n");
@@ -818,9 +895,11 @@ void cf7IdentifyDevice() {
     __asm__( "li r12,>1100\n\tsbz 0" : : : "r12" );;
 
 
+
     printf("Size    : 0x%X%X%X%X sectors\n", buffer[14], buffer[15], buffer[16], buffer[17]);
-    printf("Capacity: 0x%X%X%X%X sectors\n", buffer[114], buffer[115], buffer[116], buffer[117]);
-    printf("LBA     : 0x%X%X%X%X sectors\n", buffer[120], buffer[121], buffer[122], buffer[123]);
+
+    printf("Capacity: 0x%X%X%X%X sectors\n", buffer[116], buffer[117], buffer[114], buffer[115]);
+    printf("LBA     : 0x%X%X%X%X sectors\n", buffer[122], buffer[123], buffer[120], buffer[121]);
     printf("Serial: ");
         for (int idx=20; idx<40; ++idx) { putchar(buffer[idx]); }
         putchar('\n');
@@ -828,6 +907,7 @@ void cf7IdentifyDevice() {
 
         for (int idx=46; idx<76; ++idx) { putchar(buffer[idx]); }
         putchar('\n');
+
 
 
     for (int idx=0; idx<512; ++idx) {
@@ -838,6 +918,7 @@ void cf7IdentifyDevice() {
         }
     }
     printf("\n");
+
 
 }
 
@@ -882,6 +963,7 @@ int cf7ReadSector(unsigned int high, unsigned int low) {
 
     return 1;
 }
+
 
 
 
@@ -945,13 +1027,14 @@ int main() {
   int x;
         x = set_text_raw();
   charsetlc();
-  vdpmemset(gColor, 0x10, 32);
   VDP_SET_REGISTER(0x01, x);
   *((volatile unsigned char*)0x83d4) = x;
   VDP_SET_REGISTER(0x07, 0x17);
+        scrn_scroll = fast_scrn_scroll;
  }
 
     flashReset();
+    cf7Init();
 
  printf("CF7 to Seahorse board programmer\n\n");
 
@@ -967,24 +1050,78 @@ int main() {
         printf("  S to test flash slow write\n");
         printf("  X to test sector erase\n");
         printf("  E to test flash erase\n");
+        printf("  I for flash status info\n");
         printf("  R to put flash in reset\n");
         printf("\n  1 to reset CF7\n");
         printf("  2 to read CF info\n");
         printf("  3 to read CF7\n");
         printf("  4 to write CF7 (destructive!)\n");
         printf("  5 to check CF card error\n");
+        printf("\n  Q to quit\n");
         while (loop) {
             kscanfast(0);
             switch (*((volatile unsigned char*)0x8375)) {
-                case 'C': flashReadCfi(); loop=0; break;
-                case 'F': printf("Fast: Page 16, address 512\n"); if (flashWriteFast(16,512)) printf("OK!\n"); else printf("Failed!\n"); loop=0; break;
-                case 'S': printf("Slow: Page 16, address 1024\n"); if (flashWriteFast(16,1024)) printf("OK!\n"); else printf("Failed!\n"); loop=0; break;
-                case 'X': if (flashSectorErase(16)) printf("OK!\n"); else printf("Failed!\n"); loop=0; break;
-                case 'E': if (flashChipErase()) printf("OK!\n"); else printf("Failed!\n"); loop=0; break;
-                case 'R': flashReset(); loop=0; break;
+                case 'Q': return 0;
+                case 'C': flashReadCfi();
+                            loop=0;
+                            break;
 
-                case '1': cf7Reset(); loop=0; break;
-                case '2': cf7IdentifyDevice(); loop=0; break;
+                case 'F': printf("Fast: Page 16, address 512\n");
+                            for (int idx=0; idx<512; ++idx) {
+                                buffer[idx]=(idx&0xff);
+                            }
+                            if (flashWriteFast(16,512)) {
+                                printf("OK!\n");
+                            } else {
+                                printf("Failed!\n");
+                            }
+                            loop=0;
+                            break;
+
+                case 'S': printf("Slow: Page 16, address 1024\n");
+                            for (int idx=0; idx<512; ++idx) {
+                                buffer[idx]=(idx&0xff);
+                            }
+                            if (flashWriteSlow(16,1024)) {
+                                printf("OK!\n");
+                            } else {
+                                printf("Failed!\n");
+                            }
+                            loop=0;
+                            break;
+
+                case 'X': if (flashSectorErase(16)) {
+                                printf("OK!\n");
+                            } else {
+                                printf("Failed!\n");
+                            }
+                            loop=0;
+                            break;
+
+                case 'E': if (flashChipErase()) {
+                                printf("OK!\n");
+                            } else {
+                                printf("Failed!\n");
+                            }
+                            loop=0;
+                            break;
+
+                case 'I': flashReadStatus();
+                            loop=0;
+                            break;
+
+                case 'R': flashReset();
+                            loop=0;
+                            break;
+
+                case '1': cf7Init();
+                            loop=0;
+                            break;
+
+                case '2': cf7IdentifyDevice();
+                            loop=0;
+                            break;
+
                 case '3': if (cf7ReadSector(cfhigh, cflow)) {
                                 for (int idx=0; idx<512; ++idx) {
                                     if ((buffer[idx]>=' ')&&(buffer[idx]<='z')) {
@@ -1001,19 +1138,22 @@ int main() {
                             if (cflow == 0) ++cfhigh;
                             loop=0;
                             break;
+
                 case '4': for (int idx=0; idx<512; ++idx) {
                                 buffer[idx]=(idx&0xff);
                             }
-                            if (cf7WriteSector(0, 800)) {
+                            strcpy(buffer,"Mike was here");
+                            if (cf7WriteSector(0, 5)) {
                                 printf("OK!\n");
                             } else {
                                 printf("Failed!\n");
                             }
-                            ++cflow;
-                            if (cflow == 0) ++cfhigh;
                             loop=0;
                             break;
-                case '5': cf7CardError(); loop=0; break;
+
+                case '5': cf7CardError();
+                            loop=0;
+                            break;
             }
         }
         printf("Press a key...\n");
