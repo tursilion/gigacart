@@ -44,7 +44,7 @@
 #endif
 
 // define this to enable gigacart verify print back
-#define VERIFYLATCH
+//#define VERIFYLATCH
 
 // forward declarations
 void flashReset() ;
@@ -57,14 +57,13 @@ bool flashSectorErase(unsigned int page) ;
 bool flashChipErase() ;
 
 // classic99 puts the CF7 at >1000 instead of >1100
-//#define CLASSIC99
-#ifdef CLASSIC99
-#define CF7_CRU_ON __asm__( "li r12,>1000\n\tsbo 0" : : : "r12" );
-#define CF7_CRU_OFF __asm__( "li r12,>1000\n\tsbz 0" : : : "r12" );
-#else
-#define CF7_CRU_ON __asm__( "li r12,>1100\n\tsbo 0" : : : "r12" );
-#define CF7_CRU_OFF __asm__( "li r12,>1100\n\tsbz 0" : : : "r12" );
-#endif
+bool CF7Classic99 = false;
+#define CLASSIC99_CRU_ON __asm__( "li r12,>1000\n\tsbo 0" : : : "r12" )
+#define CLASSIC99_CRU_OFF __asm__( "li r12,>1000\n\tsbz 0" : : : "r12" )
+#define REAL_CF7_CRU_ON __asm__( "li r12,>1100\n\tsbo 0" : : : "r12" )
+#define REAL_CF7_CRU_OFF __asm__( "li r12,>1100\n\tsbz 0" : : : "r12" )
+#define CF7_CRU_ON if (CF7Classic99) CLASSIC99_CRU_ON; else REAL_CF7_CRU_ON;
+#define CF7_CRU_OFF if (CF7Classic99) CLASSIC99_CRU_OFF; else REAL_CF7_CRU_OFF;
 
 void cf7Reset() ;
 void cf7Init() ; 
@@ -105,10 +104,33 @@ volatile unsigned int verifylatch;
 #define FLASH_WRITEMSB 0x08
 #define FLASH_UNRESET  0x10
 
+#if 0
 // the offset is 128k, which is 16 (8k) pages. Latches are every 2 addresses.
 #define FLASH_SKIPOFFSET (128*1024)
-// since we're only 16-bit, we track the latch explicitly
-#define FLASH_FIRSTLATCH (((SKIPOFFSET)/(8*1024)*2)+0x6000)
+// There are only 16384 pages total, which fits in 16 bit. This gives 16 today.
+#define FLASH_FIRSTPAGE (((FLASH_SKIPOFFSET)/(8*1024)))
+// and we need to skip some CF7 sectors for the disk image
+#define CF7_SKIPOFFSET (1600)
+// Then we need to skip the flash offset too... (today this gives sector 1856)
+#define CF7_FIRSTSECTOR (CF7_SKIPOFFSET+(FLASH_SKIPOFFSET/512))
+// The last sector is always 128MB after the SKIPOFFSET (inclusive)
+// This gives us a value of 262,143, which is too big for a 16-bit counter.
+// I wonder how well 32-bit ints work in this compiler... sigh. Don't think
+// I'll risk it today, so split into high and low.
+#define CF7_LASTSECTOR (CF7_SKIPOFFSET+((128*1024*1024)/512)-1)
+#define CF7_LASTSECTOR_HIGH (CF7_LASTSECTOR>>16)
+#define CF7_LASTSECTOR_LOW  (CF7_LASTSECTOR&0xffff)
+#else
+// no 32-bit math in macros, eh? Fine. :)
+// There are only 16384 pages total, which fits in 16 bit. This gives 16 today.
+#define FLASH_FIRSTPAGE 16
+// Then we need to skip the flash offset too... (today this gives sector 1856)
+#define CF7_FIRSTSECTOR 1856
+// The last sector is always 128MB after the SKIPOFFSET (inclusive)
+// This gives us a value of 262,143, which is too big for a 16-bit counter.
+#define CF7_LASTSECTOR_HIGH 0x0004
+#define CF7_LASTSECTOR_LOW  0x063F
+#endif
 
 // use this to read a CF7 register (CRU must be on)
 #define CF7_READ(xx) *((volatile unsigned char*)(0x5e00+(xx)))
@@ -129,12 +151,66 @@ volatile unsigned int verifylatch;
 #define CF7_CONTROL     0x1d
 
 //////////////////////////
+// My fast screen scroll that leaves the top row alone
+//////////////////////////
+
+extern unsigned char vdp_bigbuf[256];
+
+void my_fast_scrn_scroll() {
+    // similar to the slow scrn_scroll, but uses a larger fixed
+    // buffer for far more speed.
+    // Leaves the top row alone for the progress bar.
+    const int line = nTextEnd - nTextRow + 1;
+    const int end = nTextEnd + gImage;
+    int adr = gImage+line+line;
+    int size = sizeof(vdp_bigbuf);
+
+    while (adr+size < end) {
+        vdpmemread(adr, vdp_bigbuf, size);
+        vdpmemcpy(adr - line, vdp_bigbuf, size);
+        adr += size;
+    }
+    if (adr <= end) {
+        // copy whatever was left
+        size = end - adr + 1;
+        vdpmemread(adr, vdp_bigbuf, size);
+        vdpmemcpy(adr - line, vdp_bigbuf, size);
+    }
+    vdpmemset(nTextRow, ' ', line);	// clear the last line
+}
+
+
+//////////////////////////
 // Flash functions
 //////////////////////////
 
 // does the reset. Release reset by setting the latch bits
 void flashReset() {
     FLASH_SETBITS(0);
+}
+
+// hacky shotgun style function to walk through the various resets
+void flashSoftResetAll() {
+    // ASO exit/reset
+    FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);
+    FLASH_WRITE(0xaaa, 0xf0);
+
+    // write to buffer abort reset
+    flashUnlock();
+    FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);
+    FLASH_WRITE(0xaaa, 0xf0);
+
+    // status register clear
+    FLASH_WRITE(0xaaa, 0x71);
+}
+
+// toggle the MSB/LSB bits to see if reads are sneaking through on transition
+void flashToggle() {
+    do {
+        FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);     // enable writes
+        FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITELSB);     // enable writes
+        kscanfast(0);
+    } while (KSCAN_KEY != ' ');
 }
 
 // unlock sequence required for most operations
@@ -159,11 +235,12 @@ void flashReadCfi() {
     FLASH_WRITE(0xaa, 0x98);                           // CFI
     FLASH_SETBITS(FLASH_UNRESET);                      // enable reads
 
-    // copy 512 bytes (they won't all be useful)
+    // copy defined bytes (per the datasheet)
     // since we're 8-bit, we get the least significant byte
     // of every 16-bit pairing (twice)
-    for (int idx=0; idx<512; ++idx) {
-        buffer[idx] = FLASH_READ(idx);
+    for (int idx=0; idx<0xf4; idx+=2) {
+        // do a 16-bit read for performance
+        *((unsigned int*)(&buffer[idx])) = *((volatile int*)(0x6000+idx));
     }
 
     // exit CFI mode
@@ -175,70 +252,74 @@ void flashReadCfi() {
     if ((buffer[0x20]!='Q') || (buffer[0x22]!='R') || (buffer[0x24]!='Y')) {
         printf("Did NOT get QRY string: %c%c%c\n", buffer[0x20], buffer[0x22], buffer[0x24]);
         fail=true;
-    }
-    printf("Device size: 2^%d bytes", (int)buffer[0x4e]);
-    if (buffer[0x4e] != 0x1b) {
-        printf(" [small]");
-    }
-    printf("\n");
+    } else {
+        printf("Device size: 2^%d bytes", (int)buffer[0x4e]);
+        if (buffer[0x4e] != 0x1b) {
+            printf(" [small]");
+        }
+        printf("\n");
 
-    if (buffer[0x50] == 1) {
-        printf("Device reports 16-bit only!\n");
-    }
+        if (buffer[0x50] == 1) {
+            printf("Device reports 16-bit only!\n");
+        }
 
-    printf("Vcc Min/Max: %d.%d / %d.%d V\n", (int)(buffer[0x36]>>4), (int)(buffer[0x36]&0x0f),
-                                             (int)(buffer[0x38]>>4), (int)(buffer[0x38]&0x0f));
-    int x = 1;
-    for (int idx = 0; idx<buffer[0x3e]; ++idx) x <<= 1;
-    printf("Timeout: Word write: %d uS\n", x);
-    printf("         Chip erase: 2^%d mS\n", (int)(buffer[0x44]));
+        printf("Vcc Min/Max: %d.%d / %d.%d V\n", (int)(buffer[0x36]>>4), (int)(buffer[0x36]&0x0f),
+                                                 (int)(buffer[0x38]>>4), (int)(buffer[0x38]&0x0f));
+        int x = 1;
+        for (int idx = 0; idx<buffer[0x3e]; ++idx) x <<= 1;
+        printf("Timeout: Word write: %d uS\n", x);
+        printf("         Chip erase: 2^%d mS\n", (int)(buffer[0x44]));
     
-    x = 1;
-    for (int idx = 0; idx<buffer[0x54]; ++idx) x <<= 1;
-    printf("Max multi-byte write size: %d bytes\n", x);
+        x = 1;
+        for (int idx = 0; idx<buffer[0x54]; ++idx) x <<= 1;
+        printf("Max multi-byte write size: %d bytes\n", x);
+    }
 
     if ((buffer[0x2a] != 0x40) || (buffer[0x80] != 'P') || (buffer[0x82] != 'R') || (buffer[0x84] != 'I')) {
         printf("Did NOT get PRI or not at 0x40: %c%c%c\n", buffer[0x80], buffer[0x82], buffer[0x84]);
-    }
-
-    printf("CFI version 1.%d\n", (int)(buffer[0x88]&0x0f));
-
-    printf("Process: ");
-    switch((buffer[0x8a]>>2)&0x0f) {
-        case 0: printf(".23um floating\n"); break;
-        case 1: printf(".17us floating\n"); break;
-        case 2: printf(".23um MirrorBit\n"); break;
-        case 3: printf(".13um floating\n"); break;
-        case 4: printf(".11um MirrorBit\n"); break;
-        case 5: printf(".09um MirrorBit\n"); break;
-        case 6: printf(".09um floating\n"); break;
-        case 7: printf(".065um MirrorBit Ec\n"); break;
-        case 8: printf(".065um MirrorBit\n"); break;
-        case 9: printf("0.045um MirrorBit\n"); break;
-        default: printf("unknown: %d\n", (int)((buffer[0x8a]>>2)&0x0f));
-    }
-
-    printf("WP# pin: ");
-    switch(buffer[0x9e]) {
-        case 0: printf("none\n"); break;
-        case 1: printf("64kb dual boot\n"); break;
-        case 2: printf("bottom boot\n"); break;
-        case 3: printf("top boot\n"); break;
-        case 4: printf("uniform bottom boot\n"); break;
-        case 5: printf("uniform top boot\n"); break;
-        case 6: printf("all sectors\n"); break;
-        case 7: printf("uniform dual\n"); break;
-        default: printf("unknown: %d\n", (int)(buffer[0x9e]));
-    }
-
-    // only available since CFI 1.5
-    if (buffer[0x88] >= 0x35) {
-        printf("Customer OTP area: 2^%d (%slocked)\n", (int)(buffer[0xa4]), (buffer[0x6]&0x40)?"":"un");
-        x = 1;
-        for (int idx = 0; idx<buffer[0xa8]; ++idx) x <<= 1;
-        printf("Page size = %d bytes\n", x);
     } else {
-        printf("Page size not available pre 1.5\n");
+        printf("CFI version 1.%d\n", (int)(buffer[0x88]&0x0f));
+
+        printf("Process: ");
+        switch((buffer[0x8a]>>2)&0x0f) {
+            case 0: printf(".23um floating\n"); break;
+            case 1: printf(".17us floating\n"); break;
+            case 2: printf(".23um MirrorBit\n"); break;
+            case 3: printf(".13um floating\n"); break;
+            case 4: printf(".11um MirrorBit\n"); break;
+            case 5: printf(".09um MirrorBit\n"); break;
+            case 6: printf(".09um floating\n"); break;
+            case 7: printf(".065um MirrorBit Ec\n"); break;
+            case 8: printf(".065um MirrorBit\n"); break;
+            case 9: printf("0.045um MirrorBit\n"); break;
+            default: printf("unknown: %d\n", (int)((buffer[0x8a]>>2)&0x0f));
+        }
+        if (buffer[0x8a]&0x03) {
+            printf("Unlock is not address sensitive.\n");
+        }
+
+        printf("WP# pin: ");
+        switch(buffer[0x9e]) {
+            case 0: printf("none\n"); break;
+            case 1: printf("64kb dual boot\n"); break;
+            case 2: printf("bottom boot\n"); break;
+            case 3: printf("top boot\n"); break;
+            case 4: printf("uniform bottom boot\n"); break;
+            case 5: printf("uniform top boot\n"); break;
+            case 6: printf("all sectors\n"); break;
+            case 7: printf("uniform dual\n"); break;
+            default: printf("unknown: %d\n", (int)(buffer[0x9e]));
+        }
+
+        // only available since CFI 1.5
+        if (buffer[0x88] >= 0x35) {
+            printf("Customer OTP area: 2^%d (%slocked)\n", (int)(buffer[0xa4]), (buffer[0x6]&0x40)?"":"un");
+            unsigned int x = 1;
+            for (int idx = 0; idx<buffer[0xa8]; ++idx) x <<= 1;
+            printf("Page size = %d bytes\n", x);
+        } else {
+            printf("Page size not available pre 1.5\n");
+        }
     }
 
     if (fail) {
@@ -258,6 +339,8 @@ void flashReadCfi() {
 // this doesn't work .. maybe it's not supported?
 // can't make it work by hand either...
 void flashReadStatus() {
+    // commented out until it works...
+#if 1
     // No unlock is needed
     FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);     // enable writes
     FLASH_WRITE(0xaaa, 0x70);                          // Status register
@@ -266,6 +349,10 @@ void flashReadStatus() {
     // the hardware layout means we can only read the LSB of the status register,
     // since we can't mask out reads (and LSB is first). Fortunately, that's the
     // byte we need!
+    // Except, as noted above, it doesn't work. Maybe the TI is throwing in
+    // an extra cycle that costs it...?
+    // Another possibility is that it's illegal to read the LSB first, the
+    // docs only mention a "transition" on the A(-1) line...
     unsigned int tmp = *((volatile unsigned int*)0x6000);
 
 #ifdef VERIFYLATCH
@@ -293,7 +380,7 @@ void flashReadStatus() {
     FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);     // enable writes
     FLASH_WRITE(0xaaa, 0x71);                          // Clear Status register
     FLASH_SETBITS(FLASH_UNRESET);                      // enable reads
-
+#endif
 }
 
 // wait for a write operation to complete
@@ -306,26 +393,39 @@ bool flashWaitForWrite(unsigned int page, unsigned int adr, unsigned char val) {
     int time = 0;
     int cycles = 0;
 
-    printf("Waiting...");
+    // only say waiting if we wait over 1 second
+    //printf("Waiting...");
     
+    // the toggle mechanism of the status word is defeated
+    // by the multiplexer - this makes false positives tricky
+
     for (;;) {
-        unsigned char x = FLASH_READ(adr);
+        //printf(".");
+        unsigned char x = FLASH_READ(adr);  // reads twice, at different addresses
         if (x == val) {
-            printf("\n");
+            if (time > 0) {
+                printf("\n");
+            }
+#ifdef VERIFYLATCH
+            printf("Write complete. %X=%X at %X%X\n", x, val, adr>>8,adr&0xff);
+#endif
             return true;
         }
-        if (x & 0x20) {
+        if (x & 0x22) {
             // one more read to make sure it's not a false positive caused by transition
             // recommended by the datasheet
-            x = FLASH_READ(adr);
+            x = FLASH_READ(adr);  // reads twice, at different addresses
             if (x == val) {
+#ifdef VERIFYLATCH
+                printf("Write complete, %X=%X at %X%X\n", x, val, adr>>8,adr&0xff);
+#endif
                 return true;
             }
-            printf(">%X\n", x);
+            printf(">%X: ", x);
             if (x & 0x08) {
-                printf("Erase operation reports failed\n");
+                printf("Erase operation reports %s\n", (x&0x02) ? "aborted":"failed");
             } else {
-                printf("Write operation reports failed\n");
+                printf("Write operation reports %s\n", (x&0x02) ? "aborted":"failed");
             }
             flashReadStatus();
             return false;
@@ -348,10 +448,16 @@ bool flashWaitForWrite(unsigned int page, unsigned int adr, unsigned char val) {
     }
 }
 
-// this writes a 512 byte sector 32 bytes at a time through buffer[]
+// this writes a 512 byte sector 256 bytes at a time through buffer[]
+// Note that the old chip only allowed 32 bytes, but this one has more.
+// If we had a 16-bit port, we could actually do 512 bytes, but we can't
+// write a big enough word count with 8-bits! :)
 // latch is the full 14 bit address, we'll do the splitting up
 // page is not allowed to change through the 512 bytes, and we must
-// be 32 byte aligned too.
+// be 256 byte aligned too.
+// You should do a verify after success to make sure the data wrote correctly,
+// since this can be too fast to verify in code.
+#define STEPSIZE 256
 bool flashWriteFast(unsigned int page, unsigned int adr) {
     int latch = (page&0xfff) << 1;
     unsigned char bits = (page>>12) & 0x03;
@@ -364,45 +470,56 @@ bool flashWriteFast(unsigned int page, unsigned int adr) {
     // SA_OFFSET_MASK is 0xfffff000, so 4k
     // LLD_UNLOCK_ADDR2 is 0x555, and it notes that it's added
     // only for backward compatibility, but we should match it.
-    unsigned int sa = (adr&0x1000)+0x555;
+//    unsigned int sa = (adr&0x1000)+0x555;
+    // all that said, this doesn't work terribly well. If we assume sector
+    // address means the /erase/ sector, then we need to use 128k instead of 4k
+    // that means probably a separate latch, too... adr would always be zero
+//      unsigned int sa = (adr&0x1000);
+    // every page is 8k, so 128k is 16 pages, bits stay the same
+    unsigned int sa_latch = (page&0x0ff0) << 1;
 
-    if (adr%32) {
+    if (adr%STEPSIZE) {
         printf("* Can't write to unaligned address: %X%X\n", (adr>>8), (adr&0xff));
         return false;
     }
 
+    // undoubtedly I need this only because I'm not sending some exit command...
+    flashSoftResetAll();
+
+#if 0
     printf("WRITING page %d, address 0x%X%X\n", page, adr>>8, adr&0xff);
+#endif
 
-    for (int off=0; off<512; off+=32) {
+    for (int off=0; off<512; off+=STEPSIZE) {
         flashUnlock();
-        FLASH_SETLATCH(latch, bits | FLASH_UNRESET | FLASH_WRITELSB);
-        // This needs to go to the /sector/ address.
-        FLASH_WRITE(sa, 0x25);        // buffer write (note sure - datasheet says sa, example says adr?)
-        FLASH_WRITE(sa, 31);          // 32 writes will follow (start with -1)
 
-        // todo: fully untested - can we enable full 16-bit writes??
-        // if it doesn't work, byte writes will be a fair bit slower on the TI side...
+        // This needs to go to the /sector/ address.
+        FLASH_SETLATCH(sa_latch, bits | FLASH_UNRESET | FLASH_WRITEMSB);
+        FLASH_WRITE(0, 0x25);        // buffer write (note sure - datasheet says sa, example says adr?)
+        FLASH_WRITE(0, STEPSIZE-1);  // number of writes will follow (start with -1)
+
+        // we can enable full 16-bit writes!!
         FLASH_SETLATCH(latch, bits | FLASH_UNRESET | FLASH_WRITEMSB | FLASH_WRITELSB);
 
-        // write 32 16-bit words to the flash. The multiplexer will do 32 8-bit writes
-        for (unsigned int idx=off; idx<off+32; idx+=2) {
+        // write 16-bit words to the flash. The multiplexer will do 2 8-bit writes each
+        for (unsigned int idx=off; idx<off+STEPSIZE; idx+=2) {
             // FLASH_WRITE is only 8 bit, so we need a 16-bit version
             unsigned int data = *((unsigned int*)(&buffer[idx]));
             unsigned int outadr = 0xe000 + (adr+idx);
             *((volatile unsigned int*)(outadr)) = data;
 #ifdef VERIFYLATCH
-            printf("%s - write >%X%X = >%X%X\n", __FUNCTION__, outadr>>8, outadr&0xff, data>>8, data&0xff);
+            printf("%s - write >%X%X = >%X%X\r", __FUNCTION__, outadr>>8, outadr&0xff, data>>8, data&0xff);
 #endif
         }
 
         // this should be the right place to write the start command to...
-        FLASH_SETLATCH(latch, bits | FLASH_UNRESET | FLASH_WRITELSB);
-        FLASH_WRITE(sa, 0x29);        // start the process (datasheet says sa, example says adr)
+        FLASH_SETLATCH(sa_latch, bits | FLASH_UNRESET | FLASH_WRITEMSB);
+        FLASH_WRITE(0, 0x29);        // start the process (datasheet says sa, example says adr)
 
         // expected time is 512uS to 2048uS
-        // Watch out - LSB is first, MSB is second. The docs suggest this is okay, but is it??
+        // Watch out - on hardware LSB is first, MSB is second. This does seem to work!
         // Spansion polls by checking the status register instead....
-        if (!flashWaitForWrite(page, adr+30, buffer[30])) {     // track MSB as the last write...?
+        if (!flashWaitForWrite(page, adr+off+STEPSIZE-2, buffer[off+STEPSIZE-2])) {
             return false;
         }
     }
@@ -415,9 +532,12 @@ bool flashWriteFast(unsigned int page, unsigned int adr) {
 // but it's going to be quite slow compared to the fast write, and will
 // also screw up the newer chip's built-in ECC, so we want the other one
 // to work in the end.
+// This is pretty reliable, since whether it started or not, a match is a match.
 bool flashWriteSlow(unsigned int page, unsigned int adr) {
     int latch = (page&0xfff) << 1;
     unsigned char bits = (page>>12) & 0x03;
+
+    flashSoftResetAll();
 
     printf("Writing page 0x%d, address 0x%X%X\n", page, adr>>8, adr&0xff);
 
@@ -446,6 +566,35 @@ bool flashWriteSlow(unsigned int page, unsigned int adr) {
     return true;
 }
 
+// verify the sector against the buffer
+bool flashVerify(unsigned int page, unsigned int adr) {
+    int latch = (page&0xfff) << 1;
+    unsigned char bits = (page>>12) & 0x03;
+    bool ret = true;
+
+#ifdef VERIFYLATCH
+    printf("Verifying page 0x%d, address 0x%X%X\n", page, adr>>8, adr&0xff);
+#endif
+
+    // read back the correct page
+    FLASH_SETLATCH(latch, bits | FLASH_UNRESET);
+
+    // validate against the buffer
+    for (int off=0; off<512; off+=2, adr+=2) {
+        // FLASH_WRITE is only 8 bit, so we need a 16-bit version
+        unsigned int data = *((unsigned int*)(&buffer[off]));
+        unsigned int inadr = 0x6000 + adr;
+        unsigned int cart = *((unsigned int*)(inadr));
+        if (cart != data) {
+            printf("Page %d >%X%X, cart >%X%X != >%X%X\n", page, inadr>>8,inadr&0xff, cart>>8,cart&0xff, data>>8,data&0xff);
+            ret = false;
+            break;
+        }
+    }
+
+    return ret;
+}
+
 // erase a single sector
 // erase sectors are 128k in size, so must be aligned. Thus, we take in
 // a page index only (pages are 8k each), since the adr must be 0
@@ -457,6 +606,8 @@ bool flashSectorErase(unsigned int page) {
         printf("Sector erase page %d is not 128k aligned\n", page);
         return false;
     }
+
+    flashSoftResetAll();
 
     printf("Erasing sector %d\n", page);
 
@@ -472,10 +623,37 @@ bool flashSectorErase(unsigned int page) {
     if (!flashWaitForWrite(page, 0, 0xff)) {
         return false;
     }
+
+    // it's very possible for that byte to already be 0xff and for the
+    // operation to not even start, so do a quick validate of the sector
+    // This is a workaround for not having the status register working
+    // Note there's 128k worth of verify needed
+    printf("Verifying...");
+    memset(buffer, 0xff, 512);
+    unsigned int offset = 0;
+    for (int idx=0; idx<256; ++idx) {   // 128KB / 512 bytes
+        if (!flashVerify(page, offset)) {
+            printf("Failed\n");
+            printf("Index %d on page %d is not erased.\n", idx, page);
+            return false;
+        }
+        offset+=512;
+        if (offset >= 0x2000) {
+            offset = 0;
+            ++page;
+        }
+    }
+    printf("OK!\n");
 }
 
 // erase the entire chip -- yeah, want to be careful with this one
 bool flashChipErase() {
+
+    flashSoftResetAll();
+    printf("Resetting flash chip...\n");
+
+    // we don't need any other delay - the printfs are more
+    // than slow enough to give the chip enough time
     printf("Erasing flash chip...\n");
 
     flashUnlock();
@@ -486,11 +664,26 @@ bool flashChipErase() {
     FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);
     FLASH_WRITE(0xaaa, 0x10);      // second step, operation starts
 
+    // unlike all the other options, we know this does not finish immediately
+    // so, just do a quick check if it actually started
+    // This is a workaround for not having the status register working
+    // Let's also not check the locked sector, we'll read further in
+    FLASH_SETLATCH(0x20, FLASH_UNRESET);
+    unsigned char x = FLASH_READ(0);
+    if (x == 0xff) {
+        // 0xff is the data we want, so anything else flashWaitForWrite can cope with
+        printf("Erase failed to start, failing.\n");
+        return false;
+    } else {
+        printf("Status >%X - assuming erase start.\n", x);
+    }
+
     // this takes over ten minutes!
-    if (!flashWaitForWrite(0, 0, 0xff)) {
+    if (!flashWaitForWrite(16, 0, 0xff)) {
         return false;
     }
 
+    printf("Erase completed\n");
     return true;
 }
 
@@ -692,8 +885,9 @@ bool cf7ReadSector(unsigned int high, unsigned int low) {
             CF7_CRU_OFF;
             return false;
         }
-
+#if 0
         printf("CF reading 0x%X%X%X%X - ", high>>8, high&0xff, low>>8, low&0xff);
+#endif
         CF7_WRITE(CF7_COMMAND) = 0x20;      // read sector
 
         // we must wait 400uS before checking status...
@@ -712,11 +906,15 @@ bool cf7ReadSector(unsigned int high, unsigned int low) {
             return false;
         }
 
+#if 0
         printf("OK...");
+#endif
         for (int off=0; off<512; ++off) {
             buffer[off] = CF7_READ(CF7_DATA);
         }
+#if 0
         printf("!\n");
+#endif
 
     CF7_CRU_OFF;
 
@@ -775,27 +973,37 @@ bool cf7WriteSector(unsigned int high, unsigned int low) {
     return true;
 }
 
+// scan DSR ROMs at >1100 and >1000 to see which has the CF7
+void cf7DetectClassic99() {
+    REAL_CF7_CRU_ON;
+        for (int idx=0; idx<256; ++idx) {
+            if (0 == memcmp((char*)(0x4000+idx), "CF7+",4)) {
+                REAL_CF7_CRU_OFF;
+                CF7Classic99 = false;
+                return;
+            }
+        }
+    REAL_CF7_CRU_OFF;
+
+    CLASSIC99_CRU_ON;
+        for (int idx=0; idx<256; ++idx) {
+            if (0 == memcmp((char*)(0x4000+idx), "CF7+",4)) {
+                CLASSIC99_CRU_OFF;
+                CF7Classic99 = true;
+                printf("CF7 detected on Classic99 base >1000\n");
+                return;
+            }
+        }
+    CLASSIC99_CRU_OFF;
+
+    printf("CF7 not detected at >1100 or >1000\n");
+}
+
 //////////////////////////
-// main function
+// test function
 //////////////////////////
-int main() {
+int testapp() {
     int cflow=0, cfhigh=0;
-
-	// init the screen
-	{
-		int x;
-        x = set_text_raw();
-		charsetlc();
-		VDP_SET_REGISTER(VDP_REG_MODE1, x);
-		VDP_REG1_KSCAN_MIRROR = x;
-		VDP_SET_REGISTER(VDP_REG_COL, 0x17);
-        scrn_scroll = fast_scrn_scroll;
-	}
-	
-    flashReset();
-    cf7Init();
-
-	printf("CF7 to Seahorse board programmer\n\n");
 
     // a little test menu for now....
     for (int idx=0; idx<512; ++idx) {
@@ -809,7 +1017,8 @@ int main() {
         printf("  S to test flash slow write\n");
         printf("  X to test sector erase\n");
         printf("  E to test flash erase\n");
-        printf("  I for flash status info\n");
+        printf("  I for flash status info (broken)\n");
+        printf("  T to toggle flash select lines\n");
         printf("  R to put flash in reset\n");
         printf("\n  1 to reset CF7\n");
         printf("  2 to read CF info\n");
@@ -825,12 +1034,20 @@ int main() {
                             loop=0; 
                             break;
 
+                case 'T':   printf("Space to exit...\n");
+                            flashToggle();
+                            loop = 0;
+                            break;
+
                 case 'F':   printf("Fast: Page 16, address 512\n"); 
                             for (int idx=0; idx<512; ++idx) {
                                 buffer[idx]=(idx&0xff);
                             }
                             if (flashWriteFast(16,512)) {
                                 printf("OK!\n"); 
+                                if (!flashVerify(16,512)) {
+                                    printf("Verify failed!\n");
+                                }
                             } else {
                                 printf("Failed!\n");
                             }
@@ -842,24 +1059,23 @@ int main() {
                                 buffer[idx]=(idx&0xff);
                             }
                             if (flashWriteSlow(16,1024)) {
-                                printf("OK!\n"); 
+                                printf("OK!\n");
+                                if (!flashVerify(16,1024)) {
+                                    printf("Verify failed!\n");
+                                }
                             } else {
                                 printf("Failed!\n"); 
                             }
                             loop=0; 
                             break;
 
-                case 'X':   if (flashSectorErase(16)) {
-                                printf("OK!\n"); 
-                            } else {
+                case 'X':   if (!flashSectorErase(16)) {
                                 printf("Failed!\n"); 
                             }   
                             loop=0; 
                             break;
 
-                case 'E':   if (flashChipErase()) {
-                                printf("OK!\n"); 
-                            } else {
+                case 'E':   if (!flashChipErase()) {
                                 printf("Failed!\n");
                             }
                             loop=0; 
@@ -921,4 +1137,244 @@ int main() {
     }
 
 	return 0;
+}
+
+//////////////////////////
+// actual programming code
+//////////////////////////
+bool program() {
+    // the purpose of this code is to write the contents of a compact flash card
+    // holding a 128MB image to the flash cartridge as described in the header
+    // block. Minimal diagnostic is performed.
+
+    // Format of the flash chip:
+    // 128MB, however, due to a hardware error on the seahorse board, the first
+    // 128KB is write-protected. (WP# is tied low instead of high or floating.)
+    // So, we can't write to the first 128KB and must skip it to avoid errors.
+    // The macro FLASH_FIRSTPAGE contain the data for the latching page so we
+    // can easily update it in the future. We must write the entire remaining
+    // space, particularly because the top 256 bytes contain the game's boot code.
+
+    // Format of the Compact Flash card:
+    // Formatted for use with the CF7/NanoPEB, this card is also how we load the
+    // software and the CF7 is where we get memory expansion to run in.
+    // Thus, the first 800KB of the card is reserved for the first disk image.
+    // (We don't need the whole thing, but skipping it should reduce conflicts
+    // with TI99Dir when we need to update the disk image.)
+    // It's 800k, not 400k, because the CF7 skips every other byte, so everything
+    // is twice as big as it should be. (Ok, not %$#%# TI99Dir, it's %$##%$ CF7...)
+    // So this means that the first CF sector is number 1600. then we skip the
+    // flash error, giving a first sector in the macro CF7_FIRSTSECTOR.
+    // The last sector is given as CF7_LASTSECTOR, since the counting is much easier there.
+
+    // some tracking variables
+    unsigned int flashAdr = 0;      // 8k of cart space
+    unsigned int flashPage = FLASH_FIRSTPAGE;
+    unsigned int CF7High = 0;       // we know the start is less than 65,536 sectors in (also 32MB)
+    unsigned int CF7Low = CF7_FIRSTSECTOR;
+    bool ret = true;
+
+    // most chips should not need to erase.. so even though testing
+    // for this will take a while, it should be faster than the 10+
+    // minutes that an actual erase takes
+    printf("Checking if erase is needed...\n");
+    {
+        unsigned int flashBits = 0;     // we know the start is less than 32MB
+        unsigned int flashLatch = FLASH_FIRSTPAGE*2;    // we know this is small enough to work
+        ret = true;
+        for (;;) {
+            FLASH_SETLATCH(flashLatch, flashBits | FLASH_UNRESET);
+
+            // read 16-bits at a time for the whole page
+            for (int adr = 0; adr <= 0x2000; adr+=2) {
+                unsigned int inadr = 0x6000 + adr;
+                unsigned int cart = *((unsigned int*)(inadr));
+                if (cart != 0xffff) {
+                    ret = false;
+                    break;
+                }
+            }
+            if (!ret) break;
+
+            // increment latch
+            flashLatch+=2;
+            if (flashLatch >= 0x2000) {
+                flashLatch=0;
+                ++flashBits;
+                if (flashBits > 3) {
+                    break;
+                }
+                // report every 25%
+                printf("%d%%...", flashBits*25);
+            }
+        }
+    }
+    printf("\n");
+
+    if (!ret) {
+        printf("Yes, ");
+        if (!flashChipErase()) {
+            return false;
+        }
+    }
+
+    // reset the flags and the flash
+    ret = true;         // reset the flag
+    printf("Programming...\n");
+    vdpmemset(gImage, ' ', 40); // clear top row for bargraph
+
+    // three variables to make the bargraph easier
+    int stepcnt = 0;
+    int stepcol = 0;
+    int stepchar = 0;
+
+    // lazy loop
+    for (;;) {
+        // emit some kind of progress indicator (top row?)
+        // how do we convert 128MB into 40 characters?
+        // We have 262144 sectors of 512 bytes each... 
+        // (minus the initial 256 sectors that we skip)
+        // 262144 sectors / 40 is 6553 sectors per screen position
+        // Or if we do a pixel progress bar, that's 240 pixels (text mode)
+        // which is 1092 steps per pixel.
+        ++stepcnt;                  // count one
+        if (stepcnt >= 1092) {      // roll-over
+            stepcnt = 0;            
+            ++stepchar;             // increment bar graph pixel
+            if (stepchar >= 6) {    // roll-over
+                stepchar = 0;
+                ++stepcol;          // increment screen position
+            }
+            // clear the top row, just in case
+            vdpmemset(gImage, ' ', 40);
+            if (stepcol > 0) {
+                // solid part of the bar
+                vdpmemset(gImage, 128+5, stepcol-1);
+            }
+            vdpchar(gImage+stepcol, 128+stepchar);
+        }
+
+        // first, read the CF data into the buffer
+        if (!cf7ReadSector(CF7High, CF7Low)) {
+            ret = false;
+            break;
+        }
+
+        // then, write it to the flash
+        if (!flashWriteFast(flashPage, flashAdr)) {
+            ret = false;
+            break;
+        }
+
+        // then, verify the flash
+        if (!flashVerify(flashPage, flashAdr)) {
+            ret = false;
+            break;
+        }
+
+        // increment the counters
+        flashAdr += 512;
+        if (flashAdr >= 0x2000) {
+            flashAdr = 0;
+            ++flashPage;
+        }
+        ++CF7Low;
+        if (CF7Low == 0) {
+            // wrapped around
+            ++CF7High;
+        }
+
+        // stop if finished
+        if (((CF7High > CF7_LASTSECTOR_HIGH)) ||
+            ((CF7High == CF7_LASTSECTOR_HIGH) && (CF7Low > CF7_LASTSECTOR_LOW))) {
+            break;
+        }
+    }
+
+    if (ret) {
+        printf("\n\n** DONE **\n");
+    } else {
+        // print the failure location
+        // start by subtracting the offset
+        if (CF7_FIRSTSECTOR > CF7Low) {
+            // need to borrow ;)
+            --CF7High;
+            CF7Low = CF7Low-CF7_FIRSTSECTOR+65536;
+        } else {
+            CF7Low -= CF7_FIRSTSECTOR;
+        }
+        printf("\nFailed at CF Sector >%X%X%X%X\n", CF7High>>8, CF7High&0xff, CF7Low>>8, CF7Low&0xff);
+    }
+
+    return ret;
+}
+
+//////////////////////////
+// main function
+//////////////////////////
+
+// a 6 pixel wide bargraph
+const unsigned char bargraph[] = {
+    0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 
+    0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 
+    0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 
+    0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 
+    0xf1, 0xf1, 0xf1, 0xf1, 0xf1, 0xf1, 0xf1, 0xf1, 
+    0xf2, 0xf2, 0xf2, 0xf2, 0xf2, 0xf2, 0xf2, 0xf2
+};
+
+int main() {
+	// init the screen
+	{
+		int x;
+        x = set_text_raw();
+		charsetlc();
+        vdpmemcpy(gPattern+(128*8), bargraph, 8*6); // 6 bargraph characters starting at 128
+		VDP_SET_REGISTER(VDP_REG_MODE1, x);
+		VDP_REG1_KSCAN_MIRROR = x;
+		VDP_SET_REGISTER(VDP_REG_COL, 0x17);
+        scrn_scroll = my_fast_scrn_scroll;
+	}
+
+    // figure out which system we're running on
+    cf7DetectClassic99();
+
+bigloop:
+	printf("CF7 to Seahorse board programmer\n\n");
+
+    flashReset();
+    cf7Init();
+
+    // dump information about the attached devices
+    flashReadCfi();
+    printf("\n");
+    cf7IdentifyDevice();
+
+    // now wait for the user to tell us to proceed
+    printf("Press 'T' for test or 'P' to proceed.\n");
+    printf("Press 'Q' to quit.\n");
+
+    int loop = 1;
+    while (loop) {
+        kscanfast(0);
+        switch (KSCAN_KEY) {
+            case 'T':   
+                testapp(); 
+                goto bigloop;
+
+            case 'Q':   loop = 0; break;
+            case 'P': 
+                // going to attempt letting this loop...
+                program(); 
+                printf("Press any key...\n");
+                do {
+                    kscanfast(0);
+                } while (KSCAN_KEY==0xff);
+                goto bigloop;       // I'm soooooo evil... ;)
+                break;
+        }
+    }
+
+    // exit app
+    return 0;
 }
