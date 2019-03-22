@@ -19,12 +19,12 @@
 *
 **************
 
+	COPY "D:\work\ti\dragonslair\code\CommonCode.a99"
+
 *
 ** Cartridge page - >6000 for joystick and >6002 for keyboard
 ** this is used by all code that needs to return to the code page
-CARTPAGE EQU >6000
-
-	COPY "D:\work\ti\dragonslair\code\CommonCode.a99"
+CARTPAGE EQU >6000+CODEOFFSET
 
     DEF MAIN
 
@@ -1436,8 +1436,8 @@ NOKEYH
 	CI R13,>0800	* was it 5? (Diagnostics)
 	JNE NONEWKEY
 
-	LI R3,>6004		* diagnostics banks
-	LI R1,>6000		* target address
+	LI R3,>6004+CODEOFFSET		* diagnostics banks
+	LI R1,>601c		* target address
 	B @TRAMPRET		* we aren't coming back
 
 NONEWKEY

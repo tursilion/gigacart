@@ -12,8 +12,8 @@ EN_PinMacrocell = yes;
 
 [Revision]
 Parent = lc4k64v.lci;
-DATE = 02/07/2019;
-TIME = 16:07:08;
+DATE = 03/18/2019;
+TIME = 23:07:27;
 Source_Format = Pure_VHDL;
 Synthesis = LSE;
 
@@ -90,7 +90,6 @@ ti_adr_13_ = Pin, 31, -, B, 4;
 ti_adr_15_ = Pin, 34, -, B, 3;
 out_reset = Pin, 47, -, C, 4;
 ti_gsel = Pin, 44, -, C, 3;
-ti_gclk = Pin, 36, -, B, 1;
 out_oe = Pin, 35, -, B, 2;
 out_we = Pin, 48, -, C, 5;
 out_data_2_ = Pin, 41, -, C, 0;
@@ -159,17 +158,18 @@ out_adr_25_ = LVTTL, PIN, 0, -;
 out_adr_26_ = LVTTL, PIN, 0, -;
 out_reset = LVTTL, PIN, 1, -;
 out_oe = LVTTL, PIN, 0, -;
-out_data_0_ = LVCMOS33, PIN, 1, -;
+out_data_0_ = LVTTL, PIN, 1, -;
 ti_rom = LVTTL_5V, PIN, 0, -;
 ti_we = LVTTL_5V, PIN, 0, -;
 out_we = LVTTL, PIN, 1, -;
-out_data_1_ = LVCMOS33, PIN, 1, -;
-out_data_2_ = LVCMOS33, PIN, 1, -;
-out_data_3_ = LVCMOS33, PIN, 1, -;
-out_data_4_ = LVCMOS33, PIN, 0, -;
-out_data_5_ = LVCMOS33, PIN, 0, -;
-out_data_6_ = LVCMOS33, PIN, 0, -;
-out_data_7_ = LVCMOS33, PIN, 0, -;
+out_ce = LVTTL, PIN, 1, -;
+out_data_1_ = LVTTL, PIN, 1, -;
+out_data_2_ = LVTTL, PIN, 1, -;
+out_data_3_ = LVTTL, PIN, 1, -;
+out_data_4_ = LVTTL, PIN, 0, -;
+out_data_5_ = LVTTL, PIN, 0, -;
+out_data_6_ = LVTTL, PIN, 0, -;
+out_data_7_ = LVTTL, PIN, 0, -;
 ti_adr_3_ = LVTTL_5V, PIN, 0, -;
 ti_adr_4_ = LVTTL_5V, PIN, 0, -;
 ti_adr_5_ = LVTTL_5V, PIN, 0, -;
@@ -184,11 +184,9 @@ ti_adr_15_ = LVTTL_5V, PIN, 0, -;
 ti_adr_14_ = LVTTL_5V, PIN, 0, -;
 ti_adr_13_ = LVTTL_5V, PIN, 0, -;
 ti_gsel = LVTTL_5V, PIN, 1, -;
-ti_gclk = LVTTL_5V, PIN, 0, -;
-out_ce = LVTTL, PIN, 1, -;
 
 [Pullup]
-Default = UP;
+Default = DOWN;
 
 [Slewrate]
 SLOW = ti_data_4_, ti_data_0_, ti_data_5_, ti_data_6_, ti_data_7_, ti_data_1_, 
@@ -196,8 +194,9 @@ SLOW = ti_data_4_, ti_data_0_, ti_data_5_, ti_data_6_, ti_data_7_, ti_data_1_,
 	out_adr_4_, out_adr_5_, out_adr_6_, out_adr_7_, out_adr_8_, out_adr_9_, 
 	out_adr_10_, out_adr_11_, out_adr_12_, out_adr_13_, out_adr_14_, out_adr_15_, 
 	out_adr_16_, out_adr_17_, out_adr_18_, out_adr_19_, out_adr_20_, out_adr_21_, 
-	out_adr_22_, out_adr_23_, out_adr_24_, out_adr_25_, out_adr_26_;
-FAST = out_reset, out_oe;
+	out_adr_22_, out_adr_23_, out_adr_24_, out_adr_25_, out_adr_26_, out_reset, 
+	out_oe, out_data_0_, out_we, out_ce, out_data_1_, out_data_2_, out_data_3_, 
+	out_data_4_, out_data_5_, out_data_6_, out_data_7_;
 
 [Region]
 

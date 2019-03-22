@@ -20,16 +20,16 @@ Archive member included because of file (symbol)
                               main.o (memset)
 /mnt/d/work/ti/libti99/libti99.a(str_memcpy.o)
                               main.o (memcpy)
+/mnt/d/work/ti/libti99/libti99.a(vdp_textdefs.o)
+                              main.o (nTextRow)
+/mnt/d/work/ti/libti99/libti99.a(vdp_scrnscroll.o)
+                              main.o (scrn_scroll)
 /mnt/d/work/ti/libti99/libti99.a(vdp_settext.o)
                               main.o (set_text_raw)
 /mnt/d/work/ti/libti99/libti99.a(vdp_charsetlc.o)
                               main.o (charsetlc)
 /mnt/d/work/ti/libti99/libti99.a(vdp_memcpy.o)
                               main.o (vdpmemcpy)
-/mnt/d/work/ti/libti99/libti99.a(vdp_scrnscroll.o)
-                              /mnt/d/work/ti/libti99/libti99.a(vdp_settext.o) (scrn_scroll_default)
-/mnt/d/work/ti/libti99/libti99.a(vdp_textdefs.o)
-                              main.o (nTextRow)
 /mnt/d/work/ti/libti99/libti99.a(vdp_bigbuf.o)
                               main.o (vdp_bigbuf)
 /mnt/d/work/ti/libti99/libti99.a(vdp_memread.o)
@@ -44,10 +44,10 @@ Archive member included because of file (symbol)
                               /mnt/d/work/ti/libti99/libti99.a(vdp_printf.o) (hexprint)
 /mnt/d/work/ti/libti99/libti99.a(vdp_putstring.o)
                               /mnt/d/work/ti/libti99/libti99.a(vdp_puts.o) (putstring)
-/mnt/d/work/ti/libti99/libti99.a(vdp_gplvdp.o)
-                              /mnt/d/work/ti/libti99/libti99.a(vdp_charsetlc.o) (gplvdp)
 /mnt/d/work/ti/libti99/libti99.a(conio_bgcolor.o)
                               /mnt/d/work/ti/libti99/libti99.a(vdp_scrnscroll.o) (conio_scrnCol)
+/mnt/d/work/ti/libti99/libti99.a(vdp_gplvdp.o)
+                              /mnt/d/work/ti/libti99/libti99.a(vdp_charsetlc.o) (gplvdp)
 
 Memory Configuration
 
@@ -199,96 +199,97 @@ Address of section .data set to 0x2080
 .plt
  *(.plt)
 
-.text           0x000000000000a000     0x3796
+.text           0x000000000000a000     0x3a26
  *(.text .stub .text.* .gnu.linkonce.t.*)
  .text          0x000000000000a000       0x40 crt0_ea5.o
                 0x000000000000a000                _start
                 0x000000000000a036                _init_data
- .text          0x000000000000a040     0x2cd2 main.o
+ .text          0x000000000000a040     0x2f62 main.o
                 0x000000000000a082                flashUnlock
                 0x000000000000a040                flashReset
-                0x000000000000b58e                program
+                0x000000000000b5b6                program
                 0x000000000000a83e                cf7WriteSector
-                0x000000000000b88a                cf7IdentifyDevice
+                0x000000000000ba40                cf7IdentifyDevice
                 0x000000000000a232                cf7WaitForReady
-                0x000000000000cce2                bargraph
+                0x000000000000cf02                bargraph
                 0x000000000000a194                flashToggle
                 0x000000000000ac22                flashReadStatus
                 0x000000000000b3be                flashWriteFast
                 0x000000000000a680                cf7ReadSector
                 0x000000000000a0a0                cf7Reset
-                0x000000000000cc44                my_fast_scrn_scroll
-                0x000000000000c3b2                flashSectorErase
+                0x000000000000ce64                my_fast_scrn_scroll
+                0x000000000000c49a                flashSectorErase
                 0x000000000000a108                cf7Init
+                0x000000000000cf52                fonts1
                 0x000000000000b248                flashWriteSlow
                 0x000000000000b110                flashChipErase
-                0x000000000000c290                cf7DetectClassic99
-                0x000000000000caee                main
+                0x000000000000b928                cf7DetectClassic99
+                0x000000000000cbfa                main
                 0x000000000000aac6                flashVerify
                 0x000000000000a166                cf7SetAddress
                 0x000000000000a048                flashSoftResetAll
                 0x000000000000a454                cf7CardError
-                0x000000000000c746                testapp
-                0x000000000000bd8c                flashReadCfi
+                0x000000000000c82e                testapp
+                0x000000000000bf68                flashReadCfi
                 0x000000000000aef8                flashWaitForWrite
- .text          0x000000000000cd12       0xdc /mnt/d/work/ti/libti99/libti99.a(kscanfast.o)
-                0x000000000000cd12                kscanfast
-                0x000000000000cdbe                keymap
- .text          0x000000000000cdee      0x252 /mnt/d/work/ti/libti99/libti99.a(vdp_printf.o)
-                0x000000000000cdee                printf
- .text          0x000000000000d040       0x18 /mnt/d/work/ti/libti99/libti99.a(vdp_puts.o)
-                0x000000000000d040                puts
- .text          0x000000000000d058       0x52 /mnt/d/work/ti/libti99/libti99.a(vdp_putchar.o)
-                0x000000000000d058                putchar
- .text          0x000000000000d0aa        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_setmode.o)
- .text          0x000000000000d0aa       0x2a /mnt/d/work/ti/libti99/libti99.a(vdp_memset.o)
-                0x000000000000d0aa                vdpmemset
- .text          0x000000000000d0d4       0x1c /mnt/d/work/ti/libti99/libti99.a(vdp_char.o)
-                0x000000000000d0d4                vdpchar_default
- .text          0x000000000000d0f0       0x38 /mnt/d/work/ti/libti99/libti99.a(str_memcmp.o)
-                0x000000000000d0f0                memcmp
- .text          0x000000000000d128       0x16 /mnt/d/work/ti/libti99/libti99.a(str_memset.o)
-                0x000000000000d128                memset
- .text          0x000000000000d13e       0x1c /mnt/d/work/ti/libti99/libti99.a(str_memcpy.o)
-                0x000000000000d13e                memcpy
- .text          0x000000000000d15a       0x80 /mnt/d/work/ti/libti99/libti99.a(vdp_settext.o)
-                0x000000000000d15a                set_text_raw
-                0x000000000000d1bc                set_text
- .text          0x000000000000d1da      0x126 /mnt/d/work/ti/libti99/libti99.a(vdp_charsetlc.o)
-                0x000000000000d208                TrueLowerCase
-                0x000000000000d1da                charsetlc
- .text          0x000000000000d300       0x2c /mnt/d/work/ti/libti99/libti99.a(vdp_memcpy.o)
-                0x000000000000d300                vdpmemcpy
- .text          0x000000000000d32c      0x106 /mnt/d/work/ti/libti99/libti99.a(vdp_scrnscroll.o)
-                0x000000000000d32c                scrn_scroll_default
- .text          0x000000000000d432        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_textdefs.o)
- .text          0x000000000000d432        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_bigbuf.o)
- .text          0x000000000000d432       0x26 /mnt/d/work/ti/libti99/libti99.a(vdp_memread.o)
-                0x000000000000d432                vdpmemread
- .text          0x000000000000d458       0x6a /mnt/d/work/ti/libti99/libti99.a(str_uint2str.o)
-                0x000000000000d458                uint2str
- .text          0x000000000000d4c2       0x22 /mnt/d/work/ti/libti99/libti99.a(str_strlen.o)
-                0x000000000000d4c2                strlen
- .text          0x000000000000d4e4       0xbe /mnt/d/work/ti/libti99/libti99.a(str_int2str.o)
-                0x000000000000d4e4                int2str
- .text          0x000000000000d5a2       0x5a /mnt/d/work/ti/libti99/libti99.a(vdp_hexprint.o)
-                0x000000000000d5a2                hexprint
- .text          0x000000000000d5fc       0x8a /mnt/d/work/ti/libti99/libti99.a(vdp_putstring.o)
-                0x000000000000d5fc                putstring
- .text          0x000000000000d686       0x88 /mnt/d/work/ti/libti99/libti99.a(vdp_gplvdp.o)
-                0x000000000000d686                gplvdp
- .text          0x000000000000d70e       0x88 /mnt/d/work/ti/libti99/libti99.a(conio_bgcolor.o)
-                0x000000000000d792                reverse
-                0x000000000000d78e                bordercolor
-                0x000000000000d70e                bgcolor
-                0x000000000000d74c                textcolor
+ .text          0x000000000000cfa2       0xdc /mnt/d/work/ti/libti99/libti99.a(kscanfast.o)
+                0x000000000000cfa2                kscanfast
+                0x000000000000d04e                keymap
+ .text          0x000000000000d07e      0x252 /mnt/d/work/ti/libti99/libti99.a(vdp_printf.o)
+                0x000000000000d07e                printf
+ .text          0x000000000000d2d0       0x18 /mnt/d/work/ti/libti99/libti99.a(vdp_puts.o)
+                0x000000000000d2d0                puts
+ .text          0x000000000000d2e8       0x52 /mnt/d/work/ti/libti99/libti99.a(vdp_putchar.o)
+                0x000000000000d2e8                putchar
+ .text          0x000000000000d33a        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_setmode.o)
+ .text          0x000000000000d33a       0x2a /mnt/d/work/ti/libti99/libti99.a(vdp_memset.o)
+                0x000000000000d33a                vdpmemset
+ .text          0x000000000000d364       0x1c /mnt/d/work/ti/libti99/libti99.a(vdp_char.o)
+                0x000000000000d364                vdpchar_default
+ .text          0x000000000000d380       0x38 /mnt/d/work/ti/libti99/libti99.a(str_memcmp.o)
+                0x000000000000d380                memcmp
+ .text          0x000000000000d3b8       0x16 /mnt/d/work/ti/libti99/libti99.a(str_memset.o)
+                0x000000000000d3b8                memset
+ .text          0x000000000000d3ce       0x1c /mnt/d/work/ti/libti99/libti99.a(str_memcpy.o)
+                0x000000000000d3ce                memcpy
+ .text          0x000000000000d3ea        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_textdefs.o)
+ .text          0x000000000000d3ea      0x106 /mnt/d/work/ti/libti99/libti99.a(vdp_scrnscroll.o)
+                0x000000000000d3ea                scrn_scroll_default
+ .text          0x000000000000d4f0       0x80 /mnt/d/work/ti/libti99/libti99.a(vdp_settext.o)
+                0x000000000000d4f0                set_text_raw
+                0x000000000000d552                set_text
+ .text          0x000000000000d570      0x126 /mnt/d/work/ti/libti99/libti99.a(vdp_charsetlc.o)
+                0x000000000000d59e                TrueLowerCase
+                0x000000000000d570                charsetlc
+ .text          0x000000000000d696       0x2c /mnt/d/work/ti/libti99/libti99.a(vdp_memcpy.o)
+                0x000000000000d696                vdpmemcpy
+ .text          0x000000000000d6c2        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_bigbuf.o)
+ .text          0x000000000000d6c2       0x26 /mnt/d/work/ti/libti99/libti99.a(vdp_memread.o)
+                0x000000000000d6c2                vdpmemread
+ .text          0x000000000000d6e8       0x6a /mnt/d/work/ti/libti99/libti99.a(str_uint2str.o)
+                0x000000000000d6e8                uint2str
+ .text          0x000000000000d752       0x22 /mnt/d/work/ti/libti99/libti99.a(str_strlen.o)
+                0x000000000000d752                strlen
+ .text          0x000000000000d774       0xbe /mnt/d/work/ti/libti99/libti99.a(str_int2str.o)
+                0x000000000000d774                int2str
+ .text          0x000000000000d832       0x5a /mnt/d/work/ti/libti99/libti99.a(vdp_hexprint.o)
+                0x000000000000d832                hexprint
+ .text          0x000000000000d88c       0x8a /mnt/d/work/ti/libti99/libti99.a(vdp_putstring.o)
+                0x000000000000d88c                putstring
+ .text          0x000000000000d916       0x88 /mnt/d/work/ti/libti99/libti99.a(conio_bgcolor.o)
+                0x000000000000d99a                reverse
+                0x000000000000d996                bordercolor
+                0x000000000000d916                bgcolor
+                0x000000000000d954                textcolor
+ .text          0x000000000000d99e       0x88 /mnt/d/work/ti/libti99/libti99.a(vdp_gplvdp.o)
+                0x000000000000d99e                gplvdp
  *(.gnu.warning)
 
 .fini
  *(.fini)
-                0x000000000000d796                PROVIDE (__etext, .)
-                0x000000000000d796                PROVIDE (_etext, .)
-                0x000000000000d796                PROVIDE (etext, .)
+                0x000000000000da26                PROVIDE (__etext, .)
+                0x000000000000da26                PROVIDE (_etext, .)
+                0x000000000000da26                PROVIDE (etext, .)
 
 .rodata
  *(.rodata .rodata.* .gnu.linkonce.r.*)
@@ -310,7 +311,7 @@ Address of section .data set to 0x2080
 
 .gcc_except_table
  *(.gcc_except_table .gcc_except_table.*)
-                0x000000000001af96                . = (ALIGN (0x200) + (. & 0xffffffffffffffff))
+                0x000000000001b626                . = (ALIGN (0x200) + (. & 0xffffffffffffffff))
 
 .eh_frame
  *(.eh_frame)
@@ -325,22 +326,22 @@ Address of section .data set to 0x2080
  *(.tbss .tbss.* .gnu.linkonce.tb.*)
  *(.tcommon)
 
-.preinit_array  0x000000000001af96        0x0
-                0x000000000001af96                PROVIDE (__preinit_array_start, .)
+.preinit_array  0x000000000001b626        0x0
+                0x000000000001b626                PROVIDE (__preinit_array_start, .)
  *(.preinit_array)
-                0x000000000001af96                PROVIDE (__preinit_array_end, .)
+                0x000000000001b626                PROVIDE (__preinit_array_end, .)
 
-.init_array     0x000000000001af96        0x0
-                0x000000000001af96                PROVIDE (__init_array_start, .)
+.init_array     0x000000000001b626        0x0
+                0x000000000001b626                PROVIDE (__init_array_start, .)
  *(SORT(.init_array.*))
  *(.init_array)
-                0x000000000001af96                PROVIDE (__init_array_end, .)
+                0x000000000001b626                PROVIDE (__init_array_end, .)
 
-.fini_array     0x000000000001af96        0x0
-                0x000000000001af96                PROVIDE (__fini_array_start, .)
+.fini_array     0x000000000001b626        0x0
+                0x000000000001b626                PROVIDE (__fini_array_start, .)
  *(.fini_array)
  *(SORT(.fini_array.*))
-                0x000000000001af96                PROVIDE (__fini_array_end, .)
+                0x000000000001b626                PROVIDE (__fini_array_end, .)
 
 .ctors
  *crtbegin.o(.ctors)
@@ -384,12 +385,12 @@ Address of section .data set to 0x2080
  .data          0x0000000000002088        0x0 /mnt/d/work/ti/libti99/libti99.a(str_memcmp.o)
  .data          0x0000000000002088        0x0 /mnt/d/work/ti/libti99/libti99.a(str_memset.o)
  .data          0x0000000000002088        0x0 /mnt/d/work/ti/libti99/libti99.a(str_memcpy.o)
- .data          0x0000000000002088        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_settext.o)
- .data          0x0000000000002088        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_charsetlc.o)
- .data          0x0000000000002088        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_memcpy.o)
+ .data          0x0000000000002088        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_textdefs.o)
  .data          0x0000000000002088        0x2 /mnt/d/work/ti/libti99/libti99.a(vdp_scrnscroll.o)
                 0x0000000000002088                scrn_scroll
- .data          0x000000000000208a        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_textdefs.o)
+ .data          0x000000000000208a        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_settext.o)
+ .data          0x000000000000208a        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_charsetlc.o)
+ .data          0x000000000000208a        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_memcpy.o)
  .data          0x000000000000208a        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_bigbuf.o)
  .data          0x000000000000208a        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_memread.o)
  .data          0x000000000000208a        0x0 /mnt/d/work/ti/libti99/libti99.a(str_uint2str.o)
@@ -397,9 +398,9 @@ Address of section .data set to 0x2080
  .data          0x000000000000208a        0x0 /mnt/d/work/ti/libti99/libti99.a(str_int2str.o)
  .data          0x000000000000208a        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_hexprint.o)
  .data          0x000000000000208a        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_putstring.o)
- .data          0x000000000000208a        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_gplvdp.o)
  .data          0x000000000000208a        0x2 /mnt/d/work/ti/libti99/libti99.a(conio_bgcolor.o)
                 0x000000000000208a                conio_scrnCol
+ .data          0x000000000000208c        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_gplvdp.o)
 
 .data1
  *(.data1)
@@ -438,14 +439,14 @@ Address of section .data set to 0x2080
  .bss           0x0000000000002292        0x0 /mnt/d/work/ti/libti99/libti99.a(str_memcmp.o)
  .bss           0x0000000000002292        0x0 /mnt/d/work/ti/libti99/libti99.a(str_memset.o)
  .bss           0x0000000000002292        0x0 /mnt/d/work/ti/libti99/libti99.a(str_memcpy.o)
- .bss           0x0000000000002292        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_settext.o)
- .bss           0x0000000000002292        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_charsetlc.o)
- .bss           0x0000000000002292        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_memcpy.o)
- .bss           0x0000000000002292        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_scrnscroll.o)
  .bss           0x0000000000002292        0x6 /mnt/d/work/ti/libti99/libti99.a(vdp_textdefs.o)
                 0x0000000000002292                nTextRow
                 0x0000000000002294                nTextEnd
                 0x0000000000002296                nTextPos
+ .bss           0x0000000000002298        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_scrnscroll.o)
+ .bss           0x0000000000002298        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_settext.o)
+ .bss           0x0000000000002298        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_charsetlc.o)
+ .bss           0x0000000000002298        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_memcpy.o)
  .bss           0x0000000000002298      0x100 /mnt/d/work/ti/libti99/libti99.a(vdp_bigbuf.o)
                 0x0000000000002298                vdp_bigbuf
  .bss           0x0000000000002398        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_memread.o)
@@ -454,8 +455,8 @@ Address of section .data set to 0x2080
  .bss           0x00000000000023a0        0x8 /mnt/d/work/ti/libti99/libti99.a(str_int2str.o)
  .bss           0x00000000000023a8        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_hexprint.o)
  .bss           0x00000000000023a8        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_putstring.o)
- .bss           0x00000000000023a8        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_gplvdp.o)
  .bss           0x00000000000023a8        0x0 /mnt/d/work/ti/libti99/libti99.a(conio_bgcolor.o)
+ .bss           0x00000000000023a8        0x0 /mnt/d/work/ti/libti99/libti99.a(vdp_gplvdp.o)
  *(COMMON)
                 0x00000000000023a8                . = ALIGN ((. != 0x0)?0x4:0x1)
                 0x00000000000023a8                . = ALIGN (0x4)

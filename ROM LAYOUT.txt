@@ -1,5 +1,7 @@
 output.bin -> output_Cart8.bin
-0007	-- first, run cartrepack on it
+
+-- first, run cartrepack on it
+
 -- next, delete the first 8k program page
 -- second, truncate the file at 0x547DFFF (size + 1) - the rest will be unused space. (There are some wasted pages)
 -- run a quick script to delete the 0xAA byte at the beginning of each page - we are to start from GROM.
@@ -14,6 +16,9 @@ output.bin -> output_Cart8.bin
 --- All the code pages need to have a data write of zero, so they are shoved in the front. All video
 --- pages are thus pushed downwards, but the page offset is added in by the video code rather than
 --- these notes becoming wrong every time I add a page...	
+
+--- In the second rev, I had to push everything up 128k to skip the read-only block on the cart,
+--- so, the first page is >6020, which is 32. 
 
 0000	Base program (joystick)
 0001	Base program (keyboard)

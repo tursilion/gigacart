@@ -1,5 +1,4 @@
 ** remember to debug with 'break on illegal opcode' so we can find bad tables
-** remember to debug with 'break on illegal opcode' so we can find bad tables
 
 **************
 * Dragon's Lair for the TI-99/4A - by M.Brent aka Tursi
@@ -41,12 +40,12 @@
 *
 **************
 
+	COPY "D:\work\ti\dragonslair\code\CommonCode.a99"
+
 *
 ** Cartridge page - >6000 for joystick and >6002 for keyboard
 ** this is used by all code that needs to return to the code page
-CARTPAGE EQU >6002
-
-	COPY "D:\work\ti\dragonslair\code\CommonCode.a99"
+CARTPAGE EQU >6002+CODEOFFSET
 
     DEF MAIN
 
@@ -1464,8 +1463,8 @@ NOKEYH
 	CI R13,>0800	* was it 5? (Diagnostics)
 	JNE NONEWKEY
 
-	LI R3,>6004		* diagnostics banks
-	LI R1,>6000		* target address
+	LI R3,>6004+CODEOFFSET		* diagnostics banks
+	LI R1,>601c		* target address
 	B @TRAMPRET		* we aren't coming back
 
 NONEWKEY

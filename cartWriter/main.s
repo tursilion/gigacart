@@ -58,7 +58,7 @@ cf7Reset
 	b    @L8
 JMP_0
 * Begin inline assembler code
-* 699 "main.c" 1
+* 700 "main.c" 1
 	li r12,>1000
 	sbo 0
 * 0 "" 2
@@ -87,7 +87,7 @@ L10
 	b    @L18
 JMP_1
 * Begin inline assembler code
-* 707 "main.c" 1
+* 708 "main.c" 1
 	li r12,>1100
 	sbz 0
 * 0 "" 2
@@ -97,7 +97,7 @@ JMP_1
 	b    @L19
 L8
 * Begin inline assembler code
-* 699 "main.c" 1
+* 700 "main.c" 1
 	li r12,>1100
 	sbo 0
 * 0 "" 2
@@ -105,7 +105,7 @@ L8
 	b    @L9
 L18
 * Begin inline assembler code
-* 707 "main.c" 1
+* 708 "main.c" 1
 	li r12,>1000
 	sbz 0
 * 0 "" 2
@@ -123,7 +123,7 @@ cf7Init
 	b    @L21
 JMP_2
 * Begin inline assembler code
-* 711 "main.c" 1
+* 712 "main.c" 1
 	li r12,>1000
 	sbo 0
 * 0 "" 2
@@ -136,7 +136,7 @@ JMP_2
 	li   r1, >EF00
 	movb r1, @>5F0F
 * Begin inline assembler code
-* 718 "main.c" 1
+* 719 "main.c" 1
 	li r12,>1000
 	sbz 0
 * 0 "" 2
@@ -145,7 +145,7 @@ JMP_2
 	b    @L24
 L21
 * Begin inline assembler code
-* 711 "main.c" 1
+* 712 "main.c" 1
 	li r12,>1100
 	sbo 0
 * 0 "" 2
@@ -158,7 +158,7 @@ L21
 	li   r1, >EF00
 	movb r1, @>5F0F
 * Begin inline assembler code
-* 718 "main.c" 1
+* 719 "main.c" 1
 	li r12,>1100
 	sbz 0
 * 0 "" 2
@@ -406,7 +406,7 @@ cf7CardError
 	b    @L51
 JMP_4
 * Begin inline assembler code
-* 734 "main.c" 1
+* 735 "main.c" 1
 	li r12,>1000
 	sbo 0
 * 0 "" 2
@@ -425,7 +425,7 @@ L79
 	b    @L54
 JMP_6
 * Begin inline assembler code
-* 739 "main.c" 1
+* 740 "main.c" 1
 	li r12,>1000
 	sbz 0
 * 0 "" 2
@@ -437,7 +437,7 @@ JMP_6
 	b    @L78
 L51
 * Begin inline assembler code
-* 734 "main.c" 1
+* 735 "main.c" 1
 	li r12,>1100
 	sbo 0
 * 0 "" 2
@@ -475,7 +475,7 @@ L73
 	b    @L80
 JMP_9
 * Begin inline assembler code
-* 776 "main.c" 1
+* 777 "main.c" 1
 	li r12,>1100
 	sbz 0
 * 0 "" 2
@@ -487,7 +487,7 @@ JMP_9
 	b    @L78
 L54
 * Begin inline assembler code
-* 739 "main.c" 1
+* 740 "main.c" 1
 	li r12,>1100
 	sbz 0
 * 0 "" 2
@@ -571,7 +571,7 @@ L72
 		data		L62
 L80
 * Begin inline assembler code
-* 776 "main.c" 1
+* 777 "main.c" 1
 	li r12,>1000
 	sbz 0
 * 0 "" 2
@@ -659,7 +659,7 @@ cf7ReadSector
 	b    @L82
 JMP_10
 * Begin inline assembler code
-* 880 "main.c" 1
+* 879 "main.c" 1
 	li r12,>1000
 	sbo 0
 * 0 "" 2
@@ -690,7 +690,7 @@ L97
 	b    @L85
 JMP_12
 * Begin inline assembler code
-* 885 "main.c" 1
+* 884 "main.c" 1
 	li r12,>1000
 	sbz 0
 * 0 "" 2
@@ -702,7 +702,7 @@ JMP_12
 	b    @L96
 L82
 * Begin inline assembler code
-* 880 "main.c" 1
+* 879 "main.c" 1
 	li r12,>1100
 	sbo 0
 * 0 "" 2
@@ -740,7 +740,7 @@ JMP_14
 	b    @L88
 JMP_15
 * Begin inline assembler code
-* 899 "main.c" 1
+* 898 "main.c" 1
 	li r12,>1000
 	sbz 0
 * 0 "" 2
@@ -752,7 +752,7 @@ JMP_15
 	b    @L96
 L85
 * Begin inline assembler code
-* 885 "main.c" 1
+* 884 "main.c" 1
 	li r12,>1100
 	sbz 0
 * 0 "" 2
@@ -776,7 +776,7 @@ JMP_16
 	b    @L90
 JMP_17
 * Begin inline assembler code
-* 904 "main.c" 1
+* 903 "main.c" 1
 	li r12,>1000
 	sbz 0
 * 0 "" 2
@@ -801,7 +801,7 @@ L92
 	b    @L98
 JMP_18
 * Begin inline assembler code
-* 919 "main.c" 1
+* 918 "main.c" 1
 	li r12,>1100
 	sbz 0
 * 0 "" 2
@@ -814,7 +814,7 @@ JMP_18
 	b    @L96
 L88
 * Begin inline assembler code
-* 899 "main.c" 1
+* 898 "main.c" 1
 	li r12,>1100
 	sbz 0
 * 0 "" 2
@@ -827,7 +827,7 @@ L88
 	b    @L96
 L90
 * Begin inline assembler code
-* 904 "main.c" 1
+* 903 "main.c" 1
 	li r12,>1100
 	sbz 0
 * 0 "" 2
@@ -838,7 +838,7 @@ L90
 	b    @L99
 L98
 * Begin inline assembler code
-* 919 "main.c" 1
+* 918 "main.c" 1
 	li r12,>1000
 	sbz 0
 * 0 "" 2
@@ -878,7 +878,7 @@ cf7WriteSector
 	b    @L101
 JMP_19
 * Begin inline assembler code
-* 930 "main.c" 1
+* 929 "main.c" 1
 	li r12,>1000
 	sbo 0
 * 0 "" 2
@@ -917,7 +917,7 @@ L123
 	b    @L121
 JMP_21
 * Begin inline assembler code
-* 935 "main.c" 1
+* 934 "main.c" 1
 	li r12,>1100
 	sbz 0
 * 0 "" 2
@@ -934,7 +934,7 @@ L105
 	b    @L122
 L101
 * Begin inline assembler code
-* 930 "main.c" 1
+* 929 "main.c" 1
 	li r12,>1100
 	sbo 0
 * 0 "" 2
@@ -1012,7 +1012,7 @@ JMP_24
 	b    @L111
 JMP_25
 * Begin inline assembler code
-* 953 "main.c" 1
+* 952 "main.c" 1
 	li r12,>1000
 	sbz 0
 * 0 "" 2
@@ -1031,7 +1031,7 @@ L125
 	b    @L122
 L121
 * Begin inline assembler code
-* 935 "main.c" 1
+* 934 "main.c" 1
 	li r12,>1000
 	sbz 0
 * 0 "" 2
@@ -1050,7 +1050,7 @@ L124
 	b    @L109
 JMP_26
 * Begin inline assembler code
-* 948 "main.c" 1
+* 947 "main.c" 1
 	li r12,>1000
 	sbz 0
 * 0 "" 2
@@ -1058,7 +1058,7 @@ JMP_26
 	b    @L105
 L109
 * Begin inline assembler code
-* 948 "main.c" 1
+* 947 "main.c" 1
 	li r12,>1100
 	sbz 0
 * 0 "" 2
@@ -1067,7 +1067,7 @@ L109
 	b    @L105
 L111
 * Begin inline assembler code
-* 953 "main.c" 1
+* 952 "main.c" 1
 	li r12,>1100
 	sbz 0
 * 0 "" 2
@@ -1099,7 +1099,7 @@ JMP_27
 	b    @L115
 JMP_28
 * Begin inline assembler code
-* 965 "main.c" 1
+* 964 "main.c" 1
 	li r12,>1000
 	sbz 0
 * 0 "" 2
@@ -1107,7 +1107,7 @@ JMP_28
 	b    @L105
 L115
 * Begin inline assembler code
-* 965 "main.c" 1
+* 964 "main.c" 1
 	li r12,>1100
 	sbz 0
 * 0 "" 2
@@ -1122,7 +1122,7 @@ L114
 	b    @L126
 JMP_29
 * Begin inline assembler code
-* 971 "main.c" 1
+* 970 "main.c" 1
 	li r12,>1100
 	sbz 0
 * 0 "" 2
@@ -1131,7 +1131,7 @@ JMP_29
 	b    @L105
 L126
 * Begin inline assembler code
-* 971 "main.c" 1
+* 970 "main.c" 1
 	li r12,>1000
 	sbz 0
 * 0 "" 2
@@ -2013,20 +2013,23 @@ LC54
 	text 'Checking if erase is needed...'
 	byte 0
 LC55
-	text '%d%%...'
+	text 'latch >%X, adr >%X, read >%X%X != >FFFF'
 	byte 0
 LC56
 	text 'Yes, '
 	byte 0
 LC57
-	text 'Programming...'
+	text '%d%%...'
 	byte 0
 LC58
+	text 'Programming...'
+	byte 0
+LC59
 	byte 10
 	text 'Failed at CF Sector >%X%X%X%X'
 	byte 10
 	byte 0
-LC59
+LC60
 	byte 10
 	byte 10
 	text '** DONE **'
@@ -2035,7 +2038,7 @@ LC59
 
 	def	program
 program
-	ai   r10, >FFF0
+	ai   r10, >FFEC
 	mov  r10, r0
 	mov  r11, *r0+
 	mov  r9, *r0+
@@ -2045,116 +2048,162 @@ program
 	li   r1, LC54
 	li   r2, puts
 	bl   *r2
-	li   r2, >20
+	li   r3, >20
 	clr  r9
 	li   r4, >10
 	li   r13, printf
-L236
-	mov  r2, r1
+L239
+	mov  r3, r1
 	ai   r1, >6000
-	mov  r4, r3
-	swpb r3
-	movb r3, *r1
+	mov  r4, r2
+	swpb r2
+	movb r2, *r1
 	li   r1, >6000
-	jmp  L211
-L238
+	jmp  L213
+L210
 	inct r1
 	ci   r1, >8002
 	jne  JMP_40
-	b    @L237
+	b    @L241
 JMP_40
-L211
-	seto r3
-	c    *r1, r3
-	jeq  L238
+L213
+	mov  *r1, r2
+	ci   r2, >FFFF
+	jeq  L210
+	ai   r10, >FFF6
+	li   r4, LC55
+	mov  r4, *r10
+	mov  r3, @>2(r10)
+	mov  r1, @>4(r10)
+	mov  r2, r1
+	srl  r1, >8
+	mov  r1, @>6(r10)
+	andi r2, >FF
+	mov  r2, @>8(r10)
+	li   r9, printf
+	bl   *r9
+	ai   r10, >A
 	li   r1, >A
 	bl   @putchar
 	dect r10
-	li   r1, LC56
-	mov  r1, *r10
-	bl   @printf
+	li   r2, LC56
+	mov  r2, *r10
+	bl   *r9
 	inct r10
 	bl   @flashChipErase
 	ci   r1, 0
 	jne  JMP_41
-	b    @L216
+	b    @L212
 JMP_41
-L215
-	li   r1, LC57
-	li   r2, puts
-	bl   *r2
+L211
+	li   r1, LC58
+	li   r4, puts
+	bl   *r4
 	mov  @gImage, r1
 	li   r2, >20
 	li   r3, >28
 	li   r4, vdpmemset
 	bl   *r4
-	li   r13, >740
-	clr  r14
+	li   r14, >740
+	clr  r13
 	li   r1, >10
 	mov  r1, @>A(r10)
-	mov  r14, r15
-	mov  r14, @>C(r10)
-	mov  r14, @>E(r10)
+	mov  r13, r15
+	mov  r13, @>12(r10)
+	mov  r13, @>10(r10)
+	mov  r13, @>E(r10)
+	mov  r13, @>C(r10)
 	li   r9, >1
-L234
-	mov  r14, r1
-	mov  r13, r2
+L237
+	mov  @>C(r10), r1
+	ci   r1, >26
+	jgt  L222
+L243
+	mov  @>10(r10), r2
+	inc  r2
+	mov  r2, @>10(r10)
+	ci   r2, >7
+	jlt  L222
+	jeq  L222
+	mov  @>12(r10), r3
+	inc  r3
+	mov  r3, @>12(r10)
+	ci   r3, >3
+	jgt  JMP_42
+	b    @L223
+JMP_42
+	li   r2, >86
+	clr  r4
+	mov  r4, @>12(r10)
+L224
+	mov  @gImage, r4
+	inc  r4
+	mov  @>C(r10), r1
+	a    r4, r1
+	mov  @vdpchar, r4
+	bl   *r4
+L222
+	mov  r13, r1
+	mov  r14, r2
 	li   r3, cf7ReadSector
 	bl   *r3
 	ci   r1, 0
-	jne  JMP_42
-	b    @L222
-JMP_42
-L240
+	jne  JMP_43
+	b    @L225
+JMP_43
+L244
 	mov  @>A(r10), r1
 	mov  r15, r2
 	li   r4, flashWriteFast
 	bl   *r4
 	ci   r1, 0
-	jne  JMP_43
-	b    @L222
-JMP_43
+	jne  JMP_44
+	b    @L225
+JMP_44
 	mov  @>A(r10), r1
 	mov  r15, r2
 	li   r3, flashVerify
 	bl   *r3
 	ci   r1, 0
-	jeq  L222
+	jne  JMP_45
+	b    @L225
+JMP_45
 	ai   r15, >200
 	ci   r15, >1FFF
-	jle  L223
+	jle  L226
 	mov  @>A(r10), r4
 	inc  r4
 	mov  r4, @>A(r10)
 	clr  r15
-L223
-	inc  r13
-	jne  L224
-	inc  r14
-L224
-	ci   r14, >4
-	jle  JMP_44
-	b    @L225
-JMP_44
-	ci   r14, >4
-	jne  JMP_45
-	b    @L239
-JMP_45
 L226
+	inc  r14
+	jne  L227
+	inc  r13
+L227
+	ci   r13, >4
+	jle  JMP_46
+	b    @L228
+JMP_46
+	ci   r13, >4
+	jne  JMP_47
+	b    @L242
+JMP_47
+L229
 	inc  r9
 	ci   r9, >443
-	jlt  L234
-	jeq  L234
-	mov  @>C(r10), r4
-	inc  r4
-	mov  r4, @>C(r10)
-	ci   r4, >5
-	jgt  JMP_46
+	jgt  JMP_48
+	b    @L237
+JMP_48
+	mov  @>E(r10), r2
+	inc  r2
+	mov  r2, @>E(r10)
+	ci   r2, >5
+	jgt  JMP_49
 	b    @L218
-JMP_46
-	mov  @>E(r10), r1
-	inc  r1
-	mov  r1, @>E(r10)
+JMP_49
+	mov  @>C(r10), r3
+	inc  r3
+	mov  r3, @>C(r10)
 	mov  @gImage, r1
 	li   r2, >20
 	li   r3, >28
@@ -2162,72 +2211,77 @@ JMP_46
 	bl   *r4
 	li   r9, >80
 	clr  r1
-	mov  r1, @>C(r10)
+	mov  r1, @>E(r10)
 L219
 	mov  @gImage, r1
 	li   r2, >85
-	mov  @>E(r10), r3
-	dec  r3
+	mov  @>C(r10), r3
 	li   r4, vdpmemset
 	bl   *r4
 L221
-	mov  @>E(r10), r1
+	mov  @>C(r10), r1
 	a    @gImage, r1
 	mov  r9, r2
-	mov  @vdpchar, r3
-	bl   *r3
+	mov  @vdpchar, r4
+	bl   *r4
 	clr  r9
-	mov  r14, r1
-	mov  r13, r2
+	mov  @>C(r10), r1
+	ci   r1, >26
+	jgt  JMP_50
+	b    @L243
+JMP_50
+	mov  r13, r1
+	mov  r14, r2
 	li   r3, cf7ReadSector
 	bl   *r3
 	ci   r1, 0
-	jeq  JMP_47
-	b    @L240
-JMP_47
-L222
-	ci   r13, >73F
-	jh  JMP_48
-	b    @L241
-JMP_48
-	ai   r13, >F8C0
-L228
+	jeq  JMP_51
+	b    @L244
+JMP_51
+L225
+	ci   r14, >73F
+	jh  JMP_52
+	b    @L245
+JMP_52
+	mov  r14, r2
+	ai   r2, >F8C0
+L231
 	ai   r10, >FFF6
-	li   r1, LC58
+	li   r1, LC59
 	mov  r1, *r10
-	mov  r14, r1
-	srl  r1, >8
-	mov  r1, @>2(r10)
-	andi r14, >FF
-	mov  r14, @>4(r10)
 	mov  r13, r1
 	srl  r1, >8
-	mov  r1, @>6(r10)
+	mov  r1, @>2(r10)
 	andi r13, >FF
-	mov  r13, @>8(r10)
+	mov  r13, @>4(r10)
+	mov  r2, r1
+	srl  r1, >8
+	mov  r1, @>6(r10)
+	andi r2, >FF
+	mov  r2, @>8(r10)
 	bl   @printf
 	clr  r1
 	ai   r10, >A
-L216
+L212
 	mov  *r10+, r11
 	mov  *r10+, r9
 	mov  *r10+, r13
 	mov  *r10+, r14
 	mov  *r10, r15
-	ai   r10, >8
+	ai   r10, >C
 	b    *r11
-L237
-	inct r2
-	ci   r2, >1FFF
-	jh  JMP_49
-	b    @L236
-JMP_49
+L241
+	inct r3
+	ci   r3, >1FFF
+	jh  JMP_53
+	b    @L239
+JMP_53
 	inc  r9
 	ci   r9, >3
-	jh  L213
+	jh  L215
 	ai   r10, >FFFC
-	li   r4, LC55
-	mov  r4, *r10
+	li   r3, LC57
+	mov  r3, *r10
 	mov  r9, r1
 	a    r9, r1
 	a    r9, r1
@@ -2235,68 +2289,170 @@ JMP_49
 	a    r9, r1
 	mov  r1, @>2(r10)
 	bl   *r13
-	clr  r2
+	clr  r3
 	ai   r10, >4
 	mov  r9, r4
 	ori  r4, >10
-	b    @L236
-L239
-	ci   r13, >63F
-	jh  JMP_50
-	b    @L226
-JMP_50
-L225
-	li   r1, LC59
-	li   r4, puts
-	bl   *r4
+	b    @L239
+L242
+	ci   r14, >63F
+	jh  JMP_54
+	b    @L229
+JMP_54
+L228
+	li   r1, LC60
+	li   r2, puts
+	bl   *r2
 	li   r1, >1
-	jmp  L216
+	jmp  L212
 L218
 	mov  @gImage, r1
 	li   r2, >20
 	li   r3, >28
 	li   r4, vdpmemset
 	bl   *r4
-	mov  @>E(r10), r1
+	mov  @>C(r10), r1
 	jne  L220
-	mov  @>C(r10), r9
+	mov  @>E(r10), r9
 	ai   r9, >80
 	b    @L221
-L241
-	dec  r14
-	ai   r13, >F8C0
-	b    @L228
-L213
+L223
+	mov  @>12(r10), r2
+	ai   r2, >86
+	b    @L224
+L215
 	li   r1, >A
 	bl   @putchar
-	b    @L215
+	b    @L211
+L245
+	dec  r13
+	mov  r14, r2
+	ai   r2, >F8C0
+	b    @L231
 L220
-	mov  @>C(r10), r9
+	mov  @>E(r10), r9
 	ai   r9, >80
 	b    @L219
 	.size	program, .-program
-LC60
-	text 'Identify...'
-	byte 0
 LC61
-	text ':'
+	text 'CF7+'
 	byte 0
 LC62
-	text 'Size    : 0x%X%X%X%X sectors'
-	byte 10
+	text 'CF7 detected on Classic99 base >1000'
 	byte 0
 LC63
-	text 'Capacity: 0x%X%X%X%X sectors'
-	byte 10
+	text 'CF7 not detected at >1100 or >1000'
 	byte 0
+	even
+
+	def	cf7DetectClassic99
+cf7DetectClassic99
+	ai   r10, >FFFA
+	mov  r10, r0
+	mov  r11, *r0+
+	mov  r9, *r0+
+	mov  r13, *r0+
+* Begin inline assembler code
+* 977 "main.c" 1
+	li r12,>1100
+	sbo 0
+* 0 "" 2
+* End of inline assembler code
+	li   r9, >4000
+	li   r13, memcmp
+	jmp  L249
+L247
+	inc  r9
+	ci   r9, >4100
+	jne  JMP_55
+	b    @L255
+JMP_55
+L249
+	mov  r9, r1
+	li   r2, LC61
+	li   r3, >4
+	bl   *r13
+	ci   r1, 0
+	jne  L247
+* Begin inline assembler code
+* 980 "main.c" 1
+	li r12,>1100
+	sbz 0
+* 0 "" 2
+* End of inline assembler code
+	mov  r1, @CF7Classic99
+	mov  *r10+, r11
+	mov  *r10+, r9
+	mov  *r10+, r13
+	b    *r11
+L255
+* Begin inline assembler code
+* 985 "main.c" 1
+	li r12,>1100
+	sbz 0
+* 0 "" 2
+* 987 "main.c" 1
+	li r12,>1000
+	sbo 0
+* 0 "" 2
+* End of inline assembler code
+	li   r9, >4000
+	jmp  L251
+L250
+	inc  r9
+	ci   r9, >4100
+	jne  JMP_56
+	b    @L256
+JMP_56
+L251
+	mov  r9, r1
+	li   r2, LC61
+	li   r3, >4
+	bl   *r13
+	ci   r1, 0
+	jne  L250
+* Begin inline assembler code
+* 990 "main.c" 1
+	li r12,>1000
+	sbz 0
+* 0 "" 2
+* End of inline assembler code
+	li   r1, >1
+	mov  r1, @CF7Classic99
+	li   r1, LC62
+	mov  *r10+, r11
+	mov  *r10+, r9
+	mov  *r10+, r13
+	b    @puts
+L256
+* Begin inline assembler code
+* 996 "main.c" 1
+	li r12,>1000
+	sbz 0
+* 0 "" 2
+* End of inline assembler code
+	li   r1, LC63
+	mov  *r10+, r11
+	mov  *r10+, r9
+	mov  *r10+, r13
+	b    @puts
+	.size	cf7DetectClassic99, .-cf7DetectClassic99
 LC64
-	text 'LBA     : 0x%X%X%X%X sectors'
+	text 'CF Size : 0x%X%X%X%X sectors'
 	byte 10
 	byte 0
 LC65
-	text 'Serial: '
+	text 'Capacity: 0x%X%X%X%X sectors'
+	byte 10
 	byte 0
 LC66
+	text 'LBA     : 0x%X%X%X%X sectors'
+	byte 10
+	byte 0
+LC67
+	text 'Serial: '
+	byte 0
+LC68
 	text 'Model: '
 	byte 0
 	even
@@ -2310,11 +2466,11 @@ cf7IdentifyDevice
 	mov  r13, *r0+
 	mov  r14, *r0+
 	mov  @CF7Classic99, r1
-	jne  JMP_51
-	b    @L243
-JMP_51
+	jne  JMP_57
+	b    @L258
+JMP_57
 * Begin inline assembler code
-* 819 "main.c" 1
+* 820 "main.c" 1
 	li r12,>1000
 	sbo 0
 * 0 "" 2
@@ -2322,16 +2478,16 @@ JMP_51
 	li   r9, cf7WaitForReady
 	bl   *r9
 	ci   r1, 0
-	jeq  JMP_52
-	b    @L245
-JMP_52
-L263
+	jeq  JMP_58
+	b    @L260
+JMP_58
+L278
 	mov  @CF7Classic99, r1
-	jne  JMP_53
-	b    @L246
-JMP_53
+	jne  JMP_59
+	b    @L261
+JMP_59
 * Begin inline assembler code
-* 822 "main.c" 1
+* 823 "main.c" 1
 	li r12,>1000
 	sbz 0
 * 0 "" 2
@@ -2341,10 +2497,10 @@ JMP_53
 	mov  *r10+, r13
 	mov  *r10+, r14
 	b    *r11
-	b    @L262
-L243
+	b    @L277
+L258
 * Begin inline assembler code
-* 819 "main.c" 1
+* 820 "main.c" 1
 	li r12,>1100
 	sbo 0
 * 0 "" 2
@@ -2352,122 +2508,93 @@ L243
 	li   r9, cf7WaitForReady
 	bl   *r9
 	ci   r1, 0
-	jne  JMP_54
-	b    @L263
-JMP_54
-L245
+	jne  JMP_60
+	b    @L278
+JMP_60
+L260
 	li   r1, >EC00
 	movb r1, @>5F0F
 	bl   *r9
 	ci   r1, 0
-	jne  JMP_55
-	b    @L264
-JMP_55
-	movb @>5E0F, r1
-	srl  r1, 8
-	andi r1, >8
-	ci   r1, 0
-	jeq  JMP_56
-	b    @L250
-JMP_56
+	jeq  JMP_61
+	b    @L263
+JMP_61
 	mov  @CF7Classic99, r1
-	jne  JMP_57
-	b    @L251
-JMP_57
+	jne  JMP_62
+	b    @L264
+JMP_62
 * Begin inline assembler code
-* 834 "main.c" 1
+* 830 "main.c" 1
 	li r12,>1000
 	sbz 0
 * 0 "" 2
 * End of inline assembler code
-L252
+	mov  *r10+, r11
+	mov  *r10+, r9
+	mov  *r10+, r13
+	mov  *r10+, r14
+	b    *r11
+	b    @L277
+L261
+* Begin inline assembler code
+* 823 "main.c" 1
+	li r12,>1100
+	sbz 0
+* 0 "" 2
+* End of inline assembler code
+	mov  *r10+, r11
+	mov  *r10+, r9
+	mov  *r10+, r13
+	mov  *r10+, r14
+	b    *r11
+	b    @L277
+L263
+	movb @>5E0F, r1
+	srl  r1, 8
+	andi r1, >8
+	ci   r1, 0
+	jeq  JMP_63
+	b    @L265
+JMP_63
+	mov  @CF7Classic99, r1
+	jeq  JMP_64
+	b    @L279
+JMP_64
+* Begin inline assembler code
+* 835 "main.c" 1
+	li r12,>1100
+	sbz 0
+* 0 "" 2
+* End of inline assembler code
+L267
 	li   r1, LC22
 	mov  *r10+, r11
 	mov  *r10+, r9
 	mov  *r10+, r13
 	mov  *r10+, r14
 	b    @puts
-L246
-* Begin inline assembler code
-* 822 "main.c" 1
-	li r12,>1100
-	sbz 0
-* 0 "" 2
-* End of inline assembler code
-	mov  *r10+, r11
-	mov  *r10+, r9
-	mov  *r10+, r13
-	mov  *r10+, r14
-	b    *r11
-	b    @L262
-L264
-	mov  @CF7Classic99, r1
-	jne  JMP_58
-	b    @L249
-JMP_58
-* Begin inline assembler code
-* 829 "main.c" 1
-	li r12,>1000
-	sbz 0
-* 0 "" 2
-* End of inline assembler code
-	mov  *r10+, r11
-	mov  *r10+, r9
-	mov  *r10+, r13
-	mov  *r10+, r14
-	b    *r11
-	b    @L262
-L249
-* Begin inline assembler code
-* 829 "main.c" 1
-	li r12,>1100
-	sbz 0
-* 0 "" 2
-* End of inline assembler code
-	mov  *r10+, r11
-	mov  *r10+, r9
-	mov  *r10+, r13
-	mov  *r10+, r14
-	b    *r11
-	b    @L262
-L251
-* Begin inline assembler code
-* 834 "main.c" 1
-	li r12,>1100
-	sbz 0
-* 0 "" 2
-* End of inline assembler code
-	b    @L252
-L250
-	dect r10
-	li   r1, LC60
-	mov  r1, *r10
-	li   r14, printf
-	bl   *r14
+L265
 	li   r1, buffer+1
-	inct r10
-L253
+L268
 	movb @>5E01, *r1
 	movb @>5E01, @>FFFF(r1)
 	inct r1
 	ci   r1, buffer+513
-	jne  L253
-	li   r1, LC61
-	bl   @puts
+	jne  L268
 	mov  @CF7Classic99, r1
-	jne  JMP_59
-	b    @L254
-JMP_59
+	jeq  JMP_65
+	b    @L280
+JMP_65
 * Begin inline assembler code
-* 847 "main.c" 1
-	li r12,>1000
+* 846 "main.c" 1
+	li r12,>1100
 	sbz 0
 * 0 "" 2
 * End of inline assembler code
-L255
+L270
 	ai   r10, >FFF6
-	li   r2, LC62
-	mov  r2, *r10
+	li   r1, LC64
+	mov  r1, *r10
 	movb @buffer+14, r1
 	srl  r1, 8
 	mov  r1, @>2(r10)
@@ -2480,9 +2607,10 @@ L255
 	movb @buffer+17, r1
 	srl  r1, 8
 	mov  r1, @>8(r10)
+	li   r14, printf
 	bl   *r14
-	li   r1, LC63
-	mov  r1, *r10
+	li   r2, LC65
+	mov  r2, *r10
 	movb @buffer+116, r1
 	srl  r1, 8
 	mov  r1, @>2(r10)
@@ -2496,8 +2624,8 @@ L255
 	srl  r1, 8
 	mov  r1, @>8(r10)
 	bl   *r14
-	li   r2, LC64
-	mov  r2, *r10
+	li   r1, LC66
+	mov  r1, *r10
 	movb @buffer+122, r1
 	srl  r1, 8
 	mov  r1, @>2(r10)
@@ -2512,169 +2640,195 @@ L255
 	mov  r1, @>8(r10)
 	bl   *r14
 	ai   r10, >8
-	li   r1, LC65
-	mov  r1, *r10
+	li   r2, LC67
+	mov  r2, *r10
 	bl   *r14
 	li   r9, buffer+20
 	inct r10
 	li   r13, putchar
-L256
+L271
 	movb *r9+, r1
 	srl  r1, 8
 	bl   *r13
 	ci   r9, buffer+40
-	jne  L256
+	jne  L271
 	li   r1, >A
 	bl   @putchar
 	dect r10
-	li   r2, LC66
-	mov  r2, *r10
+	li   r1, LC68
+	mov  r1, *r10
 	bl   *r14
 	ai   r9, >6
 	inct r10
-L257
+L272
 	movb *r9+, r1
 	srl  r1, 8
 	bl   *r13
 	ci   r9, buffer+76
-	jne  L257
+	jne  L272
 	li   r1, >A
 	mov  *r10+, r11
 	mov  *r10+, r9
 	mov  *r10+, r13
 	mov  *r10+, r14
 	b    @putchar
-L254
+L264
 * Begin inline assembler code
-* 847 "main.c" 1
+* 830 "main.c" 1
 	li r12,>1100
 	sbz 0
 * 0 "" 2
 * End of inline assembler code
-	b    @L255
-L262
+	mov  *r10+, r11
+	mov  *r10+, r9
+	mov  *r10+, r13
+	mov  *r10+, r14
+	b    *r11
+	b    @L277
+L280
+* Begin inline assembler code
+* 846 "main.c" 1
+	li r12,>1000
+	sbz 0
+* 0 "" 2
+* End of inline assembler code
+	b    @L270
+L279
+* Begin inline assembler code
+* 835 "main.c" 1
+	li r12,>1000
+	sbz 0
+* 0 "" 2
+* End of inline assembler code
+	b    @L267
+L277
 	.size	cf7IdentifyDevice, .-cf7IdentifyDevice
-LC67
+LC69
 	text 'Flash CFI information:'
 	byte 0
-LC68
+LC70
 	text 'Did NOT get QRY string: %c%c%c'
 	byte 10
 	byte 0
-LC69
-	text 'Device size: 2^%d bytes'
-	byte 0
-LC70
-	text ' [small]'
-	byte 0
 LC71
-	text 'Device reports 16-bit only!'
+	text 'Make sure the >E000 adapter/hack is'
+	byte 10
+	text 'in the cartridge slot'
 	byte 0
 LC72
+	text 'Device size: 2^%d bytes'
+	byte 0
+LC73
+	text ' [small]'
+	byte 0
+LC74
+	text 'Device reports 16-bit only!'
+	byte 0
+LC75
 	text 'Vcc Min/Max: %d.%d / %d.%d V'
 	byte 10
 	byte 0
-LC73
+LC76
 	text 'Timeout: Word write: %d uS'
 	byte 10
 	byte 0
-LC74
+LC77
 	text '         Chip erase: 2^%d mS'
 	byte 10
 	byte 0
-LC75
+LC78
 	text 'Max multi-byte write size: %d bytes'
 	byte 10
 	byte 0
-LC76
+LC79
 	text 'Did NOT get PRI or not at 0x40: %c%c%c'
 	byte 10
 	byte 0
-LC77
+LC80
 	text 'CFI version 1.%d'
 	byte 10
 	byte 0
-LC78
+LC81
 	text 'Process: '
 	byte 0
-LC79
+LC82
 	text '.23um floating'
 	byte 0
-LC80
+LC83
 	text '.17us floating'
 	byte 0
-LC81
+LC84
 	text '.23um MirrorBit'
 	byte 0
-LC82
+LC85
 	text '.13um floating'
 	byte 0
-LC83
+LC86
 	text '.11um MirrorBit'
 	byte 0
-LC84
+LC87
 	text '.09um MirrorBit'
 	byte 0
-LC85
+LC88
 	text '.09um floating'
 	byte 0
-LC86
+LC89
 	text '.065um MirrorBit Ec'
 	byte 0
-LC87
+LC90
 	text '.065um MirrorBit'
 	byte 0
-LC88
+LC91
 	text '0.045um MirrorBit'
 	byte 0
-LC89
+LC92
 	text 'unknown: %d'
 	byte 10
 	byte 0
-LC90
+LC93
 	text 'Unlock is not address sensitive.'
 	byte 0
-LC91
+LC94
 	text 'WP# pin: '
 	byte 0
-LC92
+LC95
 	text 'none'
 	byte 0
-LC93
+LC96
 	text '64kb dual boot'
 	byte 0
-LC94
+LC97
 	text 'bottom boot'
 	byte 0
-LC95
+LC98
 	text 'top boot'
 	byte 0
-LC96
+LC99
 	text 'uniform bottom boot'
 	byte 0
-LC97
+LC100
 	text 'uniform top boot'
 	byte 0
-LC98
+LC101
 	text 'all sectors'
 	byte 0
-LC99
+LC102
 	text 'uniform dual'
 	byte 0
-LC100
+LC103
 	text 'un'
 	byte 0
-LC101
+LC104
 	byte 0
-LC102
+LC105
 	text 'Customer OTP area: 2^%d (%slocked)'
 	byte 10
 	byte 0
-LC103
+LC106
 	text 'Page size = %d bytes'
 	byte 10
 	byte 0
-LC104
+LC107
 	text 'Page size not available pre 1.5'
 	byte 0
 	even
@@ -2688,7 +2842,7 @@ flashReadCfi
 	mov  r13, *r0+
 	mov  r14, *r0+
 	li   r9, puts
-	li   r1, LC67
+	li   r1, LC69
 	bl   *r9
 	li   r1, >1800
 	movb r1, @>6000
@@ -2697,13 +2851,13 @@ flashReadCfi
 	swpb r12
 	movb r12, @>6000
 	clr  r1
-L266
+L282
 	mov  r1, r2
 	ai   r2, >6000
 	mov  *r2, @buffer(r1)
 	inct r1
 	ci   r1, >F4
-	jne  L266
+	jne  L282
 	li   r4, >1800
 	movb r4, @>6000
 	li   r8, >F010
@@ -2713,14 +2867,14 @@ L266
 	movb @buffer+32, r2
 	li   r1, >5100
 	cb   r2, r1
-	jne  JMP_60
-	b    @L267
-JMP_60
+	jne  JMP_66
+	b    @L283
+JMP_66
 	movb @buffer+34, r1
 	movb @buffer+36, r3
-L268
+L284
 	ai   r10, >FFF8
-	li   r4, LC68
+	li   r4, LC70
 	mov  r4, *r10
 	srl  r2, 8
 	mov  r2, @>2(r10)
@@ -2730,18 +2884,20 @@ L268
 	mov  r3, @>6(r10)
 	li   r13, printf
 	bl   *r13
-	li   r14, >1
 	ai   r10, >8
-L271
+	li   r1, LC71
+	bl   *r9
+	li   r14, >1
+L287
 	li   r1, >4000
 	cb   @buffer+42, r1
-	jeq  L280
+	jeq  L296
 	movb @buffer+128, r1
 	movb @buffer+130, r3
 	movb @buffer+132, r2
-L281
+L297
 	ai   r10, >FFF8
-	li   r4, LC76
+	li   r4, LC79
 	mov  r4, *r10
 	srl  r1, 8
 	mov  r1, @>2(r10)
@@ -2751,69 +2907,69 @@ L281
 	mov  r2, @>6(r10)
 	bl   *r13
 	ai   r10, >8
-L285
+L301
 	ci   r14, 0
-	jeq  L320
+	jeq  L336
 	li   r9, buffer
 	li   r14, putchar
 	li   r13, >5A00
-	jmp  L319
-L326
+	jmp  L335
+L342
 	srl  r1, 8
 	bl   *r14
 	inc  r9
 	ci   r9, buffer+512
-	jeq  L325
-L319
+	jeq  L341
+L335
 	movb *r9, r1
 	movb r1, r2
 	ai   r2, >E000
 	cb   r2, r13
-	jle  L326
+	jle  L342
 	li   r1, >20
 	bl   *r14
 	inc  r9
 	ci   r9, buffer+512
-	jne  L319
-L325
+	jne  L335
+L341
 	li   r1, >A
 	mov  *r10+, r11
 	mov  *r10+, r9
 	mov  *r10+, r13
 	mov  *r10+, r14
 	b    @putchar
-L267
+L283
 	movb @buffer+34, r1
 	li   r3, >5200
 	cb   r1, r3
-	jeq  L269
+	jeq  L285
 	movb @buffer+36, r3
-	b    @L268
-L280
+	b    @L284
+L296
 	movb @buffer+128, r1
 	li   r2, >5000
 	cb   r1, r2
-	jne  JMP_61
-	b    @L282
-JMP_61
+	jne  JMP_67
+	b    @L298
+JMP_67
 	movb @buffer+130, r3
 	movb @buffer+132, r2
-	b    @L281
-L320
+	b    @L297
+L336
 	mov  *r10+, r11
 	mov  *r10+, r9
 	mov  *r10+, r13
 	mov  *r10+, r14
 	b    *r11
-L269
+L285
 	movb @buffer+36, r3
 	li   r4, >5900
 	cb   r3, r4
-	jeq  JMP_62
-	b    @L268
-JMP_62
+	jeq  JMP_68
+	b    @L284
+JMP_68
 	ai   r10, >FFFC
-	li   r1, LC69
+	li   r1, LC72
 	mov  r1, *r10
 	movb @buffer+78, r1
 	srl  r1, 8
@@ -2823,25 +2979,25 @@ JMP_62
 	ai   r10, >4
 	li   r1, >1B00
 	cb   @buffer+78, r1
-	jeq  L272
+	jeq  L288
 	dect r10
-	li   r2, LC70
+	li   r2, LC73
 	mov  r2, *r10
 	bl   *r13
 	inct r10
-L272
+L288
 	li   r1, >A
 	bl   @putchar
 	li   r1, >100
 	cb   @buffer+80, r1
-	jne  JMP_63
-	b    @L327
-JMP_63
-L273
+	jne  JMP_69
+	b    @L343
+JMP_69
+L289
 	movb @buffer+54, r2
 	movb @buffer+56, r1
 	ai   r10, >FFF6
-	li   r3, LC72
+	li   r3, LC75
 	mov  r3, *r10
 	movb r2, r3
 	srl  r3, >4
@@ -2862,23 +3018,23 @@ L273
 	srl  r3, 8
 	ai   r10, >A
 	ci   r3, 0
-	jne  JMP_64
-	b    @L328
-JMP_64
+	jne  JMP_70
+	b    @L344
+JMP_70
 	clr  r2
 	li   r1, >1
-L276
+L292
 	a    r1, r1
 	inc  r2
 	c    r2, r3
-	jlt  L276
-L275
+	jlt  L292
+L291
 	ai   r10, >FFFC
-	li   r3, LC73
+	li   r3, LC76
 	mov  r3, *r10
 	mov  r1, @>2(r10)
 	bl   *r13
-	li   r4, LC74
+	li   r4, LC77
 	mov  r4, *r10
 	movb @buffer+68, r1
 	srl  r1, 8
@@ -2888,41 +3044,41 @@ L275
 	srl  r3, 8
 	ai   r10, >4
 	ci   r3, 0
-	jne  JMP_65
-	b    @L329
-JMP_65
+	jne  JMP_71
+	b    @L345
+JMP_71
 	clr  r2
 	li   r1, >1
-L279
+L295
 	a    r1, r1
 	inc  r2
 	c    r3, r2
-	jgt  L279
-L278
+	jgt  L295
+L294
 	ai   r10, >FFFC
-	li   r2, LC75
+	li   r2, LC78
 	mov  r2, *r10
 	mov  r1, @>2(r10)
 	bl   *r13
 	clr  r14
 	ai   r10, >4
-	b    @L271
-L282
+	b    @L287
+L298
 	movb @buffer+130, r3
 	li   r2, >5200
 	cb   r3, r2
-	jeq  L283
+	jeq  L299
 	movb @buffer+132, r2
-	b    @L281
-L283
+	b    @L297
+L299
 	movb @buffer+132, r2
 	li   r4, >4900
 	cb   r2, r4
-	jeq  JMP_66
-	b    @L281
-JMP_66
+	jeq  JMP_72
+	b    @L297
+JMP_72
 	ai   r10, >FFFC
-	li   r1, LC77
+	li   r1, LC80
 	mov  r1, *r10
 	movb @buffer+136, r1
 	srl  r1, 8
@@ -2930,7 +3086,7 @@ JMP_66
 	mov  r1, @>2(r10)
 	bl   *r13
 	inct r10
-	li   r3, LC78
+	li   r3, LC81
 	mov  r3, *r10
 	bl   *r13
 	movb @buffer+138, r1
@@ -2939,57 +3095,57 @@ JMP_66
 	andi r1, >F
 	inct r10
 	ci   r1, >9
-	jh  JMP_67
-	b    @L330
-JMP_67
+	jh  JMP_73
+	b    @L346
+JMP_73
 	ai   r10, >FFFC
-	li   r3, LC89
+	li   r3, LC92
 	mov  r3, *r10
 	mov  r1, @>2(r10)
 	bl   @printf
 	ai   r10, >4
-L298
+L314
 	movb @buffer+138, r1
 	srl  r1, 8
 	andi r1, >3
 	ci   r1, 0
-	jeq  JMP_68
-	b    @L331
-JMP_68
-L299
+	jeq  JMP_74
+	b    @L347
+JMP_74
+L315
 	dect r10
-	li   r1, LC91
+	li   r1, LC94
 	mov  r1, *r10
 	bl   *r13
 	movb @buffer+158, r1
 	inct r10
 	ci   r1, >7FF
-	jle  L332
+	jle  L348
 	ai   r10, >FFFC
-	li   r3, LC89
+	li   r3, LC92
 	mov  r3, *r10
 	srl  r1, 8
 	mov  r1, @>2(r10)
 	bl   @printf
 	ai   r10, >4
-L310
+L326
 	li   r1, >3400
 	cb   @buffer+136, r1
-	jh  JMP_69
-	b    @L311
-JMP_69
+	jh  JMP_75
+	b    @L327
+JMP_75
 	movb @buffer+164, r2
 	movb @buffer+6, r1
 	srl  r1, 8
 	andi r1, >40
 	ci   r1, 0
-	jeq  JMP_70
-	b    @L312
-JMP_70
-	li   r1, LC100
-L313
+	jeq  JMP_76
+	b    @L328
+JMP_76
+	li   r1, LC103
+L329
 	ai   r10, >FFFA
-	li   r3, LC102
+	li   r3, LC105
 	mov  r3, *r10
 	srl  r2, 8
 	mov  r2, @>2(r10)
@@ -3000,248 +3156,145 @@ L313
 	clr  r2
 	li   r1, >1
 	ai   r10, >6
-	jmp  L314
-L315
+	jmp  L330
+L331
 	a    r1, r1
 	inc  r2
-L314
+L330
 	c    r2, r3
-	jlt  L315
+	jlt  L331
 	ai   r10, >FFFC
-	li   r4, LC103
+	li   r4, LC106
 	mov  r4, *r10
 	mov  r1, @>2(r10)
 	bl   *r13
 	ai   r10, >4
-	b    @L285
-L330
+	b    @L301
+L346
 	a    r1, r1
-	mov  @L297(r1), r2
+	mov  @L313(r1), r2
 	b    *r2
 	even
-L297
-		data		L287
-		data		L288
-		data		L289
-		data		L290
-		data		L291
-		data		L292
-		data		L293
-		data		L294
-		data		L295
-		data		L296
-L332
-	srl  r1, 8
-	a    r1, r1
-	mov  @L309(r1), r2
-	b    *r2
-	even
-L309
-		data		L301
-		data		L302
+L313
 		data		L303
 		data		L304
 		data		L305
 		data		L306
 		data		L307
 		data		L308
-L331
-	li   r1, LC90
-	bl   *r9
-	b    @L299
-L307
-	li   r1, LC98
-	bl   *r9
-	b    @L310
-L306
-	li   r1, LC97
-	bl   *r9
-	b    @L310
-L305
-	li   r1, LC96
-	bl   *r9
-	b    @L310
-L304
-	li   r1, LC95
-	bl   *r9
-	b    @L310
-L303
-	li   r1, LC94
-	bl   *r9
-	b    @L310
-L302
+		data		L309
+		data		L310
+		data		L311
+		data		L312
+L348
+	srl  r1, 8
+	a    r1, r1
+	mov  @L325(r1), r2
+	b    *r2
+	even
+L325
+		data		L317
+		data		L318
+		data		L319
+		data		L320
+		data		L321
+		data		L322
+		data		L323
+		data		L324
+L347
 	li   r1, LC93
 	bl   *r9
-	b    @L310
-L301
-	li   r1, LC92
+	b    @L315
+L323
+	li   r1, LC101
 	bl   *r9
-	b    @L310
-L308
+	b    @L326
+L322
+	li   r1, LC100
+	bl   *r9
+	b    @L326
+L321
 	li   r1, LC99
 	bl   *r9
-	b    @L310
-L329
+	b    @L326
+L320
+	li   r1, LC98
+	bl   *r9
+	b    @L326
+L319
+	li   r1, LC97
+	bl   *r9
+	b    @L326
+L318
+	li   r1, LC96
+	bl   *r9
+	b    @L326
+L317
+	li   r1, LC95
+	bl   *r9
+	b    @L326
+L324
+	li   r1, LC102
+	bl   *r9
+	b    @L326
+L345
 	li   r1, >1
-	b    @L278
+	b    @L294
+L344
+	li   r1, >1
+	b    @L291
+L343
+	li   r1, LC74
+	bl   *r9
+	b    @L289
 L328
-	li   r1, >1
-	b    @L275
-L327
-	li   r1, LC71
-	bl   *r9
-	b    @L273
-L312
-	li   r1, LC101
-	b    @L313
-L311
 	li   r1, LC104
+	b    @L329
+L327
+	li   r1, LC107
 	bl   *r9
-	b    @L285
-L295
-	li   r1, LC87
+	b    @L301
+L311
+	li   r1, LC90
 	bl   *r9
-	b    @L298
-L294
-	li   r1, LC86
+	b    @L314
+L310
+	li   r1, LC89
 	bl   *r9
-	b    @L298
-L293
-	li   r1, LC85
-	bl   *r9
-	b    @L298
-L292
-	li   r1, LC84
-	bl   *r9
-	b    @L298
-L291
-	li   r1, LC83
-	bl   *r9
-	b    @L298
-L290
-	li   r1, LC82
-	bl   *r9
-	b    @L298
-L289
-	li   r1, LC81
-	bl   *r9
-	b    @L298
-L288
-	li   r1, LC80
-	bl   *r9
-	b    @L298
-L287
-	li   r1, LC79
-	bl   *r9
-	b    @L298
-L296
+	b    @L314
+L309
 	li   r1, LC88
 	bl   *r9
-	b    @L298
+	b    @L314
+L308
+	li   r1, LC87
+	bl   *r9
+	b    @L314
+L307
+	li   r1, LC86
+	bl   *r9
+	b    @L314
+L306
+	li   r1, LC85
+	bl   *r9
+	b    @L314
+L305
+	li   r1, LC84
+	bl   *r9
+	b    @L314
+L304
+	li   r1, LC83
+	bl   *r9
+	b    @L314
+L303
+	li   r1, LC82
+	bl   *r9
+	b    @L314
+L312
+	li   r1, LC91
+	bl   *r9
+	b    @L314
 	.size	flashReadCfi, .-flashReadCfi
-LC105
-	text 'CF7+'
-	byte 0
-LC106
-	text 'CF7 detected on Classic99 base >1000'
-	byte 0
-LC107
-	text 'CF7 not detected at >1100 or >1000'
-	byte 0
-	even
-
-	def	cf7DetectClassic99
-cf7DetectClassic99
-	ai   r10, >FFFA
-	mov  r10, r0
-	mov  r11, *r0+
-	mov  r9, *r0+
-	mov  r13, *r0+
-* Begin inline assembler code
-* 978 "main.c" 1
-	li r12,>1100
-	sbo 0
-* 0 "" 2
-* End of inline assembler code
-	li   r9, >4000
-	li   r13, memcmp
-	jmp  L336
-L334
-	inc  r9
-	ci   r9, >4100
-	jne  JMP_71
-	b    @L342
-JMP_71
-L336
-	mov  r9, r1
-	li   r2, LC105
-	li   r3, >4
-	bl   *r13
-	ci   r1, 0
-	jne  L334
-* Begin inline assembler code
-* 981 "main.c" 1
-	li r12,>1100
-	sbz 0
-* 0 "" 2
-* End of inline assembler code
-	mov  r1, @CF7Classic99
-	mov  *r10+, r11
-	mov  *r10+, r9
-	mov  *r10+, r13
-	b    *r11
-L342
-* Begin inline assembler code
-* 986 "main.c" 1
-	li r12,>1100
-	sbz 0
-* 0 "" 2
-* 988 "main.c" 1
-	li r12,>1000
-	sbo 0
-* 0 "" 2
-* End of inline assembler code
-	li   r9, >4000
-	jmp  L338
-L337
-	inc  r9
-	ci   r9, >4100
-	jne  JMP_72
-	b    @L343
-JMP_72
-L338
-	mov  r9, r1
-	li   r2, LC105
-	li   r3, >4
-	bl   *r13
-	ci   r1, 0
-	jne  L337
-* Begin inline assembler code
-* 991 "main.c" 1
-	li r12,>1000
-	sbz 0
-* 0 "" 2
-* End of inline assembler code
-	li   r1, >1
-	mov  r1, @CF7Classic99
-	li   r1, LC106
-	mov  *r10+, r11
-	mov  *r10+, r9
-	mov  *r10+, r13
-	b    @puts
-L343
-* Begin inline assembler code
-* 997 "main.c" 1
-	li r12,>1000
-	sbz 0
-* 0 "" 2
-* End of inline assembler code
-	li   r1, LC107
-	mov  *r10+, r11
-	mov  *r10+, r9
-	mov  *r10+, r13
-	b    @puts
-	.size	cf7DetectClassic99, .-cf7DetectClassic99
 LC108
 	text 'Sector erase page %d is not 128k aligned'
 	byte 10
@@ -3274,9 +3327,9 @@ flashSectorErase
 	mov  r1, r13
 	mov  r1, r14
 	andi r14, >F
-	jeq  JMP_73
-	b    @L352
-JMP_73
+	jeq  JMP_77
+	b    @L357
+JMP_77
 	li   r1, >1800
 	movb r1, @>6000
 	li   r2, >F000
@@ -3336,7 +3389,7 @@ JMP_73
 	seto r3
 	bl   @flashWaitForWrite
 	ci   r1, 0
-	jne  L353
+	jne  L358
 	clr  r1
 	mov  *r10+, r11
 	mov  *r10+, r9
@@ -3344,8 +3397,8 @@ JMP_73
 	mov  *r10+, r14
 	mov  *r10+, r15
 	b    *r11
-	jmp  L354
-L353
+	jmp  L359
+L358
 	dect r10
 	li   r2, LC110
 	mov  r2, *r10
@@ -3358,23 +3411,23 @@ L353
 	bl   @memset
 	mov  r14, r9
 	li   r15, flashVerify
-	jmp  L349
-L347
+	jmp  L354
+L352
 	ai   r9, >200
 	ci   r9, >1FFF
-	jle  L348
+	jle  L353
 	inc  r13
 	clr  r9
-L348
+L353
 	inc  r14
 	ci   r14, >100
-	jeq  L355
-L349
+	jeq  L360
+L354
 	mov  r13, r1
 	mov  r9, r2
 	bl   *r15
 	ci   r1, 0
-	jne  L347
+	jne  L352
 	li   r1, LC111
 	bl   @puts
 	ai   r10, >FFFA
@@ -3392,8 +3445,8 @@ L349
 	mov  *r10+, r14
 	mov  *r10+, r15
 	b    *r11
-	jmp  L354
-L352
+	jmp  L359
+L357
 	ai   r10, >FFFC
 	li   r2, LC108
 	mov  r2, *r10
@@ -3407,8 +3460,8 @@ L352
 	mov  *r10+, r14
 	mov  *r10+, r15
 	b    *r11
-	jmp  L354
-L355
+	jmp  L359
+L360
 	li   r1, LC25
 	mov  *r10+, r11
 	mov  *r10+, r9
@@ -3416,7 +3469,7 @@ L355
 	mov  *r10+, r14
 	mov  *r10+, r15
 	b    @puts
-L354
+L359
 	.size	flashSectorErase, .-flashSectorErase
 LC113
 	byte 10
@@ -3491,7 +3544,7 @@ LC134
 
 	def	testapp
 testapp
-	ai   r10, >FFF4
+	ai   r10, >FFF2
 	mov  r10, r0
 	mov  r11, *r0+
 	mov  r9, *r0+
@@ -3499,231 +3552,232 @@ testapp
 	mov  r14, *r0+
 	mov  r15, *r0
 	clr  r1
-L357
+L362
 	mov  r1, r2
 	swpb r2
 	movb r2, @buffer(r1)
 	inc  r1
 	ci   r1, >200
-	jne  L357
+	jne  L362
 	clr  r1
-	mov  r1, @>A(r10)
-	li   r14, puts
-	li   r15, >5A00
-L402
+	mov  r1, @>C(r10)
+	li   r2, >63E
+	mov  r2, @>A(r10)
+	li   r13, puts
+	li   r14, kscanfast
+	li   r15, >2700
+L406
 	li   r1, LC113
-	bl   *r14
+	bl   *r13
 	li   r1, LC114
-	bl   *r14
+	bl   *r13
 	li   r1, LC115
-	bl   *r14
+	bl   *r13
 	li   r1, LC116
-	bl   *r14
+	bl   *r13
 	li   r1, LC117
-	bl   *r14
+	bl   *r13
 	li   r1, LC118
-	bl   *r14
+	bl   *r13
 	li   r1, LC119
-	bl   *r14
+	bl   *r13
 	li   r1, LC120
-	bl   *r14
+	bl   *r13
 	li   r1, LC121
-	bl   *r14
+	bl   *r13
 	li   r1, LC122
-	bl   *r14
+	bl   *r13
 	li   r1, LC123
-	bl   *r14
+	bl   *r13
 	li   r1, LC124
-	bl   *r14
+	bl   *r13
 	li   r1, LC125
-	bl   *r14
+	bl   *r13
 	li   r1, LC126
-	bl   *r14
+	bl   *r13
 	li   r1, LC127
-	bl   *r14
-L401
+	bl   *r13
+L405
 	clr  r1
-	li   r2, kscanfast
-	bl   *r2
-	movb @>8375, r1
-	ai   r1, >CF00
-	ci   r1, >27FF
-	jh  L401
-	srl  r1, 8
-	a    r1, r1
-	mov  @L373(r1), r2
-	b    *r2
+	bl   *r14
+	movb @>8375, r3
+	ai   r3, >CF00
+	cb   r3, r15
+	jh  L405
+	srl  r3, 8
+	a    r3, r3
+	mov  @L378(r3), r4
+	b    *r4
 	even
-L373
-		data		L359
-		data		L360
-		data		L361
-		data		L362
-		data		L363
-		data		L401
-		data		L401
-		data		L401
-		data		L401
-		data		L401
-		data		L401
-		data		L401
-		data		L401
-		data		L401
-		data		L401
-		data		L401
-		data		L401
-		data		L401
+L378
 		data		L364
-		data		L401
 		data		L365
 		data		L366
-		data		L401
-		data		L401
 		data		L367
-		data		L401
-		data		L401
-		data		L401
-		data		L401
-		data		L401
-		data		L401
-		data		L401
 		data		L368
+		data		L405
+		data		L405
+		data		L405
+		data		L405
+		data		L405
+		data		L405
+		data		L405
+		data		L405
+		data		L405
+		data		L405
+		data		L405
+		data		L405
+		data		L405
 		data		L369
+		data		L405
 		data		L370
 		data		L371
-		data		L401
-		data		L401
-		data		L401
+		data		L405
+		data		L405
 		data		L372
-L372
+		data		L405
+		data		L405
+		data		L405
+		data		L405
+		data		L405
+		data		L405
+		data		L405
+		data		L373
+		data		L374
+		data		L375
+		data		L376
+		data		L405
+		data		L405
+		data		L405
+		data		L377
+L377
 	li   r1, >10
 	bl   @flashSectorErase
 	ci   r1, 0
-	jne  JMP_74
-	b    @L386
-JMP_74
-L374
+	jne  JMP_78
+	b    @L390
+JMP_78
+L379
 	li   r1, LC134
-	bl   *r14
-	seto r2
-	movb r2, @>8375
-	movb @>8375, r1
-	cb   r1, r2
-	jeq  JMP_75
-	b    @L402
-JMP_75
-L392
+	bl   *r13
+	seto r1
+	movb r1, @>8375
+	movb @>8375, r3
+	cb   r3, r1
+	jeq  JMP_79
+	b    @L406
+JMP_79
+L396
 	clr  r1
-	li   r4, kscanfast
-	bl   *r4
+	bl   *r14
 	movb @>8375, r1
 	seto r2
 	cb   r1, r2
-	jeq  JMP_76
-	b    @L402
-JMP_76
-	jmp  L392
-L371
+	jeq  JMP_80
+	b    @L406
+JMP_80
+	jmp  L396
+L376
 	li   r1, LC128
-	bl   *r14
+	bl   *r13
 	bl   @flashToggle
-	jmp  L374
-L370
+	jmp  L379
+L375
 	li   r1, LC132
-	bl   *r14
-	clr  r1
-L377
-	mov  r1, r3
-	swpb r3
-	movb r3, @buffer(r1)
-	inc  r1
-	ci   r1, >200
-	jne  L377
+	bl   *r13
+	clr  r3
+L382
+	mov  r3, r4
+	swpb r4
+	movb r4, @buffer(r3)
+	inc  r3
+	ci   r3, >200
+	jne  L382
 	li   r1, >10
 	li   r2, >400
 	bl   @flashWriteSlow
 	ci   r1, 0
-	jeq  L386
+	jeq  L390
 	li   r1, LC25
-	bl   *r14
+	bl   *r13
 	li   r1, >10
 	li   r2, >400
 	bl   @flashVerify
 	ci   r1, 0
-	jne  L374
+	jne  L379
 	li   r1, LC130
 	bl   @puts
-	jmp  L374
-L369
-	clr  r4
-	movb r4, @>6000
-	jmp  L374
-L368
+	jmp  L379
+L374
+	clr  r1
+	movb r1, @>6000
+	jmp  L379
+L373
 	clr  r1
 	mov  *r10+, r11
 	mov  *r10+, r9
 	mov  *r10+, r13
 	mov  *r10+, r14
-	mov  *r10+, r15
-	inct r10
+	mov  *r10, r15
+	ai   r10, >6
 	b    *r11
-L367
+L372
 	bl   @flashReadStatus
-	b    @L374
-L366
+	b    @L379
+L371
 	li   r1, LC129
-	bl   *r14
+	bl   *r13
 	clr  r9
-L375
-	mov  r9, r1
-	swpb r1
-	movb r1, @buffer(r9)
+L380
+	mov  r9, r3
+	swpb r3
+	movb r3, @buffer(r9)
 	inc  r9
 	ci   r9, >200
-	jne  L375
+	jne  L380
 	li   r1, >10
 	mov  r9, r2
 	bl   @flashWriteFast
 	ci   r1, 0
-	jeq  L386
+	jeq  L390
 	li   r1, LC25
-	bl   *r14
+	bl   *r13
 	li   r1, >10
 	mov  r9, r2
 	bl   @flashVerify
 	ci   r1, 0
-	jeq  JMP_77
-	b    @L374
-JMP_77
+	jeq  JMP_81
+	b    @L379
+JMP_81
 	li   r1, LC130
 	bl   @puts
-	b    @L374
-L365
+	b    @L379
+L370
 	bl   @flashChipErase
 	ci   r1, 0
-	jeq  JMP_78
-	b    @L374
-JMP_78
-L386
+	jeq  JMP_82
+	b    @L379
+JMP_82
+L390
 	li   r1, LC131
-	bl   *r14
-	b    @L374
-L364
+	bl   *r13
+	b    @L379
+L369
 	bl   @flashReadCfi
-	b    @L374
-L363
-	li   r1, cf7CardError
-	bl   *r1
-	b    @L374
-L362
-	clr  r1
-L385
-	mov  r1, r3
-	swpb r3
-	movb r3, @buffer(r1)
-	inc  r1
-	ci   r1, >200
-	jne  L385
+	b    @L379
+L368
+	li   r4, cf7CardError
+	bl   *r4
+	b    @L379
+L367
+	clr  r3
+L389
+	mov  r3, r4
+	swpb r4
+	movb r4, @buffer(r3)
+	inc  r3
+	ci   r3, >200
+	jne  L389
 	li   r1, buffer
 	li   r2, LC133
 	li   r3, >E
@@ -3731,103 +3785,113 @@ L385
 	bl   *r4
 	clr  r1
 	li   r2, >5
-	bl   @cf7WriteSector
+	li   r3, cf7WriteSector
+	bl   *r3
 	ci   r1, 0
-	jeq  L386
+	jeq  L390
 	li   r1, LC25
-	bl   *r14
-	b    @L374
-L361
-	clr  r1
-	mov  @>A(r10), r2
-	bl   @cf7ReadSector
-	ci   r1, 0
-	jne  JMP_79
-	b    @L380
-JMP_79
-	li   r9, buffer
-	li   r13, putchar
-	jmp  L383
-L405
-	srl  r1, 8
 	bl   *r13
-	inc  r9
-	ci   r9, buffer+512
-	jeq  L404
-L383
-	movb *r9, r1
-	movb r1, r3
-	ai   r3, >E000
-	cb   r3, r15
-	jle  L405
-	li   r1, >20
-	bl   *r13
-	inc  r9
-	ci   r9, buffer+512
-	jne  L383
-L404
-	li   r1, >A
-	bl   *r13
-	mov  @>A(r10), r1
-	inc  r1
-	mov  r1, @>A(r10)
-	b    @L374
-L360
-	bl   @cf7IdentifyDevice
-	b    @L374
-L359
-	mov  @CF7Classic99, r1
-	jne  JMP_80
 	b    @L379
-JMP_80
-* Begin inline assembler code
-* 711 "main.c" 1
-	li r12,>1000
-	sbo 0
-* 0 "" 2
-* End of inline assembler code
-	li   r1, >100
-	movb r1, @>5F03
-	clr  r2
-	movb r2, @>5F05
-	movb r2, @>5F0D
-	li   r4, >EF00
-	movb r4, @>5F0F
-* Begin inline assembler code
-* 718 "main.c" 1
-	li r12,>1000
-	sbz 0
-* 0 "" 2
-* End of inline assembler code
-	b    @L374
-L379
-* Begin inline assembler code
-* 711 "main.c" 1
-	li r12,>1100
-	sbo 0
-* 0 "" 2
-* End of inline assembler code
-	li   r1, >100
-	movb r1, @>5F03
-	clr  r2
-	movb r2, @>5F05
-	movb r2, @>5F0D
-	li   r4, >EF00
-	movb r4, @>5F0F
-* Begin inline assembler code
-* 718 "main.c" 1
-	li r12,>1100
-	sbz 0
-* 0 "" 2
-* End of inline assembler code
-	b    @L374
-L380
-	li   r1, LC131
-	bl   *r14
+L366
+	mov  @>C(r10), r1
+	mov  @>A(r10), r2
+	li   r4, cf7ReadSector
+	bl   *r4
+	ci   r1, 0
+	jne  JMP_83
+	b    @L385
+JMP_83
+	li   r9, buffer
+	jmp  L387
+L386
+	inc  r9
+	ci   r9, buffer+512
+	jeq  L409
+L387
+	movb *r9, r2
+	mov  @nTextPos, r1
+	srl  r2, 8
+	mov  @vdpchar, r3
+	bl   *r3
+	mov  @nTextPos, r3
+	inc  r3
+	mov  r3, @nTextPos
+	c    r3, @nTextEnd
+	jlt  L386
+	jeq  L386
+	mov  @scrn_scroll, r3
+	bl   *r3
+	mov  @nTextRow, @nTextPos
+	inc  r9
+	ci   r9, buffer+512
+	jne  L387
+L409
+	li   r1, >A
+	bl   @putchar
+L388
 	mov  @>A(r10), r1
 	inc  r1
 	mov  r1, @>A(r10)
-	b    @L374
+	jeq  JMP_84
+	b    @L379
+JMP_84
+	mov  @>C(r10), r2
+	inc  r2
+	mov  r2, @>C(r10)
+	b    @L379
+L365
+	bl   @cf7IdentifyDevice
+	b    @L379
+L364
+	mov  @CF7Classic99, r1
+	jne  JMP_85
+	b    @L384
+JMP_85
+* Begin inline assembler code
+* 712 "main.c" 1
+	li r12,>1000
+	sbo 0
+* 0 "" 2
+* End of inline assembler code
+	li   r2, >100
+	movb r2, @>5F03
+	clr  r3
+	movb r3, @>5F05
+	movb r3, @>5F0D
+	li   r4, >EF00
+	movb r4, @>5F0F
+* Begin inline assembler code
+* 719 "main.c" 1
+	li r12,>1000
+	sbz 0
+* 0 "" 2
+* End of inline assembler code
+	b    @L379
+L384
+* Begin inline assembler code
+* 712 "main.c" 1
+	li r12,>1100
+	sbo 0
+* 0 "" 2
+* End of inline assembler code
+	li   r1, >100
+	movb r1, @>5F03
+	clr  r2
+	movb r2, @>5F05
+	movb r2, @>5F0D
+	li   r3, >EF00
+	movb r3, @>5F0F
+* Begin inline assembler code
+* 719 "main.c" 1
+	li r12,>1100
+	sbz 0
+* 0 "" 2
+* End of inline assembler code
+	b    @L379
+L385
+	li   r1, LC131
+	bl   *r13
+	b    @L388
 	.size	testapp, .-testapp
 LC135
 	text 'CF7 to Seahorse board programmer'
@@ -3846,7 +3910,7 @@ LC138
 
 	def	main
 main
-	ai   r10, >FFF6
+	ai   r10, >FFF2
 	mov  r10, r0
 	mov  r11, *r0+
 	mov  r9, *r0+
@@ -3859,7 +3923,7 @@ main
 	mov  @gPattern, r1
 	ai   r1, >400
 	li   r2, bargraph
-	li   r3, >30
+	li   r3, >50
 	bl   @vdpmemcpy
 	mov  r9, r1
 	swpb r1
@@ -3867,6 +3931,116 @@ main
 	li   r2, >8100
 	movb r2, @>8C02
 	movb r1, @>83D4
+	clr  r9
+	b    @L413
+L411
+	mov  r9, r1
+	sla  r1, >3
+	mov  r9, r2
+	sra  r2, >4
+	mov  r2, r3
+	sla  r3, >2
+	a    r2, r3
+	mov  r9, r4
+	andi r4, >F
+	mov  r4, r2
+	sla  r2, >2
+	a    r4, r2
+	inc  r9
+L412
+	a    @gPattern, r1
+	ai   r3, fonts1
+	mov  r2, r5
+	ai   r5, fonts1
+	mov  r1, r14
+	inc  r14
+	mov  r3, r15
+	inc  r15
+	movb *r3, r2
+	srl  r2, 8
+	mov  @vdpchar, r3
+	mov  r5, @>C(r10)
+	bl   *r3
+	mov  r14, r13
+	inc  r13
+	mov  r15, r3
+	inc  r3
+	movb *r15, r2
+	mov  r14, r1
+	srl  r2, 8
+	mov  @vdpchar, r4
+	mov  r3, @>A(r10)
+	bl   *r4
+	mov  r13, r15
+	inc  r15
+	mov  @>A(r10), r3
+	mov  r3, r14
+	inc  r14
+	movb *r3, r2
+	mov  r13, r1
+	srl  r2, 8
+	mov  @vdpchar, r3
+	bl   *r3
+	inct r13
+	mov  @>C(r10), r5
+	mov  r5, r4
+	inc  r4
+	movb *r5, r2
+	srl  r2, >3
+	socb *r14, r2
+	mov  r15, r1
+	srl  r2, 8
+	mov  @vdpchar, r3
+	mov  r4, @>A(r10)
+	bl   *r3
+	inct r15
+	mov  @>A(r10), r4
+	mov  r4, r3
+	inc  r3
+	movb *r4, r2
+	srl  r2, >3
+	socb @>1(r14), r2
+	mov  r13, r1
+	srl  r2, 8
+	mov  @vdpchar, r4
+	mov  r3, @>A(r10)
+	bl   *r4
+	inct r13
+	mov  @>A(r10), r3
+	mov  r3, r14
+	inc  r14
+	movb *r3, r2
+	srl  r2, >3
+	srl  r2, 8
+	mov  r15, r1
+	mov  @vdpchar, r3
+	bl   *r3
+	movb *r14, r2
+	srl  r2, >3
+	srl  r2, 8
+	mov  r13, r1
+	mov  @vdpchar, r3
+	bl   *r3
+	movb @>1(r14), r2
+	srl  r2, >3
+	srl  r2, 8
+	mov  r13, r1
+	inc  r1
+	mov  @vdpchar, r3
+	bl   *r3
+	ci   r9, >FF
+	jgt  L426
+L413
+	ci   r9, >20
+	jeq  JMP_86
+	b    @L411
+JMP_86
+	li   r9, >80
+	li   r2, >4B
+	li   r3, >23
+	li   r1, >3F8
+	b    @L412
+L426
 	li   r4, >1787
 	movb r4, @>8C02
 	swpb r4
@@ -3878,18 +4052,18 @@ main
 	li   r9, kscanfast
 	li   r15, >5100
 	seto r14
-L417
+L425
 	li   r1, LC135
 	bl   *r13
 	clr  r2
 	movb r2, @>6000
 	mov  @CF7Classic99, r1
-	jne  JMP_81
-	b    @L407
-JMP_81
-L418
+	jne  JMP_87
+	b    @L414
+JMP_87
+L427
 * Begin inline assembler code
-* 711 "main.c" 1
+* 712 "main.c" 1
 	li r12,>1000
 	sbo 0
 * 0 "" 2
@@ -3901,12 +4075,12 @@ L418
 	li   r1, >EF00
 	movb r1, @>5F0F
 * Begin inline assembler code
-* 718 "main.c" 1
+* 719 "main.c" 1
 	li r12,>1000
 	sbz 0
 * 0 "" 2
 * End of inline assembler code
-L408
+L415
 	li   r1, flashReadCfi
 	bl   *r1
 	li   r1, >A
@@ -3918,42 +4092,42 @@ L408
 	bl   *r13
 	li   r1, LC137
 	bl   *r13
-L409
+L416
 	clr  r1
 	bl   *r9
 	movb @>8375, r1
 	cb   r1, r15
-	jne  JMP_82
-	b    @L411
-JMP_82
+	jne  JMP_88
+	b    @L418
+JMP_88
 	li   r2, >5400
 	cb   r1, r2
-	jne  JMP_83
-	b    @L412
-JMP_83
+	jne  JMP_89
+	b    @L419
+JMP_89
 	li   r2, >5000
 	cb   r1, r2
-	jne  L409
+	jne  L416
 	bl   @program
 	li   r1, LC138
 	bl   *r13
-L414
+L421
 	clr  r1
 	bl   *r9
 	movb @>8375, r1
 	cb   r1, r14
-	jeq  L414
+	jeq  L421
 	li   r1, LC135
 	bl   *r13
 	clr  r2
 	movb r2, @>6000
 	mov  @CF7Classic99, r1
-	jeq  JMP_84
-	b    @L418
-JMP_84
-L407
+	jeq  JMP_90
+	b    @L427
+JMP_90
+L414
 * Begin inline assembler code
-* 711 "main.c" 1
+* 712 "main.c" 1
 	li r12,>1100
 	sbo 0
 * 0 "" 2
@@ -3966,22 +4140,23 @@ L407
 	li   r2, >EF00
 	movb r2, @>5F0F
 * Begin inline assembler code
-* 718 "main.c" 1
+* 719 "main.c" 1
 	li r12,>1100
 	sbz 0
 * 0 "" 2
 * End of inline assembler code
-	b    @L408
-L412
+	b    @L415
+L419
 	bl   @testapp
-	b    @L417
-L411
+	b    @L425
+L418
 	clr  r1
 	mov  *r10+, r11
 	mov  *r10+, r9
 	mov  *r10+, r13
 	mov  *r10+, r14
-	mov  *r10+, r15
+	mov  *r10, r15
+	ai   r10, >6
 	b    *r11
 	.size	main, .-main
 	even
@@ -4007,9 +4182,9 @@ my_fast_scrn_scroll
 	mov  r9, r1
 	ai   r1, >100
 	c    r15, r1
-	jlt  L420
-	jeq  L420
-L424
+	jlt  L429
+	jeq  L429
+L433
 	mov  r9, r13
 	mov  r1, r9
 	mov  r13, r1
@@ -4026,10 +4201,10 @@ L424
 	mov  r9, r1
 	ai   r1, >100
 	c    r15, r1
-	jgt  L424
-L420
+	jgt  L433
+L429
 	c    r9, r15
-	jgt  L422
+	jgt  L431
 	inc  r15
 	s    r9, r15
 	mov  r9, r1
@@ -4041,7 +4216,7 @@ L420
 	li   r2, vdp_bigbuf
 	mov  r15, r3
 	bl   @vdpmemcpy
-L422
+L431
 	mov  @nTextRow, r1
 	li   r2, >20
 	mov  r14, r3
@@ -4066,7 +4241,7 @@ CF7Classic99
 	def	bargraph
 	pseg
 	.type	bargraph, @object
-	.size	bargraph, 48
+	.size	bargraph, 80
 bargraph
 	byte	-128
 	byte	-128
@@ -4100,22 +4275,139 @@ bargraph
 	byte	-16
 	byte	-16
 	byte	-16
-	byte	-15
-	byte	-15
-	byte	-15
-	byte	-15
-	byte	-15
-	byte	-15
-	byte	-15
-	byte	-15
-	byte	-14
-	byte	-14
-	byte	-14
-	byte	-14
-	byte	-14
-	byte	-14
-	byte	-14
-	byte	-14
+	byte	-8
+	byte	-8
+	byte	-8
+	byte	-8
+	byte	-8
+	byte	-8
+	byte	-8
+	byte	-8
+	byte	-4
+	byte	-4
+	byte	-4
+	byte	-4
+	byte	-4
+	byte	-4
+	byte	-4
+	byte	-4
+	byte	12
+	byte	12
+	byte	24
+	byte	24
+	byte	28
+	byte	24
+	byte	56
+	byte	8
+	byte	12
+	byte	12
+	byte	24
+	byte	24
+	byte	24
+	byte	24
+	byte	24
+	byte	16
+	byte	12
+	byte	12
+	byte	24
+	byte	56
+	byte	60
+	byte	28
+	byte	36
+	byte	32
+	byte	12
+	byte	12
+	byte	56
+	byte	94
+	byte	24
+	byte	36
+	byte	68
+	byte	4
+
+	def	fonts1
+	.type	fonts1, @object
+	.size	fonts1, 80
+fonts1
+	byte	64
+	byte	-96
+	byte	-96
+	byte	-96
+	byte	64
+	byte	64
+	byte	64
+	byte	64
+	byte	64
+	byte	64
+	byte	-32
+	byte	32
+	byte	-32
+	byte	-128
+	byte	-32
+	byte	-32
+	byte	32
+	byte	-32
+	byte	32
+	byte	-32
+	byte	-96
+	byte	-96
+	byte	-32
+	byte	32
+	byte	32
+	byte	-32
+	byte	-128
+	byte	-32
+	byte	32
+	byte	-32
+	byte	64
+	byte	-128
+	byte	-32
+	byte	-96
+	byte	-32
+	byte	-32
+	byte	32
+	byte	64
+	byte	64
+	byte	64
+	byte	64
+	byte	-96
+	byte	64
+	byte	-96
+	byte	64
+	byte	-32
+	byte	-96
+	byte	-32
+	byte	32
+	byte	64
+	byte	-32
+	byte	-96
+	byte	-32
+	byte	-96
+	byte	-96
+	byte	-32
+	byte	-96
+	byte	-64
+	byte	-96
+	byte	-32
+	byte	64
+	byte	-96
+	byte	-128
+	byte	-96
+	byte	64
+	byte	-64
+	byte	-96
+	byte	-96
+	byte	-96
+	byte	-64
+	byte	-32
+	byte	-128
+	byte	-64
+	byte	-128
+	byte	-32
+	byte	-32
+	byte	-128
+	byte	-64
+	byte	-128
+	byte	-128
 	cseg
 
 	even
@@ -4145,13 +4437,15 @@ buffer
 
 	ref	scrn_scroll
 
+	ref	vdpchar
+
 	ref	gPattern
 
 	ref	charsetlc
 
 	ref	set_text_raw
 
-	ref	putchar
+	ref	nTextPos
 
 	ref	memcpy
 
@@ -4159,6 +4453,6 @@ buffer
 
 	ref	memset
 
-	ref	memcmp
+	ref	putchar
 
-	ref	vdpchar
+	ref	memcmp

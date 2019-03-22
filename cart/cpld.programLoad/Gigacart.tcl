@@ -106815,3 +106815,112 @@ if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj g
 
 ########## Tcl recorder end at 03/11/19 20:06:06 ###########
 
+
+########## Tcl recorder starts at 03/18/19 21:34:44 ##########
+
+# Commands to make the Process: 
+# Constraint Editor
+if [runCmd "\"$cpld_bin/blifstat\" -i gigacart.bl5 -o gigacart.sif"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+# Application to view the Process: 
+# Constraint Editor
+if [catch {open lattice_cmd.rs2 w} rspFile] {
+	puts stderr "Cannot create response file lattice_cmd.rs2: $rspFile"
+} else {
+	puts $rspFile "-nodal -src gigacart.bl5 -type BLIF -presrc gigacart.bl3 -crf gigacart.crf -sif gigacart.sif -devfile \"$install_dir/ispcpld/dat/lc4k/m4s_64_64.dev\" -lci gigacart.lct
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lciedit\" @lattice_cmd.rs2"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/18/19 21:34:44 ###########
+
+
+########## Tcl recorder starts at 03/18/19 23:05:35 ##########
+
+# Commands to make the Process: 
+# Constraint Editor
+# - none -
+# Application to view the Process: 
+# Constraint Editor
+if [catch {open lattice_cmd.rs2 w} rspFile] {
+	puts stderr "Cannot create response file lattice_cmd.rs2: $rspFile"
+} else {
+	puts $rspFile "-nodal -src gigacart.bl5 -type BLIF -presrc gigacart.bl3 -crf gigacart.crf -sif gigacart.sif -devfile \"$install_dir/ispcpld/dat/lc4k/m4s_64_64.dev\" -lci gigacart.lct
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lciedit\" @lattice_cmd.rs2"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/18/19 23:05:35 ###########
+
+
+########## Tcl recorder starts at 03/18/19 23:07:31 ##########
+
+# Commands to make the Process: 
+# Fit Design
+if [catch {open gigacart.rs1 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs1: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -nojed -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [catch {open gigacart.rs2 w} rspFile] {
+	puts stderr "Cannot create response file gigacart.rs2: $rspFile"
+} else {
+	puts $rspFile "-i gigacart.bl5 -lci gigacart.lct -d m4s_64_64 -lco gigacart.lco -html_rpt -fti gigacart.fti -fmt PLA -tto gigacart.tt4 -eqn gigacart.eq3 -tmv NoInput.tmv
+-rpt_num 1
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/lpf4k\" \"@gigacart.rs2\""] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+file delete gigacart.rs1
+file delete gigacart.rs2
+if [runCmd "\"$cpld_bin/tda\" -i gigacart.bl5 -o gigacart.tda -lci gigacart.lct -dev m4s_64_64 -family lc4k -mod gigacart -ovec NoInput.tmv -err tda.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/synsvf\" -exe \"$install_dir/ispvmsystem/ispufw\" -prj gigacart -if gigacart.jed -j2s -log gigacart.svl "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/18/19 23:07:31 ###########
+

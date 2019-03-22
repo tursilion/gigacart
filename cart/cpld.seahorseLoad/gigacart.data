@@ -1,0 +1,1247 @@
+MODELDATA
+MODELDATA_VERSION "1.0";
+DESIGN "gigacart";
+DATE "Sat Sep 29 18:16:15 2018";
+VENDOR "Lattice Semiconductor Corporation";
+PROGRAM "STAMP Model Generator";
+
+/* port drive, max transition and max capacitance */
+PORTDATA
+out_data_0: MAXTRANS(0.0);
+out_data_1: MAXTRANS(0.0);
+out_data_2: MAXTRANS(0.0);
+out_data_3: MAXTRANS(0.0);
+out_data_4: MAXTRANS(0.0);
+out_data_5: MAXTRANS(0.0);
+out_data_6: MAXTRANS(0.0);
+out_data_7: MAXTRANS(0.0);
+ti_adr_3: MAXTRANS(0.0);
+ti_adr_4: MAXTRANS(0.0);
+ti_adr_5: MAXTRANS(0.0);
+ti_adr_6: MAXTRANS(0.0);
+ti_adr_7: MAXTRANS(0.0);
+ti_adr_8: MAXTRANS(0.0);
+ti_adr_9: MAXTRANS(0.0);
+ti_adr_10: MAXTRANS(0.0);
+ti_adr_11: MAXTRANS(0.0);
+ti_adr_12: MAXTRANS(0.0);
+ti_adr_13: MAXTRANS(0.0);
+ti_adr_14: MAXTRANS(0.0);
+ti_adr_15: MAXTRANS(0.0);
+ti_gclk: MAXTRANS(0.0);
+ti_gsel: MAXTRANS(0.0);
+ti_rom: MAXTRANS(0.0);
+ti_we: MAXTRANS(0.0);
+out_adr_0: MAXTRANS(0.0);
+out_adr_1: MAXTRANS(0.0);
+out_adr_2: MAXTRANS(0.0);
+out_adr_3: MAXTRANS(0.0);
+out_adr_4: MAXTRANS(0.0);
+out_adr_5: MAXTRANS(0.0);
+out_adr_6: MAXTRANS(0.0);
+out_adr_7: MAXTRANS(0.0);
+out_adr_8: MAXTRANS(0.0);
+out_adr_9: MAXTRANS(0.0);
+out_adr_10: MAXTRANS(0.0);
+out_adr_11: MAXTRANS(0.0);
+out_adr_12: MAXTRANS(0.0);
+out_adr_13: MAXTRANS(0.0);
+out_adr_14: MAXTRANS(0.0);
+out_adr_15: MAXTRANS(0.0);
+out_adr_16: MAXTRANS(0.0);
+out_adr_17: MAXTRANS(0.0);
+out_adr_18: MAXTRANS(0.0);
+out_adr_19: MAXTRANS(0.0);
+out_adr_20: MAXTRANS(0.0);
+out_adr_21: MAXTRANS(0.0);
+out_adr_22: MAXTRANS(0.0);
+out_adr_23: MAXTRANS(0.0);
+out_adr_24: MAXTRANS(0.0);
+out_adr_25: MAXTRANS(0.0);
+out_adr_26: MAXTRANS(0.0);
+out_reset: MAXTRANS(0.0);
+ti_data_0: MAXTRANS(0.0);
+ti_data_1: MAXTRANS(0.0);
+ti_data_2: MAXTRANS(0.0);
+ti_data_3: MAXTRANS(0.0);
+ti_data_4: MAXTRANS(0.0);
+ti_data_5: MAXTRANS(0.0);
+ti_data_6: MAXTRANS(0.0);
+ti_data_7: MAXTRANS(0.0);
+ENDPORTDATA
+
+/* timing arc data */
+TIMINGDATA
+
+ARCDATA
+out_data_0_ti_data_7_delay:
+CELL_RISE(scalar) {
+VALUES(12.3);
+}
+CELL_FALL(scalar) {
+VALUES(12.3);
+}
+ENDARCDATA
+
+ARCDATA
+out_data_1_ti_data_6_delay:
+CELL_RISE(scalar) {
+VALUES(12.3);
+}
+CELL_FALL(scalar) {
+VALUES(12.3);
+}
+ENDARCDATA
+
+ARCDATA
+out_data_2_ti_data_5_delay:
+CELL_RISE(scalar) {
+VALUES(12.3);
+}
+CELL_FALL(scalar) {
+VALUES(12.3);
+}
+ENDARCDATA
+
+ARCDATA
+out_data_3_ti_data_4_delay:
+CELL_RISE(scalar) {
+VALUES(12.3);
+}
+CELL_FALL(scalar) {
+VALUES(12.3);
+}
+ENDARCDATA
+
+ARCDATA
+out_data_4_ti_data_3_delay:
+CELL_RISE(scalar) {
+VALUES(12.3);
+}
+CELL_FALL(scalar) {
+VALUES(12.3);
+}
+ENDARCDATA
+
+ARCDATA
+out_data_5_ti_data_2_delay:
+CELL_RISE(scalar) {
+VALUES(12.3);
+}
+CELL_FALL(scalar) {
+VALUES(12.3);
+}
+ENDARCDATA
+
+ARCDATA
+out_data_6_ti_data_1_delay:
+CELL_RISE(scalar) {
+VALUES(12.3);
+}
+CELL_FALL(scalar) {
+VALUES(12.3);
+}
+ENDARCDATA
+
+ARCDATA
+out_data_7_ti_data_0_delay:
+CELL_RISE(scalar) {
+VALUES(12.3);
+}
+CELL_FALL(scalar) {
+VALUES(12.3);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_14_out_adr_1_delay:
+CELL_RISE(scalar) {
+VALUES(11.8);
+}
+CELL_FALL(scalar) {
+VALUES(11.8);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_3_out_adr_12_delay:
+CELL_RISE(scalar) {
+VALUES(11.8);
+}
+CELL_FALL(scalar) {
+VALUES(11.8);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_5_out_adr_10_delay:
+CELL_RISE(scalar) {
+VALUES(11.8);
+}
+CELL_FALL(scalar) {
+VALUES(11.8);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_7_out_adr_8_delay:
+CELL_RISE(scalar) {
+VALUES(11.8);
+}
+CELL_FALL(scalar) {
+VALUES(11.8);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_8_out_adr_7_delay:
+CELL_RISE(scalar) {
+VALUES(11.8);
+}
+CELL_FALL(scalar) {
+VALUES(11.8);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_10_out_adr_5_delay:
+CELL_RISE(scalar) {
+VALUES(11.8);
+}
+CELL_FALL(scalar) {
+VALUES(11.8);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_11_out_adr_4_delay:
+CELL_RISE(scalar) {
+VALUES(11.8);
+}
+CELL_FALL(scalar) {
+VALUES(11.8);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_13_out_adr_2_delay:
+CELL_RISE(scalar) {
+VALUES(11.8);
+}
+CELL_FALL(scalar) {
+VALUES(11.8);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_4_out_adr_11_delay:
+CELL_RISE(scalar) {
+VALUES(11.7);
+}
+CELL_FALL(scalar) {
+VALUES(11.7);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_6_out_adr_9_delay:
+CELL_RISE(scalar) {
+VALUES(11.7);
+}
+CELL_FALL(scalar) {
+VALUES(11.7);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_9_out_adr_6_delay:
+CELL_RISE(scalar) {
+VALUES(11.7);
+}
+CELL_FALL(scalar) {
+VALUES(11.7);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_12_out_adr_3_delay:
+CELL_RISE(scalar) {
+VALUES(11.7);
+}
+CELL_FALL(scalar) {
+VALUES(11.7);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_15_out_adr_0_delay:
+CELL_RISE(scalar) {
+VALUES(11.7);
+}
+CELL_FALL(scalar) {
+VALUES(11.7);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_0_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_1_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_2_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_3_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_4_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_5_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_6_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_7_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_8_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_9_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_10_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_11_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_12_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_13_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_14_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_15_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_16_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_17_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_18_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_19_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_20_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_21_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_22_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_23_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_24_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_25_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_out_adr_26_delay:
+CELL_RISE(scalar) {
+VALUES(17.2);
+}
+CELL_FALL(scalar) {
+VALUES(17.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_7_delay:
+CELL_RISE(scalar) {
+VALUES(17.1);
+}
+CELL_FALL(scalar) {
+VALUES(17.1);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_16_delay:
+CELL_RISE(scalar) {
+VALUES(17.1);
+}
+CELL_FALL(scalar) {
+VALUES(17.1);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_17_delay:
+CELL_RISE(scalar) {
+VALUES(17.1);
+}
+CELL_FALL(scalar) {
+VALUES(17.1);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_24_delay:
+CELL_RISE(scalar) {
+VALUES(17.1);
+}
+CELL_FALL(scalar) {
+VALUES(17.1);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_25_delay:
+CELL_RISE(scalar) {
+VALUES(17.1);
+}
+CELL_FALL(scalar) {
+VALUES(17.1);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_26_delay:
+CELL_RISE(scalar) {
+VALUES(17.1);
+}
+CELL_FALL(scalar) {
+VALUES(17.1);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_0_delay:
+CELL_RISE(scalar) {
+VALUES(16.9);
+}
+CELL_FALL(scalar) {
+VALUES(16.9);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_1_delay:
+CELL_RISE(scalar) {
+VALUES(16.9);
+}
+CELL_FALL(scalar) {
+VALUES(16.9);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_2_delay:
+CELL_RISE(scalar) {
+VALUES(16.9);
+}
+CELL_FALL(scalar) {
+VALUES(16.9);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_3_delay:
+CELL_RISE(scalar) {
+VALUES(16.9);
+}
+CELL_FALL(scalar) {
+VALUES(16.9);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_4_delay:
+CELL_RISE(scalar) {
+VALUES(16.9);
+}
+CELL_FALL(scalar) {
+VALUES(16.9);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_5_delay:
+CELL_RISE(scalar) {
+VALUES(16.9);
+}
+CELL_FALL(scalar) {
+VALUES(16.9);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_6_delay:
+CELL_RISE(scalar) {
+VALUES(16.9);
+}
+CELL_FALL(scalar) {
+VALUES(16.9);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_13_delay:
+CELL_RISE(scalar) {
+VALUES(16.9);
+}
+CELL_FALL(scalar) {
+VALUES(16.9);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_14_delay:
+CELL_RISE(scalar) {
+VALUES(16.9);
+}
+CELL_FALL(scalar) {
+VALUES(16.9);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_15_delay:
+CELL_RISE(scalar) {
+VALUES(16.9);
+}
+CELL_FALL(scalar) {
+VALUES(16.9);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_18_delay:
+CELL_RISE(scalar) {
+VALUES(16.9);
+}
+CELL_FALL(scalar) {
+VALUES(16.9);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_19_delay:
+CELL_RISE(scalar) {
+VALUES(16.9);
+}
+CELL_FALL(scalar) {
+VALUES(16.9);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_20_delay:
+CELL_RISE(scalar) {
+VALUES(16.9);
+}
+CELL_FALL(scalar) {
+VALUES(16.9);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_21_delay:
+CELL_RISE(scalar) {
+VALUES(16.9);
+}
+CELL_FALL(scalar) {
+VALUES(16.9);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_22_delay:
+CELL_RISE(scalar) {
+VALUES(16.9);
+}
+CELL_FALL(scalar) {
+VALUES(16.9);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_adr_23_delay:
+CELL_RISE(scalar) {
+VALUES(16.9);
+}
+CELL_FALL(scalar) {
+VALUES(16.9);
+}
+ENDARCDATA
+
+ARCDATA
+ti_we_out_reset_delay:
+CELL_RISE(scalar) {
+VALUES(9.2);
+}
+CELL_FALL(scalar) {
+VALUES(9.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_data_1_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(3.1);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(3.1);
+}
+ENDARCDATA
+
+ARCDATA
+ti_data_1_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.2);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_data_2_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(3.1);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(3.1);
+}
+ENDARCDATA
+
+ARCDATA
+ti_data_2_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.2);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_data_3_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(3.1);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(3.1);
+}
+ENDARCDATA
+
+ARCDATA
+ti_data_3_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.2);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_data_4_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(3.1);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(3.1);
+}
+ENDARCDATA
+
+ARCDATA
+ti_data_4_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.2);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_data_5_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(3.1);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(3.1);
+}
+ENDARCDATA
+
+ARCDATA
+ti_data_5_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.2);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.2);
+}
+ENDARCDATA
+
+ARCDATA
+ti_data_6_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(3.1);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(3.1);
+}
+ENDARCDATA
+
+ARCDATA
+ti_data_6_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.4);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.4);
+}
+ENDARCDATA
+
+ARCDATA
+ti_data_7_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(3.1);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(3.1);
+}
+ENDARCDATA
+
+ARCDATA
+ti_data_7_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.4);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.4);
+}
+ENDARCDATA
+
+ARCDATA
+ti_data_0_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.8);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.8);
+}
+ENDARCDATA
+
+ARCDATA
+ti_data_0_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.4);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.4);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_14_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.6);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.6);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_14_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.9);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.9);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_5_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_5_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.7);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.7);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_7_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_7_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.7);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.7);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_8_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_8_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.7);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.7);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_13_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_13_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.7);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.7);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_4_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_4_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.8);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.8);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_6_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_6_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.8);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.8);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_9_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_9_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.8);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.8);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_12_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_12_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.8);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.8);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_14_ti_gclk_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_14_ti_gclk_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.8);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.8);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_ti_gclk_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.5);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_ti_gclk_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.8);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.8);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_3_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.3);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.3);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_3_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(3.0);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(3.0);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_10_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.3);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.3);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_10_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(3.0);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(3.0);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_11_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.3);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.3);
+}
+ENDARCDATA
+
+ARCDATA
+ti_adr_11_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(3.0);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(3.0);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_ti_we_setup:
+RISE_CONSTRAINT(scalar) {
+VALUES(2.3);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(2.3);
+}
+ENDARCDATA
+
+ARCDATA
+ti_gsel_ti_we_hold:
+RISE_CONSTRAINT(scalar) {
+VALUES(3.0);
+}
+FALL_CONSTRAINT(scalar) {
+VALUES(3.0);
+}
+ENDARCDATA
+
+ENDTIMINGDATA
+ENDMODELDATA

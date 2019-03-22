@@ -1,0 +1,13 @@
+JDF B
+// Created by Version 2.0 
+PROJECT Gigacart
+DESIGN gigacart Normal
+DEVKIT LC4064V-10T100I
+ENTRY Pure VHDL
+STIMULUS autotest.vhd
+MODULE design.vhd
+MODSTYLE gigacart Normal
+STIMULUS gigacart testbench.vhd
+SYNTHESIS_TOOL LSE
+SIMULATOR_TOOL ActiveHDL
+TOPMODULE gigacart

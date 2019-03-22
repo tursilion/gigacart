@@ -16,7 +16,7 @@
 *
 
 ** this is used by all code that needs to return to the code page
-CARTPAGE EQU >????
+CARTPAGE EQU >????+SCENEOFFSET
 
 	COPY "D:\work\ti\dragonslair\code\CommonCode.a99"
 	COPY "D:\work\ti\dragonslair\code\SceneCommon.a99"

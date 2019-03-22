@@ -1,6 +1,6 @@
 // Node Statistic Information File
 // Tool:  ispLEVER Classic 2.0.00.17.20.15
-// Design 'gigacart' created   Thu Feb 07 16:06:14 2019
+// Design 'gigacart' created   Mon Mar 11 20:06:09 2019
 
 // Fmax Logic Level: 0.
 
@@ -81,31 +81,6 @@ Fanin Node      	wordmask_i0_i1.Q    	1
 Fanin Node      	wordmask_i0_i0.Q    	1
 END
 
-// Signal Name: ti_data_3_
-// Type: Bidi
-BEGIN ti_data_3_
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Output    	out_data_4_.PIN     	1
-END
-
-// Signal Name: ti_data_3_.OE
-// Type: Bidi
-BEGIN ti_data_3_.OE
-Fanin Number		4
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_we.BLIF          	0
-Fanin Input     	ti_rom.BLIF         	0
-Fanin Node      	wordmask_i0_i1.Q    	1
-Fanin Node      	wordmask_i0_i0.Q    	1
-END
-
 // Signal Name: ti_data_7_
 // Type: Bidi
 BEGIN ti_data_7_
@@ -120,6 +95,31 @@ END
 // Signal Name: ti_data_7_.OE
 // Type: Bidi
 BEGIN ti_data_7_.OE
+Fanin Number		4
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_we.BLIF          	0
+Fanin Input     	ti_rom.BLIF         	0
+Fanin Node      	wordmask_i0_i1.Q    	1
+Fanin Node      	wordmask_i0_i0.Q    	1
+END
+
+// Signal Name: ti_data_3_
+// Type: Bidi
+BEGIN ti_data_3_
+Fanin Number		1
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Output    	out_data_4_.PIN     	1
+END
+
+// Signal Name: ti_data_3_.OE
+// Type: Bidi
+BEGIN ti_data_3_.OE
 Fanin Number		4
 Pterm Number		1
 Fanin per Macrocell	N/A
@@ -261,7 +261,7 @@ END
 // Type: Output
 BEGIN out_ce
 Fanin Number		5
-Pterm Number		1
+Pterm Number		2
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
@@ -594,11 +594,12 @@ END
 // Signal Name: out_adr_25_.CE
 // Type: Output_reg
 BEGIN out_adr_25_.CE
-Fanin Number		1
+Fanin Number		2
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
+Fanin Input     	ti_adr_15_.BLIF     	0
 Fanin Input     	ti_rom.BLIF         	0
 END
 
@@ -627,44 +628,12 @@ END
 // Signal Name: out_adr_24_.CE
 // Type: Output_reg
 BEGIN out_adr_24_.CE
-Fanin Number		1
+Fanin Number		2
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
-Fanin Input     	ti_rom.BLIF         	0
-END
-
-// Signal Name: out_adr_23_.D
-// Type: Output_reg
-BEGIN out_adr_23_.D
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_adr_4_.BLIF      	0
-END
-
-// Signal Name: out_adr_23_.C
-// Type: Output_reg
-BEGIN out_adr_23_.C
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_we.BLIF          	0
-END
-
-// Signal Name: out_adr_23_.CE
-// Type: Output_reg
-BEGIN out_adr_23_.CE
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
+Fanin Input     	ti_adr_15_.BLIF     	0
 Fanin Input     	ti_rom.BLIF         	0
 END
 
@@ -693,11 +662,46 @@ END
 // Signal Name: out_adr_26_.CE
 // Type: Output_reg
 BEGIN out_adr_26_.CE
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_adr_15_.BLIF     	0
+Fanin Input     	ti_rom.BLIF         	0
+END
+
+// Signal Name: out_adr_23_.D
+// Type: Output_reg
+BEGIN out_adr_23_.D
 Fanin Number		1
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
+Fanin Input     	ti_adr_4_.BLIF      	0
+END
+
+// Signal Name: out_adr_23_.C
+// Type: Output_reg
+BEGIN out_adr_23_.C
+Fanin Number		1
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_we.BLIF          	0
+END
+
+// Signal Name: out_adr_23_.CE
+// Type: Output_reg
+BEGIN out_adr_23_.CE
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_adr_15_.BLIF     	0
 Fanin Input     	ti_rom.BLIF         	0
 END
 
@@ -726,11 +730,12 @@ END
 // Signal Name: out_adr_22_.CE
 // Type: Output_reg
 BEGIN out_adr_22_.CE
-Fanin Number		1
+Fanin Number		2
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
+Fanin Input     	ti_adr_15_.BLIF     	0
 Fanin Input     	ti_rom.BLIF         	0
 END
 
@@ -759,44 +764,12 @@ END
 // Signal Name: out_adr_21_.CE
 // Type: Output_reg
 BEGIN out_adr_21_.CE
-Fanin Number		1
+Fanin Number		2
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
-Fanin Input     	ti_rom.BLIF         	0
-END
-
-// Signal Name: out_adr_20_.D
-// Type: Output_reg
-BEGIN out_adr_20_.D
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_adr_7_.BLIF      	0
-END
-
-// Signal Name: out_adr_20_.C
-// Type: Output_reg
-BEGIN out_adr_20_.C
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
-Fanin Input     	ti_we.BLIF          	0
-END
-
-// Signal Name: out_adr_20_.CE
-// Type: Output_reg
-BEGIN out_adr_20_.CE
-Fanin Number		1
-Pterm Number		1
-Fanin per Macrocell	N/A
-Cluster PT		N/A
-Logic Levels		N/A
+Fanin Input     	ti_adr_15_.BLIF     	0
 Fanin Input     	ti_rom.BLIF         	0
 END
 
@@ -825,11 +798,46 @@ END
 // Signal Name: out_reset.CE
 // Type: Output_reg
 BEGIN out_reset.CE
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_adr_15_.BLIF     	0
+Fanin Input     	ti_rom.BLIF         	0
+END
+
+// Signal Name: out_adr_20_.D
+// Type: Output_reg
+BEGIN out_adr_20_.D
 Fanin Number		1
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
+Fanin Input     	ti_adr_7_.BLIF      	0
+END
+
+// Signal Name: out_adr_20_.C
+// Type: Output_reg
+BEGIN out_adr_20_.C
+Fanin Number		1
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_we.BLIF          	0
+END
+
+// Signal Name: out_adr_20_.CE
+// Type: Output_reg
+BEGIN out_adr_20_.CE
+Fanin Number		2
+Pterm Number		1
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+Fanin Input     	ti_adr_15_.BLIF     	0
 Fanin Input     	ti_rom.BLIF         	0
 END
 
@@ -858,11 +866,12 @@ END
 // Signal Name: out_adr_19_.CE
 // Type: Output_reg
 BEGIN out_adr_19_.CE
-Fanin Number		1
+Fanin Number		2
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
+Fanin Input     	ti_adr_15_.BLIF     	0
 Fanin Input     	ti_rom.BLIF         	0
 END
 
@@ -891,11 +900,12 @@ END
 // Signal Name: out_adr_18_.CE
 // Type: Output_reg
 BEGIN out_adr_18_.CE
-Fanin Number		1
+Fanin Number		2
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
+Fanin Input     	ti_adr_15_.BLIF     	0
 Fanin Input     	ti_rom.BLIF         	0
 END
 
@@ -924,11 +934,12 @@ END
 // Signal Name: out_adr_17_.CE
 // Type: Output_reg
 BEGIN out_adr_17_.CE
-Fanin Number		1
+Fanin Number		2
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
+Fanin Input     	ti_adr_15_.BLIF     	0
 Fanin Input     	ti_rom.BLIF         	0
 END
 
@@ -957,11 +968,12 @@ END
 // Signal Name: out_adr_16_.CE
 // Type: Output_reg
 BEGIN out_adr_16_.CE
-Fanin Number		1
+Fanin Number		2
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
+Fanin Input     	ti_adr_15_.BLIF     	0
 Fanin Input     	ti_rom.BLIF         	0
 END
 
@@ -990,11 +1002,12 @@ END
 // Signal Name: out_adr_15_.CE
 // Type: Output_reg
 BEGIN out_adr_15_.CE
-Fanin Number		1
+Fanin Number		2
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
+Fanin Input     	ti_adr_15_.BLIF     	0
 Fanin Input     	ti_rom.BLIF         	0
 END
 
@@ -1023,11 +1036,12 @@ END
 // Signal Name: out_adr_14_.CE
 // Type: Output_reg
 BEGIN out_adr_14_.CE
-Fanin Number		1
+Fanin Number		2
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
+Fanin Input     	ti_adr_15_.BLIF     	0
 Fanin Input     	ti_rom.BLIF         	0
 END
 
@@ -1056,11 +1070,12 @@ END
 // Signal Name: out_adr_13_.CE
 // Type: Output_reg
 BEGIN out_adr_13_.CE
-Fanin Number		1
+Fanin Number		2
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
+Fanin Input     	ti_adr_15_.BLIF     	0
 Fanin Input     	ti_rom.BLIF         	0
 END
 
@@ -1089,11 +1104,12 @@ END
 // Signal Name: wordmask_i0_i1.CE
 // Type: Node_reg
 BEGIN wordmask_i0_i1.CE
-Fanin Number		1
+Fanin Number		2
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
+Fanin Input     	ti_adr_15_.BLIF     	0
 Fanin Input     	ti_rom.BLIF         	0
 END
 
@@ -1122,11 +1138,12 @@ END
 // Signal Name: wordmask_i0_i0.CE
 // Type: Node_reg
 BEGIN wordmask_i0_i0.CE
-Fanin Number		1
+Fanin Number		2
 Pterm Number		1
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
+Fanin Input     	ti_adr_15_.BLIF     	0
 Fanin Input     	ti_rom.BLIF         	0
 END
 

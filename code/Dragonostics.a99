@@ -8,15 +8,30 @@
 * the diagnostics as far as the ROM check.
 **************
 
-CARTPAGE EQU >6004
-
     DEF MAIN
 
 	COPY "D:\work\ti\dragonslair\code\CommonCode.a99"
+
+CARTPAGE EQU >6004+CODEOFFSET
     
-* no cart header, don't need it. We have a GROM boot.
     AORG >6000
 
+* Now that we don't have a cart header anymore, I've got 28 bytes that I can
+* use for a common trampoline function (to avoid needing to copy to scratchpad)
+* This will need to be copied into all code banks, but maybe a tool to copy it
+* into all banks period would be safest (then even video can return to it)
+* TRAMPRET is always at >6000, and returns to R1 on the page in R3, corrupting R0
+* You can use B or BL, R11 will be preserved through to the target.
+* can only jump to pages with a zero data write
+**** MUST NOT MOVE, must be in every page! ****
+TRAMPRET
+	CLR *R3				* because we bank here, this code MUST always be the same!!
+	B *R1
+* Only 4 bytes...
+	
+	AORG >601C
+
+* MAIN must be at >601C - if you change it, change the GPL too
 MAIN
     LIMI 0
     LWPI >8300
@@ -427,7 +442,7 @@ GAMESTART
     LI R0,>5800
     LI R1,CFGSIT
     LI R2,768
-    LI R3,>0004-VIDEOFFSET
+    LI R3,>0004-VIDEOFFSET+(CODEOFFSET/2)
     BL @VMBWP
     
 * now it takes a few loops to copy in the
@@ -438,44 +453,44 @@ GAMESTART
     LI R0,>4300
     LI R1,CFGPAT
     LI R2,160*8
-    LI R3,>0003-VIDEOFFSET
+    LI R3,>0003-VIDEOFFSET+(CODEOFFSET/2)
     BL @VMBWP
     
 * chars 0x1C0-0x1FF (R1 already set)
 	LI R0,>4E00
 	LI R2,64*8
-    LI R3,>0003-VIDEOFFSET
+    LI R3,>0003-VIDEOFFSET+(CODEOFFSET/2)
 	BL @VMBWP
 	
 * chars 0x260-0x2FF (R1 already set)
 	LI R0,>5300
 	LI R2,160*8
-    LI R3,>0003-VIDEOFFSET
+    LI R3,>0003-VIDEOFFSET+(CODEOFFSET/2)
 	BL @VMBWP
 
 * set up COLOR (R1 is already set)
 * chars 0x60-0xff
     LI R0,>6300
     LI R2,160*8
-    LI R3,>0003-VIDEOFFSET
+    LI R3,>0003-VIDEOFFSET+(CODEOFFSET/2)
     BL @VMBWP
     
 * chars 0x1C0-0x1FF (R1 already set)
 	LI R0,>6E00
 	LI R2,64*8
-    LI R3,>0003-VIDEOFFSET
+    LI R3,>0003-VIDEOFFSET+(CODEOFFSET/2)
 	BL @VMBWP
 	
 * chars 0x260-0x2FF (R1 already set)
 	LI R0,>7300
 	LI R2,160*8
-    LI R3,>0003-VIDEOFFSET
+    LI R3,>0003-VIDEOFFSET+(CODEOFFSET/2)
 	BL @VMBWP
 
 ***************************************************
 * diag 1 - RAM
 ***************************************************
-	LI R0,>0004-VIDEOFFSET
+	LI R0,>0004-VIDEOFFSET+(CODEOFFSET/2)
 	BL @SHOWANDPAUSE
 
 * keep track of address in score digits (as decimal, sorry)
@@ -562,7 +577,7 @@ d1n2
 	jmp d1ok
 	
 d1fail
-	LI R0,>0006-VIDEOFFSET
+	LI R0,>0006-VIDEOFFSET+(CODEOFFSET/2)
 	BL @SHOWANDPAUSE2
 d1flp
 	bl @joyfast
@@ -575,7 +590,7 @@ d1ok
 ***************************************************
 * diag 2 - ROM
 ***************************************************
-	LI R0,>0005-VIDEOFFSET
+	LI R0,>0005-VIDEOFFSET+(CODEOFFSET/2)
 	BL @SHOWANDPAUSE2
 	
 * copy routine to scratchpad to checksum one page
@@ -590,10 +605,11 @@ d2lp1
 	ci R0,d2chkend
 	JNE d2lp1
 	
-* start at page 0, count separately in score
-	clr r6
+* start at page 0+(CODEOFFSET/2), count separately in score
+	li r6,(CODEOFFSET/2)
 	clr @lives		* and scr1
 	clr @scr2		* and scr3
+    a r6,@scr3      * start the count at the offset
 	
 d2lp2
 	bl @showscore
@@ -649,7 +665,7 @@ d2chl1
 d2chkend	
 	
 d2fail
-	LI R0,>0007-VIDEOFFSET
+	LI R0,>0007-VIDEOFFSET+(CODEOFFSET/2)
 	BL @SHOWANDPAUSE2
 d2failp
 	BL @JOYFAST
@@ -1186,6 +1202,8 @@ d6n5
 	jmp d6lp
 
 d6done
+	LI R0,>8536		* NONE
+	BL @VDPWTA
 
 ***************************************************
 * diag 7 - color bar warning
@@ -1227,21 +1245,21 @@ romdiagdetail
     LI R0,>4300
     LI R1,CFGPAT+1792
     LI R2,160*8
-    LI R3,>0003-VIDEOFFSET
+    LI R3,>0003-VIDEOFFSET+(CODEOFFSET/2)
     BL @VMBWP
     
 * chars 0x160-0x1FF
 	LI R0,>4B00
     LI R1,CFGPAT+1792
     LI R2,160*8
-    LI R3,>0003-VIDEOFFSET
+    LI R3,>0003-VIDEOFFSET+(CODEOFFSET/2)
     BL @VMBWP
 	
 * chars 0x260-0x2FF
 	LI R0,>5300
     LI R1,CFGPAT+1792
     LI R2,160*8
-    LI R3,>0003-VIDEOFFSET
+    LI R3,>0003-VIDEOFFSET+(CODEOFFSET/2)
     BL @VMBWP
 
 * set up COLOR
@@ -1249,21 +1267,21 @@ romdiagdetail
     LI R0,>6300
     LI R1,CFGPAT+4864
     LI R2,160*8
-    LI R3,>0003-VIDEOFFSET
+    LI R3,>0003-VIDEOFFSET+(CODEOFFSET/2)
     BL @VMBWP
     
 * chars 0x160-0x1FF
 	LI R0,>6B00
     LI R1,CFGPAT+4864
     LI R2,160*8
-    LI R3,>0003-VIDEOFFSET
+    LI R3,>0003-VIDEOFFSET+(CODEOFFSET/2)
     BL @VMBWP
 	
 * chars 0x260-0x2FF
 	LI R0,>7300
     LI R1,CFGPAT+4864
     LI R2,160*8
-    LI R3,>0003-VIDEOFFSET
+    LI R3,>0003-VIDEOFFSET+(CODEOFFSET/2)
     BL @VMBWP
     
 * Finally, clear the screen. Space is 0xB1
@@ -1290,10 +1308,12 @@ romd2lp1
 	ci R0,d2chkend
 	JNE romd2lp1
 	
-* start at page 0, count separately in score
-	clr r6
+* start at page 0+(CODEOFFSET/2), count separately in score
+	li r6,(CODEOFFSET/2)
+    srl r6,1        * silly to do it in code, but less error prone
 	clr @lives		* and scr1
 	clr @scr2		* and scr3
+    a r6,@scr3
 	
 romd2lp2
 	bl @showscore

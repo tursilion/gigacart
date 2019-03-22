@@ -285,10 +285,13 @@ cd ..\dl_pics
 copy /y /b ..\output_Cart8.bin + /b BorderOut.bin + /b ConfigHintsEasyArcade.bin + /b ConfigHintsEasyHome.bin + /b ConfigHintsHardArcade.bin + /b ConfigHintsHardHome.bin + /b ConfigNoHintsEasyArcade.bin + /b ConfigNoHintsEasyHome.bin + /b ConfigNoHintsHardArcade.bin + /b ConfigNoHintsHardHome.bin + /B F18A.bin + /b HLSplash.bin + /b HLTitle.bin + /b ..\code\spritesC.bin + /b Instruction1Joy.bin + /b Instruction1Key.bin + /b Instruction2Joy.bin + /b Instruction2Key.bin + /b GameOver.bin + /b ColorBars.bin + /b Diag1.bin + /b Diag2.bin + /b Diag3.bin + /b Diag4.bin + /b Diag5.bin + /b Diag6.bin + /b Diag7.bin + /b Diag8.bin + /b Diag9.bin + /b Diag14.bin + /b AlphaLockUp.bin + /b ConfigHintsPracticeArcade.bin + /b ConfigHintsPracticeHome.bin + /b WinScreen.bin + /b Thanks.bin + /b ConfigNoHintsPracticeArcade.bin + /b ConfigNoHintsPracticeHome.bin + /b Copyright.bin + /b grid.bin /b CartROMData.bin
 
 @rem pad up the GPL part and put the code into the cart
+@rem we'll also use the GPL to make a 128k padding block for the start for the seahorse board
 cd ..\code
 copy /y gpl.bin gpl.tmp
 d:\work\setbinsize\release\setbinsize gpl.tmp 256
-copy /y /b DragonsLairC.bin + /b DragonsLairKeyC.bin + /b DragonosticsC.bin ^
+copy /y gpl.bin gpl.pad
+d:\work\setbinsize\release\setbinsize gpl.pad 131072
+copy /y /b gpl.pad + /b DragonsLairC.bin + /b DragonsLairKeyC.bin + /b DragonosticsC.bin ^
 + /b ..\dl_pics\BorderC.bin + /b ..\dl_pics\Diag1.bin + /b ..\dl_pics\Diag2.bin ^
 + /b ..\dl_pics\Diag8.bin + /b ..\dl_pics\Diag9.bin ^
 + /b SceneA1Drawbridge.bin ^
@@ -340,15 +343,15 @@ copy /y /b rawcart.bin + /b gpl.tmp /b Test8.bin
 d:\work\ti\checksumcart\release\checksumcart.exe Test8.bin 256
 
 @rem make some truncated dummy carts for testing
-copy /y test8.bin dummy8.bin
-d:\work\setbinsize\release\setbinsize dummy8.bin 65536
-
-copy /y test8.bin dummy2M_8.bin
-d:\work\setbinsize\release\setbinsize dummy2M_8.bin 2097152
-
-copy /y test8.bin dummy32M_8.bin
-d:\work\setbinsize\release\setbinsize dummy32M_8.bin 33554432
-
+@rem copy /y test8.bin dummy8.bin
+@rem d:\work\setbinsize\release\setbinsize dummy8.bin 65536
+@rem 
+@rem copy /y test8.bin dummy2M_8.bin
+@rem d:\work\setbinsize\release\setbinsize dummy2M_8.bin 2097152
+@rem 
+@rem copy /y test8.bin dummy32M_8.bin
+@rem d:\work\setbinsize\release\setbinsize dummy32M_8.bin 33554432
+@rem 
 copy /y test8.bin dummybroken8.bin
 d:\work\ti\checksumcart\release\checksumcart.exe dummybroken8.bin 256 8
 

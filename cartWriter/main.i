@@ -495,6 +495,7 @@ void flashReadCfi() {
 
     if ((buffer[0x20]!='Q') || (buffer[0x22]!='R') || (buffer[0x24]!='Y')) {
         printf("Did NOT get QRY string: %c%c%c\n", buffer[0x20], buffer[0x22], buffer[0x24]);
+        printf("Make sure the >E000 adapter/hack is\nin the cartridge slot\n");
         fail=1;
     } else {
         printf("Device size: 2^%d bytes", (int)buffer[0x4e]);
@@ -589,7 +590,7 @@ void flashReadStatus() {
     *((volatile unsigned char*)0x6000)=0x10 | 0x08;
     *((volatile unsigned char*)(0xE000+(0xaaa)))=(0x70);
     *((volatile unsigned char*)0x6000)=0x10;
-# 356 "main.c"
+# 357 "main.c"
     unsigned int tmp = *((volatile unsigned int*)0x6000);
 
 
@@ -684,11 +685,11 @@ int flashWaitForWrite(unsigned int page, unsigned int adr, unsigned char val) {
         }
     }
 }
-# 461 "main.c"
+# 462 "main.c"
 int flashWriteFast(unsigned int page, unsigned int adr) {
     int latch = (page&0xfff) << 1;
     unsigned char bits = (page>>12) & 0x03;
-# 479 "main.c"
+# 480 "main.c"
     unsigned int sa_latch = (page&0x0ff0) << 1;
 
     if (adr%256) {
@@ -1049,19 +1050,17 @@ void cf7IdentifyDevice() {
             return;
         }
 
-        printf("Identify...");
 
         for (int off=0; off<512; off+=2) {
             buffer[off+1] = *((volatile unsigned char*)(0x5e00+(1)));
             buffer[off] = *((volatile unsigned char*)(0x5e00+(1)));
         }
-        printf(":\n");
 
     if (CF7Classic99) __asm__( "li r12,>1000\n\tsbz 0" : : : "r12" ); else __asm__( "li r12,>1100\n\tsbz 0" : : : "r12" );;
 
 
 
-    printf("Size    : 0x%X%X%X%X sectors\n", buffer[14], buffer[15], buffer[16], buffer[17]);
+    printf("CF Size : 0x%X%X%X%X sectors\n", buffer[14], buffer[15], buffer[16], buffer[17]);
 
     printf("Capacity: 0x%X%X%X%X sectors\n", buffer[116], buffer[117], buffer[114], buffer[115]);
     printf("LBA     : 0x%X%X%X%X sectors\n", buffer[122], buffer[123], buffer[120], buffer[121]);
@@ -1072,7 +1071,7 @@ void cf7IdentifyDevice() {
 
         for (int idx=46; idx<76; ++idx) { putchar(buffer[idx]); }
         putchar('\n');
-# 875 "main.c"
+# 874 "main.c"
 }
 
 int cf7ReadSector(unsigned int high, unsigned int low) {
@@ -1204,7 +1203,7 @@ void cf7DetectClassic99() {
 
 
 int testapp() {
-    int cflow=0, cfhigh=0;
+    int cflow=1598, cfhigh=0;
 
 
     for (int idx=0; idx<512; ++idx) {
@@ -1300,11 +1299,12 @@ int testapp() {
 
                 case '3': if (cf7ReadSector(cfhigh, cflow)) {
                                 for (int idx=0; idx<512; ++idx) {
-                                    if ((buffer[idx]>=' ')&&(buffer[idx]<='z')) {
-                                        putchar(buffer[idx]);
-                                    } else {
-                                        putchar(' ');
-                                    }
+         vdpchar(nTextPos, buffer[idx]);
+         nTextPos++;
+         if (nTextPos > nTextEnd) {
+          scrn_scroll();
+          nTextPos = nTextRow;
+         }
                                 }
                                 printf("\n");
                             } else {
@@ -1367,6 +1367,7 @@ int program() {
                 unsigned int inadr = 0x6000 + adr;
                 unsigned int cart = *((unsigned int*)(inadr));
                 if (cart != 0xffff) {
+     printf("latch >%X, adr >%X, read >%X%X != >FFFF", flashLatch, inadr, cart>>8,cart&0xff);
                     ret = 0;
                     break;
                 }
@@ -1404,6 +1405,8 @@ int program() {
     int stepcnt = 0;
     int stepcol = 0;
     int stepchar = 0;
+    int mancnt = 0;
+    int manchar = 0;
 
 
     for (;;) {
@@ -1426,10 +1429,22 @@ int program() {
             vdpmemset(gImage, ' ', 40);
             if (stepcol > 0) {
 
-                vdpmemset(gImage, 128+5, stepcol-1);
+                vdpmemset(gImage, 128+5, stepcol);
             }
             vdpchar(gImage+stepcol, 128+stepchar);
         }
+
+
+        if (stepcol < 39) {
+   ++mancnt;
+   if (mancnt >= 8) {
+    ++manchar;
+    if (manchar > 3) {
+     manchar = 0;
+    }
+    vdpchar(gImage+stepcol+1, 134+manchar);
+   }
+  }
 
 
         if (!cf7ReadSector(CF7High, CF7Low)) {
@@ -1496,8 +1511,35 @@ const unsigned char bargraph[] = {
     0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0,
     0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0,
     0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0,
-    0xf1, 0xf1, 0xf1, 0xf1, 0xf1, 0xf1, 0xf1, 0xf1,
-    0xf2, 0xf2, 0xf2, 0xf2, 0xf2, 0xf2, 0xf2, 0xf2
+    0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8,
+    0xfc, 0xfc, 0xfc, 0xfc, 0xfc, 0xfc, 0xfc, 0xfc,
+
+
+
+ 0x0c,0x0c,0x18,0x18,0x1c,0x18,0x38,0x08,
+ 0x0c,0x0c,0x18,0x18,0x18,0x18,0x18,0x10,
+ 0x0c,0x0c,0x18,0x38,0x3c,0x1c,0x24,0x20,
+ 0x0c,0x0c,0x38,0x5e,0x18,0x24,0x44,0x04
+};
+
+
+const unsigned char fonts1[] = {
+ 0x40,0xa0,0xa0,0xa0,0x40,
+ 0x40,0x40,0x40,0x40,0x40,
+ 0xe0,0x20,0xe0,0x80,0xe0,
+ 0xe0,0x20,0xe0,0x20,0xe0,
+ 0xa0,0xa0,0xe0,0x20,0x20,
+ 0xe0,0x80,0xe0,0x20,0xe0,
+ 0x40,0x80,0xe0,0xa0,0xe0,
+ 0xe0,0x20,0x40,0x40,0x40,
+ 0x40,0xa0,0x40,0xa0,0x40,
+ 0xe0,0xa0,0xe0,0x20,0x40,
+ 0xe0,0xa0,0xe0,0xa0,0xa0,
+ 0xe0,0xa0,0xc0,0xa0,0xe0,
+ 0x40,0xa0,0x80,0xa0,0x40,
+ 0xc0,0xa0,0xa0,0xa0,0xc0,
+ 0xe0,0x80,0xc0,0x80,0xe0,
+ 0xe0,0x80,0xc0,0x80,0x80
 };
 
 int main() {
@@ -1506,9 +1548,28 @@ int main() {
   int x;
         x = set_text_raw();
   charsetlc();
-        vdpmemcpy(gPattern+(128*8), bargraph, 8*6);
+        vdpmemcpy(gPattern+(128*8), bargraph, 8*10);
   VDP_SET_REGISTER(0x01, x);
   *((volatile unsigned char*)0x83d4) = x;
+
+
+
+  for (int ch=0; ch<256; ++ch) {
+   if (ch == 32) ch=127;
+   int off = gPattern + ch*8;
+   const unsigned char* pat1 = ((ch>>4)*5)+fonts1;
+   const unsigned char* pat2 = ((ch&0xf)*5)+fonts1;
+   vdpchar(off++, *(pat1++));
+   vdpchar(off++, *(pat1++));
+   vdpchar(off++, *(pat1++));
+   vdpchar(off++, (*(pat1++))|((*(pat2++))>>3));
+   vdpchar(off++, (*(pat1++))|((*(pat2++))>>3));
+   vdpchar(off++, ((*(pat2++))>>3));
+   vdpchar(off++, ((*(pat2++))>>3));
+   vdpchar(off++, ((*(pat2++))>>3));
+  }
+
+
   VDP_SET_REGISTER(0x07, 0x17);
         scrn_scroll = my_fast_scrn_scroll;
  }

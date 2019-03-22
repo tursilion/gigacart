@@ -14,8 +14,8 @@ Voltage = 3.3;
 RCS = "$Header $";
 Parent = lc4k64v.lci;
 Design = ;
-DATE = 02/07/2019;
-TIME = 16:07:08;
+DATE = 03/18/2019;
+TIME = 23:07:27;
 Source_Format = Pure_VHDL;
 Type = ;
 Pre_Fit_Time = ;
@@ -204,7 +204,7 @@ ti_data_3_=LVTTL,pin,0,-;
 ti_data_2_=LVTTL,pin,0,-;
 ti_data_1_=LVTTL,pin,0,-;
 ti_data_0_=LVTTL,pin,0,-;
-out_data_7_=LVCMOS33,pin,0,-;
+out_data_7_=LVTTL,pin,0,-;
 out_we=LVTTL,pin,1,-;
 out_oe=LVTTL,pin,0,-;
 out_ce=LVTTL,pin,1,-;
@@ -221,13 +221,13 @@ out_adr_3_=LVTTL,pin,1,-;
 out_adr_2_=LVTTL,pin,1,-;
 out_adr_1_=LVTTL,pin,1,-;
 out_adr_0_=LVTTL,pin,0,-;
-out_data_6_=LVCMOS33,pin,0,-;
-out_data_5_=LVCMOS33,pin,0,-;
-out_data_4_=LVCMOS33,pin,0,-;
-out_data_3_=LVCMOS33,pin,1,-;
-out_data_2_=LVCMOS33,pin,1,-;
-out_data_1_=LVCMOS33,pin,1,-;
-out_data_0_=LVCMOS33,pin,1,-;
+out_data_6_=LVTTL,pin,0,-;
+out_data_5_=LVTTL,pin,0,-;
+out_data_4_=LVTTL,pin,0,-;
+out_data_3_=LVTTL,pin,1,-;
+out_data_2_=LVTTL,pin,1,-;
+out_data_1_=LVTTL,pin,1,-;
+out_data_0_=LVTTL,pin,1,-;
 out_adr_25_=LVTTL,pin,0,-;
 out_adr_24_=LVTTL,pin,1,-;
 out_adr_26_=LVTTL,pin,0,-;
@@ -250,12 +250,11 @@ out_adr_13_=LVTTL,pin,1,-;
 layer=OFF;
 
 [SLEWRATE]
-SLOW=ti_data_4_,ti_data_0_,ti_data_5_,ti_data_6_,ti_data_7_,ti_data_1_,ti_data_2_,ti_data_3_,out_adr_0_,out_adr_1_,out_adr_2_,out_adr_3_,out_adr_4_,out_adr_5_,out_adr_6_,out_adr_7_,out_adr_8_,out_adr_9_,out_adr_10_,out_adr_11_,out_adr_12_,out_adr_13_,out_adr_14_,out_adr_15_,out_adr_16_,out_adr_17_,out_adr_18_,out_adr_19_,out_adr_20_,out_adr_21_,out_adr_22_,out_adr_23_,out_adr_24_,out_adr_25_,out_adr_26_;
-FAST=out_reset,out_oe;
+SLOW=ti_data_4_,ti_data_0_,ti_data_5_,ti_data_6_,ti_data_7_,ti_data_1_,ti_data_2_,ti_data_3_,out_adr_0_,out_adr_1_,out_adr_2_,out_adr_3_,out_adr_4_,out_adr_5_,out_adr_6_,out_adr_7_,out_adr_8_,out_adr_9_,out_adr_10_,out_adr_11_,out_adr_12_,out_adr_13_,out_adr_14_,out_adr_15_,out_adr_16_,out_adr_17_,out_adr_18_,out_adr_19_,out_adr_20_,out_adr_21_,out_adr_22_,out_adr_23_,out_adr_24_,out_adr_25_,out_adr_26_,out_reset,out_oe,out_data_0_,out_we,out_ce,out_data_1_,out_data_2_,out_data_3_,out_data_4_,out_data_5_,out_data_6_,out_data_7_;
 Default=FAST;
 
 [PULLUP]
-Default=UP;
+Default=DOWN;
 
 [FITTER RESULTS]
 I/O_pin_util = 92;

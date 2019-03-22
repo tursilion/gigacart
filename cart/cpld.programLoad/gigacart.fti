@@ -1,5 +1,5 @@
 #PLAFILE     gigacart.bl5
-#DATE        Mon Mar 11 20:06:13 2019
+#DATE        Mon Mar 18 23:07:32 2019
 
 #DESIGN      gigacart
 #DEVICE      MACH4S-64
@@ -150,6 +150,10 @@ DATA SLEW ti_data_3_
 DATA SLEW ti_data_2_
 DATA SLEW ti_data_1_
 DATA SLEW ti_data_0_
+DATA SLEW out_data_7_
+DATA SLEW out_we
+DATA SLEW out_oe
+DATA SLEW out_ce
 DATA SLEW out_adr_12_
 DATA SLEW out_adr_11_
 DATA SLEW out_adr_10_
@@ -163,12 +167,20 @@ DATA SLEW out_adr_3_
 DATA SLEW out_adr_2_
 DATA SLEW out_adr_1_
 DATA SLEW out_adr_0_
+DATA SLEW out_data_6_
+DATA SLEW out_data_5_
+DATA SLEW out_data_4_
+DATA SLEW out_data_3_
+DATA SLEW out_data_2_
+DATA SLEW out_data_1_
+DATA SLEW out_data_0_
 DATA SLEW out_adr_25_
 DATA SLEW out_adr_24_
 DATA SLEW out_adr_26_
 DATA SLEW out_adr_23_
 DATA SLEW out_adr_22_
 DATA SLEW out_adr_21_
+DATA SLEW out_reset
 DATA SLEW out_adr_20_
 DATA SLEW out_adr_19_
 DATA SLEW out_adr_18_

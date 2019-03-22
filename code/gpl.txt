@@ -18,8 +18,8 @@ Program at >8024
 	07 20	ALL >20					* clear screen
 	bf 00	DST >8302 at @>8300		* store scratchpad vector address
 	83 02
-	bf 04	DST >6002 at @>8304		* store cart page address (hard coded)
-	60 02
+	bf 04	DST >6022 at @>8304		* store cart page address (hard coded)
+	60 22
 	40 54	BR @>8054				* continue to store rest of code and execute
 	40 54	BR @>8054				* in case COND was set...
 
@@ -33,8 +33,8 @@ Program at >804A
 	07 20	ALL >20					* clear screen
 	bf 00	DST >8302 at @>8300		* store scratchpad vector address
 	83 02
-	bf 04	DST >6000 at @>8304		* store cart page address (hard coded)
-	60 00
+	bf 04	DST >6020 at @>8304		* store cart page address (hard coded)
+	60 20
 
 Continue here at >8054
 	bf 02	DST >04E0 at @>8302		* CLR (address already loaded)

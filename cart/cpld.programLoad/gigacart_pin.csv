@@ -1,7 +1,7 @@
  ispLEVER Classic 2.0.00.17.20.15 Fitter Report File 
 Project Name,gigacart
 Project Path,D:\work\TI\dragonslair\cart\cpld.programLoad
-Project Fitted on,Mon Mar 11 20:06:13 2019
+Project Fitted on,Mon Mar 18 23:07:32 2019
 
 Pin,Pin_Type,Bank,GLB_Pad,Assigned,I/O_Type,Signal_Type,Signal_Name
 1,GND,-,,,,,
@@ -44,8 +44,8 @@ Pin,Pin_Type,Bank,GLB_Pad,Assigned,I/O_Type,Signal_Type,Signal_Name
 38,INCLK1,0,,,,,
 39,INCLK2,1,,,,,
 40,VCC,-,,,,,
-41,I_O,1,C0,*,LVCMOS33,Bidir,out_data_2_
-42,I_O,1,C1,*,LVCMOS33,Bidir,out_data_3_
+41,I_O,1,C0,*,LVTTL,Bidir,out_data_2_
+42,I_O,1,C1,*,LVTTL,Bidir,out_data_3_
 43,I_O,1,C2,*,LVTTL,Output,out_ce
 44,I_O,1,C3,*,LVTTL_5V,Input,ti_gsel
 45,VCCIO1,-,,,,,
@@ -89,15 +89,15 @@ Pin,Pin_Type,Bank,GLB_Pad,Assigned,I/O_Type,Signal_Type,Signal_Name
 83,VCCIO1,-,,,,,
 84,I_O,1,D3,*,LVTTL,Output,out_adr_1_
 85,I_O,1,D2,,,,
-86,I_O,1,D1,*,LVCMOS33,Bidir,out_data_0_
-87,I_O/OE,1,D0,*,LVCMOS33,Bidir,out_data_1_
+86,I_O,1,D1,*,LVTTL,Bidir,out_data_0_
+87,I_O/OE,1,D0,*,LVTTL,Bidir,out_data_1_
 88,INCLK3,1,,,,,
 89,INCLK0,0,,,,,
 90,VCC,-,,,,,
-91,I_O/OE,0,A0,*,LVCMOS33,Bidir,out_data_4_
-92,I_O,0,A1,*,LVCMOS33,Bidir,out_data_5_
-93,I_O,0,A2,*,LVCMOS33,Bidir,out_data_6_
-94,I_O,0,A3,*,LVCMOS33,Bidir,out_data_7_
+91,I_O/OE,0,A0,*,LVTTL,Bidir,out_data_4_
+92,I_O,0,A1,*,LVTTL,Bidir,out_data_5_
+93,I_O,0,A2,*,LVTTL,Bidir,out_data_6_
+94,I_O,0,A3,*,LVTTL,Bidir,out_data_7_
 95,VCCIO0,-,,,,,
 96,GNDIO0,-,,,,,
 97,I_O,0,A4,*,LVTTL,Output,out_adr_0_

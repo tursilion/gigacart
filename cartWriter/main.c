@@ -251,6 +251,7 @@ void flashReadCfi() {
     // check for the QRY string - if this isn't there, we may not have data
     if ((buffer[0x20]!='Q') || (buffer[0x22]!='R') || (buffer[0x24]!='Y')) {
         printf("Did NOT get QRY string: %c%c%c\n", buffer[0x20], buffer[0x22], buffer[0x24]);
+        printf("Make sure the >E000 adapter/hack is\nin the cartridge slot\n");
         fail=true;
     } else {
         printf("Device size: 2^%d bytes", (int)buffer[0x4e]);
@@ -836,19 +837,17 @@ void cf7IdentifyDevice() {
             return;
         }
 
-        printf("Identify...");
         // the data comes in 16-bit swapped (only for this, normal reads and writes are fine)
         for (int off=0; off<512; off+=2) {
             buffer[off+1] = CF7_READ(CF7_DATA);
             buffer[off] = CF7_READ(CF7_DATA);
         }
-        printf(":\n");
 
     CF7_CRU_OFF;
 
     // now parse the useful data...
     // I don't think these are coming from the right places...
-    printf("Size    : 0x%X%X%X%X sectors\n", buffer[14], buffer[15], buffer[16], buffer[17]);
+    printf("CF Size : 0x%X%X%X%X sectors\n", buffer[14], buffer[15], buffer[16], buffer[17]);
     // these next two have the opposite word order to the first one... weird (but confirmed).
     printf("Capacity: 0x%X%X%X%X sectors\n", buffer[116], buffer[117], buffer[114], buffer[115]);
     printf("LBA     : 0x%X%X%X%X sectors\n", buffer[122], buffer[123], buffer[120], buffer[121]);
@@ -1003,7 +1002,7 @@ void cf7DetectClassic99() {
 // test function
 //////////////////////////
 int testapp() {
-    int cflow=0, cfhigh=0;
+    int cflow=1598, cfhigh=0;
 
     // a little test menu for now....
     for (int idx=0; idx<512; ++idx) {
@@ -1099,11 +1098,12 @@ int testapp() {
 
                 case '3':   if (cf7ReadSector(cfhigh, cflow)) {
                                 for (int idx=0; idx<512; ++idx) {
-                                    if ((buffer[idx]>=' ')&&(buffer[idx]<='z')) {
-                                        putchar(buffer[idx]); 
-                                    } else {
-                                        putchar(' '); 
-                                    } 
+									vdpchar(nTextPos, buffer[idx]);
+									nTextPos++;
+									if (nTextPos > nTextEnd) {
+										scrn_scroll();
+										nTextPos = nTextRow;
+									}
                                 }
                                 printf("\n");
                             } else {
@@ -1190,6 +1190,7 @@ bool program() {
                 unsigned int inadr = 0x6000 + adr;
                 unsigned int cart = *((unsigned int*)(inadr));
                 if (cart != 0xffff) {
+					printf("latch >%X, adr >%X, read >%X%X != >FFFF", flashLatch, inadr, cart>>8,cart&0xff);
                     ret = false;
                     break;
                 }
@@ -1223,10 +1224,12 @@ bool program() {
     printf("Programming...\n");
     vdpmemset(gImage, ' ', 40); // clear top row for bargraph
 
-    // three variables to make the bargraph easier
+    // variables to make the bargraph easier
     int stepcnt = 0;
     int stepcol = 0;
     int stepchar = 0;
+    int mancnt = 0;
+    int manchar = 0;
 
     // lazy loop
     for (;;) {
@@ -1249,10 +1252,22 @@ bool program() {
             vdpmemset(gImage, ' ', 40);
             if (stepcol > 0) {
                 // solid part of the bar
-                vdpmemset(gImage, 128+5, stepcol-1);
+                vdpmemset(gImage, 128+5, stepcol);
             }
             vdpchar(gImage+stepcol, 128+stepchar);
         }
+        // this little man adds 10-20 seconds to the total count
+        // (of almost 4 hours). Worth it.
+        if (stepcol < 39) {
+			++mancnt;
+			if (mancnt >= 8) {
+				++manchar;
+				if (manchar > 3) {
+					manchar = 0;
+				}
+				vdpchar(gImage+stepcol+1, 134+manchar);
+			}
+		}
 
         // first, read the CF data into the buffer
         if (!cf7ReadSector(CF7High, CF7Low)) {
@@ -1315,12 +1330,39 @@ bool program() {
 
 // a 6 pixel wide bargraph
 const unsigned char bargraph[] = {
-    0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 
+    0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, // 128
     0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 
     0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 
     0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 
-    0xf1, 0xf1, 0xf1, 0xf1, 0xf1, 0xf1, 0xf1, 0xf1, 
-    0xf2, 0xf2, 0xf2, 0xf2, 0xf2, 0xf2, 0xf2, 0xf2
+    0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 
+    0xfc, 0xfc, 0xfc, 0xfc, 0xfc, 0xfc, 0xfc, 0xfc,
+
+// running man for the bargraph (cause it moves very slowly)
+// copied from HeroX, in turn from AtariAge
+	0x0c,0x0c,0x18,0x18,0x1c,0x18,0x38,0x08,	// 134
+	0x0c,0x0c,0x18,0x18,0x18,0x18,0x18,0x10,
+	0x0c,0x0c,0x18,0x38,0x3c,0x1c,0x24,0x20,
+	0x0c,0x0c,0x38,0x5e,0x18,0x24,0x44,0x04
+};
+
+// chars for the first digit (3x5)
+const unsigned char fonts1[] = {
+	0x40,0xa0,0xa0,0xa0,0x40,	// 0
+	0x40,0x40,0x40,0x40,0x40,	// 1
+	0xe0,0x20,0xe0,0x80,0xe0,	// 2
+	0xe0,0x20,0xe0,0x20,0xe0,	// 3
+	0xa0,0xa0,0xe0,0x20,0x20,	// 4
+	0xe0,0x80,0xe0,0x20,0xe0,	// 5
+	0x40,0x80,0xe0,0xa0,0xe0,	// 6
+	0xe0,0x20,0x40,0x40,0x40,	// 7
+	0x40,0xa0,0x40,0xa0,0x40,	// 8
+	0xe0,0xa0,0xe0,0x20,0x40,	// 9
+	0xe0,0xa0,0xe0,0xa0,0xa0,	// A
+	0xe0,0xa0,0xc0,0xa0,0xe0,	// B
+	0x40,0xa0,0x80,0xa0,0x40,	// C
+	0xc0,0xa0,0xa0,0xa0,0xc0,	// D
+	0xe0,0x80,0xc0,0x80,0xe0,	// E
+	0xe0,0x80,0xc0,0x80,0x80	// F
 };
 
 int main() {
@@ -1329,9 +1371,28 @@ int main() {
 		int x;
         x = set_text_raw();
 		charsetlc();
-        vdpmemcpy(gPattern+(128*8), bargraph, 8*6); // 6 bargraph characters starting at 128
+        vdpmemcpy(gPattern+(128*8), bargraph, 8*10); // 6 bargraph + 4 man characters starting at 128
 		VDP_SET_REGISTER(VDP_REG_MODE1, x);
 		VDP_REG1_KSCAN_MIRROR = x;
+		
+		// build a control character font - data has 3x5 for chars 0-F
+		// 3 rows of as-is, 2 rows of overlap, and 3 rows right shifted 3
+		for (int ch=0; ch<256; ++ch) {
+			if (ch == 32) ch=127;	// skip over the printable set
+			int off = gPattern + ch*8;
+			const unsigned char* pat1 = ((ch>>4)*5)+fonts1;
+			const unsigned char* pat2 = ((ch&0xf)*5)+fonts1;
+			vdpchar(off++, *(pat1++));
+			vdpchar(off++, *(pat1++));
+			vdpchar(off++, *(pat1++));
+			vdpchar(off++, (*(pat1++))|((*(pat2++))>>3));
+			vdpchar(off++, (*(pat1++))|((*(pat2++))>>3));
+			vdpchar(off++, ((*(pat2++))>>3));
+			vdpchar(off++, ((*(pat2++))>>3));
+			vdpchar(off++, ((*(pat2++))>>3));
+		}
+		
+		// turn on the screen
 		VDP_SET_REGISTER(VDP_REG_COL, 0x17);
         scrn_scroll = my_fast_scrn_scroll;
 	}
