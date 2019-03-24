@@ -19,6 +19,10 @@
 *.TIAC
 *.tmp
 *.pad
+*.o
+*.map
+*.i
+*.s
 Demo8M/*
 Test9938/*
 cart/Liz*

@@ -31,7 +31,7 @@
 
 // uses libti99
 #include "vdp.h"
-#include "kscan.h"
+#include "conio.h"		// only using for clrscr
 #include "string.h"
 
 #ifndef bool
@@ -56,6 +56,12 @@ bool flashWriteSlow(unsigned int page, unsigned int adr) ;
 bool flashSectorErase(unsigned int page) ;
 bool flashChipErase() ;
 
+// asm code in scratchpad
+extern void cf7ReadSectorLoop();
+extern void flashWriteFastLoop(unsigned int off, unsigned int adr);
+extern unsigned int flashVerifyLoop(unsigned int adr);
+extern void setupScratchpad();
+
 // classic99 puts the CF7 at >1000 instead of >1100
 bool CF7Classic99 = false;
 #define CLASSIC99_CRU_ON __asm__( "li r12,>1000\n\tsbo 0" : : : "r12" )
@@ -76,6 +82,8 @@ bool cf7WriteSector(unsigned int high, unsigned int low) ;
 
 // this is where we store buffers from the CF device
 unsigned char buffer[512];
+// this is where we read the keyboard to
+unsigned char kscan_key;
 
 #ifdef VERIFYLATCH
 volatile unsigned char verify;
@@ -179,6 +187,56 @@ void my_fast_scrn_scroll() {
     vdpmemset(nTextRow, ' ', line);	// clear the last line
 }
 
+//////////////////////////
+// My KSCAN that uses a local variable to save scratchpad
+//////////////////////////
+// By columns, then rows. 8 Rows per column. No shift states
+const unsigned char keymap[] = {
+		61,32,13,255,1,2,3,255,
+		'.','L','O','9','2','S','W','X',
+		',','K','I','8','3','D','E','C',
+		'M','J','U','7','4','F','R','V',
+		'N','H','Y','6','5','G','T','B',
+		'/',';','P','0','1','A','Q','Z'
+};
+
+void kscanfast(int mode) {
+	if (mode == 0) {
+		kscan_key = 0xff;
+		for (unsigned int col=0; col < 0x0600; col += 0x0100) {
+			unsigned int key;
+			__asm__("li r12,>0024\n\tldcr %1,3\n\tsrc r12,7\n\tli r12,>0006\n\tclr %0\n\tstcr %0,8" : "=r"(key) : "r"(col) : "r12");	// set cru, column, delay, read
+			unsigned int shift=0x8000;
+
+			for (int cnt=7; cnt>=0; cnt--) {
+				// a pressed key returns a 0 bit
+				if (key & shift) {
+					shift>>=1;
+					continue;
+				}
+				// found one
+				kscan_key = keymap[(col>>5)+cnt];
+				return;
+			}
+		}
+	} else {
+		unsigned int key;
+
+		int col = 0x0600;		// joystick 1 fire column
+
+		if (mode == 2) {
+			col = 0x0700;		// make that joystick 2
+		}
+
+		__asm__("li r12,>0024\n\tldcr %1,3\n\tsrc r12,7\n\tli r12,>0006\n\tclr %0\n\tstcr %0,1" : "=r"(key) : "r"(col) : "r12");	// set cru, column, delay, read (only need 1 bit)
+		if (key == 0) {
+			kscan_key = 18;
+		} else {
+			kscan_key = 0xff;
+		}
+	}
+}
+
 
 //////////////////////////
 // Flash functions
@@ -210,7 +268,7 @@ void flashToggle() {
         FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);     // enable writes
         FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITELSB);     // enable writes
         kscanfast(0);
-    } while (KSCAN_KEY != ' ');
+    } while (kscan_key != ' ');
 }
 
 // unlock sequence required for most operations
@@ -341,7 +399,7 @@ void flashReadCfi() {
 // can't make it work by hand either...
 void flashReadStatus() {
     // commented out until it works...
-#if 1
+#if 0
     // No unlock is needed
     FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);     // enable writes
     FLASH_WRITE(0xaaa, 0x70);                          // Status register
@@ -440,7 +498,7 @@ bool flashWaitForWrite(unsigned int page, unsigned int adr, unsigned char val) {
                 cycles=0;
                 printf("\rWaiting... >%X != >%X - %ds", x, val, time);
                 kscanfast(0);
-                if (KSCAN_KEY == ' ') {
+                if (kscan_key == ' ') {
                     printf("\n-- Aborted by keypress\n");
                     return false;
                 }
@@ -458,6 +516,7 @@ bool flashWaitForWrite(unsigned int page, unsigned int adr, unsigned char val) {
 // be 256 byte aligned too.
 // You should do a verify after success to make sure the data wrote correctly,
 // since this can be too fast to verify in code.
+// If STEPSIZE changes, the assembly loop will also need to change.
 #define STEPSIZE 256
 bool flashWriteFast(unsigned int page, unsigned int adr) {
     int latch = (page&0xfff) << 1;
@@ -484,9 +543,6 @@ bool flashWriteFast(unsigned int page, unsigned int adr) {
         return false;
     }
 
-    // undoubtedly I need this only because I'm not sending some exit command...
-    flashSoftResetAll();
-
 #if 0
     printf("WRITING page %d, address 0x%X%X\n", page, adr>>8, adr&0xff);
 #endif
@@ -502,6 +558,7 @@ bool flashWriteFast(unsigned int page, unsigned int adr) {
         // we can enable full 16-bit writes!!
         FLASH_SETLATCH(latch, bits | FLASH_UNRESET | FLASH_WRITEMSB | FLASH_WRITELSB);
 
+#if 0
         // write 16-bit words to the flash. The multiplexer will do 2 8-bit writes each
         for (unsigned int idx=off; idx<off+STEPSIZE; idx+=2) {
             // FLASH_WRITE is only 8 bit, so we need a 16-bit version
@@ -512,6 +569,10 @@ bool flashWriteFast(unsigned int page, unsigned int adr) {
             printf("%s - write >%X%X = >%X%X\r", __FUNCTION__, outadr>>8, outadr&0xff, data>>8, data&0xff);
 #endif
         }
+#else
+		// use the scratchpad version
+		flashWriteFastLoop(off, adr);
+#endif
 
         // this should be the right place to write the start command to...
         FLASH_SETLATCH(sa_latch, bits | FLASH_UNRESET | FLASH_WRITEMSB);
@@ -537,8 +598,6 @@ bool flashWriteFast(unsigned int page, unsigned int adr) {
 bool flashWriteSlow(unsigned int page, unsigned int adr) {
     int latch = (page&0xfff) << 1;
     unsigned char bits = (page>>12) & 0x03;
-
-    flashSoftResetAll();
 
     printf("Writing page 0x%d, address 0x%X%X\n", page, adr>>8, adr&0xff);
 
@@ -580,6 +639,7 @@ bool flashVerify(unsigned int page, unsigned int adr) {
     // read back the correct page
     FLASH_SETLATCH(latch, bits | FLASH_UNRESET);
 
+#if 0
     // validate against the buffer
     for (int off=0; off<512; off+=2, adr+=2) {
         // FLASH_WRITE is only 8 bit, so we need a 16-bit version
@@ -587,13 +647,23 @@ bool flashVerify(unsigned int page, unsigned int adr) {
         unsigned int inadr = 0x6000 + adr;
         unsigned int cart = *((unsigned int*)(inadr));
         if (cart != data) {
-            printf("Page %d >%X%X, cart >%X%X != >%X%X\n", page, inadr>>8,inadr&0xff, cart>>8,cart&0xff, data>>8,data&0xff);
+            printf("V: Page %d >%X%X, cart >%X%X != >%X%X\n", page, inadr>>8,inadr&0xff, cart>>8,cart&0xff, data>>8,data&0xff);
             ret = false;
             break;
         }
     }
-
     return ret;
+#else
+	// scratchpad version
+	if (!flashVerifyLoop(adr)) {
+		unsigned int inadr = *((unsigned int*)0x83e0) - 0x8000;	// gplws r0 (E000 to 6000)
+        unsigned int data = *((unsigned int*)(&buffer[inadr-0x6000-adr]));
+        unsigned int cart = *((unsigned int*)(inadr));
+		printf("V: Page %d >%X%X, cart >%X%X != >%X%X\n", page, inadr>>8,inadr&0xff, cart>>8,cart&0xff, data>>8,data&0xff);
+		return false;
+	}
+	return true;
+#endif
 }
 
 // erase a single sector
@@ -607,8 +677,6 @@ bool flashSectorErase(unsigned int page) {
         printf("Sector erase page %d is not 128k aligned\n", page);
         return false;
     }
-
-    flashSoftResetAll();
 
     printf("Erasing sector %d\n", page);
 
@@ -650,7 +718,6 @@ bool flashSectorErase(unsigned int page) {
 // erase the entire chip -- yeah, want to be careful with this one
 bool flashChipErase() {
 
-    flashSoftResetAll();
     printf("Resetting flash chip...\n");
 
     // we don't need any other delay - the printfs are more
@@ -788,9 +855,11 @@ bool cf7WaitForReady() {
                 if ((x&0x50) != 0x50) {
                     printf("RDY=%d, DSC=%d\n", (int)(x&40), (int)(x&010));
                 } else {
+#ifdef VERIFYLATCH
                     if (x&0x04) {
                         printf("Warning: ECC reported\n");
                     }
+#endif
                     return true;
                 }
             }
@@ -808,7 +877,7 @@ bool cf7WaitForReady() {
         if (++cnt >= 100) {
             cnt = 0;
             kscanfast(0);
-            if (KSCAN_KEY == ' ') {
+            if (kscan_key == ' ') {
                 printf("\n-- CF aborted by keypress\n");
                 return false;
             }
@@ -906,14 +975,14 @@ bool cf7ReadSector(unsigned int high, unsigned int low) {
         }
 
 #if 0
-        printf("OK...");
-#endif
         for (int off=0; off<512; ++off) {
             buffer[off] = CF7_READ(CF7_DATA);
         }
-#if 0
-        printf("!\n");
+#else
+		// run the scratchpad inline version
+		cf7ReadSectorLoop();
 #endif
+
 
     CF7_CRU_OFF;
 
@@ -1027,7 +1096,7 @@ int testapp() {
         printf("\n  Q to quit\n");
         while (loop) {
             kscanfast(0);
-            switch (KSCAN_KEY) {
+            switch (kscan_key) {
                 case 'Q':   return 0;
                 case 'C':   flashReadCfi(); 
                             loop=0; 
@@ -1132,8 +1201,8 @@ int testapp() {
             }
         }
         printf("Press a key...\n");
-        KSCAN_KEY=0xff;
-        while (KSCAN_KEY == 0xff) { kscanfast(0); }
+        kscan_key=0xff;
+        while (kscan_key == 0xff) { kscanfast(0); }
     }
 
 	return 0;
@@ -1173,8 +1242,11 @@ bool program() {
     unsigned int CF7High = 0;       // we know the start is less than 65,536 sectors in (also 32MB)
     unsigned int CF7Low = CF7_FIRSTSECTOR;
     bool ret = true;
+    
+    // undoubtedly I need this only because I'm not sending some exit command...
+    flashSoftResetAll();
 
-    // most chips should not need to erase.. so even though testing
+    // most chips should not need to erase..?? so even though testing
     // for this will take a while, it should be faster than the 10+
     // minutes that an actual erase takes
     printf("Checking if erase is needed...\n");
@@ -1261,6 +1333,7 @@ bool program() {
         if (stepcol < 39) {
 			++mancnt;
 			if (mancnt >= 8) {
+				mancnt = 0;
 				++manchar;
 				if (manchar > 3) {
 					manchar = 0;
@@ -1355,7 +1428,7 @@ const unsigned char fonts1[] = {
 	0xe0,0x80,0xe0,0x20,0xe0,	// 5
 	0x40,0x80,0xe0,0xa0,0xe0,	// 6
 	0xe0,0x20,0x40,0x40,0x40,	// 7
-	0x40,0xa0,0x40,0xa0,0x40,	// 8
+	0xe0,0xa0,0x40,0xa0,0xe0,	// 8
 	0xe0,0xa0,0xe0,0x20,0x40,	// 9
 	0xe0,0xa0,0xe0,0xa0,0xa0,	// A
 	0xe0,0xa0,0xc0,0xa0,0xe0,	// B
@@ -1370,15 +1443,12 @@ int main() {
 	{
 		int x;
         x = set_text_raw();
-		charsetlc();
-        vdpmemcpy(gPattern+(128*8), bargraph, 8*10); // 6 bargraph + 4 man characters starting at 128
-		VDP_SET_REGISTER(VDP_REG_MODE1, x);
-		VDP_REG1_KSCAN_MIRROR = x;
+        clrscr();
+        setupScratchpad();
 		
 		// build a control character font - data has 3x5 for chars 0-F
 		// 3 rows of as-is, 2 rows of overlap, and 3 rows right shifted 3
 		for (int ch=0; ch<256; ++ch) {
-			if (ch == 32) ch=127;	// skip over the printable set
 			int off = gPattern + ch*8;
 			const unsigned char* pat1 = ((ch>>4)*5)+fonts1;
 			const unsigned char* pat2 = ((ch&0xf)*5)+fonts1;
@@ -1391,8 +1461,13 @@ int main() {
 			vdpchar(off++, ((*(pat2++))>>3));
 			vdpchar(off++, ((*(pat2++))>>3));
 		}
+		// now load the program character set
+		charsetlc();
+        vdpmemcpy(gPattern+(128*8), bargraph, 8*10); // 6 bargraph + 4 man characters starting at 128
 		
 		// turn on the screen
+		VDP_SET_REGISTER(VDP_REG_MODE1, x);
+		VDP_REG1_KSCAN_MIRROR = x;
 		VDP_SET_REGISTER(VDP_REG_COL, 0x17);
         scrn_scroll = my_fast_scrn_scroll;
 	}
@@ -1418,7 +1493,7 @@ bigloop:
     int loop = 1;
     while (loop) {
         kscanfast(0);
-        switch (KSCAN_KEY) {
+        switch (kscan_key) {
             case 'T':   
                 testapp(); 
                 goto bigloop;
@@ -1430,7 +1505,7 @@ bigloop:
                 printf("Press any key...\n");
                 do {
                     kscanfast(0);
-                } while (KSCAN_KEY==0xff);
+                } while (kscan_key==0xff);
                 goto bigloop;       // I'm soooooo evil... ;)
                 break;
         }

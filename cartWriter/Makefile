@@ -38,7 +38,8 @@ OBJECT_LIST_EA5=\
   crt0_ea5.o\
 
 OBJECT_LIST=\
-  main.o
+  main.o		\
+  scratch.o
 
 # List of all files needed in executable
 PREREQUISITES=\
@@ -63,7 +64,7 @@ cartwrite: $(PREREQUISITES)
 # Recipe to compile all assembly files
 
 %.o: %.asm
-	$(GAS) $< -o $@
+	$(GAS) -a $< -o $@ > $<.lst
 
 # Recipe to compile all C files
 %.o: %.c
