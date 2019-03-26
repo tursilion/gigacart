@@ -55,6 +55,7 @@ bool flashWriteFast(unsigned int page, unsigned int adr) ;
 bool flashWriteSlow(unsigned int page, unsigned int adr) ;
 bool flashSectorErase(unsigned int page) ;
 bool flashChipErase() ;
+bool flashChecksum();
 
 // asm code in scratchpad
 extern void cf7ReadSectorLoop();
@@ -298,7 +299,7 @@ void flashReadCfi() {
     // of every 16-bit pairing (twice)
     for (int idx=0; idx<0xf4; idx+=2) {
         // do a 16-bit read for performance
-        *((unsigned int*)(&buffer[idx])) = *((volatile int*)(0x6000+idx));
+        *((unsigned int*)(&buffer[idx])) = *((volatile unsigned int*)(0x6000+idx));
     }
 
     // exit CFI mode
@@ -645,7 +646,7 @@ bool flashVerify(unsigned int page, unsigned int adr) {
         // FLASH_WRITE is only 8 bit, so we need a 16-bit version
         unsigned int data = *((unsigned int*)(&buffer[off]));
         unsigned int inadr = 0x6000 + adr;
-        unsigned int cart = *((unsigned int*)(inadr));
+        unsigned int cart = *((volatile unsigned int*)(inadr));
         if (cart != data) {
             printf("V: Page %d >%X%X, cart >%X%X != >%X%X\n", page, inadr>>8,inadr&0xff, cart>>8,cart&0xff, data>>8,data&0xff);
             ret = false;
@@ -658,7 +659,7 @@ bool flashVerify(unsigned int page, unsigned int adr) {
 	if (!flashVerifyLoop(adr)) {
 		unsigned int inadr = *((unsigned int*)0x83e0) - 0x8000;	// gplws r0 (E000 to 6000)
         unsigned int data = *((unsigned int*)(&buffer[inadr-0x6000-adr]));
-        unsigned int cart = *((unsigned int*)(inadr));
+        unsigned int cart = *((volatile unsigned int*)(inadr));
 		printf("V: Page %d >%X%X, cart >%X%X != >%X%X\n", page, inadr>>8,inadr&0xff, cart>>8,cart&0xff, data>>8,data&0xff);
 		return false;
 	}
@@ -753,6 +754,47 @@ bool flashChipErase() {
 
     printf("Erase completed\n");
     return true;
+}
+
+// runs the same checksum that Dragon's Lair runs to see whether it
+// will pass, and provide details if it doesn't
+bool flashChecksum() {
+	bool ret = true;
+	
+	printf("Running checksum...\n");
+	
+	// this is just to make the normal load come out of reset,
+	// by setting a GROM address of 0x8000
+	*((volatile unsigned char*)(0x9c02))=0x80;
+	*((volatile unsigned char*)(0x9c02))=0x00;
+	
+	// we are running from RAM, so we don't need the scratchpad code
+	// Since I'm using scratchpad for programming, I don't want to
+	// add more there.
+	// start past the 128k seahorse flaw
+	for (unsigned int page = 16; page<0x4000; ++page) {
+		unsigned int sum = page;
+		int latch = (page&0xfff) << 1;
+		unsigned char bits = (page>>12) & 0x03;
+		
+		// set page to read
+		FLASH_SETLATCH(latch, bits | FLASH_UNRESET);
+		
+		// for the checksum - 256 bytes only
+		for (int idx=0x6000; idx<0x6100; idx+=2) {
+			sum += *((volatile unsigned int*)(idx));
+		}
+
+		// compare against stored value
+		if (sum != *((volatile unsigned int*)(0x7ffe)) ) {
+			unsigned int data = *((volatile unsigned int*)(0x7ffe));
+			printf("Checksum fail, page %d. Sum %X%X != %X%X\n",
+				page, sum>>8, sum&0xff, data>>8, data&0xff);
+			ret = false;
+		}
+	}
+			
+	return ret;
 }
 
 //////////////////////////
@@ -1085,6 +1127,7 @@ int testapp() {
         printf("  S to test flash slow write\n");
         printf("  X to test sector erase\n");
         printf("  E to test flash erase\n");
+        printf("  K to run post-program checksum\n");
         printf("  I for flash status info (broken)\n");
         printf("  T to toggle flash select lines\n");
         printf("  R to put flash in reset\n");
@@ -1098,7 +1141,12 @@ int testapp() {
             kscanfast(0);
             switch (kscan_key) {
                 case 'Q':   return 0;
+                
                 case 'C':   flashReadCfi(); 
+                            loop=0; 
+                            break;
+
+                case 'K':   flashChecksum();
                             loop=0; 
                             break;
 
@@ -1380,6 +1428,9 @@ bool program() {
     }
 
     if (ret) {
+		// not checking the return code here - it'll be visible on the screen
+		// I'm not sure the checksum wasn't broken somehow by the code move...
+		flashChecksum();
         printf("\n\n** DONE **\n");
     } else {
         // print the failure location

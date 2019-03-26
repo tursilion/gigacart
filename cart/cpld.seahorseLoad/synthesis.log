@@ -3,7 +3,7 @@ Copyright (c) 1995 AT&T Corp.   All rights reserved.
 Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
 Copyright (c) 2001 Agere Systems   All rights reserved.
 Copyright (c) 2002-2015 Lattice Semiconductor Corporation,  All rights reserved.
-Tue Mar 19 20:21:18 2019
+Sun Mar 24 23:01:48 2019
 
 
 Command Line:  C:\ispLEVER_Classic2_0\lse/bin/nt/synthesis -f gigacart.synproj 
@@ -138,8 +138,8 @@ clk0 [get_nets gvalid]                  |            -|            -|     0
 All constraints were met.
 
 
-Peak Memory Usage: 54.996  MB
+Peak Memory Usage: 55.152  MB
 
 --------------------------------------------------------------
-Elapsed CPU time for LSE flow : 0.672  secs
+Elapsed CPU time for LSE flow : 0.703  secs
 --------------------------------------------------------------

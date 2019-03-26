@@ -20,8 +20,8 @@
 				<BScanVal>0</BScanVal>
 			</Bypass>
 			<File>D:\work\TI\dragonslair\cart\cpld.seahorseLoad\gigacart.jed</File>
-			<FileTime>03/19/19 21:24:59</FileTime>
-			<JedecChecksum>0x1D3F</JedecChecksum>
+			<FileTime>03/25/19 00:08:23</FileTime>
+			<JedecChecksum>0x211A</JedecChecksum>
 			<Operation>Erase,Program,Verify</Operation>
 			<Option>
 				<SVFVendor>JTAG STANDARD</SVFVendor>

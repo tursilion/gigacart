@@ -352,8 +352,8 @@ d:\work\ti\checksumcart\release\checksumcart.exe Test8.bin 256
 @rem copy /y test8.bin dummy32M_8.bin
 @rem d:\work\setbinsize\release\setbinsize dummy32M_8.bin 33554432
 @rem 
-copy /y test8.bin dummybroken8.bin
-d:\work\ti\checksumcart\release\checksumcart.exe dummybroken8.bin 256 8
+@rem copy /y test8.bin dummybroken8.bin
+@rem d:\work\ti\checksumcart\release\checksumcart.exe dummybroken8.bin 256 8
 
 goto :EOF
 

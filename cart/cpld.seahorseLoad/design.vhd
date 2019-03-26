@@ -1,4 +1,4 @@
--- GigaCart CPLD by Mike Brent aka Tursi
+-- GigaCart CPLD (seahorse load) by Mike Brent aka Tursi
 
 -- GROM works, including increment and starting at the right address (stole the increment
 -- idea from finalGROM99, thanks Ralph!) And the damn thing /just/ fits in 64 MCs.
@@ -38,8 +38,8 @@ ENTITY gigacart IS
 --		out_rom2 : OUT STD_ULOGIC;			-- ROM select 2 (active low) (was 42)
 --		out_rom3 : OUT STD_ULOGIC;			-- ROM select 3 (active low)
 --		out_rom4 : OUT STD_ULOGIC;			-- ROM select 4 (active low) (was 48)
-		out_we   : OUT STD_ULOGIC;			-- we now have a WE pin on 48
---		out_oe	 : OUT STD_ULOGIC;			-- we now have an OE pin on 35
+--		out_we   : OUT STD_ULOGIC;			-- we now have a WE pin on 48
+		out_oe	 : OUT STD_ULOGIC;			-- we now have an OE pin on 35
 		out_reset: OUT STD_ULOGIC			-- (47) output to hold flash chips in reset at startup (initial value ignored)
 	);
 END gigacart;
@@ -79,10 +79,6 @@ BEGIN
 		END IF;
 	END PROCESS;
 
-	-- does this cost any space? Just hold these pins low. (yes, it does. 2 MC)
---	out_we <= '0';
---	out_oe <= '0';
- 
 	-- check whether we should gate flash data onto the TI data bus
 	-- !WE is delayed on our hardware... so there may be brief conflict
 	-- Could we delay? Without a clock?
@@ -212,7 +208,8 @@ BEGIN
 --	out_reset <= bounce;
 	out_reset <= grmpage;
 
-	-- keep WE high
-	out_we <= '1';
+	-- keep WE high (via pull-up) and OE low
+--	out_we <= '1';
+	out_oe <= '0';
 END myarch;
 

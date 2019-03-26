@@ -1310,7 +1310,6 @@ romd2lp1
 	
 * start at page 0+(CODEOFFSET/2), count separately in score
 	li r6,(CODEOFFSET/2)
-    srl r6,1        * silly to do it in code, but less error prone
 	clr @lives		* and scr1
 	clr @scr2		* and scr3
     a r6,@scr3

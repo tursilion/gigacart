@@ -1,6 +1,6 @@
 // Node Statistic Information File
 // Tool:  ispLEVER Classic 2.0.00.17.20.15
-// Design 'gigacart' created   Tue Mar 19 20:21:20 2019
+// Design 'gigacart' created   Sun Mar 24 23:01:49 2019
 
 // Fmax Logic Level: 2.
 
@@ -42,11 +42,11 @@ Fanin Node      	latch_i0_i13.Q      	1
 Fanin Node      	gvalid_101.Q        	1
 END
 
-// Signal Name: out_we
+// Signal Name: out_oe
 // Type: Output
-BEGIN out_we
+BEGIN out_oe
 Fanin Number		0
-Pterm Number		1
+Pterm Number		0
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A

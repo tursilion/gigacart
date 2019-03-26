@@ -21,7 +21,7 @@ Tools->Fitter Report File Format...
 <BR>
 Project Name         :  gigacart
 Project Path         :  D:\work\TI\dragonslair\cart\cpld.seahorseLoad
-Project Fitted on    :  Tue Mar 19 21:24:58 2019
+Project Fitted on    :  Mon Mar 25 00:08:23 2019
 
 Device               :  M4064_64
 Package              :  100
@@ -38,8 +38,8 @@ Source Format        :  Pure_VHDL
 <A name="Compilation_Times"></A><FONT COLOR=maroon><U><B><big>Compilation_Times</big></B></U></FONT>
 <BR>
 Prefit Time                     0 secs
-Load Design Time                0.06 secs
-Partition Time                  0.03 secs
+Load Design Time                0.05 secs
+Partition Time                  0.05 secs
 Place Time                      0.00 secs
 Route Time                      0.00 secs
 Total Fit Time                  00:00:01
@@ -56,7 +56,7 @@ Total Flip-Flops                26
   Total D Flip-Flops            24
   Total T Flip-Flops            2
   Total Latches                 0
-Total Product Terms             151
+Total Product Terms             150
 
 Total Reserved Pins             0
 Total Locked Pins               62
@@ -84,7 +84,7 @@ I/O Pins                           62       58      4    -->    93
 Logic Functions                    64       64      0    -->   100
   Input Registers                  64        0     64    -->     0
 
-GLB Inputs                        144       89     55    -->    61
+GLB Inputs                        144       88     56    -->    61
 Logical Product Terms             320      125    195    -->    39
 Occupied GLBs                       4        4      0    -->   100
 Macrocells                         64       64      0    -->   100
@@ -92,8 +92,8 @@ Macrocells                         64       64      0    -->   100
 Control Product Terms:
   GLB Clock/Clock Enables           4        4      0    -->   100
   GLB Reset/Presets                 4        0      4    -->     0
-  Macrocell Clocks                 64       10     54    -->    15
-  Macrocell Clock Enables          64       22     42    -->    34
+  Macrocell Clocks                 64       17     47    -->    26
+  Macrocell Clock Enables          64       16     48    -->    25
   Macrocell Enables                64        0     64    -->     0
   Macrocell Resets                 64        0     64    -->     0
   Macrocell Presets                64        0     64    -->     0
@@ -121,11 +121,11 @@ Maximum
   GLB                      36      *(1)     8   --     --             16       80       16
 </B>-------------------------------------------------------------------------------------------
   GLB    A     17     3    20     15/16     0   16      0              0       22       15
-  GLB    B     10    13    23     14/16     0   16      0              0       43       16
-  GLB    C     16     8    24     15/16     0   16      0              0       36       15
-  GLB    D     18     4    22     14/16     0   16      0              0       24       15
+  GLB    B     10    13    23     15/16     0   16      0              0       44       16
+  GLB    C      9    11    20     14/16     0   16      0              0       32       15
+  GLB    D     18     7    25     14/16     0   16      0              0       27       15
 -------------------------------------------------------------------------------------------
-TOTALS:        61    28    89     58/64     0   64      0              0      125       61
+TOTALS:        54    34    88     58/64     0   64      0              0      125       61
 
 &lt;Note&gt; 1 : For ispMACH 4000 devices, the number of IOs depends on the GLB.
 &lt;Note&gt; 2 : Four rightmost columns above reflect last status of the placement process.
@@ -140,9 +140,9 @@ Maximum
   GLB        1      1        16     16     16     16     16  
 ==============================================================================
 </B>  GLB    A   1      0         0      5      0      0      0
-  GLB    B   1      0         6     11      0      0      0
-  GLB    C   1      0         1      5      0      0      0
-  GLB    D   1      0         3      1      0      0      0
+  GLB    B   1      0        12      5      0      0      0
+  GLB    C   1      0         2      6      0      0      0
+  GLB    D   1      0         3      0      0      0      0
 ------------------------------------------------------------------------------
 
 &lt;Note&gt; 1 : For ispMACH 4000 devices, the number of output enables depends on the GLB.
@@ -199,7 +199,7 @@ Pin Reservation :                      No
 @IO_Types                              Default = LVTTL (2)
 @Output_Slew_Rate                      Default = SLOW (2)
 @Power                                 Default = HIGH (2)
-@Pull                                  Default = PULLUP_DOWN (2)
+@Pull                                  Default = PULLUP_UP (2)
 @Fast_Bypass                           Default = None (2)
 @ORP_Bypass                            Default = None
 @Input_Registers                       Default = None (2)
@@ -251,20 +251,20 @@ Pin No| Type  |Number|Pad |Pin     |     I/O Type    | Type  | Signal name
 32    |GNDIO0 |   -  |    |        |                 |       |
 33    |VCCIO0 |   -  |    |        |                 |       |
 34    |  I_O  |   0  | B3 |    *   |LVTTL_5V         | Input |<A href=#8>ti_adr_15_</A>
-35    |  I_O  |   0  | B2 |        |                 |       |
+35    |  I_O  |   0  | B2 |    *   |LVTTL            | Output|<A href=#17>out_oe</A>
 36    |  I_O  |   0  | B1 |    *   |LVTTL_5V         | Input |<A href=#14>ti_gclk</A>
 37    |  I_O  |   0  | B0 |        |                 |       |
 38    |INCLK1 |   0  |    |        |                 |       |
 39    |INCLK2 |   1  |    |        |                 |       |
 40    | VCC   |   -  |    |        |                 |       |
-41    |  I_O  |   1  | C0 |    *   |LVTTL            | Input |<A href=#6>out_data_2_</A>
-42    |  I_O  |   1  | C1 |    *   |LVTTL            | Input |<A href=#66>out_data_3_</A>
+41    |  I_O  |   1  | C0 |    *   |LVCMOS33         | Input |<A href=#6>out_data_2_</A>
+42    |  I_O  |   1  | C1 |    *   |LVCMOS33         | Input |<A href=#66>out_data_3_</A>
 43    |  I_O  |   1  | C2 |        |                 |       |
-44    |  I_O  |   1  | C3 |    *   |LVTTL            | Input |<A href=#13>ti_gsel</A>
+44    |  I_O  |   1  | C3 |    *   |LVTTL_5V         | Input |<A href=#13>ti_gsel</A>
 45    |VCCIO1 |   -  |    |        |                 |       |
 46    |GNDIO1 |   -  |    |        |                 |       |
 47    |  I_O  |   1  | C4 |    *   |LVTTL            | Output|<A href=#67>out_reset</A>
-48    |  I_O  |   1  | C5 |    *   |LVTTL            | Output|<A href=#17>out_we</A>
+48    |  I_O  |   1  | C5 |        |                 |       |
 49    |  I_O  |   1  | C6 |    *   |LVTTL            | Output|<A href=#60>out_adr_2_</A>
 50    |  I_O  |   1  | C7 |    *   |LVTTL            | Output|<A href=#59>out_adr_3_</A>
 51    | GND   |   -  |    |        |                 |       |
@@ -302,15 +302,15 @@ Pin No| Type  |Number|Pad |Pin     |     I/O Type    | Type  | Signal name
 83    |VCCIO1 |   -  |    |        |                 |       |
 84    |  I_O  |   1  | D3 |    *   |LVTTL            | Output|<A href=#61>out_adr_1_</A>
 85    |  I_O  |   1  | D2 |        |                 |       |
-86    |  I_O  |   1  | D1 |    *   |LVTTL            | Input |<A href=#9>out_data_0_</A>
-87    | I_O/OE|   1  | D0 |    *   |LVTTL            | Input |<A href=#7>out_data_1_</A>
+86    |  I_O  |   1  | D1 |    *   |LVCMOS33         | Input |<A href=#9>out_data_0_</A>
+87    | I_O/OE|   1  | D0 |    *   |LVCMOS33         | Input |<A href=#7>out_data_1_</A>
 88    |INCLK3 |   1  |    |        |                 |       |
 89    |INCLK0 |   0  |    |        |                 |       |
 90    | VCC   |   -  |    |        |                 |       |
-91    | I_O/OE|   0  | A0 |    *   |LVTTL            | Input |<A href=#65>out_data_4_</A>
-92    |  I_O  |   0  | A1 |    *   |LVTTL            | Input |<A href=#64>out_data_5_</A>
-93    |  I_O  |   0  | A2 |    *   |LVTTL            | Input |<A href=#63>out_data_6_</A>
-94    |  I_O  |   0  | A3 |    *   |LVTTL            | Input |<A href=#16>out_data_7_</A>
+91    | I_O/OE|   0  | A0 |    *   |LVCMOS33         | Input |<A href=#65>out_data_4_</A>
+92    |  I_O  |   0  | A1 |    *   |LVCMOS33         | Input |<A href=#64>out_data_5_</A>
+93    |  I_O  |   0  | A2 |    *   |LVCMOS33         | Input |<A href=#63>out_data_6_</A>
+94    |  I_O  |   0  | A3 |    *   |LVCMOS33         | Input |<A href=#16>out_data_7_</A>
 95    |VCCIO0 |   -  |    |        |                 |       |
 96    |GNDIO0 |   -  |    |        |                 |       |
 97    |  I_O  |   0  | A4 |    *   |LVTTL            | Output|<A href=#62>out_adr_0_</A>
@@ -336,31 +336,31 @@ Pin No| Type  |Number|Pad |Pin     |     I/O Type    | Type  | Signal name
          Pin    Fanout
  Pin GLB Type           Pullup Signal
 </B>------------------------------------------
-  86   D  I/O   1 -B--    Down <A name=9>out_data_0_</A>
-  87   D  I/O   1 A---    Down <A name=7>out_data_1_</A>
-  41   C  I/O   1 A---    Down <A name=6>out_data_2_</A>
-  42   C  I/O   1 A---    Down <A name=66>out_data_3_</A>
-  91   A  I/O   1 A---    Down <A name=65>out_data_4_</A>
-  92   A  I/O   1 A---    Down <A name=64>out_data_5_</A>
-  93   A  I/O   1 A---    Down <A name=63>out_data_6_</A>
-  94   A  I/O   1 A---    Down <A name=16>out_data_7_</A>
-  28   B  I/O   2 -BC-    Down <A name=22>ti_adr_10_</A>
-  29   B  I/O   2 -BC-    Down <A name=21>ti_adr_11_</A>
-  30   B  I/O   2 A-C-    Down <A name=20>ti_adr_12_</A>
-  31   B  I/O   2 A-C-    Down <A name=19>ti_adr_13_</A>
-   3   A  I/O   3 -BCD    Down <A name=18>ti_adr_14_</A>
-  34   B  I/O   1 A---    Down <A name=8>ti_adr_15_</A>
-  21   B  I/O   2 -B-D    Down <A name=29>ti_adr_3_</A>
-  17   B  I/O   1 ---D    Down <A name=28>ti_adr_4_</A>
-  19   B  I/O   2 -B-D    Down <A name=27>ti_adr_5_</A>
-  20   B  I/O   2 A--D    Down <A name=26>ti_adr_6_</A>
-  22   B  I/O   2 -BC-    Down <A name=25>ti_adr_7_</A>
-  23  --  IN    2 A-C-    Down <A name=24>ti_adr_8_</A>
-  27  --  IN    2 A-C-    Down <A name=23>ti_adr_9_</A>
-  36   B  I/O   1 -B--    Down <A name=14>ti_gclk</A>
-  44   C  I/O   1 -B--    Down <A name=13>ti_gsel</A>
-  15   B  I/O   4 ABCD    Down <A name=12>ti_rom</A>
-  16   B  I/O   4 ABCD    Down <A name=11>ti_we</A>
+  86   D  I/O   1 -B--      Up <A name=9>out_data_0_</A>
+  87   D  I/O   1 A---      Up <A name=7>out_data_1_</A>
+  41   C  I/O   1 A---      Up <A name=6>out_data_2_</A>
+  42   C  I/O   1 A---      Up <A name=66>out_data_3_</A>
+  91   A  I/O   1 A---      Up <A name=65>out_data_4_</A>
+  92   A  I/O   1 A---      Up <A name=64>out_data_5_</A>
+  93   A  I/O   1 A---      Up <A name=63>out_data_6_</A>
+  94   A  I/O   1 A---      Up <A name=16>out_data_7_</A>
+  28   B  I/O   2 A-C-      Up <A name=22>ti_adr_10_</A>
+  29   B  I/O   1 --C-      Up <A name=21>ti_adr_11_</A>
+  30   B  I/O   1 --C-      Up <A name=20>ti_adr_12_</A>
+  31   B  I/O   1 --C-      Up <A name=19>ti_adr_13_</A>
+   3   A  I/O   3 -BCD      Up <A name=18>ti_adr_14_</A>
+  34   B  I/O   1 A---      Up <A name=8>ti_adr_15_</A>
+  21   B  I/O   2 A--D      Up <A name=29>ti_adr_3_</A>
+  17   B  I/O   2 A--D      Up <A name=28>ti_adr_4_</A>
+  19   B  I/O   2 A--D      Up <A name=27>ti_adr_5_</A>
+  20   B  I/O   2 -B-D      Up <A name=26>ti_adr_6_</A>
+  22   B  I/O   1 --C-      Up <A name=25>ti_adr_7_</A>
+  23  --  IN    2 -BC-      Up <A name=24>ti_adr_8_</A>
+  27  --  IN    2 A-C-      Up <A name=23>ti_adr_9_</A>
+  36   B  I/O   1 -B--      Up <A name=14>ti_gclk</A>
+  44   C  I/O   1 -B--      Up <A name=13>ti_gsel</A>
+  15   B  I/O   3 ABC-      Up <A name=12>ti_rom</A>
+  16   B  I/O   4 ABCD      Up <A name=11>ti_we</A>
 ------------------------------------------
 
 
@@ -370,35 +370,35 @@ Pin No| Type  |Number|Pad |Pin     |     I/O Type    | Type  | Signal name
           N         L Mc   R E U C O F B Fanout
  Pin GLB  P LL PTs  S Type E S P E E P P         Slew Pullup Signal
 </B>------------------------------------------------------------------------
-  97   A  3  1   2  1 COM                  ----  Slow   Down <A href=#62>out_adr_0_</A>
-  67   D  2  1   1  1 COM                  ----  Slow   Down <A href=#52>out_adr_10_</A>
-  69   D  2  1   1  1 COM                  ----  Slow   Down <A href=#51>out_adr_11_</A>
-  70   D  2  1   1  1 COM                  ----  Slow   Down <A href=#50>out_adr_12_</A>
-  71   D  2  -   1  1 COM                  ----  Slow   Down <A href=#49>out_adr_13_</A>
-  72   D  2  -   1  1 COM                  ----  Slow   Down <A href=#48>out_adr_14_</A>
-  78   D  2  -   1  1 COM                  ----  Slow   Down <A href=#47>out_adr_15_</A>
-  79   D  2  -   1  1 COM                  ----  Slow   Down <A href=#46>out_adr_16_</A>
-  98   A  2  -   1  1 COM                  ----  Slow   Down <A href=#45>out_adr_17_</A>
-  59   C  2  -   1  1 COM                  ----  Slow   Down <A href=#44>out_adr_18_</A>
-  60   C  2  -   1  1 COM                  ----  Slow   Down <A href=#43>out_adr_19_</A>
-  84   D  3  1   2  1 COM                  ----  Slow   Down <A href=#61>out_adr_1_</A>
-  65   D  2  -   1  1 COM                  ----  Slow   Down <A href=#42>out_adr_20_</A>
-  64   D  2  -   1  1 COM                  ----  Slow   Down <A href=#41>out_adr_21_</A>
-  61   C  2  -   1  1 COM                  ----  Slow   Down <A href=#40>out_adr_22_</A>
-  80   D  2  -   1  1 COM                  ----  Slow   Down <A href=#39>out_adr_23_</A>
-  81   D  2  -   1  1 COM                  ----  Slow   Down <A href=#38>out_adr_24_</A>
- 100   A  2  -   1  1 COM                  ----  Slow   Down <A href=#37>out_adr_25_</A>
-  99   A  2  -   1  1 COM                  ----  Slow   Down <A href=#15>out_adr_26_</A>
-  49   C  3  1   2  1 COM                  ----  Slow   Down <A href=#60>out_adr_2_</A>
-  50   C  3  1   2  1 COM                  ----  Slow   Down <A href=#59>out_adr_3_</A>
-  53   C  3  1   2  1 COM                  ----  Slow   Down <A href=#58>out_adr_4_</A>
-  54   C  3  1   2  1 COM                  ----  Slow   Down <A href=#57>out_adr_5_</A>
-  55   C  3  1   2  1 COM                  ----  Slow   Down <A href=#56>out_adr_6_</A>
-  56   C  3  1   2  1 COM                  ----  Slow   Down <A href=#55>out_adr_7_</A>
-  58   C  2  1   1  1 COM                  ----  Slow   Down <A href=#54>out_adr_8_</A>
-  66   D  2  1   1  1 COM                  ----  Slow   Down <A href=#53>out_adr_9_</A>
-  47   C  6  1   4  1 DFF      R *       1 -B--  Slow   Down <A href=#67>out_reset</A>
-  48   C  0  -   1  1 COM                  ----  Slow   Down <A href=#17>out_we</A>
+  97   A  3  1   2  1 COM                  ----  Slow     Up <A href=#62>out_adr_0_</A>
+  67   D  2  1   1  1 COM                  ----  Slow     Up <A href=#52>out_adr_10_</A>
+  69   D  2  1   1  1 COM                  ----  Slow     Up <A href=#51>out_adr_11_</A>
+  70   D  2  1   1  1 COM                  ----  Slow     Up <A href=#50>out_adr_12_</A>
+  71   D  2  -   1  1 COM                  ----  Slow     Up <A href=#49>out_adr_13_</A>
+  72   D  2  -   1  1 COM                  ----  Slow     Up <A href=#48>out_adr_14_</A>
+  78   D  2  -   1  1 COM                  ----  Slow     Up <A href=#47>out_adr_15_</A>
+  79   D  2  -   1  1 COM                  ----  Slow     Up <A href=#46>out_adr_16_</A>
+  98   A  2  -   1  1 COM                  ----  Slow     Up <A href=#45>out_adr_17_</A>
+  59   C  2  -   1  1 COM                  ----  Slow     Up <A href=#44>out_adr_18_</A>
+  60   C  2  -   1  1 COM                  ----  Slow     Up <A href=#43>out_adr_19_</A>
+  84   D  3  1   2  1 COM                  ----  Slow     Up <A href=#61>out_adr_1_</A>
+  65   D  2  -   1  1 COM                  ----  Slow     Up <A href=#42>out_adr_20_</A>
+  64   D  2  -   1  1 COM                  ----  Slow     Up <A href=#41>out_adr_21_</A>
+  61   C  2  -   1  1 COM                  ----  Slow     Up <A href=#40>out_adr_22_</A>
+  80   D  2  -   1  1 COM                  ----  Slow     Up <A href=#39>out_adr_23_</A>
+  81   D  2  -   1  1 COM                  ----  Slow     Up <A href=#38>out_adr_24_</A>
+ 100   A  2  -   1  1 COM                  ----  Slow     Up <A href=#37>out_adr_25_</A>
+  99   A  2  -   1  1 COM                  ----  Slow     Up <A href=#15>out_adr_26_</A>
+  49   C  3  1   2  1 COM                  ----  Slow     Up <A href=#60>out_adr_2_</A>
+  50   C  3  1   2  1 COM                  ----  Slow     Up <A href=#59>out_adr_3_</A>
+  53   C  3  1   2  1 COM                  ----  Slow     Up <A href=#58>out_adr_4_</A>
+  54   C  3  1   2  1 COM                  ----  Slow     Up <A href=#57>out_adr_5_</A>
+  55   C  3  1   2  1 COM                  ----  Slow     Up <A href=#56>out_adr_6_</A>
+  56   C  3  1   2  1 COM                  ----  Slow     Up <A href=#55>out_adr_7_</A>
+  58   C  2  1   1  1 COM                  ----  Slow     Up <A href=#54>out_adr_8_</A>
+  66   D  2  1   1  1 COM                  ----  Slow     Up <A href=#53>out_adr_9_</A>
+  35   B  0  -   0  1 COM                  ----  Slow     Up <A href=#17>out_oe</A>
+  47   C  6  1   5  1 DFF      R *       1 -B--  Fast     Up <A href=#67>out_reset</A>
 ------------------------------------------------------------------------
 
 &lt;Note&gt; CLS = Number of clusters used
@@ -420,14 +420,14 @@ Pin No| Type  |Number|Pad |Pin     |     I/O Type    | Type  | Signal name
           N         L Mc   R E U C O F B Fanout
  Pin GLB  P LL PTs  S Type E S P E E P P         Slew Pullup Signal
 </B>-----------------------------------------------------------------------
-   4   A  1  1   1  1 COM          *     1 --C-  Slow   Down <A href=#36>ti_data_0_</A>
-   5   A  1  1   1  1 COM          *     1 --C-  Slow   Down <A href=#35>ti_data_1_</A>
-   6   A  1  1   1  1 COM          *     1 ---D  Slow   Down <A href=#34>ti_data_2_</A>
-   8   A  1  1   1  1 COM          *     1 --C-  Slow   Down <A href=#33>ti_data_3_</A>
-   9   A  1  1   1  1 COM          *     1 -B--  Slow   Down <A href=#32>ti_data_4_</A>
-  10   A  1  1   1  1 COM          *     1 -B--  Slow   Down <A href=#31>ti_data_5_</A>
-  11   A  1  1   1  1 COM          *     1 -B--  Slow   Down <A href=#30>ti_data_6_</A>
-  14   B  1  1   1  1 COM          *     1 -B--  Slow   Down <A href=#10>ti_data_7_</A>
+   4   A  1  1   1  1 COM          *     1 ---D  Slow     Up <A href=#36>ti_data_0_</A>
+   5   A  1  1   1  1 COM          *     1 ---D  Slow     Up <A href=#35>ti_data_1_</A>
+   6   A  1  1   1  1 COM          *     1 ---D  Slow     Up <A href=#34>ti_data_2_</A>
+   8   A  1  1   1  1 COM          *     1 -B--  Slow     Up <A href=#33>ti_data_3_</A>
+   9   A  1  1   1  1 COM          *     1 -B--  Slow     Up <A href=#32>ti_data_4_</A>
+  10   A  1  1   1  1 COM          *     1 -B--  Slow     Up <A href=#31>ti_data_5_</A>
+  11   A  1  1   1  1 COM          *     1 -B--  Slow     Up <A href=#30>ti_data_6_</A>
+  14   B  1  1   1  1 COM          *     1 -B--  Slow     Up <A href=#10>ti_data_7_</A>
 -----------------------------------------------------------------------
 
 &lt;Note&gt; CLS = Number of clusters used
@@ -451,31 +451,31 @@ Mc GLB  P LL PTs  S Type E S P E R P         Signal
 </B>----------------------------------------------------------
 14   B  6  -   2  1 COM              1 ---D  <A href=#68>dataout</A>
 12   B  3  1   2  1 DFF      R       1 -B--  <A href=#91>gactive_100</A>
-11   D  3  -   2  1 DFF      R *     1 -B--  <A href=#93>gadd_105</A>
-10   C  9  2   4  1 TFF      R *     1 --C-  <A href=#83>grmadr_i0</A>
- 9   C  8  2   4  1 DFF      R *     1 --C-  <A href=#84>grmadr_i1</A>
+ 9   C  3  -   3  1 DFF      R *     1 -B--  <A href=#93>gadd_105</A>
+11   D  9  2   4  1 TFF      R *     2 --CD  <A href=#83>grmadr_i0</A>
+10   D  8  2   4  1 DFF      R *     2 --CD  <A href=#84>grmadr_i1</A>
  9   D  7  2   5  1 DFF      R *     2 --CD  <A href=#85>grmadr_i2</A>
-11   C  6  2   4  1 DFF      R *     2 --CD  <A href=#86>grmadr_i3</A>
- 3   B  9  1   5  1 TFF      R *     2 -BC-  <A href=#87>grmadr_i4</A>
- 2   B  8  1   5  1 DFF      R *     2 -BC-  <A href=#88>grmadr_i5</A>
- 1   B  7  1   6  2 DFF      R *     2 -B-D  <A href=#89>grmadr_i6</A>
- 4   B  6  1   5  1 DFF      R *     2 AB--  <A href=#90>grmadr_i7</A>
+ 4   B  6  2   4  2 DFF      R *     3 -BCD  <A href=#86>grmadr_i3</A>
+ 5   B  9  1   4  2 TFF      R *     2 -BC-  <A href=#87>grmadr_i4</A>
+ 3   B  8  1   4  2 DFF      R *     2 -BC-  <A href=#88>grmadr_i5</A>
+ 1   B  7  1   5  2 DFF      R *     2 -B-D  <A href=#89>grmadr_i6</A>
+ 6   B  6  1   4  1 DFF      R *     2 AB--  <A href=#90>grmadr_i7</A>
 13   B  3  1   2  1 DFF      R       4 ABCD  <A href=#92>gvalid_101</A>
-12   C  3  -   3  1 DFF      R *     1 ---D  <A href=#82>latch_i0_i0</A>
-12   A  3  -   2  1 DFF      R *     1 ---D  <A href=#81>latch_i0_i1</A>
-10   D  3  -   3  1 DFF      R *     1 ---D  <A href=#72>latch_i0_i10</A>
- 7   B  3  -   2  1 DFF      R *     1 ---D  <A href=#71>latch_i0_i11</A>
- 6   B  3  -   2  1 DFF      R *     1 A---  <A href=#70>latch_i0_i12</A>
- 5   B  3  -   2  1 DFF      R *     1 A---  <A href=#69>latch_i0_i13</A>
-11   A  3  -   2  1 DFF      R *     1 ---D  <A href=#80>latch_i0_i2</A>
-11   B  3  -   2  1 DFF      R *     1 ---D  <A href=#79>latch_i0_i3</A>
-10   B  3  -   2  1 DFF      R *     1 A---  <A href=#78>latch_i0_i4</A>
-10   A  3  -   2  1 DFF      R *     1 --C-  <A href=#77>latch_i0_i5</A>
- 9   A  3  -   2  1 DFF      R *     1 --C-  <A href=#76>latch_i0_i6</A>
- 9   B  3  -   2  1 DFF      R *     1 ---D  <A href=#75>latch_i0_i7</A>
- 8   A  3  -   2  1 DFF      R *     1 ---D  <A href=#74>latch_i0_i8</A>
- 8   B  3  -   2  1 DFF      R *     1 --C-  <A href=#73>latch_i0_i9</A>
-15   B  5  -   1  1 COM              2 --CD  <A href=#94>n353</A>
+11   B  3  -   3  1 DFF      R *     1 ---D  <A href=#82>latch_i0_i0</A>
+14   C  3  -   2  1 DFF      R *     1 ---D  <A href=#81>latch_i0_i1</A>
+ 9   A  3  -   2  1 DFF      R *     1 ---D  <A href=#72>latch_i0_i10</A>
+ 8   A  3  -   2  1 DFF      R *     1 ---D  <A href=#71>latch_i0_i11</A>
+ 8   B  3  -   3  1 DFF      R *     1 A---  <A href=#70>latch_i0_i12</A>
+ 7   B  3  -   3  1 DFF      R *     1 A---  <A href=#69>latch_i0_i13</A>
+12   C  3  -   2  1 DFF      R *     1 ---D  <A href=#80>latch_i0_i2</A>
+11   C  3  -   2  1 DFF      R *     1 ---D  <A href=#79>latch_i0_i3</A>
+12   A  3  -   2  1 DFF      R *     1 A---  <A href=#78>latch_i0_i4</A>
+11   A  3  -   2  1 DFF      R *     1 --C-  <A href=#77>latch_i0_i5</A>
+10   B  3  -   3  1 DFF      R *     1 --C-  <A href=#76>latch_i0_i6</A>
+10   C  3  -   2  1 DFF      R *     1 ---D  <A href=#75>latch_i0_i7</A>
+ 9   B  3  -   3  1 DFF      R *     1 ---D  <A href=#74>latch_i0_i8</A>
+10   A  3  -   2  1 DFF      R *     1 --C-  <A href=#73>latch_i0_i9</A>
+15   B  5  -   1  1 COM              2 -B-D  <A href=#94>n353</A>
 --   D  1   1  0 PTOE             ----     <A href=#102>ti_data_0_.OE</A>
 ----------------------------------------------------------
 
@@ -679,13 +679,13 @@ latch_i0_i9.CE = !<A href=#12>ti_rom</A> ; (1 pterm, 1 signal)
 
 <A name=53>out_adr_9_</A> = !( !<A href=#26>ti_adr_6_</A> & !<A href=#92>gvalid_101.Q</A> ) ; (1 pterm, 2 signals)
 
+<A name=17>out_oe</A> = 0 ; (0 pterm, 0 signal)
+
 <A name=67>out_reset.D</A> = !<A href=#18>ti_adr_14_</A> & <A href=#83>grmadr_i0.Q</A> & !<A href=#84>grmadr_i1.Q</A>
     # <A href=#11>ti_we</A> & grmadr_i0.Q & !grmadr_i1.Q
     # grmadr_i0.Q & !grmadr_i1.Q & !<A href=#85>grmadr_i2.Q</A> ; (3 pterms, 5 signals)
 out_reset.C = <A href=#92>gvalid_101.Q</A> ; (1 pterm, 1 signal)
 out_reset.CE = !<A href=#11>ti_we</A> & <A href=#18>ti_adr_14_</A> ; (1 pterm, 2 signals)
-
-<A name=17>out_we</A> = 1 ; (1 pterm, 0 signal)
 
 <A name=36>ti_data_0_</A> = <A href=#16>out_data_7_</A> ; (1 pterm, 1 signal)
 ti_data_0_.OE = <A href=#68>dataout</A> ; (1 pterm, 1 signal)

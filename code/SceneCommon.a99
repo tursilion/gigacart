@@ -408,7 +408,10 @@ nopracticelen
 	bl @vdpwta
 
 * need to check for keyboard or joystick...
-* so, we're going to make an assumption that joystick is 6000 and keyboard is at 6002
+* so, we're going to make an assumption that joystick is at CODEOFFSET
+* and keyboard is the next page after that. The normal code just knows,
+* but this common code lives on the video page so has to call the right
+* function depending on what it's doing.
 practiceloop
 	c @JOYPAGE,@VIDEOPAGE	* are we using joystick?
 	jeq pracjoy
@@ -585,7 +588,7 @@ MASKRIGHT
 MASKFIRE
 	DATA JOYFIRE
 JOYPAGE
-	DATA >6000
+	DATA >6000+CODEOFFSET
 	
 KEY2JOY
 	COPY "D:\work\ti\dragonslair\code\key2joy.a99"

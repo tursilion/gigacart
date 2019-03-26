@@ -1,0 +1,9 @@
+D:\work\TI\dragonslair\cart\cpld.originalLoad\gigacart.lct : <W0104> : Location Assignment 'out_rom1' : Can not find this signal name.
+D:\work\TI\dragonslair\cart\cpld.originalLoad\gigacart.lct : <W0104> : Location Assignment 'out_rom2' : Can not find this signal name.
+D:\work\TI\dragonslair\cart\cpld.originalLoad\gigacart.lct : <W0104> : Location Assignment 'out_rom3' : Can not find this signal name.
+D:\work\TI\dragonslair\cart\cpld.originalLoad\gigacart.lct : <W0104> : Location Assignment 'out_rom4' : Can not find this signal name.
+D:\work\TI\dragonslair\cart\cpld.originalLoad\gigacart.lct : <W0601> : IO Types Setting 'out_rom1' : Invalid signal name.
+D:\work\TI\dragonslair\cart\cpld.originalLoad\gigacart.lct : <W0601> : IO Types Setting 'out_rom2' : Invalid signal name.
+D:\work\TI\dragonslair\cart\cpld.originalLoad\gigacart.lct : <W0601> : IO Types Setting 'out_rom3' : Invalid signal name.
+D:\work\TI\dragonslair\cart\cpld.originalLoad\gigacart.lct : <W0601> : IO Types Setting 'out_rom4' : Invalid signal name.
+Loading Lattice Constraint File 'D:\work\TI\dragonslair\cart\cpld.originalLoad\gigacart.lct' done!

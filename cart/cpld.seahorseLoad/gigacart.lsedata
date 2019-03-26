@@ -85,7 +85,7 @@
         <pitem  name = "out_data[2]"  direction = "in"  />
         <pitem  name = "out_data[1]"  direction = "in"  />
         <pitem  name = "out_data[0]"  direction = "in"  />
-        <pitem  name = "out_we"  direction = "out"  />
+        <pitem  name = "out_oe"  direction = "out"  />
         <pitem  name = "out_reset"  direction = "out"  />
     </pins>
 

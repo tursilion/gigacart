@@ -1,6 +1,9 @@
 ispLEVER Auto-Make Log File
 ---------------------------
 
-Starting: 'C:\ispLEVER_Classic2_0\ispcpld\bin\checkini.exe -err=automake.err "C:\ispLEVER_Classic2_0\ispcpld\config\lc4k.ini"'
+Updating: Constraint Editor
+Start to record tcl script...
+Finished recording TCL script.
 
-Done: completed successfully.
+Launching: 'C:\ispLEVER_Classic2_0\ispcpld\bin\lciedit.exe @lattice_cmd.rs2'
+

@@ -191,13 +191,13 @@ out_adr_8_ = !( !ti_adr_7_ & !gvalid_101.Q ) ; (1 pterm, 2 signals)
 
 out_adr_9_ = !( !ti_adr_6_ & !gvalid_101.Q ) ; (1 pterm, 2 signals)
 
+out_oe = 0 ; (0 pterm, 0 signal)
+
 out_reset.D = !ti_adr_14_ & grmadr_i0.Q & !grmadr_i1.Q
     # ti_we & grmadr_i0.Q & !grmadr_i1.Q
     # grmadr_i0.Q & !grmadr_i1.Q & !grmadr_i2.Q ; (3 pterms, 5 signals)
 out_reset.C = gvalid_101.Q ; (1 pterm, 1 signal)
 out_reset.CE = !ti_we & ti_adr_14_ ; (1 pterm, 2 signals)
-
-out_we = 1 ; (1 pterm, 0 signal)
 
 ti_data_0_ = out_data_7_ ; (1 pterm, 1 signal)
 ti_data_0_.OE = dataout ; (1 pterm, 1 signal)
