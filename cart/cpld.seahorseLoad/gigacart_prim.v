@@ -1,5 +1,5 @@
 // Verilog netlist produced by program LSE :  version Diamond Version 0.0.0
-// Netlist written on Sun Mar 24 23:01:49 2019
+// Netlist written on Mon Mar 25 22:47:24 2019
 //
 // Verilog Description of module gigacart
 //
@@ -51,14 +51,14 @@ module gigacart (ti_adr, ti_data, ti_we, ti_rom, ti_gsel, ti_gclk,
         n443, ti_data_out_1, ti_data_out_0, n428, n401, n430, n393, 
         n434, n431;
     
-    DFFC grmpage_103 (.Q(out_reset_c), .D(n388), .CLK(gvalid), .CE(grmadr_0__N_33));   // design.vhd(145[3] 182[10])
+    DFFC grmpage_103 (.Q(out_reset_c), .D(n388), .CLK(gvalid), .CE(grmadr_0__N_33));   // design.vhd(146[3] 183[10])
     DFFC grmadr_i7 (.Q(grmadr[7]), .D(grmadr_0__N_15[0]), .CLK(gvalid), 
-         .CE(n282)) /* synthesis lse_init_val=0 */ ;   // design.vhd(145[3] 182[10])
-    DFFC gadd_105 (.Q(gadd), .D(n220), .CLK(gvalid), .CE(n282));   // design.vhd(145[3] 182[10])
-    DFFC latch_i0_i0 (.Q(latch[0]), .D(ti_adr_c_14), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(103[3] 129[10])
+         .CE(n282)) /* synthesis lse_init_val=0 */ ;   // design.vhd(146[3] 183[10])
+    DFFC gadd_105 (.Q(gadd), .D(n220), .CLK(gvalid), .CE(n282));   // design.vhd(146[3] 183[10])
+    DFFC latch_i0_i0 (.Q(latch[0]), .D(ti_adr_c_14), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(104[3] 130[10])
     DFF gactive_100 (.Q(gactive), .D(gactive_N_51), .CLK(ti_gclk_N_53)) /* synthesis lse_init_val=0 */ ;   // design.vhd(68[3] 79[10])
     DFFC grmadr_i6 (.Q(grmadr[6]), .D(grmadr_0__N_15[1]), .CLK(gvalid), 
-         .CE(n282)) /* synthesis lse_init_val=0 */ ;   // design.vhd(145[3] 182[10])
+         .CE(n282)) /* synthesis lse_init_val=0 */ ;   // design.vhd(146[3] 183[10])
     BI_DIR ti_data_pad_6 (.O(ti_data_out_6), .I0(out_data_c_1), .IO(ti_data[6]), 
            .OE(dataout));   // C:/ispLEVER_Classic2_0/lse/userware/NT/SYNTHESIS_HEADERS/mach.v(67[8:14])
     BI_DIR ti_data_pad_7 (.O(ti_data_out_7), .I0(out_data_c_0), .IO(ti_data[7]), 
@@ -130,32 +130,32 @@ module gigacart (ti_adr, ti_data, ti_we, ti_rom, ti_gsel, ti_gclk,
     IBUF out_data_pad_1 (.O(out_data_c_1), .I0(out_data[1]));   // C:/ispLEVER_Classic2_0/lse/userware/NT/SYNTHESIS_HEADERS/mach.v(186[8:12])
     IBUF out_data_pad_0 (.O(out_data_c_0), .I0(out_data[0]));   // C:/ispLEVER_Classic2_0/lse/userware/NT/SYNTHESIS_HEADERS/mach.v(186[8:12])
     DFFC grmadr_i5 (.Q(grmadr[5]), .D(grmadr_0__N_15[2]), .CLK(gvalid), 
-         .CE(n282)) /* synthesis lse_init_val=0 */ ;   // design.vhd(145[3] 182[10])
+         .CE(n282)) /* synthesis lse_init_val=0 */ ;   // design.vhd(146[3] 183[10])
     DFFC grmadr_i4 (.Q(grmadr[4]), .D(grmadr_0__N_15[3]), .CLK(gvalid), 
-         .CE(n282)) /* synthesis lse_init_val=0 */ ;   // design.vhd(145[3] 182[10])
+         .CE(n282)) /* synthesis lse_init_val=0 */ ;   // design.vhd(146[3] 183[10])
     DFFC grmadr_i3 (.Q(grmadr[3]), .D(grmadr_0__N_15[4]), .CLK(gvalid), 
-         .CE(n282)) /* synthesis lse_init_val=0 */ ;   // design.vhd(145[3] 182[10])
+         .CE(n282)) /* synthesis lse_init_val=0 */ ;   // design.vhd(146[3] 183[10])
     DFFC grmadr_i2 (.Q(grmadr[2]), .D(grmadr_0__N_15[5]), .CLK(gvalid), 
-         .CE(n282)) /* synthesis lse_init_val=0 */ ;   // design.vhd(145[3] 182[10])
+         .CE(n282)) /* synthesis lse_init_val=0 */ ;   // design.vhd(146[3] 183[10])
     DFFC grmadr_i1 (.Q(grmadr[1]), .D(grmadr_0__N_15[6]), .CLK(gvalid), 
-         .CE(n282)) /* synthesis lse_init_val=0 */ ;   // design.vhd(145[3] 182[10])
+         .CE(n282)) /* synthesis lse_init_val=0 */ ;   // design.vhd(146[3] 183[10])
     DFFC grmadr_i0 (.Q(grmadr[0]), .D(grmadr_0__N_15[7]), .CLK(gvalid), 
-         .CE(n282)) /* synthesis lse_init_val=0 */ ;   // design.vhd(145[3] 182[10])
-    DFFC latch_i0_i1 (.Q(latch[1]), .D(ti_adr_c_13), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(103[3] 129[10])
-    DFFC latch_i0_i2 (.Q(latch[2]), .D(ti_adr_c_12), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(103[3] 129[10])
-    DFFC latch_i0_i3 (.Q(latch[3]), .D(ti_adr_c_11), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(103[3] 129[10])
-    DFFC latch_i0_i4 (.Q(latch[4]), .D(ti_adr_c_10), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(103[3] 129[10])
-    DFFC latch_i0_i5 (.Q(latch[5]), .D(ti_adr_c_9), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(103[3] 129[10])
-    DFFC latch_i0_i6 (.Q(latch[6]), .D(ti_adr_c_8), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(103[3] 129[10])
-    DFFC latch_i0_i7 (.Q(latch[7]), .D(ti_adr_c_7), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(103[3] 129[10])
-    DFFC latch_i0_i8 (.Q(latch[8]), .D(ti_adr_c_6), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(103[3] 129[10])
-    DFFC latch_i0_i9 (.Q(latch[9]), .D(ti_adr_c_5), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(103[3] 129[10])
-    DFFC latch_i0_i10 (.Q(latch[10]), .D(ti_adr_c_4), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(103[3] 129[10])
-    DFFC latch_i0_i11 (.Q(latch[11]), .D(ti_adr_c_3), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(103[3] 129[10])
+         .CE(n282)) /* synthesis lse_init_val=0 */ ;   // design.vhd(146[3] 183[10])
+    DFFC latch_i0_i1 (.Q(latch[1]), .D(ti_adr_c_13), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(104[3] 130[10])
+    DFFC latch_i0_i2 (.Q(latch[2]), .D(ti_adr_c_12), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(104[3] 130[10])
+    DFFC latch_i0_i3 (.Q(latch[3]), .D(ti_adr_c_11), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(104[3] 130[10])
+    DFFC latch_i0_i4 (.Q(latch[4]), .D(ti_adr_c_10), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(104[3] 130[10])
+    DFFC latch_i0_i5 (.Q(latch[5]), .D(ti_adr_c_9), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(104[3] 130[10])
+    DFFC latch_i0_i6 (.Q(latch[6]), .D(ti_adr_c_8), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(104[3] 130[10])
+    DFFC latch_i0_i7 (.Q(latch[7]), .D(ti_adr_c_7), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(104[3] 130[10])
+    DFFC latch_i0_i8 (.Q(latch[8]), .D(ti_adr_c_6), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(104[3] 130[10])
+    DFFC latch_i0_i9 (.Q(latch[9]), .D(ti_adr_c_5), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(104[3] 130[10])
+    DFFC latch_i0_i10 (.Q(latch[10]), .D(ti_adr_c_4), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(104[3] 130[10])
+    DFFC latch_i0_i11 (.Q(latch[11]), .D(ti_adr_c_3), .CLK(ti_we_c), .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(104[3] 130[10])
     DFFC latch_i0_i12 (.Q(latch[12]), .D(ti_data_out_7), .CLK(ti_we_c), 
-         .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(103[3] 129[10])
+         .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(104[3] 130[10])
     DFFC latch_i0_i13 (.Q(latch[13]), .D(ti_data_out_6), .CLK(ti_we_c), 
-         .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(103[3] 129[10])
+         .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(104[3] 130[10])
     INV i365 (.O(n396), .I0(gvalid));
     INV i360 (.O(n387), .I0(n391));
     AND2 i366 (.O(n397), .I0(n396), .I1(ti_adr_c_8));

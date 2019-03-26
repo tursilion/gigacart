@@ -1,8 +1,8 @@
 <top name = "gigacart"  library = "work"  arch = "RTL"  entry = "VHDL">
 
 <clocks>
-    <clockitem name = "ti_we"  type = "port" />
     <clockitem name = "ti_gclk"  type = "port" />
+    <clockitem name = "ti_we"  type = "port" />
     <clockitem name = "gvalid"  type = "net" />
 </clocks>
 

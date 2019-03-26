@@ -82,6 +82,7 @@ BEGIN
 	-- check whether we should gate flash data onto the TI data bus
 	-- !WE is delayed on our hardware... so there may be brief conflict
 	-- Could we delay? Without a clock?
+	-- true if:no write & (delayed GROM cycle & our GROM ADR & GROM Select & GROM read  ) or (rom access)
 	dataout <= ti_we when ((gvalid = '1' AND grmpage='1' AND ti_gsel='0' AND ti_adr(14)='0') OR ti_rom = '0') ELSE ('0');
 
 	-- output data from ROM on read, otherwise tristate data bus (bit inversion)
@@ -208,8 +209,8 @@ BEGIN
 --	out_reset <= bounce;
 	out_reset <= grmpage;
 
-	-- keep WE high (via pull-up) and OE low
---	out_we <= '1';
+	-- keep WE high and OE low
 	out_oe <= '0';
+--	out_we <= not out_oe;
 END myarch;
 

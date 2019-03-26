@@ -1,5 +1,5 @@
 #PLAFILE     gigacart.bl5
-#DATE        Mon Mar 25 00:08:23 2019
+#DATE        Mon Mar 25 23:08:24 2019
 
 #DESIGN      gigacart
 #DEVICE      MACH4S-64
@@ -201,6 +201,7 @@ DATA SLEW out_adr_3_
 DATA SLEW out_adr_2_
 DATA SLEW out_adr_1_
 DATA SLEW out_adr_0_
+DATA SLEW out_reset
 
 // Signals using Shared Clock or CE
 DATA tBCLK latch_i0_i11.C

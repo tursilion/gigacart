@@ -14,7 +14,7 @@ Project_Summary
 ~~~~~~~~~~~~~~~
 Project Name         :  gigacart
 Project Path         :  D:\work\TI\dragonslair\cart\cpld.seahorseLoad
-Project Fitted on    :  Mon Mar 25 00:08:23 2019
+Project Fitted on    :  Mon Mar 25 23:08:23 2019
 
 Device               :  M4064_64
 Package              :  100
@@ -32,9 +32,9 @@ Compilation_Times
 ~~~~~~~~~~~~~~~~~
 Prefit Time                     0 secs
 Load Design Time                0.05 secs
-Partition Time                  0.05 secs
+Partition Time                  0.03 secs
 Place Time                      0.00 secs
-Route Time                      0.00 secs
+Route Time                      0.02 secs
 Total Fit Time                  00:00:01
 
 
@@ -397,7 +397,7 @@ Output_Signal_List
   58   C  2  1   1  1 COM                  ----  Slow     Up out_adr_8_
   66   D  2  1   1  1 COM                  ----  Slow     Up out_adr_9_
   35   B  0  -   0  1 COM                  ----  Slow     Up out_oe
-  47   C  6  1   5  1 DFF      R *       1 -B--  Fast     Up out_reset
+  47   C  6  1   5  1 DFF      S *       1 -B--  Slow     Up out_reset
 ------------------------------------------------------------------------
 
 <Note> CLS = Number of clusters used

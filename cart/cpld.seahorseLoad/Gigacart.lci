@@ -14,7 +14,7 @@ Default_Device_IO_Types = LVTTL, -;
 [Revision]
 Parent = lc4k64v.lci;
 DATE = 03/25/2019;
-TIME = 00:08:16;
+TIME = 23:08:17;
 Source_Format = Pure_VHDL;
 Synthesis = LSE;
 
@@ -110,45 +110,16 @@ layer = OFF;
 [Source Constraint Option]
 
 [Fast Bypass]
-NONE = ti_data_4_, ti_data_0_;
 
 [OSM Bypass]
 
 [Input Registers]
-NONE = ti_data_0_, out_data_0_, ti_rom, ti_we;
 
 [Netlist/Delay Format]
 NetList = VHDL;
 
 [IO Types]
 layer = OFF;
-out_adr_0_ = LVTTL, PIN, 0, -;
-out_adr_1_ = LVTTL, PIN, 1, -;
-out_adr_2_ = LVTTL, PIN, 1, -;
-out_adr_3_ = LVTTL, PIN, 1, -;
-out_adr_4_ = LVTTL, PIN, 1, -;
-out_adr_5_ = LVTTL, PIN, 1, -;
-out_adr_6_ = LVTTL, PIN, 1, -;
-out_adr_7_ = LVTTL, PIN, 1, -;
-out_adr_8_ = LVTTL, PIN, 1, -;
-out_adr_9_ = LVTTL, PIN, 1, -;
-out_adr_10_ = LVTTL, PIN, 1, -;
-out_adr_11_ = LVTTL, PIN, 1, -;
-out_adr_12_ = LVTTL, PIN, 1, -;
-out_adr_13_ = LVTTL, PIN, 1, -;
-out_adr_14_ = LVTTL, PIN, 1, -;
-out_adr_15_ = LVTTL, PIN, 1, -;
-out_adr_16_ = LVTTL, PIN, 1, -;
-out_adr_17_ = LVTTL, PIN, 0, -;
-out_adr_18_ = LVTTL, PIN, 1, -;
-out_adr_19_ = LVTTL, PIN, 1, -;
-out_adr_20_ = LVTTL, PIN, 1, -;
-out_adr_21_ = LVTTL, PIN, 1, -;
-out_adr_22_ = LVTTL, PIN, 1, -;
-out_adr_23_ = LVTTL, PIN, 1, -;
-out_adr_24_ = LVTTL, PIN, 1, -;
-out_adr_25_ = LVTTL, PIN, 0, -;
-out_adr_26_ = LVTTL, PIN, 0, -;
 out_we = LVTTL, PIN, 1, -;
 ti_data_4_ = LVTTL, PIN, 0, -;
 ti_data_0_ = LVTTL, PIN, 0, -;
@@ -158,7 +129,6 @@ ti_data_7_ = LVTTL, PIN, 0, -;
 ti_data_1_ = LVTTL, PIN, 0, -;
 ti_data_2_ = LVTTL, PIN, 0, -;
 ti_data_3_ = LVTTL, PIN, 0, -;
-out_reset = LVTTL, PIN, 1, -;
 out_data_0_ = LVCMOS33, PIN, 1, -;
 ti_rom = LVTTL_5V, PIN, 0, -;
 ti_we = LVTTL_5V, PIN, 0, -;
@@ -189,13 +159,6 @@ ti_gclk = LVTTL_5V, PIN, 0, -;
 Default = UP;
 
 [Slewrate]
-SLOW = out_adr_0_, out_adr_1_, out_adr_2_, out_adr_3_, out_adr_4_, out_adr_5_, 
-	out_adr_6_, out_adr_7_, out_adr_8_, out_adr_9_, out_adr_10_, out_adr_11_, 
-	out_adr_12_, out_adr_13_, out_adr_14_, out_adr_15_, out_adr_16_, out_adr_17_, 
-	out_adr_18_, out_adr_19_, out_adr_20_, out_adr_21_, out_adr_22_, out_adr_23_, 
-	out_adr_24_, out_adr_25_, out_adr_26_, out_we, ti_data_4_, ti_data_0_, 
-	ti_data_5_, ti_data_6_, ti_data_7_, ti_data_1_, ti_data_2_, ti_data_3_;
-FAST = out_reset;
 Default = Slow;
 
 [Region]
@@ -252,12 +215,9 @@ layer = OFF;
 [verilog spectrum constraints list]
 
 [ORP Bypass]
-NONE = ti_data_0_;
 
 [Register Powerup]
-RESET = out_reset;
-NONE = ti_data_4_, ti_data_0_;
-SET = out_we;
+SET = out_reset, out_we;
 
 [Constraint Version]
 version = 1.0;
