@@ -1,7 +1,7 @@
  ispLEVER Classic 2.0.00.17.20.15 Fitter Report File 
 Project Name,gigacart
 Project Path,D:\work\TI\dragonslair\cart\cpld.seahorseLoad
-Project Fitted on,Mon Mar 25 23:08:23 2019
+Project Fitted on,Sun Apr 07 01:00:40 2019
 
 Pin,Pin_Type,Bank,GLB_Pad,Assigned,I/O_Type,Signal_Type,Signal_Name
 1,GND,-,,,,,
@@ -50,7 +50,7 @@ Pin,Pin_Type,Bank,GLB_Pad,Assigned,I/O_Type,Signal_Type,Signal_Name
 44,I_O,1,C3,*,LVTTL_5V,Input,ti_gsel
 45,VCCIO1,-,,,,,
 46,GNDIO1,-,,,,,
-47,I_O,1,C4,*,LVTTL,Output,out_reset
+47,I_O,1,C4,,,,
 48,I_O,1,C5,,,,
 49,I_O,1,C6,*,LVTTL,Output,out_adr_2_
 50,I_O,1,C7,*,LVTTL,Output,out_adr_3_

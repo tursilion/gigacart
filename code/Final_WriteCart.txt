@@ -1,0 +1,3 @@
+To update the Compact Flash card , execute this dd command in an admin terminal.
+
+dd bs=512 if="D:\work\ti\dragonslair\code\Final03252019_8.bin" of=\\.\\f: seek=1600

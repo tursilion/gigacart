@@ -1,11 +1,11 @@
 // Verilog netlist produced by program LSE :  version Diamond Version 0.0.0
-// Netlist written on Mon Mar 25 22:47:24 2019
+// Netlist written on Sun Apr 07 01:00:36 2019
 //
 // Verilog Description of module gigacart
 //
 
 module gigacart (ti_adr, ti_data, ti_we, ti_rom, ti_gsel, ti_gclk, 
-            out_adr, out_data, out_oe, out_reset);   // design.vhd(24[8:16])
+            out_adr, out_data, out_oe);   // design.vhd(24[8:16])
     input [15:3]ti_adr;   // design.vhd(27[3:9])
     inout [7:0]ti_data;   // design.vhd(28[3:10])
     input ti_we;   // design.vhd(29[3:8])
@@ -15,17 +15,16 @@ module gigacart (ti_adr, ti_data, ti_we, ti_rom, ti_gsel, ti_gclk,
     output [26:0]out_adr;   // design.vhd(35[3:10])
     input [7:0]out_data;   // design.vhd(36[3:11])
     output out_oe;   // design.vhd(42[3:9])
-    output out_reset;   // design.vhd(43[3:12])
     
     wire ti_we_c /* synthesis is_clock=1, SET_AS_NETWORK=ti_we_c */ ;   // design.vhd(29[3:8])
     wire ti_gclk_c /* synthesis is_clock=1 */ ;   // design.vhd(32[3:10])
     wire gvalid /* synthesis is_clock=1, SET_AS_NETWORK=gvalid */ ;   // design.vhd(60[9:15])
     wire ti_gclk_N_53 /* synthesis is_inv_clock=1, SET_AS_NETWORK=ti_gclk_N_53, is_clock=1 */ ;   // design.vhd(59[9:16])
     
-    wire out_oe_c, ti_adr_c_15, ti_adr_c_14, ti_adr_c_13, ti_adr_c_12, 
+    wire out_oe_c, n424, ti_adr_c_15, ti_adr_c_14, ti_adr_c_13, ti_adr_c_12, 
         ti_adr_c_11, ti_adr_c_10, ti_adr_c_9, ti_adr_c_8, ti_adr_c_7, 
-        ti_adr_c_6, ti_adr_c_5, ti_adr_c_4, ti_adr_c_3, n427, n421, 
-        n419, n418, n416, n424, n425, n415, ti_rom_c, ti_gsel_c, 
+        ti_adr_c_6, ti_adr_c_5, ti_adr_c_4, ti_adr_c_3, n446, n466, 
+        n464, n470, n472, n442, n448, n475, ti_rom_c, ti_gsel_c, 
         out_adr_c_26, out_adr_c_25, out_adr_c_24, out_adr_c_23, out_adr_c_22, 
         out_adr_c_21, out_adr_c_20, out_adr_c_19, out_adr_c_18, out_adr_c_17, 
         out_adr_c_16, out_adr_c_15, out_adr_c_14, out_adr_c_13, out_adr_c_12, 
@@ -33,25 +32,24 @@ module gigacart (ti_adr, ti_data, ti_we, ti_rom, ti_gsel, ti_gclk,
         out_adr_c_6, out_adr_c_5, out_adr_c_4, out_adr_c_3, out_adr_c_2, 
         out_adr_c_1, out_adr_c_0, out_data_c_7, out_data_c_6, out_data_c_5, 
         out_data_c_4, out_data_c_3, out_data_c_2, out_data_c_1, out_data_c_0, 
-        out_reset_c, dataout;
+        dataout;
     wire [13:0]latch;   // design.vhd(54[9:14])
     wire [0:7]grmadr;   // design.vhd(57[9:15])
     
-    wire gactive, gadd, gactive_N_51, n220, ti_gsel_N_48, ti_adr_14__N_50, 
-        n387, n413, dataout_N_44, ti_rom_N_24, dataout_N_43, n412, 
-        n410, n339, n331, n400, n346, n406, n398, n403, pwr, 
-        n367, n360, n374, n409, ti_we_N_35, grmadr_0__N_33, n394, 
-        n391, n433, n218, n105, n106, n107, n108, n109, n110, 
-        n111, n112, n212, n353, n422, n282, n407, n404, n388, 
-        n397;
+    wire grmpage, gactive, gadd, gactive_N_51, n220, n433, ti_adr_14__N_43, 
+        n426, n406, n463, ti_rom_N_24, n461, n385, pwr, n460, 
+        n476, n378, n435, n370, n7, n9, n307, n440, n430, 
+        ti_we_N_35, grmadr_0__N_33, n432, n436, n467, n445, n105, 
+        n106, n107, n108, n109, n110, n111, n112, n212, n443, 
+        n458, n282, n413, n399, n427, n457, n455;
     wire [7:0]grmadr_0__N_15;
     
-    wire n396, ti_data_out_6, n436, ti_data_out_7, n437, ti_data_out_5, 
-        n439, ti_data_out_4, n440, ti_data_out_3, n442, ti_data_out_2, 
-        n443, ti_data_out_1, ti_data_out_0, n428, n401, n430, n393, 
-        n434, n431;
+    wire n437, ti_data_out_6, n454, ti_data_out_7, n452, ti_data_out_5, 
+        n478, ti_data_out_4, n479, ti_data_out_3, n481, ti_data_out_2, 
+        n482, ti_data_out_1, ti_data_out_0, n392, n451, n473, n449, 
+        n439, n469;
     
-    DFFC grmpage_103 (.Q(out_reset_c), .D(n388), .CLK(gvalid), .CE(grmadr_0__N_33));   // design.vhd(146[3] 183[10])
+    DFFC grmpage_103 (.Q(grmpage), .D(n427), .CLK(gvalid), .CE(grmadr_0__N_33));   // design.vhd(146[3] 183[10])
     DFFC grmadr_i7 (.Q(grmadr[7]), .D(grmadr_0__N_15[0]), .CLK(gvalid), 
          .CE(n282)) /* synthesis lse_init_val=0 */ ;   // design.vhd(146[3] 183[10])
     DFFC gadd_105 (.Q(gadd), .D(n220), .CLK(gvalid), .CE(n282));   // design.vhd(146[3] 183[10])
@@ -103,7 +101,6 @@ module gigacart (ti_adr, ti_data, ti_we, ti_rom, ti_gsel, ti_gclk,
     OBUF out_adr_pad_1 (.O(out_adr[1]), .I0(out_adr_c_1));   // C:/ispLEVER_Classic2_0/lse/userware/NT/SYNTHESIS_HEADERS/mach.v(270[8:12])
     OBUF out_adr_pad_0 (.O(out_adr[0]), .I0(out_adr_c_0));   // C:/ispLEVER_Classic2_0/lse/userware/NT/SYNTHESIS_HEADERS/mach.v(270[8:12])
     OBUF out_oe_pad (.O(out_oe), .I0(out_oe_c));   // C:/ispLEVER_Classic2_0/lse/userware/NT/SYNTHESIS_HEADERS/mach.v(270[8:12])
-    OBUF out_reset_pad (.O(out_reset), .I0(out_reset_c));   // C:/ispLEVER_Classic2_0/lse/userware/NT/SYNTHESIS_HEADERS/mach.v(270[8:12])
     IBUF ti_adr_pad_15 (.O(ti_adr_c_15), .I0(ti_adr[15]));   // C:/ispLEVER_Classic2_0/lse/userware/NT/SYNTHESIS_HEADERS/mach.v(186[8:12])
     IBUF ti_adr_pad_14 (.O(ti_adr_c_14), .I0(ti_adr[14]));   // C:/ispLEVER_Classic2_0/lse/userware/NT/SYNTHESIS_HEADERS/mach.v(186[8:12])
     IBUF ti_adr_pad_13 (.O(ti_adr_c_13), .I0(ti_adr[13]));   // C:/ispLEVER_Classic2_0/lse/userware/NT/SYNTHESIS_HEADERS/mach.v(186[8:12])
@@ -156,121 +153,115 @@ module gigacart (ti_adr, ti_data, ti_we, ti_rom, ti_gsel, ti_gclk,
          .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(104[3] 130[10])
     DFFC latch_i0_i13 (.Q(latch[13]), .D(ti_data_out_6), .CLK(ti_we_c), 
          .CE(ti_rom_N_24)) /* synthesis lse_init_val=0 */ ;   // design.vhd(104[3] 130[10])
-    INV i365 (.O(n396), .I0(gvalid));
-    INV i360 (.O(n387), .I0(n391));
-    AND2 i366 (.O(n397), .I0(n396), .I1(ti_adr_c_8));
-    VCC i361 (.X(pwr));
-    INV i257 (.O(n220), .I0(grmadr_0__N_33));
-    DFF gvalid_101 (.Q(gvalid), .D(n218), .CLK(ti_gclk_N_53));   // design.vhd(68[3] 79[10])
-    INV i362 (.O(n393), .I0(ti_we_c));
-    INV ti_we_I_0_110 (.O(ti_we_N_35), .I0(ti_we_c));
-    INV i363 (.O(n394), .I0(ti_adr_c_14));
+    INV i405 (.O(n435), .I0(gvalid));
+    VCC i401 (.X(pwr));
+    AND2 i406 (.O(n436), .I0(n435), .I1(ti_adr_c_8));
+    INV i400 (.O(n426), .I0(n430));
+    INV i271 (.O(n307), .I0(ti_gsel_c));
+    DFF gvalid_101 (.Q(gvalid), .D(n7), .CLK(ti_gclk_N_53));   // design.vhd(68[3] 79[10])
+    INV i256 (.O(n220), .I0(grmadr_0__N_33));
+    INV i402 (.O(n432), .I0(ti_we_c));
+    INV ti_we_I_0_109 (.O(ti_we_N_35), .I0(ti_we_c));
     INV ti_rom_I_0 (.O(ti_rom_N_24), .I0(ti_rom_c));
-    INV ti_adr_14__I_0 (.O(ti_adr_14__N_50), .I0(ti_adr_c_14));
-    INV ti_gsel_I_0 (.O(ti_gsel_N_48), .I0(ti_gsel_c));
+    INV ti_adr_14__I_0 (.O(ti_adr_14__N_43), .I0(ti_adr_c_14));
+    INV i403 (.O(n433), .I0(ti_adr_c_14));
     INV ti_gclk_I_0 (.O(ti_gclk_N_53), .I0(ti_gclk_c));
     GND i1 (.X(out_oe_c));
-    OR2 ti_gsel_N_48_I_0 (.O(gactive_N_51), .I0(gvalid), .I1(ti_gsel_N_48));
-    OR2 i377 (.O(out_adr_c_4), .I0(n407), .I1(n406));
-    AND2 i376 (.O(n407), .I0(gvalid), .I1(grmadr[3]));
-    AND2 i388 (.O(n419), .I0(gvalid), .I1(grmadr[7]));
-    OR2 i368 (.O(out_adr_c_7), .I0(n398), .I1(n397));
-    OR2 i386 (.O(out_adr_c_1), .I0(n416), .I1(n415));
-    OR2 dataout_I_0 (.O(dataout_N_43), .I0(ti_rom_N_24), .I1(dataout_N_44));
-    AND2 i261 (.O(n218), .I0(ti_gsel_N_48), .I1(gactive));
+    XOR2 i344 (.O(n111), .I0(n370), .I1(grmadr[6]));
+    AND2 i434 (.O(n464), .I0(ti_adr_c_14), .I1(ti_data_out_6));
+    AND2 i381 (.O(n413), .I0(n406), .I1(grmadr[1]));
+    OR2 i408 (.O(out_adr_c_7), .I0(n437), .I1(n436));
+    OR2 i411 (.O(out_adr_c_6), .I0(n440), .I1(n439));
+    AND2 i360 (.O(n392), .I0(n385), .I1(grmadr[4]));
+    OR2 i432 (.O(grmadr_0__N_15[0]), .I0(n461), .I1(n460));
+    AND2 i374 (.O(n406), .I0(n399), .I1(grmadr[2]));
+    AND2 i413 (.O(n443), .I0(gvalid), .I1(grmadr[2]));
     AND2 i124 (.O(n212), .I0(grmadr_0__N_33), .I1(grmadr[2]));
     AND2 grmadr_0__I_1 (.O(grmadr_0__N_33), .I0(ti_adr_c_14), .I1(ti_we_N_35));
-    XOR2 i296 (.O(n112), .I0(gadd), .I1(grmadr[7]));
-    OR2 i389 (.O(out_adr_c_0), .I0(n419), .I1(n418));
-    XOR2 i346 (.O(n105), .I0(n374), .I1(grmadr[0]));
-    AND2 i406 (.O(n437), .I0(ti_adr_c_14), .I1(ti_data_out_2));
-    OR2 i264 (.O(out_adr_c_13), .I0(gvalid), .I1(latch[0]));
-    OR2 i265 (.O(out_adr_c_14), .I0(gvalid), .I1(latch[1]));
-    OR2 gvalid_I_0_111_i1 (.O(out_adr_c_8), .I0(ti_adr_c_7), .I1(gvalid));
-    AND2 i369 (.O(n400), .I0(n396), .I1(ti_adr_c_9));
-    AND2 i372 (.O(n403), .I0(n396), .I1(ti_adr_c_10));
-    AND2 i375 (.O(n406), .I0(n396), .I1(ti_adr_c_11));
-    AND2 i378 (.O(n409), .I0(n396), .I1(ti_adr_c_12));
-    AND2 i381 (.O(n412), .I0(n396), .I1(ti_adr_c_13));
-    AND2 i384 (.O(n415), .I0(n396), .I1(ti_adr_c_14));
-    AND2 i387 (.O(n418), .I0(n396), .I1(ti_adr_c_15));
-    AND2 i390 (.O(n421), .I0(ti_adr_14__N_50), .I1(n112));
-    XOR2 i339 (.O(n106), .I0(n367), .I1(grmadr[1]));
-    AND2 i385 (.O(n416), .I0(gvalid), .I1(grmadr[6]));
-    XOR2 i332 (.O(n107), .I0(n360), .I1(grmadr[2]));
-    XOR2 i318 (.O(n109), .I0(n346), .I1(grmadr[4]));
-    XOR2 i311 (.O(n110), .I0(n339), .I1(grmadr[5]));
-    XOR2 i304 (.O(n111), .I0(n331), .I1(grmadr[6]));
-    AND2 i320 (.O(n353), .I0(n346), .I1(grmadr[4]));
-    AND2 i373 (.O(n404), .I0(gvalid), .I1(grmadr[2]));
-    OR2 gvalid_I_0_111_i2 (.O(out_adr_c_9), .I0(ti_adr_c_6), .I1(gvalid));
-    OR2 gvalid_I_0_111_i3 (.O(out_adr_c_10), .I0(ti_adr_c_5), .I1(gvalid));
-    OR2 gvalid_I_0_111_i4 (.O(out_adr_c_11), .I0(ti_adr_c_4), .I1(gvalid));
-    OR2 gvalid_I_0_111_i5 (.O(out_adr_c_12), .I0(ti_adr_c_3), .I1(gvalid));
-    OR2 i404 (.O(grmadr_0__N_15[4]), .I0(n434), .I1(n433));
-    AND2 i334 (.O(n367), .I0(n360), .I1(grmadr[2]));
-    AND2 i341 (.O(n374), .I0(n367), .I1(grmadr[1]));
-    OR2 i371 (.O(out_adr_c_6), .I0(n401), .I1(n400));
-    AND2 i306 (.O(n339), .I0(n331), .I1(grmadr[6]));
-    AND2 i313 (.O(n346), .I0(n339), .I1(grmadr[5]));
-    AND2 i298 (.O(n331), .I0(gadd), .I1(grmadr[7]));
-    OR2 i383 (.O(out_adr_c_2), .I0(n413), .I1(n412));
-    XOR2 i325 (.O(n108), .I0(n353), .I1(grmadr[3]));
-    AND2 i327 (.O(n360), .I0(n353), .I1(grmadr[3]));
-    AND2 i1_adj_1 (.O(n388), .I0(n387), .I1(grmadr[0]));
-    AND2 i367 (.O(n398), .I0(gvalid), .I1(grmadr[0]));
-    AND2 i382 (.O(n413), .I0(gvalid), .I1(grmadr[5]));
-    OR2 i374 (.O(out_adr_c_5), .I0(n404), .I1(n403));
-    OR2 i364 (.O(n282), .I0(n394), .I1(n393));
-    OR2 i359 (.O(n391), .I0(grmadr[1]), .I1(n212));
-    OR2 i266 (.O(out_adr_c_15), .I0(gvalid), .I1(latch[2]));
-    OR2 i267 (.O(out_adr_c_16), .I0(gvalid), .I1(latch[3]));
-    OR2 i268 (.O(out_adr_c_17), .I0(gvalid), .I1(latch[4]));
-    OR2 i269 (.O(out_adr_c_18), .I0(gvalid), .I1(latch[5]));
-    OR2 i270 (.O(out_adr_c_19), .I0(gvalid), .I1(latch[6]));
-    OR2 i271 (.O(out_adr_c_20), .I0(gvalid), .I1(latch[7]));
-    OR2 i272 (.O(out_adr_c_21), .I0(gvalid), .I1(latch[8]));
-    OR2 i273 (.O(out_adr_c_22), .I0(gvalid), .I1(latch[9]));
-    OR2 i274 (.O(out_adr_c_23), .I0(gvalid), .I1(latch[10]));
-    OR2 i275 (.O(out_adr_c_24), .I0(gvalid), .I1(latch[11]));
-    OR2 i276 (.O(out_adr_c_25), .I0(gvalid), .I1(latch[12]));
-    OR2 i277 (.O(out_adr_c_26), .I0(gvalid), .I1(latch[13]));
-    AND2 i370 (.O(n401), .I0(gvalid), .I1(grmadr[1]));
-    AND2 i379 (.O(n410), .I0(gvalid), .I1(grmadr[4]));
-    AND2 i393 (.O(n424), .I0(ti_adr_14__N_50), .I1(n111));
-    AND2 i403 (.O(n434), .I0(ti_adr_c_14), .I1(ti_data_out_3));
-    AND2 i396 (.O(n427), .I0(ti_adr_14__N_50), .I1(n110));
-    OR2 i401 (.O(grmadr_0__N_15[3]), .I0(n431), .I1(n430));
-    AND2 i399 (.O(n430), .I0(ti_adr_14__N_50), .I1(n109));
-    AND2 i400 (.O(n431), .I0(ti_adr_c_14), .I1(ti_data_out_4));
-    AND2 i402 (.O(n433), .I0(ti_adr_14__N_50), .I1(n108));
-    OR2 i398 (.O(grmadr_0__N_15[2]), .I0(n428), .I1(n427));
-    AND2 i405 (.O(n436), .I0(ti_adr_14__N_50), .I1(n107));
-    AND2 i397 (.O(n428), .I0(ti_adr_c_14), .I1(ti_data_out_5));
-    AND2 i408 (.O(n439), .I0(ti_adr_14__N_50), .I1(n106));
-    OR2 i395 (.O(grmadr_0__N_15[1]), .I0(n425), .I1(n424));
-    AND2 i411 (.O(n442), .I0(ti_adr_14__N_50), .I1(n105));
-    AND2 i394 (.O(n425), .I0(ti_adr_c_14), .I1(ti_data_out_6));
-    OR2 i380 (.O(out_adr_c_3), .I0(n410), .I1(n409));
-    AND4 i3 (.O(dataout_N_44), .I0(out_reset_c), .I1(ti_gsel_N_48), .I2(ti_adr_14__N_50), 
-         .I3(gvalid));
-    AND2 i260 (.O(dataout), .I0(dataout_N_43), .I1(ti_we_c));
-    OR2 i392 (.O(grmadr_0__N_15[0]), .I0(n422), .I1(n421));
-    AND2 i391 (.O(n422), .I0(ti_adr_c_14), .I1(ti_data_out_7));
-    OR2 i407 (.O(grmadr_0__N_15[5]), .I0(n437), .I1(n436));
-    AND2 i409 (.O(n440), .I0(ti_adr_c_14), .I1(ti_data_out_1));
-    OR2 i410 (.O(grmadr_0__N_15[6]), .I0(n440), .I1(n439));
-    AND2 i412 (.O(n443), .I0(ti_adr_c_14), .I1(ti_data_out_0));
-    OR2 i413 (.O(grmadr_0__N_15[7]), .I0(n443), .I1(n442));
+    AND4 i3 (.O(n424), .I0(n307), .I1(gvalid), .I2(grmpage), .I3(ti_adr_14__N_43));
+    XOR2 i336 (.O(n112), .I0(gadd), .I1(grmadr[7]));
+    OR2 i414 (.O(out_adr_c_5), .I0(n443), .I1(n442));
+    AND2 i416 (.O(n446), .I0(gvalid), .I1(grmadr[3]));
+    AND2 i446 (.O(n476), .I0(ti_adr_c_14), .I1(ti_data_out_2));
+    OR2 i282 (.O(out_adr_c_13), .I0(gvalid), .I1(latch[0]));
+    OR2 i283 (.O(out_adr_c_14), .I0(gvalid), .I1(latch[1]));
+    OR2 gvalid_I_0_110_i1 (.O(out_adr_c_8), .I0(ti_adr_c_7), .I1(gvalid));
+    AND2 i409 (.O(n439), .I0(n435), .I1(ti_adr_c_9));
+    AND2 i412 (.O(n442), .I0(n435), .I1(ti_adr_c_10));
+    AND2 i415 (.O(n445), .I0(n435), .I1(ti_adr_c_11));
+    AND2 i418 (.O(n448), .I0(n435), .I1(ti_adr_c_12));
+    AND2 i421 (.O(n451), .I0(n435), .I1(ti_adr_c_13));
+    AND2 i424 (.O(n454), .I0(n435), .I1(ti_adr_c_14));
+    AND2 i427 (.O(n457), .I0(n435), .I1(ti_adr_c_15));
+    AND2 i430 (.O(n460), .I0(ti_adr_14__N_43), .I1(n112));
+    AND2 i431 (.O(n461), .I0(ti_adr_c_14), .I1(ti_data_out_7));
+    OR2 i429 (.O(out_adr_c_0), .I0(n458), .I1(n457));
+    AND2 i428 (.O(n458), .I0(gvalid), .I1(grmadr[7]));
+    OR2 i426 (.O(out_adr_c_1), .I0(n455), .I1(n454));
+    AND2 i407 (.O(n437), .I0(gvalid), .I1(grmadr[0]));
+    AND2 i1_adj_1 (.O(dataout), .I0(n9), .I1(ti_we_c));
+    OR2 gvalid_I_0_110_i2 (.O(out_adr_c_9), .I0(ti_adr_c_6), .I1(gvalid));
+    OR2 gvalid_I_0_110_i3 (.O(out_adr_c_10), .I0(ti_adr_c_5), .I1(gvalid));
+    OR2 gvalid_I_0_110_i4 (.O(out_adr_c_11), .I0(ti_adr_c_4), .I1(gvalid));
+    OR2 gvalid_I_0_110_i5 (.O(out_adr_c_12), .I0(ti_adr_c_3), .I1(gvalid));
+    OR2 i444 (.O(grmadr_0__N_15[4]), .I0(n473), .I1(n472));
+    AND2 i1_adj_2 (.O(n7), .I0(gactive), .I1(n307));
+    OR2 i1_adj_3 (.O(n9), .I0(ti_rom_N_24), .I1(n424));
+    OR2 i1_adj_4 (.O(gactive_N_51), .I0(n307), .I1(gvalid));
+    OR2 i404 (.O(n282), .I0(n433), .I1(n432));
+    AND2 i437 (.O(n467), .I0(ti_adr_c_14), .I1(ti_data_out_5));
+    AND2 i346 (.O(n378), .I0(n370), .I1(grmadr[6]));
+    AND2 i425 (.O(n455), .I0(gvalid), .I1(grmadr[6]));
+    OR2 i423 (.O(out_adr_c_2), .I0(n452), .I1(n451));
+    AND2 i353 (.O(n385), .I0(n378), .I1(grmadr[5]));
+    AND2 i1_adj_5 (.O(n427), .I0(n426), .I1(grmadr[0]));
+    AND2 i338 (.O(n370), .I0(gadd), .I1(grmadr[7]));
+    AND2 i422 (.O(n452), .I0(gvalid), .I1(grmadr[5]));
+    OR2 i420 (.O(out_adr_c_3), .I0(n449), .I1(n448));
+    AND2 i419 (.O(n449), .I0(gvalid), .I1(grmadr[4]));
+    OR2 i399 (.O(n430), .I0(grmadr[1]), .I1(n212));
+    OR2 i284 (.O(out_adr_c_15), .I0(gvalid), .I1(latch[2]));
+    OR2 i285 (.O(out_adr_c_16), .I0(gvalid), .I1(latch[3]));
+    OR2 i286 (.O(out_adr_c_17), .I0(gvalid), .I1(latch[4]));
+    OR2 i287 (.O(out_adr_c_18), .I0(gvalid), .I1(latch[5]));
+    OR2 i288 (.O(out_adr_c_19), .I0(gvalid), .I1(latch[6]));
+    OR2 i289 (.O(out_adr_c_20), .I0(gvalid), .I1(latch[7]));
+    OR2 i290 (.O(out_adr_c_21), .I0(gvalid), .I1(latch[8]));
+    OR2 i291 (.O(out_adr_c_22), .I0(gvalid), .I1(latch[9]));
+    OR2 i292 (.O(out_adr_c_23), .I0(gvalid), .I1(latch[10]));
+    OR2 i293 (.O(out_adr_c_24), .I0(gvalid), .I1(latch[11]));
+    OR2 i294 (.O(out_adr_c_25), .I0(gvalid), .I1(latch[12]));
+    OR2 i295 (.O(out_adr_c_26), .I0(gvalid), .I1(latch[13]));
+    OR2 i417 (.O(out_adr_c_4), .I0(n446), .I1(n445));
+    AND2 i410 (.O(n440), .I0(gvalid), .I1(grmadr[1]));
+    AND2 i433 (.O(n463), .I0(ti_adr_14__N_43), .I1(n111));
+    AND2 i443 (.O(n473), .I0(ti_adr_c_14), .I1(ti_data_out_3));
+    AND2 i436 (.O(n466), .I0(ti_adr_14__N_43), .I1(n110));
+    OR2 i441 (.O(grmadr_0__N_15[3]), .I0(n470), .I1(n469));
+    AND2 i439 (.O(n469), .I0(ti_adr_14__N_43), .I1(n109));
+    AND2 i440 (.O(n470), .I0(ti_adr_c_14), .I1(ti_data_out_4));
+    AND2 i442 (.O(n472), .I0(ti_adr_14__N_43), .I1(n108));
+    OR2 i438 (.O(grmadr_0__N_15[2]), .I0(n467), .I1(n466));
+    AND2 i445 (.O(n475), .I0(ti_adr_14__N_43), .I1(n107));
+    OR2 i435 (.O(grmadr_0__N_15[1]), .I0(n464), .I1(n463));
+    AND2 i448 (.O(n478), .I0(ti_adr_14__N_43), .I1(n106));
+    XOR2 i386 (.O(n105), .I0(n413), .I1(grmadr[0]));
+    AND2 i451 (.O(n481), .I0(ti_adr_14__N_43), .I1(n105));
+    XOR2 i379 (.O(n106), .I0(n406), .I1(grmadr[1]));
+    XOR2 i372 (.O(n107), .I0(n399), .I1(grmadr[2]));
+    XOR2 i365 (.O(n108), .I0(n392), .I1(grmadr[3]));
+    XOR2 i358 (.O(n109), .I0(n385), .I1(grmadr[4]));
+    XOR2 i351 (.O(n110), .I0(n378), .I1(grmadr[5]));
+    AND2 i367 (.O(n399), .I0(n392), .I1(grmadr[3]));
+    OR2 i447 (.O(grmadr_0__N_15[5]), .I0(n476), .I1(n475));
+    AND2 i449 (.O(n479), .I0(ti_adr_c_14), .I1(ti_data_out_1));
+    OR2 i450 (.O(grmadr_0__N_15[6]), .I0(n479), .I1(n478));
+    AND2 i452 (.O(n482), .I0(ti_adr_c_14), .I1(ti_data_out_0));
+    OR2 i453 (.O(grmadr_0__N_15[7]), .I0(n482), .I1(n481));
     
 endmodule
 //
 // Verilog Description of module INV
-// module not written out since it is a black-box. 
-//
-
-//
-// Verilog Description of module AND2
 // module not written out since it is a black-box. 
 //
 
@@ -280,17 +271,22 @@ endmodule
 //
 
 //
+// Verilog Description of module AND2
+// module not written out since it is a black-box. 
+//
+
+//
 // Verilog Description of module GND
 // module not written out since it is a black-box. 
 //
 
 //
-// Verilog Description of module OR2
+// Verilog Description of module XOR2
 // module not written out since it is a black-box. 
 //
 
 //
-// Verilog Description of module XOR2
+// Verilog Description of module OR2
 // module not written out since it is a black-box. 
 //
 

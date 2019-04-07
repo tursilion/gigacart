@@ -59,4 +59,3 @@ out_data[2]  i
 out_data[1]  i
 out_data[0]  i
 out_oe  o
-out_reset  o

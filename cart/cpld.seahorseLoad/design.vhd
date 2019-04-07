@@ -39,8 +39,8 @@ ENTITY gigacart IS
 --		out_rom3 : OUT STD_ULOGIC;			-- ROM select 3 (active low)
 --		out_rom4 : OUT STD_ULOGIC;			-- ROM select 4 (active low) (was 48)
 --		out_we   : OUT STD_ULOGIC;			-- we now have a WE pin on 48
-		out_oe	 : OUT STD_ULOGIC;			-- we now have an OE pin on 35
-		out_reset: OUT STD_ULOGIC			-- (47) output to hold flash chips in reset at startup (initial value ignored)
+		out_oe	 : OUT STD_ULOGIC			-- we now have an OE pin on 35
+--		out_reset: OUT STD_ULOGIC			-- (47) output to hold flash chips in reset at startup (initial value ignored)
 	);
 END gigacart;
 
@@ -206,8 +206,12 @@ BEGIN
 	-- but this seems (bizarrely) to actually work... need to test access times a bit
 	-- looks like the single-byte GROM tests are about 16-18uS long, datasheet says
 	-- it needs 200ns after a reset. We'll just keep testing.
---	out_reset <= bounce;
-	out_reset <= grmpage;
+--	out_reset <= grmpage;
+
+	-- seahorse board might have a problem with the reset pulse vs !ce. Since we can't
+	-- control CE, and the datasheet suggests reset can stay high (unlike the centipede board),
+	-- maybe this will work? (relying on pull up)
+--	out_reset <= '1';
 
 	-- keep WE high and OE low
 	out_oe <= '0';

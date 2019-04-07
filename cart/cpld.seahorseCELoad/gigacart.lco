@@ -1,0 +1,325 @@
+[DEVICE]
+Family = lc4k;
+PartType = LC4064V;
+Package = 100TQFP;
+PartNumber = LC4064V-10T100I;
+Speed = -10;
+Operating_condition = IND;
+EN_Segment = Yes;
+Pin_MC_1to1 = No;
+Default_Device_Io_Types=LVTTL,-;
+Voltage = 3.3;
+
+[REVISION]
+RCS = "$Header $";
+Parent = lc4k64v.lci;
+Design = ;
+DATE = 03/25/2019;
+TIME = 23:08:17;
+Source_Format = Pure_VHDL;
+Type = ;
+Pre_Fit_Time = ;
+
+[IGNORE ASSIGNMENTS]
+Pin_Assignments = No;
+Pin_Keep_Block = No;
+Pin_Keep_Segment = No;
+Group_Assignments = No;
+Macrocell_Assignments = No;
+Macrocell_Keep_Block = No;
+Macrocell_Keep_Segment = No;
+Pin_Reservation = No;
+Block_Reservation = No;
+Segment_Reservation = No;
+Timing_Constraints = No;
+IO_Types = No;
+
+[CLEAR ASSIGNMENTS]
+Pin_Assignments = No;
+Pin_Keep_Block = No;
+Pin_Keep_Segment = No;
+Group_Assignments = No;
+Macrocell_Assignments = No;
+Macrocell_Keep_Block = No;
+Macrocell_Keep_Segment = No;
+Pin_Reservation = No;
+Block_Reservation = No;
+Segment_Reservation = No;
+Timing_Constraints = No;
+IO_Types = No;
+
+[BACKANNOTATE ASSIGNMENTS]
+Pin_Assignment = No;
+Pin_Block = No;
+Pin_Macrocell_Block = No;
+Routing = No;
+Io_Types = No;
+
+[GLOBAL CONSTRAINTS]
+Max_Fanin = 24;
+Max_PTerm_Split = 80;
+Max_PTerm_Collapse = 16;
+Max_Pin_Percent = 100;
+Max_Macrocell_Percent = 100;
+Max_GLB_Input_Percent = 100;
+Logic_Reduction = Yes;
+XOR_Synthesis = Yes;
+Keep_XOR = No;
+DT_Synthesis = Yes;
+Node_Collapse = Yes;
+Nodes_collapsing_mode = Fmax;
+Fmax_Logic_Level = 1;
+Use_CE = Yes;
+Use_Internal_COM_FB = Yes;
+Set_Reset_Swap = No;
+Clock_Optimize = No;
+EN_Set_Reset_Dont_Care = No;
+TOE_AS_IO = No;
+Set_Reset_Dont_Care = No;
+EN_In_Reg_Optimize = No;
+In_Reg_Optimize = Yes;
+Run_Time = 0;
+Routing_Attempts = 2;
+Balanced_Partitioning = Yes;
+Spread_Placement = Yes;
+Usercode = ;
+Usercode_Format = HEX;
+Vcc = ;
+Dual_Function_Macrocell = 1;
+Global_PTOE = Yes;
+Hard_Fast_Bypass = No;
+Fitter_Effort_Level = HIGH;
+Auto_buffering_for_high_glb_fanin = Off;
+Auto_buffering_for_low_bonded_io = Off;
+User_max_glb_fanin = 36;
+Adjust_input_assignments = Off;
+
+[LOCATION ASSIGNMENTS]
+// Block A
+out_data_7_=pin,94,-,A,3;
+ti_adr_14_=pin,3,-,A,8;
+out_data_6_=pin,93,-,A,2;
+out_data_5_=pin,92,-,A,1;
+out_data_4_=pin,91,-,A,0;
+out_adr_26_=pin,99,-,A,6;
+ti_data_6_=pin,11,-,A,15;
+ti_data_5_=pin,10,-,A,14;
+ti_data_4_=pin,9,-,A,13;
+ti_data_3_=pin,8,-,A,3;
+ti_data_2_=pin,6,-,A,2;
+ti_data_1_=pin,5,-,A,1;
+ti_data_0_=pin,4,-,A,0;
+out_adr_25_=pin,100,-,A,7;
+out_adr_17_=pin,98,-,A,5;
+out_adr_0_=pin,97,-,A,4;
+grmadr_i0=node,-,-,A,10;
+grmadr_i1=node,-,-,A,9;
+grmadr_i2=node,-,-,A,8;
+grmadr_i3=node,-,-,A,11;
+grmpage_104=node,-,-,A,12;
+// Block B
+ti_adr_15_=pin,34,-,B,3;
+ti_we=pin,16,-,B,13;
+ti_rom=pin,15,-,B,14;
+ti_gclk=pin,36,-,B,1;
+ti_adr_13_=pin,31,-,B,4;
+ti_adr_12_=pin,30,-,B,5;
+ti_adr_11_=pin,29,-,B,6;
+ti_adr_10_=pin,28,-,B,7;
+ti_adr_7_=pin,22,-,B,8;
+ti_adr_6_=pin,20,-,B,10;
+ti_adr_5_=pin,19,-,B,11;
+ti_adr_4_=pin,17,-,B,12;
+ti_adr_3_=pin,21,-,B,9;
+ti_data_7_=pin,14,-,B,0;
+out_oe=pin,35,-,B,2;
+latch_i0_i13=node,-,-,B,7;
+latch_i0_i12=node,-,-,B,8;
+latch_i0_i10=node,-,-,B,9;
+latch_i0_i8=node,-,-,B,10;
+latch_i0_i3=node,-,-,B,11;
+latch_i0_i0=node,-,-,B,12;
+grmadr_i4=node,-,-,B,4;
+grmadr_i5=node,-,-,B,3;
+grmadr_i6=node,-,-,B,1;
+grmadr_i7=node,-,-,B,5;
+gactive_101=node,-,-,B,13;
+gvalid_102=node,-,-,B,14;
+gadd_106=node,-,-,B,6;
+n380=node,-,-,B,15;
+// Block C
+out_data_3_=pin,42,-,C,1;
+out_data_2_=pin,41,-,C,0;
+ti_gsel=pin,44,-,C,3;
+out_reset=pin,47,-,C,4;
+out_adr_22_=pin,61,-,C,15;
+out_adr_19_=pin,60,-,C,5;
+out_adr_18_=pin,59,-,C,13;
+out_adr_8_=pin,58,-,C,3;
+out_adr_7_=pin,56,-,C,2;
+out_adr_6_=pin,55,-,C,1;
+out_adr_5_=pin,54,-,C,0;
+out_adr_4_=pin,53,-,C,8;
+out_adr_3_=pin,50,-,C,7;
+out_adr_2_=pin,49,-,C,6;
+latch_i0_i7=node,-,-,C,9;
+latch_i0_i6=node,-,-,C,10;
+latch_i0_i4=node,-,-,C,11;
+latch_i0_i2=node,-,-,C,12;
+latch_i0_i1=node,-,-,C,14;
+// Block D
+out_data_1_=pin,87,-,D,0;
+out_data_0_=pin,86,-,D,1;
+out_adr_24_=pin,81,-,D,4;
+out_adr_23_=pin,80,-,D,5;
+out_adr_21_=pin,64,-,D,15;
+out_adr_20_=pin,65,-,D,14;
+out_adr_16_=pin,79,-,D,6;
+out_adr_15_=pin,78,-,D,7;
+out_adr_14_=pin,72,-,D,8;
+out_adr_13_=pin,71,-,D,0;
+out_adr_12_=pin,70,-,D,1;
+out_adr_11_=pin,69,-,D,2;
+out_adr_10_=pin,67,-,D,12;
+out_adr_9_=pin,66,-,D,13;
+out_adr_1_=pin,84,-,D,3;
+latch_i0_i11=node,-,-,D,9;
+latch_i0_i9=node,-,-,D,10;
+latch_i0_i5=node,-,-,D,11;
+// Input Pins
+ti_adr_8_=pin,23,-,-,-;
+ti_adr_9_=pin,27,-,-,-;
+
+[PTOE ASSIGNMENTS]
+
+[FAST BYPASS]
+Default=NONE;
+BYPASS=;
+
+[ORP BYPASS]
+default=NONE;
+
+[INPUT REGISTERS]
+Default=NONE;
+;
+
+[IO TYPES]
+out_data_3_=LVCMOS33,pin,-,-;
+out_data_2_=LVCMOS33,pin,-,-;
+ti_adr_15_=LVTTL_5V,pin,-,-;
+out_data_1_=LVCMOS33,pin,-,-;
+out_data_0_=LVCMOS33,pin,-,-;
+ti_we=LVTTL_5V,pin,-,-;
+ti_rom=LVTTL_5V,pin,-,-;
+ti_gsel=LVTTL_5V,pin,-,-;
+ti_gclk=LVTTL_5V,pin,-,-;
+out_data_7_=LVCMOS33,pin,-,-;
+ti_adr_14_=LVTTL_5V,pin,-,-;
+ti_adr_13_=LVTTL_5V,pin,-,-;
+ti_adr_12_=LVTTL_5V,pin,-,-;
+ti_adr_11_=LVTTL_5V,pin,-,-;
+ti_adr_10_=LVTTL_5V,pin,-,-;
+ti_adr_9_=LVTTL_5V,pin,-,-;
+ti_adr_8_=LVTTL_5V,pin,-,-;
+ti_adr_7_=LVTTL_5V,pin,-,-;
+ti_adr_6_=LVTTL_5V,pin,-,-;
+ti_adr_5_=LVTTL_5V,pin,-,-;
+ti_adr_4_=LVTTL_5V,pin,-,-;
+ti_adr_3_=LVTTL_5V,pin,-,-;
+out_data_6_=LVCMOS33,pin,-,-;
+out_data_5_=LVCMOS33,pin,-,-;
+out_data_4_=LVCMOS33,pin,-,-;
+ti_data_7_=LVTTL,pin,0,-;
+out_adr_26_=LVTTL,pin,0,-;
+out_oe=LVTTL,pin,0,-;
+out_reset=LVTTL,pin,1,-;
+ti_data_6_=LVTTL,pin,0,-;
+ti_data_5_=LVTTL,pin,0,-;
+ti_data_4_=LVTTL,pin,0,-;
+ti_data_3_=LVTTL,pin,0,-;
+ti_data_2_=LVTTL,pin,0,-;
+ti_data_1_=LVTTL,pin,0,-;
+ti_data_0_=LVTTL,pin,0,-;
+out_adr_25_=LVTTL,pin,0,-;
+out_adr_24_=LVTTL,pin,1,-;
+out_adr_23_=LVTTL,pin,1,-;
+out_adr_22_=LVTTL,pin,1,-;
+out_adr_21_=LVTTL,pin,1,-;
+out_adr_20_=LVTTL,pin,1,-;
+out_adr_19_=LVTTL,pin,1,-;
+out_adr_18_=LVTTL,pin,1,-;
+out_adr_17_=LVTTL,pin,0,-;
+out_adr_16_=LVTTL,pin,1,-;
+out_adr_15_=LVTTL,pin,1,-;
+out_adr_14_=LVTTL,pin,1,-;
+out_adr_13_=LVTTL,pin,1,-;
+out_adr_12_=LVTTL,pin,1,-;
+out_adr_11_=LVTTL,pin,1,-;
+out_adr_10_=LVTTL,pin,1,-;
+out_adr_9_=LVTTL,pin,1,-;
+out_adr_8_=LVTTL,pin,1,-;
+out_adr_7_=LVTTL,pin,1,-;
+out_adr_6_=LVTTL,pin,1,-;
+out_adr_5_=LVTTL,pin,1,-;
+out_adr_4_=LVTTL,pin,1,-;
+out_adr_3_=LVTTL,pin,1,-;
+out_adr_2_=LVTTL,pin,1,-;
+out_adr_1_=LVTTL,pin,1,-;
+out_adr_0_=LVTTL,pin,0,-;
+
+[PLL ASSIGNMENTS]
+
+[RESOURCE RESERVATIONS]
+layer=OFF;
+
+[SLEWRATE]
+Default=Slow;
+
+[PULLUP]
+Default=UP;
+
+[FITTER RESULTS]
+I/O_pin_util = 90;
+I/O_pin = 58;
+Logic_PT_util = 38;
+Logic_PT = 123;
+Occupied_MC_util = 100;
+Occupied_MC = 64;
+Occupied_PT_util = 56;
+Occupied_PT = 189;
+GLB_input_util = 59;
+GLB_input = 85;
+
+[TIMING CONSTRAINTS]
+layer=OFF;
+
+[FITTER REPORT FORMAT]
+Fitter_Options = Yes;
+Pinout_Diagram = No;
+Pinout_Listing = Yes;
+Detailed_Block_Segment_Summary = Yes;
+Input_Signal_List = Yes;
+Output_Signal_List = Yes;
+Bidir_Signal_List = Yes;
+Node_Signal_List = Yes;
+Signal_Fanout_List = Yes;
+Block_Segment_Fanin_List = Yes;
+Postfit_Eqn = Yes;
+Page_Break = Yes;
+Detailed = No;
+
+[POWER]
+Default=HIGH;
+
+[SOURCE_CONSTRAINT_OPTION]
+
+[HARDWARE DEVICE OPTIONS]
+Zero_Hold_Time = No;
+Signature_Word = ;
+Pullup = No;
+Slew_Rate = FAST;
+
+[TIMING ANALYZER]
+Last_source=;
+Last_source_type=Fmax;
+

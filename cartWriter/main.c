@@ -28,6 +28,13 @@
 // programmed, so this code currently skips over that. The software needs to cope.
 // However, for the sake of testing and so forth, the entire 128MB image is still created.
 //
+// A second, very late bug is that the flash chip needs us to control CE, not reset, so
+// a modification lets us autodetect which board version is plugged in (as CE is inverted
+// compared to reset, at least so far as reading the chip goes). The CFI read function
+// is used to determine which way to go, since it's the first code called.
+//
+// TODO: The flash datasheets say that polling for write status might go away in the future,
+// and only status word reads will work. So someday we need to figure out why they don't.
 
 // uses libti99
 #include "vdp.h"
@@ -49,6 +56,7 @@
 // forward declarations
 void flashReset() ;
 void flashUnlock() ;
+void flashDetectReset() ;
 void flashReadCfi() ;
 bool flashWaitForWrite(unsigned int page, unsigned int adr, unsigned char val) ;
 bool flashWriteFast(unsigned int page, unsigned int adr) ;
@@ -85,6 +93,8 @@ bool cf7WriteSector(unsigned int high, unsigned int low) ;
 unsigned char buffer[512];
 // this is where we read the keyboard to
 unsigned char kscan_key;
+// this used to be a constant. Now it's not
+unsigned char FLASH_UNRESET;
 
 #ifdef VERIFYLATCH
 volatile unsigned char verify;
@@ -111,7 +121,10 @@ volatile unsigned int verifylatch;
 // these are the bitflags
 #define FLASH_WRITELSB 0x04
 #define FLASH_WRITEMSB 0x08
-#define FLASH_UNRESET  0x10
+// reset/ce is now shared, depending on which cart is in use
+// so 'flash_unreset' has to be a variable. This won't impact performance much... I think
+// when it's CE, this needs to be zero instead
+#define FLASH_UNRESET_DEFAULT  0x10
 
 #if 0
 // the offset is 128k, which is 16 (8k) pages. Latches are every 2 addresses.
@@ -130,7 +143,8 @@ volatile unsigned int verifylatch;
 #define CF7_LASTSECTOR_HIGH (CF7_LASTSECTOR>>16)
 #define CF7_LASTSECTOR_LOW  (CF7_LASTSECTOR&0xffff)
 #else
-// no 32-bit math in macros, eh? Fine. :)
+// no 32-bit math in macros, eh? Fine. :) (even intermediates need to be 16 bit)
+//
 // There are only 16384 pages total, which fits in 16 bit. This gives 16 today.
 #define FLASH_FIRSTPAGE 16
 // Then we need to skip the flash offset too... (today this gives sector 1856)
@@ -245,7 +259,14 @@ void kscanfast(int mode) {
 
 // does the reset. Release reset by setting the latch bits
 void flashReset() {
-    FLASH_SETBITS(0);
+	if (FLASH_UNRESET == FLASH_UNRESET_DEFAULT) {
+		// assert reset by bringing it low. The other bits are don't care
+		FLASH_SETBITS(0);
+	} else {
+		// we don't have reset, but we WILL deselect chip enable
+		// again, we don't care about the other bits
+		FLASH_SETBITS(FLASH_UNRESET_DEFAULT);
+	}
 }
 
 // hacky shotgun style function to walk through the various resets
@@ -263,7 +284,9 @@ void flashSoftResetAll() {
     FLASH_WRITE(0xaaa, 0x71);
 }
 
+#if 0
 // toggle the MSB/LSB bits to see if reads are sneaking through on transition
+// (they weren't)
 void flashToggle() {
     do {
         FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);     // enable writes
@@ -271,6 +294,7 @@ void flashToggle() {
         kscanfast(0);
     } while (kscan_key != ' ');
 }
+#endif
 
 // unlock sequence required for most operations
 void flashUnlock() {
@@ -280,13 +304,79 @@ void flashUnlock() {
     FLASH_WRITE(0x555, 0x55);                          // unlock step 2
 }
 
+// try to read CFI (start only) and determine whether we have a flash
+// Reset line or a flash CE line.
+void flashDetectReset() {
+	// assume classic board
+	FLASH_UNRESET = FLASH_UNRESET_DEFAULT;
+
+	printf("Trying to read CFI with reset: ");
+	
+    // No unlock is needed - note that CFI is one of the only
+    // commands that uses 0x0AA instead of 0xAAA
+    FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);     // enable writes
+    FLASH_WRITE(0xaa, 0x98);                           // CFI
+    FLASH_SETBITS(FLASH_UNRESET);                      // enable reads
+
+    // copy defined bytes (per the datasheet)
+    // since we're 8-bit, we get the least significant byte
+    // of every 16-bit pairing (twice)
+    // do a 16-bit read for performance
+	*((unsigned int*)(&buffer[0x20])) = *((volatile unsigned int*)(0x6000+0x20));
+	*((unsigned int*)(&buffer[0x22])) = *((volatile unsigned int*)(0x6000+0x22));
+	*((unsigned int*)(&buffer[0x24])) = *((volatile unsigned int*)(0x6000+0x24));
+
+    // exit CFI mode
+    FLASH_SETBITS(FLASH_UNRESET | FLASH_WRITEMSB);     // enable writes
+    FLASH_WRITE(0xaa, 0xf0);
+    FLASH_SETBITS(FLASH_UNRESET);                      // enable reads
+
+    // check for the QRY string - if we found it, we were the right way around
+    if ((buffer[0x20]=='Q') && (buffer[0x22]=='R') && (buffer[0x24]=='Y')) {
+		printf("OK!\n");
+		return;
+	}
+	
+	// Since CE has been high for the above test, it's okay to drop it now
+	
+	printf("Fail\nTrying to read CFI with CE: ");
+	
+    // No unlock is needed - note that CFI is one of the only
+    // commands that uses 0x0AA instead of 0xAAA
+    FLASH_SETBITS(FLASH_WRITEMSB);     // enable writes
+    FLASH_WRITE(0xaa, 0x98);           // CFI
+    FLASH_SETBITS(0);                  // enable reads
+
+    // copy defined bytes (per the datasheet)
+    // since we're 8-bit, we get the least significant byte
+    // of every 16-bit pairing (twice)
+    // do a 16-bit read for performance
+	*((unsigned int*)(&buffer[0x20])) = *((volatile unsigned int*)(0x6020));
+	*((unsigned int*)(&buffer[0x22])) = *((volatile unsigned int*)(0x6022));
+	*((unsigned int*)(&buffer[0x24])) = *((volatile unsigned int*)(0x6024));
+
+    // exit CFI mode
+    FLASH_SETBITS(FLASH_WRITEMSB);     // enable writes
+    FLASH_WRITE(0xaa, 0xf0);
+    FLASH_SETBITS(0);                  // enable reads
+
+    // check for the QRY string - if we found it, we were the right way around
+    if ((buffer[0x20]=='Q') && (buffer[0x22]=='R') && (buffer[0x24]=='Y')) {
+		printf("OK!\n");
+		FLASH_UNRESET = 0;
+		return;
+	}
+	
+	printf("Fail\nBoth tests failed - assuming reset pin.\n");
+}
+
 // read the CFI data from the flash, and spit some of it out
 void flashReadCfi() {
     // There's lots of cool data in there, so it would be fun
     // to print as much of it makes any sense...
     bool fail = false;
 
-    printf("Flash CFI information:\n");
+//    printf("Flash CFI information:\n");
 
     // No unlock is needed - note that CFI is one of the only
     // commands that uses 0x0AA instead of 0xAAA
@@ -313,7 +403,7 @@ void flashReadCfi() {
         printf("Make sure the >E000 adapter/hack is\nin the cartridge slot\n");
         fail=true;
     } else {
-        printf("Device size: 2^%d bytes", (int)buffer[0x4e]);
+        printf("Flash size: 2^%d bytes", (int)buffer[0x4e]);
         if (buffer[0x4e] != 0x1b) {
             printf(" [small]");
         }
@@ -657,9 +747,11 @@ bool flashVerify(unsigned int page, unsigned int adr) {
 #else
 	// scratchpad version
 	if (!flashVerifyLoop(adr)) {
-		unsigned int inadr = *((unsigned int*)0x83e0) - 0x8000;	// gplws r0 (E000 to 6000)
-        unsigned int data = *((unsigned int*)(&buffer[inadr-0x6000-adr]));
+		// addresses in GPLWS are already incremented by 2, so subtract that out
+		unsigned int inadr = (*((unsigned int*)0x83e0)) - 0x8002;	// gplws r0 (E000 to 6000), minus the two
         unsigned int cart = *((volatile unsigned int*)(inadr));
+		unsigned int bufadr = (*((unsigned int*)0x8302)) - 2;		// pointer into the buffer array
+        unsigned int data = *((volatile unsigned int*)(bufadr));
 		printf("V: Page %d >%X%X, cart >%X%X != >%X%X\n", page, inadr>>8,inadr&0xff, cart>>8,cart&0xff, data>>8,data&0xff);
 		return false;
 	}
@@ -1150,10 +1242,12 @@ int testapp() {
                             loop=0; 
                             break;
 
+#if 0
                 case 'T':   printf("Space to exit...\n");
                             flashToggle();
                             loop = 0;
                             break;
+#endif
 
                 case 'F':   printf("Fast: Page 16, address 512\n"); 
                             for (int idx=0; idx<512; ++idx) {
@@ -1297,6 +1391,10 @@ bool program() {
     // most chips should not need to erase..?? so even though testing
     // for this will take a while, it should be faster than the 10+
     // minutes that an actual erase takes
+    // It's not, for some reason, and I could speed it up, but damn it,
+    // I'm almost done now. Just live with it. It takes 90 minutes to
+    // program anyway.
+#if 0
     printf("Checking if erase is needed...\n");
     {
         unsigned int flashBits = 0;     // we know the start is less than 32MB
@@ -1306,11 +1404,11 @@ bool program() {
             FLASH_SETLATCH(flashLatch, flashBits | FLASH_UNRESET);
 
             // read 16-bits at a time for the whole page
-            for (int adr = 0; adr <= 0x2000; adr+=2) {
+            for (int adr = 0; adr < 0x2000; adr+=2) {
                 unsigned int inadr = 0x6000 + adr;
                 unsigned int cart = *((unsigned int*)(inadr));
                 if (cart != 0xffff) {
-					printf("latch >%X, adr >%X, read >%X%X != >FFFF", flashLatch, inadr, cart>>8,cart&0xff);
+					printf("latch >%X, adr >%X%X, read >%X%X != >FFFF", flashLatch, inadr>>8, inadr&0xff, cart>>8,cart&0xff);
                     ret = false;
                     break;
                 }
@@ -1338,6 +1436,11 @@ bool program() {
             return false;
         }
     }
+#else
+	if (!flashChipErase()) {
+		return false;
+	}
+#endif
 
     // reset the flags and the flash
     ret = true;         // reset the flag
@@ -1522,13 +1625,15 @@ int main() {
 		VDP_SET_REGISTER(VDP_REG_COL, 0x17);
         scrn_scroll = my_fast_scrn_scroll;
 	}
+	
+	// print banner (will be erased by programming bar)
+	vdpmemcpy(0, "CF7 to Seahorse board programmer", 32);
 
     // figure out which system we're running on
     cf7DetectClassic99();
+	flashDetectReset();
 
 bigloop:
-	printf("CF7 to Seahorse board programmer\n\n");
-
     flashReset();
     cf7Init();
 

@@ -2,7 +2,7 @@
 // Software Version :  ispLEVER Classic 2.0.00.17.20.15  
 // Project Name	    :  gigacart
 // Targeted Device  :  LC4064V-10T100I
-// Date             :  Mon Mar 25 23:08:23 2019
+// Date             :  Sun Apr 07 01:00:40 2019
 //
                       GND          SYS           1
                ti_adr_14_          IN            3
@@ -43,7 +43,6 @@
                   ti_gsel          IN            44
                    VCCIO1          SYS           45
                    GNDIO1          SYS           46
-                out_reset          OUT           47
                out_adr_2_          OUT           49
                out_adr_3_          OUT           50
                       GND          SYS           51

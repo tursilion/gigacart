@@ -15,7 +15,7 @@ RCS = "$Header $";
 Parent = lc4k64v.lci;
 Design = ;
 DATE = 03/25/2019;
-TIME = 21:52:02;
+TIME = 23:08:17;
 Source_Format = Pure_VHDL;
 Type = ;
 Pre_Fit_Time = ;
@@ -116,7 +116,6 @@ Default=NONE;
 layer=OFF;
 
 [SLEWRATE]
-FAST=out_reset;
 Default=Slow;
 
 [PULLUP]

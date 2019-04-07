@@ -7,7 +7,7 @@
 
 Equations:
 
-dataout = ti_we & !ti_gsel & !ti_adr_14_ & out_reset.Q & gvalid_101.Q
+dataout = ti_we & !ti_gsel & !ti_adr_14_ & grmpage_103.Q & gvalid_101.Q
     # ti_we & !ti_rom ; (2 pterms, 6 signals)
 
 gactive_100.D = !( ti_gsel & !gvalid_101.Q ) ; (1 pterm, 2 signals)
@@ -17,27 +17,28 @@ gadd_105.D = !( !ti_we & ti_adr_14_ ) ; (1 pterm, 2 signals)
 gadd_105.C = gvalid_101.Q ; (1 pterm, 1 signal)
 gadd_105.CE = !( ti_we & ti_adr_14_ ) ; (1 pterm, 2 signals)
 
-grmadr_i0.T = !ti_adr_14_ & grmadr_i1.Q & grmadr_i2.Q & grmadr_i3.Q & n353
+grmadr_i0.T = !ti_adr_14_ & grmadr_i1.Q & grmadr_i2.Q & grmadr_i3.Q
+       & grmadr_i4.Q & grmadr_i5.Q & grmadr_i6.Q & grmadr_i7.Q & gadd_105.Q
     # ti_adr_14_ & !ti_data_0_.PIN & grmadr_i0.Q
-    # ti_adr_14_ & ti_data_0_.PIN & !grmadr_i0.Q ; (3 pterms, 7 signals)
+    # ti_adr_14_ & ti_data_0_.PIN & !grmadr_i0.Q ; (3 pterms, 11 signals)
 grmadr_i0.C = gvalid_101.Q ; (1 pterm, 1 signal)
 grmadr_i0.CE = !( ti_we & ti_adr_14_ ) ; (1 pterm, 2 signals)
 
 grmadr_i1.D.X1 = !ti_adr_14_ & grmadr_i1.Q
     # ti_adr_14_ & ti_data_1_.PIN ; (2 pterms, 3 signals)
-grmadr_i1.D.X2 = !ti_adr_14_ & grmadr_i2.Q & grmadr_i3.Q & n353 ; (1 pterm, 4 signals)
+grmadr_i1.D.X2 = !ti_adr_14_ & grmadr_i2.Q & grmadr_i3.Q & n392 ; (1 pterm, 4 signals)
 grmadr_i1.C = gvalid_101.Q ; (1 pterm, 1 signal)
 grmadr_i1.CE = !( ti_we & ti_adr_14_ ) ; (1 pterm, 2 signals)
 
-grmadr_i2.D = !ti_adr_14_ & !grmadr_i2.Q & grmadr_i3.Q & n353
-    # !ti_adr_14_ & grmadr_i2.Q & !n353
+grmadr_i2.D = !ti_adr_14_ & !grmadr_i2.Q & grmadr_i3.Q & n392
+    # !ti_adr_14_ & grmadr_i2.Q & !n392
     # !ti_adr_14_ & grmadr_i2.Q & !grmadr_i3.Q
     # ti_adr_14_ & ti_data_2_.PIN ; (4 pterms, 5 signals)
 grmadr_i2.C = gvalid_101.Q ; (1 pterm, 1 signal)
 grmadr_i2.CE = !( ti_we & ti_adr_14_ ) ; (1 pterm, 2 signals)
 
-grmadr_i3.D = !ti_adr_14_ & grmadr_i3.Q & !n353
-    # !ti_adr_14_ & !grmadr_i3.Q & n353
+grmadr_i3.D = !ti_adr_14_ & grmadr_i3.Q & !n392
+    # !ti_adr_14_ & !grmadr_i3.Q & n392
     # ti_adr_14_ & ti_data_3_.PIN ; (3 pterms, 4 signals)
 grmadr_i3.C = gvalid_101.Q ; (1 pterm, 1 signal)
 grmadr_i3.CE = !( ti_we & ti_adr_14_ ) ; (1 pterm, 2 signals)
@@ -67,6 +68,12 @@ grmadr_i7.D = !ti_adr_14_ & grmadr_i7.Q & !gadd_105.Q
     # ti_data_7_.PIN & ti_adr_14_ ; (3 pterms, 4 signals)
 grmadr_i7.C = gvalid_101.Q ; (1 pterm, 1 signal)
 grmadr_i7.CE = !( ti_we & ti_adr_14_ ) ; (1 pterm, 2 signals)
+
+grmpage_103.D = !ti_adr_14_ & grmadr_i0.Q & !grmadr_i1.Q
+    # ti_we & grmadr_i0.Q & !grmadr_i1.Q
+    # grmadr_i0.Q & !grmadr_i1.Q & !grmadr_i2.Q ; (3 pterms, 5 signals)
+grmpage_103.C = gvalid_101.Q ; (1 pterm, 1 signal)
+grmpage_103.CE = !ti_we & ti_adr_14_ ; (1 pterm, 2 signals)
 
 gvalid_101.D = !ti_gsel & gactive_100.Q ; (1 pterm, 2 signals)
 gvalid_101.C = !ti_gclk ; (1 pterm, 1 signal)
@@ -127,7 +134,7 @@ latch_i0_i9.D = ti_adr_5_ ; (1 pterm, 1 signal)
 latch_i0_i9.C = ti_we ; (1 pterm, 1 signal)
 latch_i0_i9.CE = !ti_rom ; (1 pterm, 1 signal)
 
-n353 = grmadr_i4.Q & grmadr_i5.Q & grmadr_i6.Q & grmadr_i7.Q & gadd_105.Q ; (1 pterm, 5 signals)
+n392 = grmadr_i4.Q & grmadr_i5.Q & grmadr_i6.Q & grmadr_i7.Q & gadd_105.Q ; (1 pterm, 5 signals)
 
 out_adr_0_ = ti_adr_15_ & !gvalid_101.Q
     # grmadr_i7.Q & gvalid_101.Q ; (2 pterms, 3 signals)
@@ -192,12 +199,6 @@ out_adr_8_ = !( !ti_adr_7_ & !gvalid_101.Q ) ; (1 pterm, 2 signals)
 out_adr_9_ = !( !ti_adr_6_ & !gvalid_101.Q ) ; (1 pterm, 2 signals)
 
 out_oe = 0 ; (0 pterm, 0 signal)
-
-out_reset.D = !ti_adr_14_ & grmadr_i0.Q & !grmadr_i1.Q
-    # ti_we & grmadr_i0.Q & !grmadr_i1.Q
-    # grmadr_i0.Q & !grmadr_i1.Q & !grmadr_i2.Q ; (3 pterms, 5 signals)
-out_reset.C = gvalid_101.Q ; (1 pterm, 1 signal)
-out_reset.CE = !ti_we & ti_adr_14_ ; (1 pterm, 2 signals)
 
 ti_data_0_ = out_data_7_ ; (1 pterm, 1 signal)
 ti_data_0_.OE = dataout ; (1 pterm, 1 signal)

@@ -1,3 +1,4 @@
+<Warning>  P38031:  Invalid signal 'out_reset' in the constraint file is ignored.
 <Warning>  P38031:  Invalid signal 'out_we' in the constraint file is ignored.
 <Warning>  P38088:  Balanced partitioning turned off.
 Project 'gigacart' was Fitted Successfully!
