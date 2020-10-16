@@ -3,7 +3,7 @@ Copyright (c) 1995 AT&T Corp.   All rights reserved.
 Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
 Copyright (c) 2001 Agere Systems   All rights reserved.
 Copyright (c) 2002-2015 Lattice Semiconductor Corporation,  All rights reserved.
-Sun Apr 07 01:00:36 2019
+Mon Jul 15 20:57:31 2019
 
 
 Command Line:  C:\ispLEVER_Classic2_0\lse/bin/nt/synthesis -f gigacart.synproj 
@@ -58,12 +58,12 @@ Compile design.
 Compile Design Begin
 INFO - synthesis: The default VHDL library search path is now "D:/work/TI/dragonslair/cart/cpld.seahorseLoad". VHDL-1504
 Analyzing VHDL file design.vhd. VHDL-1481
-INFO - synthesis: design.vhd(24): analyzing entity gigacart. VHDL-1012
-INFO - synthesis: design.vhd(47): analyzing architecture myarch. VHDL-1010
+INFO - synthesis: design.vhd(33): analyzing entity gigacart. VHDL-1012
+INFO - synthesis: design.vhd(57): analyzing architecture myarch. VHDL-1010
 unit gigacart is not yet analyzed. VHDL-1485
-design.vhd(24): executing gigacart(myarch)
+design.vhd(33): executing gigacart(myarch)
 
-WARNING - synthesis: design.vhd(45): replacing existing netlist gigacart(myarch). VHDL-1205
+WARNING - synthesis: design.vhd(55): replacing existing netlist gigacart(myarch). VHDL-1205
 Top module name (VHDL): gigacart
 Loading NGL library 'C:/ispLEVER_Classic2_0/lse/xo2c00/data/xo2clib.ngl'...
 Loading NGL library 'C:/ispLEVER_Classic2_0/lse/or5g00/data/orc5glib.ngl'...
@@ -138,7 +138,7 @@ clk0 [get_nets gvalid]                  |            -|            -|     0
 All constraints were met.
 
 
-Peak Memory Usage: 55.293  MB
+Peak Memory Usage: 55.113  MB
 
 --------------------------------------------------------------
 Elapsed CPU time for LSE flow : 0.656  secs

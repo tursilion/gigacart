@@ -13,7 +13,16 @@
 -- This provides enough room to write some GPL code to boot a ROM cart. :)
 
 -- Note that this version supports NO ROM enable on the flash (and not the 512MB mode either!)
--- It uses a different method for reset (releases on first GROM address write)
+-- This one controls CE instead of RESET (reset is pulled high)
+
+-- The ultimate fix may be to control both RESET and CE. We can release reset when the console reads
+-- GROM address >6000 (and leave it released), then control CE based on >8000 as now. This will meet all
+-- startup timings.
+-- I have a board modified, but the code below only sets OE and assumes reset will be pulled the right way,
+-- then that CE is grounded. I need to change the code to control at least CE and Reset. We might
+-- be able to reduce the GROM size to 7 bits, but we'd still need to save a 'next grom enable' bit so it
+-- may not help. So some thought is required. Probably should make a copy of this code and work on the copy.
+-- As a test, we can probably remove the GROM code and start Dragon's Lair from Easybug, so we can run the cart test.
 
 -- this one is not bidirectional on the ROM (output) side
 LIBRARY ieee;
@@ -40,6 +49,7 @@ ENTITY gigacart IS
 --		out_rom4 : OUT STD_ULOGIC;			-- ROM select 4 (active low) (was 48)
 --		out_we   : OUT STD_ULOGIC;			-- we now have a WE pin on 48
 		out_oe	 : OUT STD_ULOGIC			-- we now have an OE pin on 35
+--		out_ce	 : OUT STD_ULOGIC			-- chip enable will be on pin 43
 --		out_reset: OUT STD_ULOGIC			-- (47) output to hold flash chips in reset at startup (initial value ignored)
 	);
 END gigacart;

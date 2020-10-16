@@ -13,8 +13,8 @@ Default_Device_IO_Types = LVTTL, -;
 
 [Revision]
 Parent = lc4k64v.lci;
-DATE = 03/25/2019;
-TIME = 23:08:17;
+DATE = 07/15/2019;
+TIME = 20:57:07;
 Source_Format = Pure_VHDL;
 Synthesis = LSE;
 
@@ -96,6 +96,7 @@ ti_gsel = Pin, 44, -, C, 3;
 ti_gclk = Pin, 36, -, B, 1;
 out_we = Pin, 48, -, C, 5;
 out_oe = Pin, 35, -, B, 2;
+out_ce = Pin, 43, -, C, 2;
 
 [Group Assignments]
 layer = OFF;

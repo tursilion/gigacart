@@ -1,11 +1,11 @@
 // Node Statistic Information File
 // Tool:  ispLEVER Classic 2.0.00.17.20.15
-// Design 'gigacart' created   Tue Apr 02 22:18:38 2019
+// Design 'gigacart' created   Mon Jul 15 20:56:29 2019
 
 // Fmax Logic Level: 2.
 
 // Path: grmadr_i4.Q
-//    -> n392
+//    -> n394
 //    -> grmadr_i3.D
 
 // Signal Name: ti_data_7_
@@ -52,11 +52,21 @@ Cluster PT		N/A
 Logic Levels		N/A
 END
 
-// Signal Name: out_reset
-// Type: Output
-BEGIN out_reset
+// Signal Name: out_ce
+// Type: Tri
+BEGIN out_ce
 Fanin Number		0
-Pterm Number		1
+Pterm Number		0
+Fanin per Macrocell	N/A
+Cluster PT		N/A
+Logic Levels		N/A
+END
+
+// Signal Name: out_ce.OE
+// Type: Tri
+BEGIN out_ce.OE
+Fanin Number		0
+Pterm Number		0
 Fanin per Macrocell	N/A
 Cluster PT		N/A
 Logic Levels		N/A
@@ -1027,7 +1037,7 @@ Fanin Node      	grmadr_i0.Q         	3
 Fanin Node      	grmadr_i1.Q         	2
 Fanin Node      	grmadr_i2.Q         	4
 Fanin Node      	grmadr_i3.Q         	3
-Fanin Node      	n392.BLIF           	1
+Fanin Node      	n394.BLIF           	1
 Fanin Output    	ti_data_0_.PIN      	1
 END
 
@@ -1066,7 +1076,7 @@ Fanin Input     	ti_adr_14_.BLIF     	0
 Fanin Node      	grmadr_i1.Q         	2
 Fanin Node      	grmadr_i2.Q         	4
 Fanin Node      	grmadr_i3.Q         	3
-Fanin Node      	n392.BLIF           	1
+Fanin Node      	n394.BLIF           	1
 Fanin Output    	ti_data_1_.PIN      	1
 END
 
@@ -1082,7 +1092,7 @@ Fanin Input     	ti_adr_14_.BLIF     	0
 Fanin Node      	grmadr_i1.Q         	2
 Fanin Node      	grmadr_i2.Q         	4
 Fanin Node      	grmadr_i3.Q         	3
-Fanin Node      	n392.BLIF           	1
+Fanin Node      	n394.BLIF           	1
 Fanin Output    	ti_data_1_.PIN      	1
 END
 
@@ -1120,7 +1130,7 @@ Logic Levels		2
 Fanin Input     	ti_adr_14_.BLIF     	0
 Fanin Node      	grmadr_i2.Q         	4
 Fanin Node      	grmadr_i3.Q         	3
-Fanin Node      	n392.BLIF           	1
+Fanin Node      	n394.BLIF           	1
 Fanin Output    	ti_data_2_.PIN      	1
 END
 
@@ -1157,7 +1167,7 @@ Cluster PT		N/A
 Logic Levels		2
 Fanin Input     	ti_adr_14_.BLIF     	0
 Fanin Node      	grmadr_i3.Q         	3
-Fanin Node      	n392.BLIF           	1
+Fanin Node      	n394.BLIF           	1
 Fanin Output    	ti_data_3_.PIN      	1
 END
 
@@ -1473,9 +1483,9 @@ Fanin Input     	ti_we.BLIF          	0
 Fanin Input     	ti_adr_14_.BLIF     	0
 END
 
-// Signal Name: n392
+// Signal Name: n394
 // Type: Node
-BEGIN n392
+BEGIN n394
 Fanin Number		5
 Pterm Number		1
 Fanin per Macrocell	N/A

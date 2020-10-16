@@ -1,4 +1,6 @@
+D:\work\TI\dragonslair\cart\cpld.seahorseLoad\gigacart.lct : <W0001> : Can not find signal 'out_reset'.
 D:\work\TI\dragonslair\cart\cpld.seahorseLoad\gigacart.lct : <W0001> : Can not find signal 'out_we'.
+D:\work\TI\dragonslair\cart\cpld.seahorseLoad\gigacart.lct : <W0104> : Location Assignment 'out_reset' : Can not find this signal name.
 D:\work\TI\dragonslair\cart\cpld.seahorseLoad\gigacart.lct : <W0104> : Location Assignment 'out_we' : Can not find this signal name.
 D:\work\TI\dragonslair\cart\cpld.seahorseLoad\gigacart.lct : <W0601> : IO Types Setting 'out_we' : Invalid signal name.
 Loading Lattice Constraint File 'D:\work\TI\dragonslair\cart\cpld.seahorseLoad\gigacart.lct' done!

@@ -1,4 +1,4 @@
-#$ DATE Sun Apr 07 01:00:37 2019
+#$ DATE Mon Jul 15 20:57:33 2019
 #$ TOOL EDIF2BLIF version IspLever 1.0 
 #$ MODULE gigacart
 #$ PINS 61 out_data_0_ ti_adr_15_ ti_data_7_ ti_we ti_rom ti_gsel ti_gclk out_adr_26_ out_data_7_ out_oe ti_adr_14_ ti_adr_13_ ti_adr_12_ ti_adr_11_ ti_adr_10_ ti_adr_9_ ti_adr_8_ ti_adr_7_ ti_adr_6_ ti_adr_5_ ti_adr_4_ ti_adr_3_ ti_data_6_ ti_data_5_ ti_data_4_ ti_data_3_ ti_data_2_ ti_data_1_ ti_data_0_ out_adr_25_ out_adr_24_ out_adr_23_ out_adr_22_ out_adr_21_ out_adr_20_ out_adr_19_ out_adr_18_ out_adr_17_ out_adr_16_ out_adr_15_ out_adr_14_ out_adr_13_ out_adr_12_ out_adr_11_ out_adr_10_ out_adr_9_ out_adr_8_ out_adr_7_ out_adr_6_ out_adr_5_ out_adr_4_ out_adr_3_ out_adr_2_ out_adr_1_ out_adr_0_ out_data_6_ out_data_5_ out_data_4_ out_data_3_ out_data_2_ out_data_1_

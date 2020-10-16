@@ -14,7 +14,7 @@ Project_Summary
 ~~~~~~~~~~~~~~~
 Project Name         :  gigacart
 Project Path         :  D:\work\TI\dragonslair\cart\cpld.seahorseLoad
-Project Fitted on    :  Sun Apr 07 01:00:40 2019
+Project Fitted on    :  Mon Jul 15 20:57:36 2019
 
 Device               :  M4064_64
 Package              :  100
@@ -31,7 +31,7 @@ Source Format        :  Pure_VHDL
 Compilation_Times
 ~~~~~~~~~~~~~~~~~
 Prefit Time                     0 secs
-Load Design Time                0.06 secs
+Load Design Time                0.03 secs
 Partition Time                  0.05 secs
 Place Time                      0.00 secs
 Route Time                      0.00 secs
