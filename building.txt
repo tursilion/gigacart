@@ -1,0 +1,63 @@
+Building.
+
+I can't/don't officially support building this tree. But in theory all you need to add are the video files. I started with the HD PC release of Dragon's Lair.
+
+The files go in the appropriate subfolders of video\ and then in Windows command prompt run "dirs.cmd". All the used utilities seem to be in place.
+
+The question of which video goes where is a little trickier. You can use updatebin.cmd in the root to see, as the output files have the same name as the input wmv files. I don't remember that I chopped any up manually.
+
+After dirs.cmd runs, run updatebin.cmd. That gets the video binaries into the right form. These two steps only need to be run once.
+
+Finally, go into code. You will need to search/replace updategfx.cmd for your local system:
+
+- the build folder is expected to be \work\ti\dragonslair\
+- A windows version of python is expected to be in the path (set at top of file to C:\Python27\
+- tiobj2bin.exe is expected to be at d:\work\ti\tiobj2bin\release\
+- the xdt99 suite, particularly xas99.py, is expected to be at \work\f18a\f19a_994a_isu_updated_1.9_beta\tools\xdt99\
+- setbinsize.exe is expected to be at d:\work\setbinsize\release\
+- videobitmap2border.exe is expected to be at d:\work\ti\videobitmap2border\debug\
+- cartrepack.exe is expected to be at d:\work\ti\video\tools\
+- videodespeckle.exe is expected to be at d:\work\ti\videodespeckle\release\ (will work without, but look worse)
+- uncartify.exe is expected to be at d:\work\ti\uncartify\debug\
+- checksumcart.exe is exepcted to be at d:\work\ti\checksumcart\release\ (will work without, except diagnostics)
+
+It would be easier to search/replace those paths than to try and recreate my directory structure.
+
+If any of those programs are not available on my website for download, let me know and I'll add them to the tree. I can not provide the video files, of course.
+
+Once it's all in place, just run updategfx.cmd and it should build everything (the filename is misleading).
+
+The resulting output file is Test8.bin (I never updated the script). This should be a 128MB non-inverted banked ROM. There's no associated GROM as the GROM data is at the top of the ROM and activated in the CPLD. Classic99 will auto-recognize it by its size and enable the 256 bytes of GROM emulation.
+
+The GROM startup code is there to bypass the 2.2 console ROM lockout, and to select keyboard or joystick mode. The first is not an issue to a ROM-only boot, but the second is, as you need a way to select which program bank to run.
+
+You may notice that the GROM header is available at the very start of the ROM file - however, it won't work correctly as it expects the GROM to be at >8000, not the default >6000. (This was so I could run Editor/Assembler for loading and debug). The first 128KB of the ROM is not written to the flash due to a hardware bug on the final cartridges. However, this means there's lots of room for a traditional ROM startup, if you don't mind relying on the first bank.
+
+You can use code\gpl.txt as a template for what it needs to do. Basically, the GPL startup code has two entry points on the menu for KEY and JOY. They both take these steps:
+
+- clear the screen
+- copy a small assembly program to scratchpad at >8302, consisting of:
+    CLR @>6022 (key) or CLR @>6020 (JOY)  - this sets the bank
+    B @>601C                              - jump to program
+- jump to the scratchpad program (in assembly this is just B @>8302)
+    
+    
+This ROM header is tested to work at the beginning of the ROM. Again, Classic99 does not need this:
+
+AA 01 02 00 00 00 60 1C 00 00 00 00 04 E0 60 22
+04 60 60 1C 04 E0 60 20 04 60 60 1C 60 34 60 4C 
+13 44 52 41 47 4F 4E 27 53 20 4C 41 49 52 20 28 
+4B 45 59 29 00 00 60 60 13 44 52 41 47 4F 4E 27 
+53 20 4C 41 49 52 20 28 4A 4F 59 29 02 00 60 0C 
+02 01 83 02 CC 70 CC 70 CC 70 CC 70 04 60 83 02 
+02 00 60 14 02 01 83 02 CC 70 CC 70 CC 70 CC 70 
+04 60 83 02 FF FF FF FF FF FF FF FF FF FF FF FF
+
+For emulators that wish to support this, a small extension to the normal banking is required.
+
+Normally, a write to ROM captures address bits to extend the address bus. This will get you to 32MB.
+
+The Gigacart also captures data bits, in this case the two least significant, to get two more address lines for 128MB.
+
+For the hardware side, the CPLD and gerber files are in the cart folder. The Seahorse cart was the final release. It's been a long time and I can help less with that side. I know it's not well organized, but I never intended to enable others to build this. I only promised it wouldn't be hoarded. ;)
+
