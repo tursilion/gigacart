@@ -1,0 +1,29 @@
+This was NOT intended to be built. Do not write to ask me to make it easier. Do not submit pull requests. And do not fork and do it yourself - my license to you forbids that. Also, if you somehow succeed, you're not licensed to share the resulting ROM.
+
+All that said... here are some notes from a former conversation.
+
+If you obtained the Windows HD version of Dragon's Lair, and dropped the WMVs in the right place, the scripts would do most of the work building the binary. 
+
+Programming the gigacart is a bit of a challenge though. You need a modified TI console (I /can/ instruct on the mod) and a CF7 compact flash adapter with a card that works in 8-bit mode (and this you can only learn by trying it.) OR, and probably the easier way, program the flash chip in an external programmer before soldering it down. I built the first 40 or so this way. Then the CPLD can be programmed in circuit using 5 (I think) pogo pins - or you could solder a header to make just one.
+
+Check othertools.zip for some of my custom tools. You may need to put them in specific places.
+
+You'll also need the xtd99 tools installed - or at least the assembler, and Python to run them. The script assumes Python is on the path and for some reason I can't remember it dumps the object files into my Classic99 folder (I think I was using that to test them individually or something). Anyway... wasn't meant to be simple, just possible!
+
+Don't replace any tools. They are each needed. dircmd.exe is a program I wrote years ago that batches commands by wildcard. It should be in video\zzscripting\tools.
+
+I can see that I didn't push that folder to github (makes sense), so you just need to grab tividconvert:
+
+https://harmlesslion.com/software/tividconvert/
+
+Everything is in there, including dircmd and the other tools it needs to do the work. It should just drop into video\zzscripting\, but you can double check on the list I attached.
+
+You will need to edit every batch file for your local paths - I used a lot of absolute paths.
+
+Once all the files are in place, run the batch files from cmd (don't double-click them):
+
+- run dirs.cmd in video - let it finish. The result are two .bin files in every video folder. Classic99 can play the <name>_8.bin files as video files for a test.
+- run updatebin.cmd in the root - will generate output.bin in the root at about 77MB.
+- run updategfx.cmd in the code folder. If it succeeds you will get a Test8.bin which is the final ROM. It can be run in Classic99 to test.
+
+None of these batch files are very fault tolerant, they may ignore errors, so scroll up and read for error messages.
