@@ -10,6 +10,9 @@ Check othertools.zip for some of my custom tools. You may need to put them in sp
 
 You'll also need the xtd99 tools installed - or at least the assembler, and Python to run them. The script assumes Python is on the path and for some reason I can't remember it dumps the object files into my Classic99 folder (I think I was using that to test them individually or something). Anyway... wasn't meant to be simple, just possible!
 
+You may need to install Imagemagick from https://imagemagick.org/script/download.php#gsc.tab=0
+Even though I include the tool it seems to fail without the base install.
+
 Don't replace any tools. They are each needed. dircmd.exe is a program I wrote years ago that batches commands by wildcard. It should be in video\zzscripting\tools.
 
 I can see that I didn't push that folder to github (makes sense), so you just need to grab tividconvert:
