@@ -1,0 +1,7 @@
+NONE. No license is granted.
+
+You may not use the files in this repository for anything beyond personal use. You may not redistribute these files nor objects resulting from these files.
+
+If you manage to create the original cartridge image or any other file including copyrighted data from a third party you are expressly forbidden from distributing it.
+
+To get an exception for this - talk to me (Tursilion). Sorry. Terms of the license I signed require this.
