@@ -1,0 +1,35 @@
+Its a good job I assembled 2x units because 1x is malfunctional. The transistor gets v.hot, hence it had fully failed when I replaced it earlier - so the original underlying issue still afoot.
+
+So for the benefit of any others who wish to undertake it, here is a summary of the process.
+
+Hardware used:
+- Mutant Caterpillar PCB
+- CPLD used: LC4064V-75TN100C
+- Flash used: S29GL01GP12TFI01
+- Caps: Tantalum
+
+Programming the flash chip:
+I used an XGecu T48 USB programmer with a standard ADP F56 EX-A adapter.
+
+Programming the CPLD:
+I bought a USB clone of the Lattice programming cable HW-USBN-2A
+
+I soldered 6x short breadboard leads from the underside of the Gigacart. The programmer does not provide 3.3v so I used a breadboard and an arduino to power the lot - see attached image.
+
+I connected the remaining 4x leads to the programmer in their corresponding manner.
+
+Software:
+- Download and install Lattice ISPLever Classic - this is free but you have to email them your MAC address to activate it (to prevent piracy). They reply with a unique licence file attachment.
+- Load "ispVM System" to program the CPLD.
+- Click 'open' and select the following project file: "D:\work\ti\dragonslair\cart\cpld.originalLoad\gigacart.xcf"
+
+N.B.
+The .jed file referenced in the project file points to the one in the cpld.seahorseLoad folder. This is incorrect so double-click it, click the browse button and navigate to the .jed file in the cpld.originalLoad folder and select it. Click OK and you will be returned to the main window but the .jed file location should now be amended accordingly.
+
+leads connected?
+arduino powering everything?
+software using the correct .jed file?
+click the 'Project' menu
+click 'Download' to program it
+Thats it! Desolder the programming leads from the underside of the Gigacart, plug it into the TI99 and enjoy the spectacle!
+
